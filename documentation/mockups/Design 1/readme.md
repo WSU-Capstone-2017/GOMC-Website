@@ -1,4 +1,4 @@
-#Mockup 1
+# Mockup 1
 This mockup is the first one for the main page, I built it from scratch using adobe xd.
 All mockups currently are only for the main page. Once we have chosen a design scheme other mockups will be made for the remaining pages as well as the admin page.
 

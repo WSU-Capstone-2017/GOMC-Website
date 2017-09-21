@@ -1,4 +1,4 @@
-#Mockup 2
+# Mockup 3
 This was built in code from a template downloaded from (link here)
 
 Within this folder you will find a .html and .css file consisting of the code for the main page.
