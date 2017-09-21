@@ -43,3 +43,5 @@ TA : Azam Peyvandipour
 -	UI / UX / Front-End / Presentation Lead : Caleb Latimer
 -	Database / Back-End Lead : Ahmed Taher
 -	QA / Documentation Lead : Muamer Besic  
+
+> This is version 2.0
