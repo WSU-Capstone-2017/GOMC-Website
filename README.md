@@ -24,12 +24,17 @@ The website will allow users to input data required for the GOMC software, send 
 >Will implement graphic here
 
 ### Front end
-.Net asp, razor, pure.css, jQuery
+.Net asp
+Razor
+Pure.css
+jQuery
 
 ### Back end
-
-C#, Github Api V3, json
-C/C++, Cmake
+C#
+Github Api V3
+JSON
+C/C++
+Cmake
 
 ### Database
 MySql
@@ -44,4 +49,4 @@ TA : Azam Peyvandipour
 -	Database / Back-End Lead : Ahmed Taher
 -	QA / Documentation Lead : Muamer Besic  
 
-> This is version 2.0
+> This is version 2.1
