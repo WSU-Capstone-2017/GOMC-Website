@@ -13,7 +13,7 @@ namespace Project.Controllers
 
 		private MenuModel GetMenuModel()
 		{
-			using(var db = new ProjectDbContext())
+			using(var db = new ProjectDbContext3())
 			{
 				return new MenuModel(db.Menus);
 			}
