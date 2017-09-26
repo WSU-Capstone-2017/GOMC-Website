@@ -48,7 +48,7 @@ namespace Project.Controllers
 			foreach(dynamic i in assets)
 			{
 				string name = i.name;
-				string iurl = i.url;
+				string iurl = i.browser_download_url;
 
 				items.Add(new DownloadsModel.DownloadItem(name, iurl));
 			}
