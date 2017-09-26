@@ -8,27 +8,27 @@ namespace Project.Controllers
 	{
 		public ActionResult Index()
 		{
-			return View(GetMenuModel());
+			return View(GetHomeModel());
 		}
 
-		private MenuModel GetMenuModel()
+		private HomeModel GetHomeModel()
 		{
 			using(var db = new ProjectDbContext())
 			{
-				return new MenuModel(db.Menus);
+				return new HomeModel(new MenuModel(db.Menus));
 			}
 		}
 
 		public ActionResult About()
 		{
-			return View(GetMenuModel());
+			return View(GetHomeModel());
 		}
 
 		public ActionResult Contact()
 		{
 			ViewBag.Message = "Your contact page.";
 
-			return View(GetMenuModel());
+			return View(GetHomeModel());
 		}
 	}
 }

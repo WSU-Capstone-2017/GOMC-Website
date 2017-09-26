@@ -1,4 +1,4 @@
-﻿@model Project.Models.MenuModel
+﻿@model Project.Models.HomeModel
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @foreach(var i in Model.Items)
+                    @foreach(var i in Model.Menu.Items)
                     {
                         <li>@Html.ActionLink(i.Name, i.Action, i.Controller)</li>
                     }
