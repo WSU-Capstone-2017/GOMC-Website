@@ -156,6 +156,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DownloadsModel.cs" />
+    <Compile Include="Models\Github\ReleasesModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\MenuModelItem.cs" />
@@ -236,7 +237,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>17907</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
