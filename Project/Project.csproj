@@ -155,6 +155,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gomc\ConfigInpuSection.cs" />
+    <Compile Include="Models\Gomc\ConfigModel.cs" />
+    <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
+    <Compile Include="Models\Gomc\ConfigSystemSection.cs" />
+    <Compile Include="Models\Gomc\CoordinateInput.cs" />
+    <Compile Include="Models\Gomc\PrngType.cs" />
+    <Compile Include="Models\Gomc\StructureInput.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\MenuModelItem.cs" />
