@@ -161,6 +161,7 @@
     <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
     <Compile Include="Models\Gomc\ConfigSystemSection.cs" />
     <Compile Include="Models\Gomc\CoordinateInput.cs" />
+    <Compile Include="Models\Gomc\DiBoolean.cs" />
     <Compile Include="Models\Gomc\ExcludeType.cs" />
     <Compile Include="Models\Gomc\ForceFieldType.cs" />
     <Compile Include="Models\Gomc\GemcType.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Models\Gomc\PrngType.cs" />
     <Compile Include="Models\Gomc\ResNameValue.cs" />
     <Compile Include="Models\Gomc\StructureInput.cs" />
+    <Compile Include="Models\Gomc\FreqInput.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\MenuModelItem.cs" />
