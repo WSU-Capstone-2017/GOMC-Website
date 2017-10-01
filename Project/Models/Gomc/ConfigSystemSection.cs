@@ -75,13 +75,13 @@ namespace Project.Models.Gomc
 		public bool CachedFourier { get; set; }
 		public double Tolerance { get; set; }
 		public double Dielectric { get; set; }
-		public double PressureCalc { get; set; }
+		public ulong? PressureCalc { get; set; }
 		public double OneFourScaling { get; set; }
 		public ulong RunSteps { get; set; }
 		public ulong EqSteps { get; set; }
 		public ulong AdjSteps { get; set; }
-		public double ChemPot { get; set; }
-		public double Fugacity { get; set; }
+		public ResNameValue ChemPot { get; set; }
+		public ResNameValue Fugacity { get; set; }
 		public double DisFreq { get; set; }
 		public double RotFreq { get; set; }
 		public double IntraSwapFreq { get; set; }
@@ -89,10 +89,52 @@ namespace Project.Models.Gomc
 		public double SwapFreq { get; set; }
 		public bool UseConstantArea { get; set; }
 		public bool FixVolBox0 { get; set; }
-		public double BoxDim { get; set; }
+		public BoxDimInput BoxDim { get; set; }
 		public int CbmcFirst { get; set; }
 		public int CbmcNth { get; set; }
 		public int CbmcAng { get; set; }
 		public int CbmcDih { get; set; }
+
+		public ConfigSystemSection(GemcType gemc, double pressure, double temperature, double rcut, double rcutLow, bool lrc,
+			ExcludeType exclude, PotentialType potential, double rswitch, bool electroStatic, double ewald, bool cachedFourier,
+			double tolerance, double dielectric, ulong? pressureCalc, double oneFourScaling, ulong runSteps, ulong eqSteps,
+			ulong adjSteps, ResNameValue chemPot, ResNameValue fugacity, double disFreq, double rotFreq, double intraSwapFreq,
+			double volFreq, double swapFreq, bool useConstantArea, bool fixVolBox0, BoxDimInput boxDim, int cbmcFirst,
+			int cbmcNth, int cbmcAng, int cbmcDih)
+		{
+			Gemc = gemc;
+			Pressure = pressure;
+			Temperature = temperature;
+			Rcut = rcut;
+			RcutLow = rcutLow;
+			Lrc = lrc;
+			Exclude = exclude;
+			Potential = potential;
+			Rswitch = rswitch;
+			ElectroStatic = electroStatic;
+			Ewald = ewald;
+			CachedFourier = cachedFourier;
+			Tolerance = tolerance;
+			Dielectric = dielectric;
+			PressureCalc = pressureCalc;
+			OneFourScaling = oneFourScaling;
+			RunSteps = runSteps;
+			EqSteps = eqSteps;
+			AdjSteps = adjSteps;
+			ChemPot = chemPot;
+			Fugacity = fugacity;
+			DisFreq = disFreq;
+			RotFreq = rotFreq;
+			IntraSwapFreq = intraSwapFreq;
+			VolFreq = volFreq;
+			SwapFreq = swapFreq;
+			UseConstantArea = useConstantArea;
+			FixVolBox0 = fixVolBox0;
+			BoxDim = boxDim;
+			CbmcFirst = cbmcFirst;
+			CbmcNth = cbmcNth;
+			CbmcAng = cbmcAng;
+			CbmcDih = cbmcDih;
+		}
 	}
 }
