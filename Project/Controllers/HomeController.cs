@@ -59,5 +59,10 @@ namespace Project.Controllers
 		{
 			return View(GetDownloadModel());
 		}
+
+		public ActionResult ConfigForm()
+		{
+			return View(GetHomeModel());
+		}
 	}
 }
