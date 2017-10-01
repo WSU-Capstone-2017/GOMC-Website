@@ -3,7 +3,7 @@
     ViewBag.Title = "Config Form";
 }
 <h2>@ViewBag.Title</h2>
-
+<h3>Input Section</h3>
 <form>
     Restart: <br/>
     <input type='radio' name='Boolean' value='true' /> True <br/>
@@ -35,5 +35,109 @@
     <input type='text' class='form_input_int' name='Int32'/> <br/>
     PsfFileName <br/>
     <input type='text' name='String'/> <br/>
+    <br/>
+</form>
+
+<h3>Output Section</h3>
+<form>
+    OutputName: <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+    CoordinatesFreq: <br/>
+    Enabled <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Value <br/>
+    <input type='text' class='form_input_uint' name='UInt64'/> <br/>
+    <br/>
+    RestartFreq: <br/>
+    Enabled <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Value <br/>
+    <input type='text' class='form_input_uint' name='UInt64'/> <br/>
+    <br/>
+    ConsoleFreq: <br/>
+    Enabled <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Value <br/>
+    <input type='text' class='form_input_uint' name='UInt64'/> <br/>
+    <br/>
+    BlockAverageFreq: <br/>
+    Enabled <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Value <br/>
+    <input type='text' class='form_input_uint' name='UInt64'/> <br/>
+    <br/>
+    HistogramFreq: <br/>
+    Enabled <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Value <br/>
+    <input type='text' class='form_input_uint' name='UInt64'/> <br/>
+    <br/>
+    DistName: <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+    HistName: <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+    RunNumber: <br/>
+    <input type='text' class='form_input_uint' name='UInt32'/> <br/>
+    <br/>
+    RunLetter: <br/>
+    <br/>
+    SampleFreq: <br/>
+    <input type='text' class='form_input_uint' name='UInt32'/> <br/>
+    <br/>
+    OutEnergy: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    OutPressure: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    OutMolNumber: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    OutDensity: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    OutVolume: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    OutSurfaceTension: <br/>
+    First <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    Second <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
     <br/>
 </form>
