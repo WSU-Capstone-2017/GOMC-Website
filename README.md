@@ -1,5 +1,5 @@
 # GOMC-Capstone-Senior-Project
-> Need to ask client for team logo here
+> Need to ask client for team logo here!
 
 This repository is a conglomeration of the source code and documentation pertaining to
 the CSC 4996: GOMC Capstone Project. Within this repo will be a working version of our dynamic website as per our client's request. This is project is currently in development.
