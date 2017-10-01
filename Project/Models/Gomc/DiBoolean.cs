@@ -15,6 +15,11 @@ namespace Project.Models.Gomc
 		/// </summary>
 		public bool Second { get; set; }
 
+		public DiBoolean()
+		{
+			
+		}
+
 		public DiBoolean(bool first, bool second)
 		{
 			First = first;

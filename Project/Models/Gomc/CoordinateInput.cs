@@ -12,6 +12,10 @@ namespace Project.Models.Gomc
 		/// </summary>
 		public string PdbFileName { get; set; }
 
+		public CoordinateInput()
+		{
+			
+		}
 		public CoordinateInput(int boxNumber, string pdbFileName)
 		{
 			BoxNumber = boxNumber;

@@ -95,6 +95,11 @@ namespace Project.Models.Gomc
 		public int CbmcAng { get; set; }
 		public int CbmcDih { get; set; }
 
+		public ConfigSystemSection()
+		{
+			
+		}
+
 		public ConfigSystemSection(GemcType gemc, double pressure, double temperature, double rcut, double rcutLow, bool lrc,
 			ExcludeType exclude, PotentialType potential, double rswitch, bool electroStatic, double ewald, bool cachedFourier,
 			double tolerance, double dielectric, ulong? pressureCalc, double oneFourScaling, ulong runSteps, ulong eqSteps,

@@ -57,6 +57,10 @@ namespace Project.Models.Gomc
 		/// </remarks>
 		public StructureInput[] Structures { get; set; }
 
+		public ConfigInpuSection()
+		{
+		}
+
 		public ConfigInpuSection(bool restart, PrngType prng, int? randomSeed, ForceFieldType paraType,
 			string parametersFileName, IEnumerable<CoordinateInput> coordinates,
 			IEnumerable<StructureInput> structures)

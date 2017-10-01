@@ -27,6 +27,10 @@
 		/// </summary>
 		public ConfigOutputSection Output { get; set; }
 
+		public ConfigModel()
+		{
+		}
+
 		public ConfigModel(ConfigInpuSection input, ConfigSystemSection system, ConfigOutputSection output)
 		{
 			Input = input;

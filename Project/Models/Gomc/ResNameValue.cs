@@ -15,6 +15,11 @@ namespace Project.Models.Gomc
 		/// </summary>
 		public double Value { get; set; }
 
+		public ResNameValue()
+		{
+			
+		}
+
 		public ResNameValue(string resName, double value)
 		{
 			ResName = resName;

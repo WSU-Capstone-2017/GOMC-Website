@@ -12,6 +12,11 @@ namespace Project.Models.Gomc
 		/// </summary>
 		public string PsfFileName { get; set; }
 
+		public StructureInput()
+		{
+			
+		}
+
 		public StructureInput(int boxNumber, string psfFileName)
 		{
 			BoxNumber = boxNumber;

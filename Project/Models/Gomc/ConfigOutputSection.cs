@@ -39,6 +39,10 @@ namespace Project.Models.Gomc
 
 		public DiBoolean OutSurfaceTension { get; set; }
 
+		public ConfigOutputSection()
+		{
+			
+		}
 		public ConfigOutputSection(string outputName, FreqInput coordinatesFreq, FreqInput restartFreq, FreqInput consoleFreq, FreqInput blockAverageFreq, FreqInput histogramFreq, string distName, string histName, uint runNumber, char runLetter, uint sampleFreq, DiBoolean outEnergy, DiBoolean outPressure, DiBoolean outMolNumber, DiBoolean outDensity, DiBoolean outVolume, DiBoolean outSurfaceTension)
 		{
 			OutputName = outputName;

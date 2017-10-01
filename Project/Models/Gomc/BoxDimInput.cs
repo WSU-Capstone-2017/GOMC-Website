@@ -24,5 +24,17 @@ namespace Project.Models.Gomc
 		///     Z-axis length in Angstroms
 		/// </summary>
 		public double ZAxis { get; set; }
+
+		public BoxDimInput()
+		{
+			
+		}
+		public BoxDimInput(int boxNumber, double xAxis, double yAxis, double zAxis)
+		{
+			BoxNumber = boxNumber;
+			XAxis = xAxis;
+			YAxis = yAxis;
+			ZAxis = zAxis;
+		}
 	}
 }
