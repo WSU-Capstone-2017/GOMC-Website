@@ -4,4 +4,36 @@
 }
 <h2>@ViewBag.Title</h2>
 
-
+<form>
+    Restart: <br/>
+    <input type='radio' name='Boolean' value='true' /> True <br/>
+    <input type='radio' name='Boolean' value='false' /> False <br>
+    <br/>
+    Prng: <br/>
+    <input type='radio' name='PrngType' value='Random' /> Random <br/>
+    <input type='radio' name='PrngType' value='Intseed' /> Intseed <br/>
+    <br/>
+    RandomSeed: <br/>
+    <input type='text' class='form_input_int' name='Int32'/> <br/>
+    <br/>
+    ParaType: <br/>
+    <input type='radio' name='ForceFieldType' value='Charmm' /> Charmm <br/>
+    <input type='radio' name='ForceFieldType' value='Exotic' /> Exotic <br/>
+    <input type='radio' name='ForceFieldType' value='Martini' /> Martini <br/>
+    <br/>
+    ParametersFileName: <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+    Coordinates: <br/>
+    BoxNumber <br/>
+    <input type='text' class='form_input_int' name='Int32'/> <br/>
+    PdbFileName <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+    Structures: <br/>
+    BoxNumber <br/>
+    <input type='text' class='form_input_int' name='Int32'/> <br/>
+    PsfFileName <br/>
+    <input type='text' name='String'/> <br/>
+    <br/>
+</form>
