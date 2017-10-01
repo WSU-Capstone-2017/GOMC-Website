@@ -24,19 +24,9 @@ namespace Project.Models.Gomc
 		public int? RandomSeed { get; set; }
 
 		/// <summary>
-		///     Sets force field type to CHARMM style.
+		///     Sets force field type.
 		/// </summary>
-		public bool ParaTypeCharmm { get; set; }
-
-		/// <summary>
-		///     Sets force field type to EXOTIC style.
-		/// </summary>
-		public bool ParaTypeExotic { get; set; }
-
-		/// <summary>
-		///     Set force field type to MARTINI style.
-		/// </summary>
-		public bool ParaTypeMartini { get; set; }
+		public ForceFieldType ParaType { get; set; }
 
 		/// <summary>
 		///     Provides the name and location of the parameter file to use for the simulation.
@@ -67,16 +57,14 @@ namespace Project.Models.Gomc
 		/// </remarks>
 		public StructureInput[] Structures { get; set; }
 
-		public ConfigInpuSection(bool restart, PrngType prng, int? randomSeed, bool paraTypeCharmm, bool paraTypeExotic,
-			bool paraTypeMartini, string parametersFileName, IEnumerable<CoordinateInput> coordinates,
+		public ConfigInpuSection(bool restart, PrngType prng, int? randomSeed, ForceFieldType paraType,
+			string parametersFileName, IEnumerable<CoordinateInput> coordinates,
 			IEnumerable<StructureInput> structures)
 		{
 			Restart = restart;
 			Prng = prng;
 			RandomSeed = randomSeed;
-			ParaTypeCharmm = paraTypeCharmm;
-			ParaTypeExotic = paraTypeExotic;
-			ParaTypeMartini = paraTypeMartini;
+			ParaType = paraType;
 			ParametersFileName = parametersFileName;
 			Coordinates = coordinates.ToArray();
 			Structures = structures.ToArray();
