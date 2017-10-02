@@ -1,12 +1,11 @@
 /*==========================================================
- Title: CSS External for Akihabara Showcase
-
+ Title: GOMC core.css
  Description:
-   This CSS is the external styling for the akihabara showcase website, this is the core styles for the site. Individual custom styles outside of the pure-framework.
+   This is my standalone CSS for the GOMC app. It is core to every page with some specialities made here and there.
 ==========================================================*/
 
-/* Custom Font from google*/
-@import url('https://fonts.googleapis.com/css?family=Oxygen');
+/* Custom Fonts from google*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
 /*keyframe animation for the card icon indicating user action*/
 @keyframes slide {
@@ -19,7 +18,8 @@
 
 /*Main element tags*/
 body {
-  font-family: 'Oxygen', Helvetica, sans-serif;
+  font-family: 'Roboto', 'Open Sans', Georgia, Helvetica; /*Font scheme: Roboto for heads, Open Sans for details*/
+  font-size: 16px; /*Universal font-size for content*/
   margin: 20px;
   padding: 10px;
   color: #FFF;

@@ -1,45 +1,54 @@
 # Prototype-1-2
 
-Prototype based off of the combination of design 3 and 6 in summation with feedback received from client meeting.
-
-This design will focus on the features outlined below.
+Prototype based off of the combination of design 3 and 6 in summation with feedback received from the 9/27/2017 client meeting. This design will focus on the features outlined below.
 
 
-# Features
+## Features
 
 - Rotating Carousel
 
-Prototype features a rotating carousel with relevant information for user view and simplified navigation
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Prototype features a rotating carousel with relevant information for user view and simplified navigation
 
 - Limited Scrolling
 
-Pages render content in a way that doesn't require continuous scroll to reach the end of the page
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Pages render content in a way that doesn't require continuous scroll to reach the end of the page
 
-- Green, Gray, White derivative color scheme
+- Custom Color Palette
 
-Color Palette selected and implemented in a plug and chug fashion
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Color Palette selected and implemented in a plug and chug fashion
 
 - Same content as current static site
 
-Prototype  renders the same data as the original document
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Prototype  renders the same data as the original app
 
 - Deployed at EC instance
 
-Page is up live at the domain listed here (placeholder)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Page is up live at the domain listed here (placeholder)
 
 - New menu scheme following idea of Aiming for optimality for search engines and user focus
 
-New nav-menu aiming for a modern, optimized UX as well as streamlined SEO(search engine optimality)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; New nav-menu aiming for a modern, optimized UX as well as streamlined SEO(search engine optimality)
+
+- Font safety
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A font-stack of 2 custom fonts and 2 web-safe fonts
+
+- Icon Library
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Font-Awesome 4.7 applied for ease of view
 
 - Other requirements will be added as development continues
 
-Nothing yet...
+> Nothing yet...
 
 # Citations
 
-This prototype was built out of the following
+This prototype was built out of the following:
+
 - HTML5
-- CSS
+- CSS3
 - Pure.css 1.0
 - Font-Awesome 4.7
 - jQuery 3.2.1
+
+with fonts provided by google fonts and colors picked by using coolors.co palette tool
