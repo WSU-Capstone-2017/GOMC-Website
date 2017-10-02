@@ -51,4 +51,4 @@ This prototype was built out of the following:
 - Font-Awesome 4.7
 - jQuery 3.2.1
 
-with fonts provided by google fonts and colors picked by using coolors.co palette tool
+with fonts provided by google fonts and colors picked by using the palette tool provided by www.coolors.co
