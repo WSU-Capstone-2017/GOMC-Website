@@ -30,6 +30,7 @@ p{
 nav {
     overflow: hidden;
     transition: height 0.5s;
+    background: #C0C0C0;
 
 }
 span {
@@ -72,6 +73,7 @@ nav.open {
     padding: 30px;
     border: 10px double white;
 }
+
 .card:hover {
   cursor: pointer;
 }

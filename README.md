@@ -49,4 +49,11 @@ TA : Azam Peyvandipour
 -	Database / Back-End Lead : Ahmed Taher
 -	QA / Documentation Lead : Muamer Besic  
 
-> This is version 2.1
+
+### Terminonlogy
+
+There are a couple of terms that will appear in our commit history and comments that readers should be made aware of:
+- cwfh checking in to work from home
+- cwfr checking in to work from remote
+
+> This is version 2.2
