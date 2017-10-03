@@ -1,18 +1,21 @@
 /*==========================================================
- Title: GOMC core.css
+ Title: GOMC fonttest.css
  Description:
-   This is my standalone CSS for the GOMC app. It is core to every page with some specialities made here and there.
+   This is my standalone CSS for the GOMC font-test. The goal here is to show off a couple of combinations of the different fonts
 ==========================================================*/
 
 /* Custom Fonts from google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
-/*Main element tags*/
 body {
   font-family: 'Roboto', 'Open Sans', Georgia, Helvetica; /*Font scheme: Roboto for heads, Open Sans for details*/
-  font-size: 16px; /*Universal font-size for content*/
   margin: 20px;
   padding: 10px;
   color: #FFF;
-  background: linear-gradient(to top, #fc00ff, #3232FF);
+  background: #000;
+  color: #FFF;
+}
+
+h3 {
+  text-align center;
 }
