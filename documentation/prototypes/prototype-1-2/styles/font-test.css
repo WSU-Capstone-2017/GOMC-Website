@@ -72,3 +72,6 @@ nav.open {
     padding: 30px;
     border: 10px double white;
 }
+.card:hover {
+  cursor: pointer;
+}
