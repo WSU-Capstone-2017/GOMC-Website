@@ -23,12 +23,12 @@ body {
   margin: 20px;
   padding: 10px;
   color: #FFF;
-  background: linear-gradient(to top, #fc00ff, #3232FF);
+
 }
 
 header {
   text-align: center;
-  text-shadow: 4px 4px 2px rgb(119,136,153);
+
 }
 
 nav {
@@ -36,7 +36,7 @@ nav {
 }
 
 main {
-  text-shadow: -2px 1px 2px rgba(119, 136, 153, 1);
+
 }
 
 article,footer{
@@ -51,127 +51,9 @@ footer {
 }
 
 li {
-    list-style-position: inside;
-    list-style-type: hiragana-iroha;
+
 }
 
 dt {
-  color: #000;
-  text-shadow: none;
-  background-color: #FFF;
-}
 
-/*Psuedo selectors styled here*/
-* ::selection {
-  color: black;
-  background-color: white;
-}
-
-small::selection {
-  color: white;
-  background-color: black;
-}
-footer:hover {
-    border: 5px inset #c51162;
-}
-
-.info-grid:hover{
-  cursor: pointer;
-}
-
-/*Classes & IDs*/
-.card-text {
-  display: none;
-}
-
-.main-button {
-  margin: 0 2px 0 2px;
-  background-color: #8470FF;
-  color: #FFF;
-}
-
-.tourist-button {
-  margin: 0 2px 0 2px;
-  background-color: #120A8F;
-  color: #FFF;
-}
-
-.map-button {
-  margin: 0 2px 0 2px;
-  background-color: #6666FF;
-  color: #FFF;
-}
-
-.multi-col {
-    column-count: 3;
-    column-rule: 2px double #FFF;
-}
-
-.top-content {
-  text-align: center;
-}
-
-.ex-history {
-  border: 1px solid #FFF;
-  padding: 40px;
-  text-align: center;
-}
-
-.geo {
-  border: 1px solid #FFF;
-  padding: 40px;
-  text-align: center;
-}
-
-.pol {
-  border: 1px solid #FFF;
-  padding: 40px;
-  text-align: center;
-}
-
-.footer-pic {
-  float: right;
-}
-
-.text-special {
-  display: none;
-}
-
-.focused-button{
-    text-decoration: underline;
-}
-
-.big-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transition-timing-function: ease-in;
-    transition-duration: 0.7s;
-    transform: translate(-50%, -50%) scale(1.2) rotateY(0deg);
-    background-color: #000;
-}
-
-.focused-card {
-     transform: translateY(-10%) scale(1.2);
-}
-
-.card-rotate {
-    transition-timing-function: ease-out;
-    transition-duration: 0.7s;
-    transform: translate(-50%, -50%) scale(1.2) rotateY(180deg) ;
-}
-
-.text-reverse {
-    transform: rotateY(180deg);
-}
-
-#moveIcon {
-    transform: translateX(45%);
-}
-
-.fa-angle-double-right {
-    animation-name: slide;
-    animation-duration: 2s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: infinite;
 }

@@ -12,10 +12,64 @@ body {
   margin: 20px;
   padding: 10px;
   color: #FFF;
-  background: #000;
-  color: #FFF;
+  background-color: #000000;
 }
 
-h3 {
+footer {
+    background-image: url(img/x.gif);
+    background-size: contain;
+}
+
+h3,header {
   text-align center;
+}
+
+p{
+    font-size: 16px;
+}
+
+nav {
+    overflow: hidden;
+    transition: height 0.5s;
+
+}
+span {
+    font-size: 43px;
+    opacity: 0;
+}
+nav.open {
+
+}
+
+.slide-down {
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    top:0;
+    right: 0;
+    display: none;
+}
+
+.slide-down.on {
+    background-color: #777;
+          display: block;
+          width: 20px;
+          height: 2px;
+          border-radius: 100px;
+          position: absolute;
+          top: 18px;
+          right: 7px;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          transition: all 0.5s;
+}
+
+.will-respond {
+
+}
+
+.card {
+    padding: 30px;
+    border: 10px double white;
 }
