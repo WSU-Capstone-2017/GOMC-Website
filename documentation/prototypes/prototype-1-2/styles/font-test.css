@@ -5,10 +5,12 @@
 ==========================================================*/
 
 /* Custom Fonts from google*/
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
 /*Media Queries*/
 
-  @media (min-width: 768px){
+@media (min-width: 768px){
       .slide-down {
           transition: all 0.5s;
       }
@@ -28,19 +30,26 @@ html, button, input, select, textarea,
     }
 
 body {
-  margin: 20px;
-  padding: 10px;
-  color: #FFF;
-  background-color: #000000;
+  color: #000000;
+  background-color: #FFFFFF;
 }
 
 header {
     margin-top: 6.5em;
 }
 
+main {
+  margin: 20px;
+  padding: 10px;
+}
+
 footer {
-    background-image: url(img/x.gif);
-    background-size: contain;
+    /*background-image: url(img/x.gif);
+    background-size: contain;*/
+    text-align: center;
+    background-color: #FFF;
+    color: #000;
+    padding-bottom: 10px; /*Just to fluff out the bottom*/
 }
 
 h3, header {
@@ -58,15 +67,16 @@ nav {
     /*margin-bottom:  20px;*/
 }
 
-span { /*This is just a place holder to see the footer */
+/*span { /*This is just a place holder to see the footer
     font-size: 43px;
     opacity: 0;
-}
+}*/
 
 /*classes*/
+
 .card {
     padding: 30px;
-    border: 10px double white;
+    border: 5px double black;
   }
 
 .card:hover {
