@@ -10,25 +10,32 @@
             <link rel='stylesheet'  href='styles/pure-release-1.0.0/pure-min.css' />
             <link rel='stylesheet' href='styles/font-awesome-4.7.0/css/font-awesome.min.css' />
             <link rel='stylesheet' href='styles/font-test.css' />
+            <link rel="stylesheet" href="styles/pure-release-1.0.0/grids-responsive-min.css">
          </head>
          <body>
              <nav>
-               <!-- Template provided by pure.css works by using css and js to hide and move the nav, I reworked the code to fit my design, and yes I can speak to how it works-->
-
-               <!-- ok right now it doesn't work, but I am busting my balls to make it work. It will work by morning. -->
-
-
-                         <div class='pure-menu pure-menu-horizontal will-respond pure-menu-fixed' >
-                             <a href='#' class="pure-menu-heading logo"><img src='styles/img/gomc.png' alt='team logo' height='48'/></a>
-                           <ul class='pure-menu-list nav-list'>
-                               <!-- <a href="#" class="slide-down pure-menu-item" id="slideDown"><i class="fa fa-bars" aria-hidden="true"></i></a> -->
-                                <li class='pure-menu-item'><a href='home.html' class='pure-menu-link'>Home</a></li>
-                                <li class='pure-menu-item'><a href='gomc.html' class='pure-menu-link'>GOMC</a></li>
-                                <li class='pure-menu-item'><a href='releases.html' class='pure-menu-link'>Releases</a></li>
-                                <li class='pure-menu-item'><a href='support.html'  class='pure-menu-link'>Support</a></li>
-                                <li class='pure-menu-item pure-menu-selected'><a href='font-test.html' class='pure-menu-link'>Font-Test</a></li>
-                           </ul>
-                        </div>
+                 <div class='pure-g nav-bar pure-menu-fixed' id='menu'>
+                     <div class='pure-u-md-1-2 pure-u-1'>
+                         <div class='pure-menu'>
+                             <a href='#' class="pure-menu-heading logo"><img src='styles/img/gomc.png' alt='team logo' class='pure-img'/></a>
+                             <a href="#" class="slide-down pure-menu-item" id="slideDown">
+                                 <i class="fa fa-bars fa-3x open" aria-hidden="true"></i>
+                                 <i class="fa fa-times closed" aria-hidden="true"></i>
+                             </a>
+                         </div>
+                     </div>
+                     <div class=' pure-u-md-1-2 pure-u-1'>
+                         <div class='pure-menu pure-menu-horizontal will-respond '>
+                             <ul class='pure-menu-list nav-list'>
+                                  <li class='pure-menu-item'><a href='home.html' class='pure-menu-link'>Home</a></li>
+                                  <li class='pure-menu-item'><a href='gomc.html' class='pure-menu-link'>GOMC</a></li>
+                                  <li class='pure-menu-item'><a href='releases.html' class='pure-menu-link'>Releases</a></li>
+                                  <li class='pure-menu-item'><a href='support.html'  class='pure-menu-link'>Support</a></li>
+                                  <li class='pure-menu-item pure-menu-selected'><a href='font-test.html' class='pure-menu-link'>Font-Test</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
              </nav>
              <header>
                <h1>Font-test</h1>
@@ -349,5 +356,6 @@
              </footer>
              <script src='javascript/jquery-3.2.1.min.js'></script>
              <script src='javascript/font-test.js'></script>
+             <script src='javascript/gomc.js'></script>
         </body>
     </html>

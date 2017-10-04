@@ -14,9 +14,15 @@
 
   }
   */
-  @media (min-width: 48em){
+  @media (min-width: 768px){
   .will-respond ul {
       float: right;
+  }
+  #slideDown {
+      display: block;
+  }
+  .nav-list:not(:last-child) {
+      display: none;
   }
 }
 
@@ -27,6 +33,11 @@ body {
   color: #FFF;
   background-color: #000000;
 }
+
+html, button, input, select, textarea,
+    .pure-g [class *= "pure-u"] {
+        font-family: Roboto;
+    }
 
 footer {
     background-image: url(img/x.gif);
@@ -45,6 +56,7 @@ nav {
     overflow: hidden;
     transition: height 0.5s;
     background: #C0C0C0;
+    margin-bottom:  20px;
 }
 
 span { /*This is just a place holder to see the footer */
@@ -62,35 +74,46 @@ span { /*This is just a place holder to see the footer */
   cursor: pointer;
 }
 
-.custom-nav {
-  background-color: #2d3e50;
-}
-
 .will-respond {
     background-color: #2d3e50;
     padding: 10px;
 }
 
 .nav-list {
-    text-align: center;
-    margin: 10px
+    margin: 10px;
+    padding: 5px;
 }
 
-#slideDown {
+.nav-bar {
+    background-color: #2d3e50;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 2.1em
+}
+
+.nav-bar.opened{
+    height: 14em;
+}
+
+.closed {
     display: none;
 }
-/*Need CSS rework and to find a better way to deal with this, because it fucking sucks*/
-/*.slide-down {
+
+.open {
+    display: block;
+}
+
+.slide-down {
     width: 34px;
     height: 34px;
     position: absolute;
     top:0;
     right: 0;
     display: none;
-    display: block; /* da fk?
 }
 
-.slide-down.on {
+.slide-down.active {
     background-color: #777;
     display: block;
     width: 20px;
@@ -105,67 +128,6 @@ span { /*This is just a place holder to see the footer */
     transition: all 0.5s;
 }
 
-#mainMenu {
-  background-color: #ffd390;
-  margin-bottom: 1em;
-  -webkit-font-smoothing: antialiased;
-  height: 2.1em;
-  overflow: hidden;
-  -webkit-transition: height 0.5s;
-  -moz-transition: height 0.5s;
-  -ms-transition: height 0.5s;
-  transition: height 0.5s;
-}
-
-.#mainMenu.open {
-    height: 14em;
-}
-
-.will-respond {
-    text-align: right;
-}
-
-.custom-toggle {
-    width: 34px;
-    height: 34px;
-    position: absolute;
-    top: 0;
-    right: 0;
+#slideDown {
     display: none;
 }
-
-.custom-toggle .bar {
-    background-color: #777;
-    display: block;
-    width: 20px;
-    height: 2px;
-    border-radius: 100px;
-    position: absolute;
-    top: 18px;
-    right: 7px;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    transition: all 0.5s;
-}
-
-.custom-toggle .bar:first-child {
-    -webkit-transform: translateY(-6px);
-    -moz-transform: translateY(-6px);
-    -ms-transform: translateY(-6px);
-    transform: translateY(-6px);
-}
-
-.custom-toggle.x .bar {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.slide-down.x .bar:first-child {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}*/

@@ -1,8 +1,9 @@
 // Javascript implementation for font-test.js
 //   This will enable font swap on user click between the two types of font, that are present on the card
 
-// Initial set up, initialize fonts to cards
+// Global Object events
 $(document).ready(function(){
+    console.log('READY? FONT-TEST');
     $('#card1 .card').find('.prime-text').css('font-family', 'Roboto');
     $('#card1 .card').find('.secondary-text').css('font-family','Open Sans');
 
