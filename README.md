@@ -1,4 +1,4 @@
-# GOMC-Capstone-Senior-Project
+﻿# GOMC-Capstone-Senior-Project
 > Need to ask client for team logo here!
 
 This repository is a conglomeration of the source code and documentation pertaining to
@@ -24,20 +24,27 @@ The website will allow users to input data required for the GOMC software, send 
 >Will implement graphic here
 
 ### Front end
-.Net asp
 Razor
-Pure.css
-jQuery
+Pure.css less.css
+jQuery underscore.js gulp.js
+
+***Explanation***
+>Detailed at a later time...
 
 ### Back end
-C#
+ASP
 Github Api V3
 JSON
 C/C++
 Cmake
 
+***Explanation***
+>Detailed at a later time...
+
 ### Database
 MySql
+
+***Explanation***
 
 # Team Breakdown
 Team Lead: Ahmed Taher
@@ -55,5 +62,6 @@ TA : Azam Peyvandipour
 There are a couple of terms that will appear in our commit history and comments that readers should be made aware of:
 - cwfh checking in to work from home
 - cwfr checking in to work from remote
+- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance 
 
 > This is version 2.2

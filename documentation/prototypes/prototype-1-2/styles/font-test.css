@@ -7,26 +7,27 @@
 /* Custom Fonts from google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 /*Media Queries*/
-/*
-@media (max-width: 47.999em) {
-  .custom-menu-3 {
-    text-align: left;
 
-  }
-  */
   @media (min-width: 768px){
-  .will-respond ul {
+  /*.will-respond ul {
       float: right;
   }
+
   #slideDown {
-      display: block;
+      display: block;*/
+  .slide-down {
+       transition: all 0.5s;
   }
-  .nav-list:not(:last-child) {
-      display: none;
-  }
+
 }
 
 /* Selector styles */
+
+html, button, input, select, textarea,
+    .pure-g [class *= "pure-u"] {
+        font-family: Roboto;
+    }
+
 body {
   margin: 20px;
   padding: 10px;
@@ -34,10 +35,9 @@ body {
   background-color: #000000;
 }
 
-html, button, input, select, textarea,
-    .pure-g [class *= "pure-u"] {
-        font-family: Roboto;
-    }
+header {
+    margin-top: 6.5em;
+}
 
 footer {
     background-image: url(img/x.gif);
@@ -81,26 +81,33 @@ span { /*This is just a place holder to see the footer */
 
 .nav-list {
     margin: 10px;
-    padding: 5px;
+    /*padding: 5px;*/
 }
 
 .nav-bar {
     background-color: #2d3e50;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 2em;
     width: 100%;
-    height: 2.1em
+    height: 5em;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    transition: height 0.5s;
 }
 
-.nav-bar.opened{
-    height: 14em;
+.nav-bar.extend{
+    height: 18em;
 }
 
-.closed {
+.not-render {
     display: none;
 }
 
-.open {
+.render {
     display: block;
 }
 
@@ -108,26 +115,11 @@ span { /*This is just a place holder to see the footer */
     width: 34px;
     height: 34px;
     position: absolute;
-    top:0;
-    right: 0;
-    display: none;
+    /*Incredibly janky I know but it works for now. Optimize later*/
+    top: 10px;
+    right: 800px;
 }
 
-.slide-down.active {
-    background-color: #777;
-    display: block;
-    width: 20px;
-    height: 2px;
-    border-radius: 100px;
-    position: absolute;
-    top: 18px;
-    right: 7px;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    transition: all 0.5s;
-}
-
-#slideDown {
-    display: none;
+.pure-img {
+    height: 3.5em;
 }

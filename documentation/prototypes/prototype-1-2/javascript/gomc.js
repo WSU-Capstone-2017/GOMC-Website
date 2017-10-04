@@ -4,27 +4,34 @@
 // Variables
 var responsiveSlideOutButton = $('#slideDown');
 var menu = $('#menu');
-var windowWidth, windowHeight;
-var resizeCounter = 0;
-
+// var resizeCounter = 0;
+var resizeReducer = _.debounce(updateWindowData,500); // debounce(), pulled in from underscore.js
 // Global Object events
 
 // page loaded, let's get going!
 $(function(){
     console.log('READY? GOMC');
+    updateWindowData(); // Right off the jump
 });
 
-$(window).resize(updateWindowData); // Handler for screen responsiveness
+$(window).resize(resizeReducer); // The javascript gods have had mercy on my poor beaten soul
+//$(window).resize(updateWindowData); // Handler for screen responsiveness, slow as SHIT holy FUCK
 
 // Event handlers
 responsiveSlideOutButton.click(function(){
-    if(this.hasClass('open')){
-        // show the menu items
-        // bring the hamburger icon back
+    if($(this).hasClass('render')){ // bars, open menu, get rid of X
+        handleMenuExpansion(true);
+        responsiveSlideOutButton.find('.fa-bars').removeClass('render');
+        responsiveSlideOutButton.find('.fa-bars').addClass('not-render');
+         responsiveSlideOutButton.find('.fa-times').removeClass('render');
+        responsiveSlideOutButton.find('.fa-times').addClass('render');
     }
-    else{
-        // hide menu items
-        //  and show the X icon
+    else{ // X, close menu, get rid of Bars
+        handleMenuExpansion(false);
+        responsiveSlideOutButton.find('.fa-times').removeClass('render');
+         responsiveSlideOutButton.find('.fa-bars').addClass('not-render');
+        responsiveSlideOutButton.find('.fa-times').addClass('not-render');
+        responsiveSlideOutButton.find('.fa-bars').addClass('render');
     }
 });
 
@@ -35,9 +42,10 @@ responsiveSlideOutButton.click(function(){
 function updateWindowData(){
     windowWidth = $(this).width();
     windowHeight = $(this).height();
-    resizeCounter++;
+    //resizeCounter++;
      // holy shit this calls a fuck-ton of times. Need a workaround
-    console.log('Screen Resize Count: ' + resizeCounter);
+     // workaround found from underscore.js, yep a new component to my front-end workflow
+    //console.log('Screen Resize Count: ' + resizeCounter);
     checkData();
 }
 
@@ -49,17 +57,21 @@ function checkData(){
 }
 
 function shrinkMenu(){
-    responsiveSlideOutButton.removeClass('closed');
-    responsiveSlideOutButton.addClass('open');
-    menu.find('will-respond').removeClass('pure-menu-horizontal');
+    responsiveSlideOutButton.removeClass('not-render');
+    responsiveSlideOutButton.addClass('render');
+    menu.find('.will-respond').removeClass('pure-menu-horizontal');
+     responsiveSlideOutButton.find('.fa-bars').removeClass('not-render');
+      responsiveSlideOutButton.find('.fa-bars').addClass('render');
 }
 
 function enlargeMenu(){
-    responsiveSlideOutButton.removeClass('open');
-    responsiveSlideOutButton.addClass('closed');
-    menu.find('will-respond').addClass('pure-menu-horizontal');
+    responsiveSlideOutButton.removeClass('render');
+    responsiveSlideOutButton.addClass('not-render');
+    menu.find('.will-respond').addClass('pure-menu-horizontal');
+    responsiveSlideOutButton.find('.fa-bars').removeClass('render');
+    responsiveSlideOutButton.find('.fa-times').removeClass('render');
 }
 
-function handleMenu(){
-    
+function handleMenuExpansion(state){
+    state ? menu.addClass('extend') : menu.removeClass('extend');
 }
