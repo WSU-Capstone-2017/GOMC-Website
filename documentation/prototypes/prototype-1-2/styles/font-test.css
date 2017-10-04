@@ -9,16 +9,15 @@
 /*Media Queries*/
 
   @media (min-width: 768px){
-  /*.will-respond ul {
-      float: right;
-  }
+      .slide-down {
+          transition: all 0.5s;
+      }
+      /*.will-respond ul {
+          float: right;
+      }
 
-  #slideDown {
-      display: block;*/
-  .slide-down {
-       transition: all 0.5s;
-  }
-
+      #slideDown {
+          display: block;*/
 }
 
 /* Selector styles */
@@ -64,7 +63,7 @@ span { /*This is just a place holder to see the footer */
     opacity: 0;
 }
 
-/*classes & IDs*/
+/*classes*/
 .card {
     padding: 30px;
     border: 10px double white;
