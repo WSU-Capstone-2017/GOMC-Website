@@ -7,6 +7,7 @@
 /* Custom Fonts from google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
+/* Selector styles */
 body {
   margin: 20px;
   padding: 10px;
@@ -23,7 +24,7 @@ h3, header {
   text-align: center;
 }
 
-p{
+p {
     font-size: 16px;
 }
 
@@ -31,17 +32,28 @@ nav {
     overflow: hidden;
     transition: height 0.5s;
     background: #C0C0C0;
-
 }
-span {
+
+span { /*This is just a place holder to see the footer */
     font-size: 43px;
     opacity: 0;
 }
-nav.open {
 
+/*classes & IDs*/
+.card {
+    padding: 30px;
+    border: 10px double white;
+  }
+
+.card:hover {
+  cursor: pointer;
 }
 
-.slide-down {
+.custom-nav {
+  background-color: #2d3e50;
+}
+/*Need CSS rework and to find a better way to deal with this, because it fucking sucks*/
+/*.slide-down {
     width: 34px;
     height: 34px;
     position: absolute;
@@ -52,28 +64,89 @@ nav.open {
 
 .slide-down.on {
     background-color: #777;
-          display: block;
-          width: 20px;
-          height: 2px;
-          border-radius: 100px;
-          position: absolute;
-          top: 18px;
-          right: 7px;
-          -webkit-transition: all 0.5s;
-          -moz-transition: all 0.5s;
-          -ms-transition: all 0.5s;
-          transition: all 0.5s;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    position: absolute;
+    top: 18px;
+    right: 7px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+#mainMenu {
+  background-color: #ffd390;
+  margin-bottom: 1em;
+  -webkit-font-smoothing: antialiased;
+  height: 2.1em;
+  overflow: hidden;
+  -webkit-transition: height 0.5s;
+  -moz-transition: height 0.5s;
+  -ms-transition: height 0.5s;
+  transition: height 0.5s;
+}
+
+.#mainMenu.open {
+    height: 14em;
 }
 
 .will-respond {
-
+    text-align: right;
 }
 
-.card {
-    padding: 30px;
-    border: 10px double white;
+.custom-toggle {
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
 }
 
-.card:hover {
-  cursor: pointer;
+.custom-toggle .bar {
+    background-color: #777;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    position: absolute;
+    top: 18px;
+    right: 7px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
 }
+
+.custom-toggle .bar:first-child {
+    -webkit-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+
+.custom-toggle.x .bar {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.slide-down.x .bar:first-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}*/
+
+@media (max-width: 47.999em) {
+  /*.custom-menu-3 {
+    text-align: left;
+  }*/
+
+  .slide-down {
+      display: block;
+  }

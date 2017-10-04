@@ -12,53 +12,32 @@
             <link rel='stylesheet' href='styles/font-test.css' />
          </head>
          <body>
-
              <nav>
-                 <div class='pure-g'>
-                     <div class='pure-u-md-1-3'>
-                         <div class='pure-menu'>
-                             <!-- mobile- responsive menu vertical menu-->
-                               <!--<a href="#" class="slide-down" id="slideDown"><i class="fa fa-bars" aria-hidden="true"></i></a>
-                                    <div class="pure-menu">
-                                    <span class="pure-menu-heading"><img src='styles/img/gomc.png'   alt='team logo' class='pure-img'/></span>
-                                    <ul class="pure-menu-list">
-                                        <li class='pure-menu-item'><a href='home.html' class='pure-menu-link'>Home</a></li>
-                                        <li class='pure-menu-item'> <a href='gomc.html' class='pure-menu-link'>GOMC</a></li>
-                                        <li class='pure-menu-item'> <a href='releases.html' class='pure-menu-link'>Releases</a></li>
-                                        <li class='pure-menu-item'> <a href='support.html' class='pure-menu-link'>Support</a></li>
-                                        <li class='pure-menu-item'><a href='font-test.html' class='pure-menu-link'>Font-Test</a></li>
-                                </ul>
-                            </div> -->
-                         </div>
-                     </div>
-                     <div class='pure-u-1 pure-u-md-1-3'>
-                         <!-- desktop normal menu -->
-                         <div  class='pure-menu pure-menu-horizontal will-respond'>
-                             <a href='#' class='pure-menu-heading pure-menu-link'><img src='styles/img/gomc.png'   alt='team logo' class='pure-img'/></a>
+               <!-- Template provided by pure.css works by using css and js to hide and move the nav, I reworked the code to fit my design, and yes I can speak to how it works-->
+               <!-- ok right now it doesn't work, but I am busting my balls to make it work. It will work by morning. -->
+                 <div class='pure-g custom-nav' id='mainMenu'>
+                     <div class=' pure-u-1 pure-u-md-1-3'>
+                              <a href='#' class="pure-menu-heading logo"><img src='styles/img/gomc.png' alt='team logo' class='pure-img'/></span>
+                              <a href="#" class="slide-down" id="slideDown"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                         <div class='pure-menu pure-menu-horizontal will-respond'>
                            <ul class='pure-menu-list'>
-                                <li class='pure-menu-item'><a href='home.html' class='pure-menu-link'>Home</a></li>
-                                <li class='pure-menu-item'> <a href='gomc.html' class='pure-menu-link'>GOMC</a></li>
-                                <li class='pure-menu-item'> <a href='releases.html' class='pure-menu-link'>Releases</a></li>
-                                <li class='pure-menu-item'> <a href='support.html' class='pure-menu-link'>Support</a></li>
+                                <li class='pure-menu-item'><a href='home.html'      class='pure-menu-link'>Home</a></li>
+                                <li class='pure-menu-item'><a href='gomc.html'      class='pure-menu-link'>GOMC</a></li>
+                                <li class='pure-menu-item'><a href='releases.html'  class='pure-menu-link'>Releases</a></li>
+                                <li class='pure-menu-item'><a href='support.html'   class='pure-menu-link'>Support</a></li>
                                 <li class='pure-menu-item'><a href='font-test.html' class='pure-menu-link'>Font-Test</a></li>
                            </ul>
                          </div>
                      </div>
                  </div>
              </nav>
-
-
-
-
-
              <header>
                <h1>Font-test</h1>
                <p>This page will present a grid of 6 tiles each tile will present a different combination of 2 fonts, one for the header and one for the body</p>
              </header>
-
              <main>
-                 <section>
-                   <div class='pure-g main-grid'>
+               <section>
+                <div class='pure-g main-grid'>
                      <div class='pure-u-1-3' id='card1'>
                          <div class= 'card'>
                              <h3 class='prime-text'>This card has a Roboto Header with an Open Sans Paragraph</h3>
@@ -354,11 +333,11 @@
                         </div>
                      </div>
                    </div>
-                 </section>
+               </section>
              </main>
              <footer>
                  <hr />
-               <span>shhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</span>
+                 <span>shhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</span>
                  <!-- Need to design this -->
                <!-- <small>GOMC R&nbsp;D team</small>
                  <address>
@@ -370,6 +349,6 @@
                  </address> -->
              </footer>
              <script src='javascript/jquery-3.2.1.min.js'></script>
-            <script src = 'javascript/font-test.js'></script>
+             <script src='javascript/font-test.js'></script>
         </body>
     </html>
