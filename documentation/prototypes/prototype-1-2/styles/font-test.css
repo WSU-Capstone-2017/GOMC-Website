@@ -56,7 +56,7 @@ nav {
     overflow: hidden;
     transition: height 0.5s;
     background: #C0C0C0;
-    margin-bottom:  20px;
+    /*margin-bottom:  20px;*/
 }
 
 span { /*This is just a place holder to see the footer */

@@ -19,18 +19,18 @@ $(window).resize(resizeReducer); // The javascript gods have had mercy on my poo
 
 // Event handlers
 responsiveSlideOutButton.click(function(){
-    if($(this).hasClass('render')){ // bars, open menu, get rid of X
+    if($(this).children('.fa-bars').hasClass('render')){ // remove bars, open menu, add X
         handleMenuExpansion(true);
         responsiveSlideOutButton.find('.fa-bars').removeClass('render');
         responsiveSlideOutButton.find('.fa-bars').addClass('not-render');
-         responsiveSlideOutButton.find('.fa-times').removeClass('render');
+         responsiveSlideOutButton.find('.fa-times').removeClass('not-render');
         responsiveSlideOutButton.find('.fa-times').addClass('render');
     }
     else{ // X, close menu, get rid of Bars
         handleMenuExpansion(false);
         responsiveSlideOutButton.find('.fa-times').removeClass('render');
-         responsiveSlideOutButton.find('.fa-bars').addClass('not-render');
         responsiveSlideOutButton.find('.fa-times').addClass('not-render');
+         responsiveSlideOutButton.find('.fa-bars').removeClass('not-render');
         responsiveSlideOutButton.find('.fa-bars').addClass('render');
     }
 });
@@ -74,4 +74,10 @@ function enlargeMenu(){
 
 function handleMenuExpansion(state){
     state ? menu.addClass('extend') : menu.removeClass('extend');
+    if(menu.hasClass('extend')){
+        $('header').css('margin-top', '18.5em');
+    }
+    else {
+        $('header').css('margin-top', '6.5em');
+    }
 }
