@@ -6,6 +6,19 @@
 
 /* Custom Fonts from google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+/*Media Queries*/
+/*
+@media (max-width: 47.999em) {
+  .custom-menu-3 {
+    text-align: left;
+
+  }
+  */
+  @media (min-width: 48em){
+  .will-respond ul {
+      float: right;
+  }
+}
 
 /* Selector styles */
 body {
@@ -52,6 +65,20 @@ span { /*This is just a place holder to see the footer */
 .custom-nav {
   background-color: #2d3e50;
 }
+
+.will-respond {
+    background-color: #2d3e50;
+    padding: 10px;
+}
+
+.nav-list {
+    text-align: center;
+    margin: 10px
+}
+
+#slideDown {
+    display: none;
+}
 /*Need CSS rework and to find a better way to deal with this, because it fucking sucks*/
 /*.slide-down {
     width: 34px;
@@ -60,6 +87,7 @@ span { /*This is just a place holder to see the footer */
     top:0;
     right: 0;
     display: none;
+    display: block; /* da fk?
 }
 
 .slide-down.on {
@@ -141,12 +169,3 @@ span { /*This is just a place holder to see the footer */
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }*/
-
-@media (max-width: 47.999em) {
-  /*.custom-menu-3 {
-    text-align: left;
-  }*/
-
-  .slide-down {
-      display: block;
-  }
