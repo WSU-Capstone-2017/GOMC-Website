@@ -25,6 +25,7 @@ responsiveSlideOutButton.click(function(){
         responsiveSlideOutButton.find('.fa-bars').addClass('not-render');
          responsiveSlideOutButton.find('.fa-times').removeClass('not-render');
         responsiveSlideOutButton.find('.fa-times').addClass('render');
+        responsiveSlideOutButton.css('color', 'black'); // need to follow color scheme
     }
     else{ // X, close menu, get rid of Bars
         handleMenuExpansion(false);
@@ -32,6 +33,7 @@ responsiveSlideOutButton.click(function(){
         responsiveSlideOutButton.find('.fa-times').addClass('not-render');
          responsiveSlideOutButton.find('.fa-bars').removeClass('not-render');
         responsiveSlideOutButton.find('.fa-bars').addClass('render');
+        responsiveSlideOutButton.css('color', 'green'); // need to follow color scheme
     }
 });
 

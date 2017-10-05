@@ -35,8 +35,17 @@ Prototype based off of the combination of design 3 and 6 in summation with feedb
 
 - Icon Library
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Font-Awesome 4.7 applied for ease of view
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Font-Awesome 4.7 applied for ease of icon consistency
 
+- Colors and typography
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  - Headers and important tags with Roboto
+                                                                 - Minor tags with Open Sans
+                                                                 - Background color:
+                                                                 - Text-color:
+                                                                 - Highlight:
+                                                                 - Menu Focus:
+The following color palette presents the colors used:
+> Image will be uploaded here                                                                 
 - Other requirements will be added as development continues
 
 > Nothing yet...
@@ -50,5 +59,6 @@ This prototype was built out of the following:
 - Pure.css 1.0
 - Font-Awesome 4.7
 - jQuery 3.2.1
+- Underscore.js 1.8.3
 
-with fonts provided by google fonts and colors picked by using the palette tool provided by www.coolors.co
+> Fonts provided by google fonts and colors picked by using the palette tool provided by www.coolors.co
