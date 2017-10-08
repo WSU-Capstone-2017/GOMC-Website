@@ -1,4 +1,5 @@
-﻿![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Team Logo](/Other/GOMC.png)
+
 # GOMC-Capstone-Senior-Project
 
 This repository is a conglomeration of the source code and documentation pertaining to
@@ -32,6 +33,7 @@ Pure.css less.css
 jQuery underscore.js gulp.js
 
 ***Explanation***
+
 >Detailed at a later time...
 
 ### Back end
@@ -46,6 +48,7 @@ C/C++
 Cmake
 
 ***Explanation***
+
 >Detailed at a later time...
 
 ### Database
@@ -53,18 +56,21 @@ MySql
 
 ***Explanation***
 
+>Detailed at a later time...
+
 ### Resources
 
 1) https://github.com/YounesN/GOMC_Manual
 
- > Need to add more body here
+ >Need to add more body here
 
 # Team Breakdown
 
 Team Lead: Ahmed Taher, Database / Back-End Lead
 
 Team Members: Muamer Besic, QA / Documentation Lead
-	      Caleb Latimer, UI / UX / Front-End / Presentation Lead
+
+&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
 TA : Azam Peyvandipour
 
@@ -77,4 +83,4 @@ There are a couple of terms that will appear in our commit history and comments 
 - x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance 
 
 
-> This is version 2.3
+> This is version 3.0
