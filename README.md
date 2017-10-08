@@ -1,4 +1,4 @@
-![Team Logo](/Other/GOMC.png)
+﻿&nbsp;&nbsp;&nbsp;![Team Logo](/Other/GOMC.png)
 
 # GOMC-Capstone-Senior-Project
 
@@ -70,7 +70,7 @@ Team Lead: Ahmed Taher, Database / Back-End Lead
 
 Team Members: Muamer Besic, QA / Documentation Lead
 
-&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
 TA : Azam Peyvandipour
 
