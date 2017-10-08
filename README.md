@@ -1,6 +1,6 @@
-![Team Logo](/Other/GOMC.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Team Logo](/Other/GOMC.png)
 
-# GOMC-Capstone-Senior-Project
+# Capstone-Senior-Project
 
 This repository is a conglomeration of the source code and documentation pertaining to
 the CSC 4996: GOMC Capstone Project. Within this repo will be a working version of our dynamic website as per our client's request. This is project is currently in development.
@@ -70,7 +70,7 @@ Team Lead: Ahmed Taher, Database / Back-End Lead
 
 Team Members: Muamer Besic, QA / Documentation Lead
 
-&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
 TA : Azam Peyvandipour
 
