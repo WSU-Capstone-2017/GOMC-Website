@@ -6,7 +6,7 @@ namespace Project.Models.Gomc
 	/// <summary>
 	///     Settings for simulation input setup.
 	/// </summary>
-	public class ConfigInpuSection
+	public class ConfigInputSection
 	{
 		/// <summary>
 		///     Determines whether to restart.
@@ -57,11 +57,11 @@ namespace Project.Models.Gomc
 		/// </remarks>
 		public StructureInput[] Structures { get; set; }
 
-		public ConfigInpuSection()
+		public ConfigInputSection()
 		{
 		}
 
-		public ConfigInpuSection(bool restart, PrngType prng, int? randomSeed, ForceFieldType paraType,
+		public ConfigInputSection(bool restart, PrngType prng, int? randomSeed, ForceFieldType paraType,
 			string parametersFileName, IEnumerable<CoordinateInput> coordinates,
 			IEnumerable<StructureInput> structures)
 		{

@@ -156,7 +156,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
-    <Compile Include="Models\Gomc\ConfigInpuSection.cs" />
+    <Compile Include="Models\Gomc\ConfigInputSection.cs" />
     <Compile Include="Models\Gomc\ConfigModel.cs" />
     <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
     <Compile Include="Models\Gomc\ConfigSystemSection.cs" />

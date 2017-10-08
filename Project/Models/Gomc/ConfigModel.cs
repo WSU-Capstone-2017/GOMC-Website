@@ -9,7 +9,7 @@
 		///     In this section, input file names are listed.In addition, if you want to restart your simulation or use integer
 		///     seed for running your simulation, you need to modify this section according to your purpose.
 		/// </summary>
-		public ConfigInpuSection Input { get; set; }
+		public ConfigInputSection Input { get; set; }
 
 		/// <summary>
 		///     This section contains all the variables not involved in the output of data during the simulation, or in the
@@ -31,7 +31,7 @@
 		{
 		}
 
-		public ConfigModel(ConfigInpuSection input, ConfigSystemSection system, ConfigOutputSection output)
+		public ConfigModel(ConfigInputSection input, ConfigSystemSection system, ConfigOutputSection output)
 		{
 			Input = input;
 			System = system;
