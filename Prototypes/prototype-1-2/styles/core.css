@@ -41,7 +41,7 @@ footer {
     padding-bottom: 10px; /*Just to fluff out the bottom*/
 }
 
-h3, header {
+header, h1, h2, h3 {
   text-align: center;
 }
 
