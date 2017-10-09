@@ -77,7 +77,7 @@ footer {
     display: block;
 }
 
-/*classes- only for font-test.html*/
+/*font-test.html specific classes*/
 
 .card {
     padding: 30px;
@@ -92,11 +92,21 @@ footer {
   cursor: pointer;
 }
 
+/*about.html specific classes*/
+
 .test-square { /*For view testing in a space, TESTING ONLY*/
-    width: 400px;
-    height: 400px;
     border: 5px red solid;
     margin: 5px;
+}
+
+.person-card {
+  margin-top: 10px;
+  padding-left: 5px;
+  color: #000;
+}
+
+.person-picture {
+  float: left;
 }
 
 /*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
