@@ -80,7 +80,7 @@ TA : Azam Peyvandipour
 There are a couple of terms that will appear in our commit history and comments that readers should be made aware of:
 - cwfh checking in to work from home
 - cwfr checking in to work from remote
-- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance 
+- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance
 
 
 > This is version 3.0
