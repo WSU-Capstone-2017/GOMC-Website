@@ -22,11 +22,11 @@
                          </button>
                          <div class='collapse navbar-collapse' id='navCollapse'>
                              <ul class='nav nav-tabs nav-justified nav'>
-                                <li ><a href='home.html' >Home</a></li>
-                                <li ><a href='resources.html' >Resources</a></li>
-                                <li ><a href='downloads.html' id='onDownloadsPage'>Downloads</a></li>
-                                <li ><a href='about.html'>About</a></li>
-                                <li ><a href='font-test.html'>Font-Test</a></li>
+                                <li><a href='home.html' >Home</a></li>
+                                <li><a href='resources.html' >Resources</a></li>
+                                <li><a href='downloads.html' id='onDownloadsPage'>Downloads</a></li>
+                                <li><a href='about.html'>About</a></li>
+                                <li><a href='font-test.html'>Font-Test</a></li>
                              </ul>
                         </div>
                      </div>
@@ -36,8 +36,46 @@
                <h1>Downloads</h1>
              </header>
              <main>
-               <section>
-               </section>
+               <div class='container-fluid'>
+                 <div class='row'>
+                   <section>
+                     <h4 class='col-md-4'>Most Recent Downloads</h4>
+                     <ul id='dataOfReleasesFromAJAX'> <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
+                     </ul>
+                     <aside>
+                       <h4 class='col-md-8'>Release Notes</h4>
+                       <p></p> <!-- Gotta look into how to do this markup -->
+                     </aside>
+                   </section>
+                 </div>
+                 <div class='row'>
+                   <article>
+                     <div class='col-md-8'>
+                       <h4>Getting Started</h4>
+                       <dl>
+                         <dd>Set up</dd>
+                       </dl>
+                     </div>
+                     <div class='col-md-4'>
+                       <h4>ReadMe</h4>
+                       <p></p> <!-- Maybe use formatted markdown here?-->
+                     </div>
+                   </article>
+                 </div>
+                 <div class='row'>
+                   <article>
+                     <!--How it works and what it is-->
+                     <div class='col-md-4'>
+                       <h4>How it works</h4>
+                       <p></p>
+                     </div>
+                     <div class='col-md-8'>
+                       <h4>What it is</h4>
+                       <p></p>
+                     </div>
+                   </article>
+                 </div>
+               </div>
              </main>
              <footer>
                  <hr />

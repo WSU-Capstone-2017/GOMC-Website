@@ -49,7 +49,7 @@ p {
     font-size: 16px;
 }
 
-a {
+nav a {
     color: #FFF;
 }
 
@@ -102,12 +102,17 @@ footer {
 .person-card {
   margin-top: 10px;
   padding-left: 5px;
-  color: #000;
 }
 
 .person-picture {
   float: left;
 }
+
+/*resources.html specific classes*/
+
+/*downloads.html specific classes*/
+
+/*home.html specific classes*/
 
 /*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
 
