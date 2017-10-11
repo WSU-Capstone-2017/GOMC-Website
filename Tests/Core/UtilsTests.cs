@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Project.Controllers;
 
 namespace Project.Core
 {
@@ -26,5 +27,6 @@ namespace Project.Core
 		{
 			Utils.AsUri("_");
 		}
+
 	}
 }

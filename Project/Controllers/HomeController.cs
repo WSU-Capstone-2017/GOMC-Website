@@ -13,7 +13,7 @@ namespace Project.Controllers
 			return View(GetHomeModel());
 		}
 
-		private HomeModel GetHomeModel()
+		public HomeModel GetHomeModel()
 		{
 			using(var db = new ProjectDbContext())
 			{
@@ -33,7 +33,7 @@ namespace Project.Controllers
 			return View(GetHomeModel());
 		}
 
-		private DownloadsModel GetDownloadModel()
+		public DownloadsModel GetDownloadModel()
 		{
 			var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
 			var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
@@ -58,6 +58,11 @@ namespace Project.Controllers
 		public ActionResult Downloads()
 		{
 			return View(GetDownloadModel());
+		}
+
+		public ActionResult ConfigForm()
+		{
+			return View(GetHomeModel());
 		}
 	}
 }
