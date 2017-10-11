@@ -8,10 +8,21 @@ var watch = require('gulp-watch');
 
 // Tasks
 
-// Minimize css
-gulp.task('minimizeCSS', function(){
+// validate less
+gulp.task('lessValid', function(){
 
 });
+
+// validate html
+gulp.task('lessValid', function(){
+    
+});
+
+// validate minimize html
+gulp.task('lessValid', function(){
+
+});
+
 
 // change less -> CSS
 gulp.task('lessToCss', function() {
@@ -21,8 +32,8 @@ gulp.task('lessToCss', function() {
     .pipe(gulp.dest('styles/updated.css'));
 });
 
-// Concatenate Javascript
-gulp.task('concat',function(){
+// Minimize css
+gulp.task('minimizeCSS', function(){
 
 });
 
@@ -30,6 +41,13 @@ gulp.task('concat',function(){
 gulp.task('lint', function(){
 
 });
+
+// Concatenate Javascript
+gulp.task('concat',function(){
+
+});
+
+
 
 //  Run main automation suite
 gulp.task('default', function(){

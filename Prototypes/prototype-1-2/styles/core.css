@@ -114,24 +114,44 @@ footer {
 
 /*home.html specific classes*/
 
+.gomcHome {
+    min-height: 250px;
+}
+
+.sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
+    margin-top: 80px;
+}
+
+.cardA {
+    background-color: #CFE7A7;
+}
+
+.cardB {
+    background-color: #E58242;
+}
+
+.cardC {
+    background-color: #91D3EF;
+}
+
 /*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
 
 #onFontPage{
-    border-bottom: 5px #106A3A solid;
+    border-bottom: 3px #106A3A solid;
 }
 
 #onHomePage{
-    border-bottom: 5px #E58242 solid;
+    border-bottom: 3px #E58242 solid;
 }
 
 #onDownloadsPage{
-    border-bottom: 5px #91D3EF solid;
+    border-bottom: 3px #91D3EF solid;
 }
 
 #onAboutPage{
-    border-bottom: 5px #7F3E97 solid;
+    border-bottom: 3px #7F3E97 solid;
 }
 
 #onResourcesPage{
-    border-bottom: 5px #CFE7A7 solid;
+    border-bottom: 3px #CFE7A7 solid;
 }
