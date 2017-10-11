@@ -155,7 +155,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gomc\BoxDimInput.cs" />
+    <Compile Include="Models\Gomc\ConfigInputSection.cs" />
+    <Compile Include="Models\Gomc\ConfigModel.cs" />
+    <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
+    <Compile Include="Models\Gomc\ConfigSystemSection.cs" />
+    <Compile Include="Models\Gomc\OutBoolean.cs" />
+    <Compile Include="Models\Gomc\ExcludeType.cs" />
+    <Compile Include="Models\Gomc\ForceFieldType.cs" />
+    <Compile Include="Models\Gomc\GemcType.cs" />
+    <Compile Include="Models\Gomc\PotentialType.cs" />
+    <Compile Include="Models\Gomc\PrngType.cs" />
+    <Compile Include="Models\Gomc\ResNameValue.cs" />
+    <Compile Include="Models\Gomc\FreqInput.cs" />
     <Compile Include="Models\DownloadsModel.cs" />
+    <Compile Include="Models\Github\ReleasesModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\MenuModelItem.cs" />
@@ -203,6 +217,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Downloads.cshtml" />
+    <Content Include="Views\Home\ConfigForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,7 +252,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>17907</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
