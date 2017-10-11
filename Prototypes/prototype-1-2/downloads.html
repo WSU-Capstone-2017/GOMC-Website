@@ -39,16 +39,26 @@
                <div class='container-fluid'>
                  <div class='row'>
                    <section>
-                     <h4 class='col-md-4'>Most Recent Downloads</h4>
-                     <ul id='dataOfReleasesFromAJAX'> <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
-                       <li>GOMC version 2.1 is available for download.</li>
-                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
-                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
-                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
-                     </ul>
+                       <div class='col-md-8'>
+                           <h4>Most Recent Downloads</h4>
+                           </div>
+                           <div  class='col-md-4'>
+                               <ul id='dataOfReleasesFromAJAX'> <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
+                                 <li>GOMC version 2.1 is available for download.</li>
+                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                               </ul>
+                           </div>
                      <aside>
-                       <h4 class='col-md-8'>Release Notes</h4>
-                       <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p> <!-- Gotta look into how to do this markup -->
+                         <div class='col-md-8'>
+                             <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p>
+                             <p>More and more details</p>
+                             <p>End of details</p> <!-- Gotta look into how to do this markup -->
+                         </div>
+                         <div class='col-md-4'>
+                             <h4>Release Notes</h4>
+                         </div>
                      </aside>
                    </section>
                  </div>
@@ -57,25 +67,33 @@
                      <div class='col-md-8'>
                        <h4>Getting Started</h4>
                        <dl>
-                         <dd>Set up</dd>
+                         <dt>Set up</dt>
+                         <dd>Here are some set up instructions</dd>
+
+                         <dt>Running a simulation</dt>
+                         <dd>Doing this gets you an up and running simulation for your data</dd>
+                         <dt>Sample results</dt>
+                         <dd>This is what you should expect once the simulation ends</dd>
                        </dl>
                      </div>
                      <div class='col-md-4'>
                        <h4>ReadMe</h4>
-                       <p></p> <!-- Maybe use formatted markdown here?-->
+                       <p>This is a read me</p>
+                       <p>User will read me</p>
+                       <p>Maybe they won't read me</p> <!-- Maybe use formatted markdown here?-->
                      </div>
                    </article>
                  </div>
                  <div class='row'>
                    <article>
                      <!--How it works and what it is-->
-                     <div class='col-md-4'>
-                       <h4>How it works</h4>
-                       <p></p>
-                     </div>
                      <div class='col-md-8'>
                        <h4>What it is</h4>
-                       <p></p>
+                       <p>This is a brief description at a high level of what it actually is</p>
+                     </div>
+                     <div class='col-md-4'>
+                       <h4>How it works</h4>
+                       <p>This is a brief description at a high level of how the thing will work</p>
                      </div>
                    </article>
                  </div>

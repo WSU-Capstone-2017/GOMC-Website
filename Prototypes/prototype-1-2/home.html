@@ -61,16 +61,16 @@ Personal notes:
                     </ol>
                     <div class='carousel-inner' role='listbox'>
                       <!-- This part contains the slides -->
-                      <div class='item active carousel-card cardA'>
+                      <div class='item active cardA'>
                         <!-- What's in here needs to be relateable for the demo tommorow, from mockup 6 a different bg is used and no images are actually on display, we should go with that-->
                             <h1>Announcements</h1>
                             <button class='btn btn-primary btn-lg'>Bound to the newest release note</button>
                         </div>
-                      <div class='item carousel-card cardB'>
+                      <div class='item cardB'>
                           <h1>Research</h1>
                           <button class='btn btn-primary btn-lg'>Check out our newest work</button>
                       </div>
-                      <div class='item carousel-card cardC'>
+                      <div class='item cardC'>
                           <h1>Need help?</h1>
                           <button class='btn btn-primary btn-lg'>Check out our FAQ</button>
                         </div>
@@ -86,20 +86,41 @@ Personal notes:
                </div>
              </header>
              <main>
+                 <hr class='grand-line' />
                <div class='container-fluid'>
                  <section>
-                   <div class='row cardA'>
-
+                   <div class='row'>
+                       <div class='col-md-7'>
+                           <h3>Innovate</h3>
+                           <p>This is what the first main feature of the homepage would like it. And how it would render</p>
+                       </div>
+                       <div class='col-md-5'>
+                           <img src='styles/test/x.gif' class='img-responsive' alt='Megaman X gif' />
+                       </div>
                    </div>
                  </section>
+                 <hr class='grand-line' />
                  <section>
-                   <div class='row cardB'>
-
+                   <div class='row'>
+                    <div class='col-md-7'>
+                       <img  src='styles/test/cuphead.gif' class='img-responsive' alt='a brawl is surely brewing'/>
+                    </div>
+                    <div class='col-md-5'>
+                        <h3>Synergize</h3>
+                        <p>This is what the second main feature of the homepage would like it. And how it would render</p>
+                    </div>
                    </div>
                  </section>
+                 <hr class='grand-line' />
                  <section>
-                   <div class='row cardC'>
-
+                   <div class='row'>
+                       <div class='col-md-7'>
+                           <h3>Progress</h3>
+                           <p>Hit them with the last feature and bring it back home  with the footer</p>
+                       </div>
+                       <div class='col-md-5'>
+                           <img src='styles/test/frog.gif' class='img-responsive' alt='mad frog' />
+                       </div>
                    </div>
                  </section>
                </div>
@@ -113,23 +134,22 @@ Personal notes:
              <script src='styles/bootstrap/dist/js/bootstrap.min.js'></script>
              <script src='javascript/gomc.js'></script>
              <script>
-             $("#gomcHome").on('slide.bs.carousel', function () {
-                 console.log("In this bitch");
-                 var focusedCard =$(this).find('div .active');
-                 console.log("Current card is: "+ focusedCard);
-                 if(focusedCard.hasClass('cardA')){
-                     $(',jumbotron').
+             $(function(){
+                 $('.jumbotron').css('background-color', '#91D3EF');
+             });
 
-                     // need to make a decision style the jumbotron or the gomcHome class
-                     // maybe i can style both? Then add the rest of the content?
+             $("#gomcHome").on('slid.bs.carousel', function () {
+                 var focusedCard =$(this).find('div .active');
+                // console.log("Current card is: "+ focusedCard);
+                 if(focusedCard.hasClass('cardA')){
+                     $('.jumbotron').css('background-color', '#91D3EF');
 
                  }
                  else if(focusedCard.hasClass('cardB')){
-                     $(',jumbotron').
-
+                      $('.jumbotron').css('background-color', '#9ACD32');
                  }
-                 else {
-                     $(',jumbotron').
+                 else if(focusedCard.hasClass('cardC')) {
+                      $('.jumbotron').css('background-color', '#CFE7A7');
                  }
              });
              </script>

@@ -122,16 +122,8 @@ footer {
     margin-top: 80px;
 }
 
-.cardA {
-    background-color: #CFE7A7;
-}
-
-.cardB {
-    background-color: #E58242;
-}
-
-.cardC {
-    background-color: #91D3EF;
+.grand-line {
+    margin: 40px ;
 }
 
 /*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
