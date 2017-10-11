@@ -30,6 +30,7 @@ $('.card').click(function(){
     var id = "#" + this.parentElement.id;
     $(this).fadeOut(500,function(){
        swapFont(id);
+       $(this).toggleClass('card-swapped');
       $(this).fadeIn(500);
     });
 });

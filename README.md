@@ -1,6 +1,6 @@
-﻿&nbsp;&nbsp;&nbsp;![Team Logo](/Other/GOMC.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Team Logo](/Other/GOMC.png)
 
-# GOMC-Capstone-Senior-Project
+# Capstone-Senior-Project
 
 This repository is a conglomeration of the source code and documentation pertaining to
 the CSC 4996: GOMC Capstone Project. Within this repo will be a working version of our dynamic website as per our client's request. This is project is currently in development.
@@ -70,7 +70,7 @@ Team Lead: Ahmed Taher, Database / Back-End Lead
 
 Team Members: Muamer Besic, QA / Documentation Lead
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
 TA : Azam Peyvandipour
 
@@ -80,7 +80,7 @@ TA : Azam Peyvandipour
 There are a couple of terms that will appear in our commit history and comments that readers should be made aware of:
 - cwfh checking in to work from home
 - cwfr checking in to work from remote
-- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance 
+- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance
 
 
 > This is version 3.0

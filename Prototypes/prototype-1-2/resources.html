@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- Resources Page will contain
+    -
+-->
+    <html>
+        <head>
+            <title>GOMC - Resources</title>
+            <meta charset='utf-8' />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href='styles/img/test.ico' />
+            <link rel='stylesheet' href='styles/bootstrap/dist/css/bootstrap.min.css' />
+            <link rel='stylesheet' href='styles/core.css' />
+         </head>
+         <body>
+             <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+                 <div class='container-fluid'>
+                     <div class='navbar-header' id='menu'>
+                         <a href='#'><img src='styles/img/gomc.png' alt='team logo'/ class='img-responsive'></a>
+                         <button type="button" class="navbar-toggle"  data-toggle="collapse" href="#navCollapse"
+                         data-parent='#menu' id='btn'>
+                             <span class='glyphicon glyphicon-align-justify'></span>
+                         </button>
+                         <div class='collapse navbar-collapse' id='navCollapse'>
+                             <ul class='nav nav-tabs nav-justified nav'>
+                                <li><a href='home.html' >Home</a></li>
+                                <li><a href='resources.html' id='onResourcesPage'>Resources</a></li>
+                                <li><a href='downloads.html' >Downloads</a></li>
+                                <li><a href='about.html'>About</a></li>
+                                <li><a href='font-test.html'>Font-Test</a></li>
+                             </ul>
+                        </div>
+                     </div>
+                 </div>
+             </nav>
+             <header>
+               <h1>Resources</h1>
+             </header>
+             <main>
+               <div class='container-fluid'>
+               <section class='xml-input'>
+                <div class='row'>
+                   <h4>Input to XML</h4>
+                   <p>Please fill out the following form to receive a well-formed downloadable document: </p>
+                   <form><!--Need Ahmed to review for sure, for backend processing before doing the integration to the API-->
+
+                   </form>
+                </div>
+               </section>
+               <section class='registration'>
+                 <div class='row'>
+                   <h4>Want to see more of us?</h4>
+                   <p>Please fill out the registration form below:</p>
+                   <form> <!--This part definitely needs Ahmed to code review since he'llbe handling the backend, I need to form validation here-->
+
+                   </form>
+                 </div>
+               </section>
+               <section class='research'>
+                 <div class='row'>
+                   <h4 class='col-md-12'>Research</h4>
+                 </div>
+                 <!--Need a better way of presenting this. Other than this long goofy list-->
+                 <div class='row'>
+                   <h5 class='col-md-12'>Journals</h5>
+                   <ul>
+                     <!--Need to get with client and find a resolution strategy for these dead ass links-->
+                     <li>Y. Li, L. Schwiebert, E. Hailat, J. Mick, and J. J. Potoff, "Improving performance of GPU code using novel features of the NVIDIA kepler architecture," Concurrency and Computation Practice and Experience, 28, 3586-3605 (2016) DOI: 10.1002/cpe.3744</li>
+                     <li>J. R. Mick, M. Barhaghi, and J. J. Potoff, "Prediction of radon-222 phase behavior from Monte Carlo simulation," J. Chem. Eng. Data 61, 1625-1631 (2016)</li>
+                     <li>J. J. Potoff and G Kamath, "Mie potentials for phase equilibria: application to alkenes," J. Chem. Eng. Data 59, 3144-3150 (2014) [invited paper]. DOI: 10.1021/je500202q</li>
+                     <li>J. Mick, M. Barhaghi, B. Jackman, K. Rushaidat, L. Schwiebert and J. Potoff, "Optimized Mie potentials for phase equilibria: Application to noble gases and their mixtures with n-alkanes," The Journal of Chemical Physics, vol. 143, pp. 114504, 2015</li>
+                     <li>J. R. Mick, E. Hailat, V. Russo, K. Rushaidat, L. Schwiebert, and J. J. Potoff, "GPU-accelerated Gibbs ensemble Monte Carlo simulations of Lennard-Jonesium," Computer Physics Communications, 184(12):2662-2669, December 2013</li>
+                     <li>E. Hailat, V. Russo, J. Mick, K. Rushaidat, L. Schwiebert, and J. Potoff, "Parallel Monte Carlo Simulation for Canonical Ensemble on the graphics processing unit," International Journal of Parallel, Emergent, and Distributed Systems, 29(4), 2014</li>
+                   </ul>
+                 </div>
+                 <div class='row'>
+                   <h5 class='col-md-12'>Refereed Conference and Workshop Publications</h5>
+                   <ul>
+                     <li>K. Rushaidat, L. Schwiebert, B. Jackman, J. Mick, and J. Potoff, "Evaluation of Hybrid Parallel Cell List Algorithms For Monte Carlo Simulation," in Proceedings of The 7th IEEE International Workshop on Multicore and Multithreaded Architectures and Algorithms (M2A2 2015), New York, NY, August 2015</li>
+                     <li>K. Rushaidat, L. Schwiebert, B. Jackman, J. Mick, and J. Potoff, "Efficient Parallel Cell List Algorithms for Monte Carlo Simulations," in Proceedings of 2015 The Summer Simulation Multi-Conference (SummerSim'15), Chicago, IL, July 2015</li>
+                     <li>E. Hailat, K. Rushaidat, L. Schwiebert, J. R. Mick, and J. J. Potoff, "GPU-based Monte Carlo simulation for the Gibbs Ensemble," High Performance Computing Symposium, April 2013</li>
+                     <li>J. Mick, K. Rushaidat, E. Hailat, V. Russo, L. Schwiebert, and J. Potoff, "GPU Accelerated Configurational Bias Monte Carlo Simulations of Linear Alkanes," AIChE Annual Meeting, paper no. 283711, October 2012</li>
+                     <li>J. Mick, E. Hailat, Y. Li, K. Rushaidat, L. Schwiebert, and J. Potoff, "Optimization of a Lennard-Jones Particle Monte Carlo GPU Code," AIChE Annual Meeting, paper no. 283934, October 2012</li>
+                     <li>J. Mick, J. Potoff, E. Hailat, V. Russo, and L. Schwiebert, "GPU Accelerated Monte Carlo Simulations In the Gibbs and Canonical Ensembles," AIChE Annual Meeting, October 2011</li>
+                   </ul>
+                 </div>
+                 <div class='row'>
+                   <h5 class='col-md-12'>Posters</h5>
+                   <ul>
+                     <li>E. Hailat, J. Mick, K. Rushaidat, L. Schwiebert, and J. Potoff, "A Massively Parallel Implementation for the Grand Canonical Monte Carlo Simulation," Wayne State University Graduate Exhibition, March 2013<a href='styles/img/firstPoster.pdf' target='_blank'></a></li>
+                     <li>J. Mick, K. Rushaidat, E. Hailat, Y. Li, V. Russo, L. Schwiebert, and J. Potoff, "GPU Monte Carlo Developments: Biased Gibbs Ensemble Alkane Simulations and Architectural Optimizations," AIChE Annual Meeting, October 2012<a href='styles/img/secondPoster.pdf' target='_blank'></a></li>
+                     <li>E. Hailat, V. Russo, J. Mick, K. Rushaidat, L. Schwiebert, and J. Potoff, "GPU-Based Monte Carlo Simulations for Canonical and Gibbs Ensembles," 2012 GPU Technology Conference (GTC), May 2012<a href='styles/img/thirdPoster.pdf' target="_blank"></a></li>
+                     <li>J. Mick, E. Hailat, V. Russo, K. Rushaidat,L. Schwiebert, and J. Potoff, "Accelerating Simulations in the Gibbs and Canonical Ensembles with GPUs," AIChE Annual Meeting, October 2011<a href='styles/img/fourthPoster.pdf' target="_blank"></a></li>
+                   </ul>
+                 </div>
+                 <div class='row'>
+                   <h5 col='col-md-12'>Technical Reports</h5>
+                   <ul>
+                     <li><a href='https://arxiv.org/abs/1408.3764' target="_blank">L. Schwiebert, E. Hailat, K. Rushaidat, J. Mick, and J. Potoff, "An Efficient Cell List Implementation for Monte Carlo Simulation on GPUs," arXiv.org, August 2014.</a></li>
+                   </ul>
+                 </div>
+                 <div class='row'>
+                   <p>Please find our latest manual : <a href='styles/img/Manual.pdf' target="_blank">GOMC Official Documentation V 2.10</a></p>
+                 </div>
+               </section>
+             </div>
+             </main>
+             <footer>
+                 <hr />
+                <p>Terms &amp; Conditions | Site Map | Privacy Policy | FAQ <br/></p>
+                <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
+             </footer>
+             <script src='javascript/jquery-3.2.1.min.js'></script>
+             <script src='styles/bootstrap/dist/js/bootstrap.min.js'></script>
+             <script src='javascript/gomc.js'></script>
+        </body>
+    </html>

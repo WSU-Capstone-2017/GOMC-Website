@@ -1,34 +1,130 @@
 <!DOCTYPE html>
-<!-- Landing page for GOMC website -->
+<!--Home Page will contain
+    -
+-->
+
+<!--
+
+Personal notes:
+-https://getbootstrap.com/docs/3.3/examples/carousel/# use that as an example of how to make a stagged home page
+- research design conventions for a good homepage
+- extra, try to fix up the search bar? maybe come into the code and uncomment it and show it during the demo
+-->
     <html>
         <head>
             <title>GOMC</title>
             <meta charset='utf-8' />
             <meta name="viewport" content="width=device-width, initial-scale=1">
-
-            <link rel='stylesheet' type='text/css' href='styles/pure-release-1.0.0.css' />
-            <link rel='stylesheet' type='text/css' href='styles/font-awesome-4.7.0/css/font-awesome.css' />
-             <link rel='stylesheet' type='text/css' href='styles/core.css' />
-             <link rel='icon' href='styles/img/gomcFavicon.ico/favicon.ico' />
+            <link href='styles/img/test.ico' />
+            <link rel='stylesheet' href='styles/bootstrap/dist/css/bootstrap.min.css' />
+            <link rel='stylesheet' href='styles/core.css' />
          </head>
          <body>
-             <header>
+             <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+                 <div class='container-fluid'>
+                     <div class='navbar-header' id='menu'>
+                         <a href='#'><img src='styles/img/gomc.png' alt='team logo'/ class='img-responsive'></a>
+                         <button type="button" class="navbar-toggle"  data-toggle="collapse" href="#navCollapse"
+                         data-parent='#menu' id='btn'>
+                             <span class='glyphicon glyphicon-align-justify'></span>
+                         </button>
+                         <div class='collapse navbar-collapse' id='navCollapse'>
+                             <ul class='nav nav-tabs nav-justified nav'>
+                                <li><a href='home.html' id='onHomePage'>Home</a></li>
+                                <li><a href='resources.html' >Resources</a></li>
+                                <li><a href='downloads.html' >Downloads</a></li>
+                                <li><a href='about.html'>About</a></li>
+                                <li><a href='font-test.html'>Font-Test</a></li>
+                             </ul>
 
-             </header>
-             <nav>
+                             <!-- Example of search form implementation, kept here just in case we need it, it's the code in mockup 3 as reference in case I need to implement a form later -->
+                             <!-- <form class="navbar-form navbar-right" role="search">
+					                     <div class="form-group">
+						                      <input type="text" class="form-control">
+					                     </div>
+					                     <button type="submit" class="btn btn-default">Search</button>
+				                     </form> -->
 
+                        </div>
+                     </div>
+                 </div>
              </nav>
+             <header>
+               <div class='jumbotron'>
+                  <h1>Research and Innovate</h1>
+                  <div class='carousel slide' data-ride='carousel' id='gomcHome'>
+                    <!-- Identify the number of slides in the carousel, what is a good design convention for this? -->
+                    <ol class='carousel-indicators'>
+                      <!-- Can add content as needed -->
+                      <li data-target='#gomcHome'data-slide-to='0' class='active'></li>
+                      <li data-target='#gomcHome'data-slide-to='1'></li>
+                      <li data-target='#gomcHome'data-slide-to='2'></li>
+                      <li data-target='#gomcHome'data-slide-to='3'></li>
+                    </ol>
+                    <div class='carousel-inner' role='listbox'>
+                      <!-- This part contains the slides -->
+                      <div class='item active'>
+                        <!-- What's in here needs to be relateable for the demo tommorow, from mockup 6 a different bg is used and no images are actually on display, we should go with that-->
+                        <img src='styles/test/cuphead.gif'/>
+                        <div class='carousel-caption'>
+                          <p>Tacos</p>
+                        </div>
+                      </div>
+                      <div class='item'>
+                        <img src='styles/test/cuphead2.gif'/>
+                        <div class='carousel-caption'>
+                          <p>More Tacos</p>
+                        </div>
+                      </div>
+                      <div class='item'>
+                        <img src='style/test/cuphead3.gif' alt="test of"/>
+                        <div class='carousel-caption'>
+                          <p>And Cats</p>
+                        </div>
+                      </div>
+                      <div class='item'>
+                        <img src='styles/test/frog.gif' alt="test gif of frog for implementation" />
+                        <div class='carousel-caption'>
+                          <p>And a shot!</p>
+                        </div>
+                      </div>
+                    </div>
+                      <!-- This part contains the controls for the carousel -->
+                      <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next'>
+                        <!--Needs glyphs or maybe I should include another lib?-->
+                      </a>
+                      <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev'>
+                        <!--Needs glyphs or maybe I should include another lib?-->
+                      </a>
+                  </div>
+               </div>
+             </header>
              <main>
+               <div class='container-fluid'>
                  <section>
+                   <div class='row cardA'>
 
+                   </div>
                  </section>
+                 <section>
+                   <div class='row cardB'>
+
+                   </div>
+                 </section>
+                 <section>
+                   <div class='row cardC'>
+
+                   </div>
+                 </section>
+               </div>
              </main>
              <footer>
-                 <address>
-
-                 </address>
+                 <hr />
+                <p>Terms &amp; Conditions | Site Map | Privacy Policy | FAQ <br/></p>
+                <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
              </footer>
              <script src='javascript/jquery-3.2.1.min.js'></script>
-            <script src = 'javascript/gomc.js'></script>
+             <script src='styles/bootstrap/dist/js/bootstrap.min.js'></script>
+             <script src='javascript/gomc.js'></script>
         </body>
     </html>
