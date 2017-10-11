@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--Downloads Page will contain
+    -
+-->
+    <html>
+        <head>
+            <title>GOMC - Downloads</title>
+            <meta charset='utf-8' />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href='styles/img/test.ico' />
+            <link rel='stylesheet' href='styles/bootstrap/dist/css/bootstrap.min.css' />
+            <link rel='stylesheet' href='styles/core.css' />
+         </head>
+         <body>
+             <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+                 <div class='container-fluid'>
+                     <div class='navbar-header' id='menu'>
+                         <a href='#'><img src='styles/img/gomc.png' alt='team logo'/ class='img-responsive'></a>
+                         <button type="button" class="navbar-toggle"  data-toggle="collapse" href="#navCollapse"
+                         data-parent='#menu' id='btn'>
+                             <span class='glyphicon glyphicon-align-justify'></span>
+                         </button>
+                         <div class='collapse navbar-collapse' id='navCollapse'>
+                             <ul class='nav nav-tabs nav-justified nav'>
+                                <li><a href='home.html' >Home</a></li>
+                                <li><a href='resources.html' >Resources</a></li>
+                                <li><a href='downloads.html' id='onDownloadsPage'>Downloads</a></li>
+                                <li><a href='about.html'>About</a></li>
+                                <li><a href='font-test.html'>Font-Test</a></li>
+                             </ul>
+                        </div>
+                     </div>
+                 </div>
+             </nav>
+             <header>
+               <h1>Downloads</h1>
+             </header>
+             <main>
+               <div class='container-fluid'>
+                 <div class='row'>
+                   <section>
+                     <h4 class='col-md-4'>Most Recent Downloads</h4>
+                     <ul id='dataOfReleasesFromAJAX'> <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
+                       <li>GOMC version 2.1 is available for download.</li>
+                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                       <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                     </ul>
+                     <aside>
+                       <h4 class='col-md-8'>Release Notes</h4>
+                       <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p> <!-- Gotta look into how to do this markup -->
+                     </aside>
+                   </section>
+                 </div>
+                 <div class='row'>
+                   <article>
+                     <div class='col-md-8'>
+                       <h4>Getting Started</h4>
+                       <dl>
+                         <dd>Set up</dd>
+                       </dl>
+                     </div>
+                     <div class='col-md-4'>
+                       <h4>ReadMe</h4>
+                       <p></p> <!-- Maybe use formatted markdown here?-->
+                     </div>
+                   </article>
+                 </div>
+                 <div class='row'>
+                   <article>
+                     <!--How it works and what it is-->
+                     <div class='col-md-4'>
+                       <h4>How it works</h4>
+                       <p></p>
+                     </div>
+                     <div class='col-md-8'>
+                       <h4>What it is</h4>
+                       <p></p>
+                     </div>
+                   </article>
+                 </div>
+               </div>
+             </main>
+             <footer>
+                 <hr />
+                <p>Terms &amp; Conditions | Site Map | Privacy Policy | FAQ <br/></p>
+                <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
+             </footer>
+             <script src='javascript/jquery-3.2.1.min.js'></script>
+             <script src='styles/bootstrap/dist/js/bootstrap.min.js'></script>
+             <script src='javascript/gomc.js'></script>
+        </body>
+    </html>
