@@ -1,4 +1,4 @@
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Team Logo](/Other/GOMC.png)
+<p align="center"> <img src="https://github.com/WSU-Capstone-2017/GOMC-Website/raw/master/Other/GOMC.png" width="340px" height="301px"></p>
 
 # Capstone-Senior-Project
 
