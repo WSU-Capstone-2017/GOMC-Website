@@ -110,6 +110,7 @@ footer {
 
 /*resources.html specific classes*/
 
+
 /*downloads.html specific classes*/
 
 /*home.html specific classes*/
@@ -123,7 +124,7 @@ footer {
 }
 
 .grand-line {
-    margin: 40px ;
+    margin: 40px;
 }
 
 /*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
