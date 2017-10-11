@@ -43,7 +43,7 @@ namespace Project.Models.Gomc
 		///     In case of <see cref="Restart" /> set to 'true', the restart PDB output file from GOMC (OutputName BOX 0
 		///     restart.pdb) can be used for both boxes.
 		/// </remarks>
-		public CoordinateInput[] Coordinates { get; set; }
+		public string[] Coordinates { get; set; }
 
 		/// <summary>
 		///     Defines the PSF filenames (structures) for each box in the system.
@@ -55,15 +55,15 @@ namespace Project.Models.Gomc
 		///     In case of <see cref="Restart" /> set to 'true', the restart PSF output file from GOMC (OutputName BOX 0
 		///     restart.pdb) can be used for both boxes.
 		/// </remarks>
-		public StructureInput[] Structures { get; set; }
+		public string[] Structures { get; set; }
 
 		public ConfigInputSection()
 		{
 		}
 
 		public ConfigInputSection(bool restart, PrngType prng, int? randomSeed, ForceFieldType paraType,
-			string parametersFileName, IEnumerable<CoordinateInput> coordinates,
-			IEnumerable<StructureInput> structures)
+			string parametersFileName, IEnumerable<string> coordinates,
+			IEnumerable<string> structures)
 		{
 			Restart = restart;
 			Prng = prng;

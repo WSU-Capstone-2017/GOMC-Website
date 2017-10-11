@@ -5,458 +5,384 @@
 <h2>@ViewBag.Title</h2>
 
 
-<form>
-<div class="form_section_header">Input Section</div>
-<br />
-<div class="form_param_name">Restart</div>
-<br />
-<label for="form_input_id_Restart">True</label>
-<input type="radio" name="Restart" value="Boolean" class="" id="form_input_id_Restart" />
-<label for="form_input_id_Restart">False</label>
-<input type="radio" name="Restart" value="Boolean" class="" id="form_input_id_Restart" />
-<br />
-<br />
-<div class="form_param_name">Prng</div>
-<br />
-<label for="PrngType">Random</label>
-<input type="radio" name="PrngType" value="PrngType" id="PrngType" />
-<br />
-<label for="PrngType">Intseed</label>
-<input type="radio" name="PrngType" value="PrngType" id="PrngType" />
-<br />
-<br />
-<div class="form_param_name">RandomSeed</div>
-<br />
-<br />
-<div class="form_param_name">ParaType</div>
-<br />
-<label for="ForceFieldType">Charmm</label>
-<input type="radio" name="ForceFieldType" value="ForceFieldType" id="ForceFieldType" />
-<br />
-<label for="ForceFieldType">Exotic</label>
-<input type="radio" name="ForceFieldType" value="ForceFieldType" id="ForceFieldType" />
-<br />
-<label for="ForceFieldType">Martini</label>
-<input type="radio" name="ForceFieldType" value="ForceFieldType" id="ForceFieldType" />
-<br />
-<br />
-<div class="form_param_name">ParametersFileName</div>
-<br />
-<input type="text" name="ParametersFileName" value="" class="" id="form_input_id_ParametersFileName" />
-<br />
-<br />
-<div class="form_param_name">Coordinates</div>
-<br />
-<div>BoxNumber</div>
-<input type="text" name="BoxNumber" value="" class="form_input_int" id="form_input_id_BoxNumber" />
-<br />
-<div>PdbFileName</div>
-<input type="text" name="PdbFileName" value="" class="" id="form_input_id_PdbFileName" />
-<br />
-<br />
-<div class="form_param_name">Structures</div>
-<br />
-<div>BoxNumber</div>
-<input type="text" name="BoxNumber" value="" class="form_input_int" id="form_input_id_BoxNumber" />
-<br />
-<div>PsfFileName</div>
-<input type="text" name="PsfFileName" value="" class="" id="form_input_id_PsfFileName" />
-<br />
-<br />
-<div class="form_section_header">System Section</div>
-<br />
-<div class="form_param_name">Gemc</div>
-<br />
-<label for="GemcType">Nvt</label>
-<input type="radio" name="GemcType" value="GemcType" id="GemcType" />
-<br />
-<label for="GemcType">Npt</label>
-<input type="radio" name="GemcType" value="GemcType" id="GemcType" />
-<br />
-<br />
-<div class="form_param_name">Pressure</div>
-<br />
-<input type="text" name="Pressure" value="" class="form_input_float" id="form_input_id_Pressure" />
-<br />
-<br />
-<div class="form_param_name">Temperature</div>
-<br />
-<input type="text" name="Temperature" value="" class="form_input_float" id="form_input_id_Temperature" />
-<br />
-<br />
-<div class="form_param_name">Rcut</div>
-<br />
-<input type="text" name="Rcut" value="" class="form_input_float" id="form_input_id_Rcut" />
-<br />
-<br />
-<div class="form_param_name">RcutLow</div>
-<br />
-<input type="text" name="RcutLow" value="" class="form_input_float" id="form_input_id_RcutLow" />
-<br />
-<br />
-<div class="form_param_name">Lrc</div>
-<br />
-<label for="form_input_id_Lrc">True</label>
-<input type="radio" name="Lrc" value="Boolean" class="" id="form_input_id_Lrc" />
-<label for="form_input_id_Lrc">False</label>
-<input type="radio" name="Lrc" value="Boolean" class="" id="form_input_id_Lrc" />
-<br />
-<br />
-<div class="form_param_name">Exclude</div>
-<br />
-<label for="ExcludeType">OneTwo</label>
-<input type="radio" name="ExcludeType" value="ExcludeType" id="ExcludeType" />
-<br />
-<label for="ExcludeType">OneThree</label>
-<input type="radio" name="ExcludeType" value="ExcludeType" id="ExcludeType" />
-<br />
-<label for="ExcludeType">OneFour</label>
-<input type="radio" name="ExcludeType" value="ExcludeType" id="ExcludeType" />
-<br />
-<br />
-<div class="form_param_name">Potential</div>
-<br />
-<label for="PotentialType">Vdw</label>
-<input type="radio" name="PotentialType" value="PotentialType" id="PotentialType" />
-<br />
-<label for="PotentialType">Shift</label>
-<input type="radio" name="PotentialType" value="PotentialType" id="PotentialType" />
-<br />
-<label for="PotentialType">Switch</label>
-<input type="radio" name="PotentialType" value="PotentialType" id="PotentialType" />
-<br />
-<br />
-<div class="form_param_name">Rswitch</div>
-<br />
-<input type="text" name="Rswitch" value="" class="form_input_float" id="form_input_id_Rswitch" />
-<br />
-<br />
-<div class="form_param_name">ElectroStatic</div>
-<br />
-<label for="form_input_id_ElectroStatic">True</label>
-<input type="radio" name="ElectroStatic" value="Boolean" class="" id="form_input_id_ElectroStatic" />
-<label for="form_input_id_ElectroStatic">False</label>
-<input type="radio" name="ElectroStatic" value="Boolean" class="" id="form_input_id_ElectroStatic" />
-<br />
-<br />
-<div class="form_param_name">Ewald</div>
-<br />
-<input type="text" name="Ewald" value="" class="form_input_float" id="form_input_id_Ewald" />
-<br />
-<br />
-<div class="form_param_name">CachedFourier</div>
-<br />
-<label for="form_input_id_CachedFourier">True</label>
-<input type="radio" name="CachedFourier" value="Boolean" class="" id="form_input_id_CachedFourier" />
-<label for="form_input_id_CachedFourier">False</label>
-<input type="radio" name="CachedFourier" value="Boolean" class="" id="form_input_id_CachedFourier" />
-<br />
-<br />
-<div class="form_param_name">Tolerance</div>
-<br />
-<input type="text" name="Tolerance" value="" class="form_input_float" id="form_input_id_Tolerance" />
-<br />
-<br />
-<div class="form_param_name">Dielectric</div>
-<br />
-<input type="text" name="Dielectric" value="" class="form_input_float" id="form_input_id_Dielectric" />
-<br />
-<br />
-<div class="form_param_name">PressureCalc</div>
-<br />
-<br />
-<div class="form_param_name">OneFourScaling</div>
-<br />
-<input type="text" name="OneFourScaling" value="" class="form_input_float" id="form_input_id_OneFourScaling" />
-<br />
-<br />
-<div class="form_param_name">RunSteps</div>
-<br />
-<input type="text" name="RunSteps" value="" class="form_input_uint" id="form_input_id_RunSteps" />
-<br />
-<br />
-<div class="form_param_name">EqSteps</div>
-<br />
-<input type="text" name="EqSteps" value="" class="form_input_uint" id="form_input_id_EqSteps" />
-<br />
-<br />
-<div class="form_param_name">AdjSteps</div>
-<br />
-<input type="text" name="AdjSteps" value="" class="form_input_uint" id="form_input_id_AdjSteps" />
-<br />
-<br />
-<div class="form_param_name">ChemPot</div>
-<br />
-<div>ResName</div>
-<input type="text" name="ResName" value="" class="" id="form_input_id_ResName" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_float" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">Fugacity</div>
-<br />
-<div>ResName</div>
-<input type="text" name="ResName" value="" class="" id="form_input_id_ResName" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_float" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">DisFreq</div>
-<br />
-<input type="text" name="DisFreq" value="" class="form_input_float" id="form_input_id_DisFreq" />
-<br />
-<br />
-<div class="form_param_name">RotFreq</div>
-<br />
-<input type="text" name="RotFreq" value="" class="form_input_float" id="form_input_id_RotFreq" />
-<br />
-<br />
-<div class="form_param_name">IntraSwapFreq</div>
-<br />
-<input type="text" name="IntraSwapFreq" value="" class="form_input_float" id="form_input_id_IntraSwapFreq" />
-<br />
-<br />
-<div class="form_param_name">VolFreq</div>
-<br />
-<input type="text" name="VolFreq" value="" class="form_input_float" id="form_input_id_VolFreq" />
-<br />
-<br />
-<div class="form_param_name">SwapFreq</div>
-<br />
-<input type="text" name="SwapFreq" value="" class="form_input_float" id="form_input_id_SwapFreq" />
-<br />
-<br />
-<div class="form_param_name">UseConstantArea</div>
-<br />
-<label for="form_input_id_UseConstantArea">True</label>
-<input type="radio" name="UseConstantArea" value="Boolean" class="" id="form_input_id_UseConstantArea" />
-<label for="form_input_id_UseConstantArea">False</label>
-<input type="radio" name="UseConstantArea" value="Boolean" class="" id="form_input_id_UseConstantArea" />
-<br />
-<br />
-<div class="form_param_name">FixVolBox0</div>
-<br />
-<label for="form_input_id_FixVolBox0">True</label>
-<input type="radio" name="FixVolBox0" value="Boolean" class="" id="form_input_id_FixVolBox0" />
-<label for="form_input_id_FixVolBox0">False</label>
-<input type="radio" name="FixVolBox0" value="Boolean" class="" id="form_input_id_FixVolBox0" />
-<br />
-<br />
-<div class="form_param_name">BoxDim</div>
-<br />
-<div>BoxNumber</div>
-<input type="text" name="BoxNumber" value="" class="form_input_int" id="form_input_id_BoxNumber" />
-<br />
-<div>XAxis</div>
-<input type="text" name="XAxis" value="" class="form_input_float" id="form_input_id_XAxis" />
-<br />
-<div>YAxis</div>
-<input type="text" name="YAxis" value="" class="form_input_float" id="form_input_id_YAxis" />
-<br />
-<div>ZAxis</div>
-<input type="text" name="ZAxis" value="" class="form_input_float" id="form_input_id_ZAxis" />
-<br />
-<br />
-<div class="form_param_name">CbmcFirst</div>
-<br />
-<input type="text" name="CbmcFirst" value="" class="form_input_int" id="form_input_id_CbmcFirst" />
-<br />
-<br />
-<div class="form_param_name">CbmcNth</div>
-<br />
-<input type="text" name="CbmcNth" value="" class="form_input_int" id="form_input_id_CbmcNth" />
-<br />
-<br />
-<div class="form_param_name">CbmcAng</div>
-<br />
-<input type="text" name="CbmcAng" value="" class="form_input_int" id="form_input_id_CbmcAng" />
-<br />
-<br />
-<div class="form_param_name">CbmcDih</div>
-<br />
-<input type="text" name="CbmcDih" value="" class="form_input_int" id="form_input_id_CbmcDih" />
-<br />
-<br />
-<div class="form_section_header">Output Section</div>
-<br />
-<div class="form_param_name">OutputName</div>
-<br />
-<input type="text" name="OutputName" value="" class="" id="form_input_id_OutputName" />
-<br />
-<br />
-<div class="form_param_name">CoordinatesFreq</div>
-<br />
-<div>Enabled</div>
-<label for="form_input_id_Enabled">True</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<label for="form_input_id_Enabled">False</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_uint" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">RestartFreq</div>
-<br />
-<div>Enabled</div>
-<label for="form_input_id_Enabled">True</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<label for="form_input_id_Enabled">False</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_uint" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">ConsoleFreq</div>
-<br />
-<div>Enabled</div>
-<label for="form_input_id_Enabled">True</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<label for="form_input_id_Enabled">False</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_uint" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">BlockAverageFreq</div>
-<br />
-<div>Enabled</div>
-<label for="form_input_id_Enabled">True</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<label for="form_input_id_Enabled">False</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_uint" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">HistogramFreq</div>
-<br />
-<div>Enabled</div>
-<label for="form_input_id_Enabled">True</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<label for="form_input_id_Enabled">False</label>
-<input type="radio" name="Enabled" value="Boolean" class="" id="form_input_id_Enabled" />
-<br />
-<div>Value</div>
-<input type="text" name="Value" value="" class="form_input_uint" id="form_input_id_Value" />
-<br />
-<br />
-<div class="form_param_name">DistName</div>
-<br />
-<input type="text" name="DistName" value="" class="" id="form_input_id_DistName" />
-<br />
-<br />
-<div class="form_param_name">HistName</div>
-<br />
-<input type="text" name="HistName" value="" class="" id="form_input_id_HistName" />
-<br />
-<br />
-<div class="form_param_name">RunNumber</div>
-<br />
-<input type="text" name="RunNumber" value="" class="form_input_uint" id="form_input_id_RunNumber" />
-<br />
-<br />
-<div class="form_param_name">RunLetter</div>
-<br />
-<br />
-<div class="form_param_name">SampleFreq</div>
-<br />
-<input type="text" name="SampleFreq" value="" class="form_input_uint" id="form_input_id_SampleFreq" />
-<br />
-<br />
-<div class="form_param_name">OutEnergy</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-<div class="form_param_name">OutPressure</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-<div class="form_param_name">OutMolNumber</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-<div class="form_param_name">OutDensity</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-<div class="form_param_name">OutVolume</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-<div class="form_param_name">OutSurfaceTension</div>
-<br />
-<div>First</div>
-<label for="form_input_id_First">True</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<label for="form_input_id_First">False</label>
-<input type="radio" name="First" value="Boolean" class="" id="form_input_id_First" />
-<br />
-<div>Second</div>
-<label for="form_input_id_Second">True</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<label for="form_input_id_Second">False</label>
-<input type="radio" name="Second" value="Boolean" class="" id="form_input_id_Second" />
-<br />
-<br />
-</form>
+<div class="container">
+    <form>
+    <fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Ensemble</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Nvt" value="Nvt">Nvt</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Npt" value="Npt">Npt</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNvt" value="GibbsNvt">GibbsNvt</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNpt" value="GibbsNpt">GibbsNpt</label>
+                </div>
+            </div>
+        </div></fieldset><legend>Input Section</legend><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Restart</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="Restart" id="gomc_config_input_Restart_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="Restart" id="gomc_config_input_Restart_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Prng</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Prng" id="gomc_config_input_Prng_Random" value="Random">Random</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Prng" id="gomc_config_input_Prng_Intseed" value="Intseed">Intseed</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RandomSeed">RandomSeed</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_RandomSeed">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">ParaType</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Charmm" value="Charmm">Charmm</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Exotic" value="Exotic">Exotic</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Martini" value="Martini">Martini</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_ParametersFileName">ParametersFileName</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_ParametersFileName">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Coordinates">Coordinates</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_Coordinates_1"><input class="form-control" type="text" id="gomc_config_input_Coordinates_2">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Structures">Structures</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_Structures_1"><input class="form-control" type="text" id="gomc_config_input_Structures_2">
+        </div>
+    </div><legend>System Section</legend>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Pressure">Pressure</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Pressure">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Temperature">Temperature</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Temperature">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Rcut">Rcut</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Rcut">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RcutLow">RcutLow</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_RcutLow">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Lrc</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="Lrc" id="gomc_config_input_Lrc_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="Lrc" id="gomc_config_input_Lrc_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Exclude</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneTwo" value="OneTwo">OneTwo</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneThree" value="OneThree">OneThree</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneFour" value="OneFour">OneFour</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Potential</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Vdw" value="Vdw">Vdw</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Shift" value="Shift">Shift</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Switch" value="Switch">Switch</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Rswitch">Rswitch</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Rswitch">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">ElectroStatic</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="ElectroStatic" id="gomc_config_input_ElectroStatic_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="ElectroStatic" id="gomc_config_input_ElectroStatic_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Ewald">Ewald</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Ewald">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">CachedFourier</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="CachedFourier" id="gomc_config_input_CachedFourier_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="CachedFourier" id="gomc_config_input_CachedFourier_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Tolerance">Tolerance</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Tolerance">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_Dielectric">Dielectric</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_Dielectric">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_PressureCalc">PressureCalc</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_PressureCalc">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_OneFourScaling">OneFourScaling</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_OneFourScaling">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RunSteps">RunSteps</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_RunSteps">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_EqSteps">EqSteps</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_EqSteps">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_AdjSteps">AdjSteps</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_AdjSteps">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">ChemPot</label>
+            <div class="col-sm-2"><label>Name<input class="form-control" type="text" id="gomc_config_input_ChemPot_Name"></label><label>Value<input class="form-control" type="number" id="gomc_config_input_ChemPot_Value"></label>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">Fugacity</label>
+            <div class="col-sm-2"><label>Name<input class="form-control" type="text" id="gomc_config_input_Fugacity_Name"></label><label>Value<input class="form-control" type="number" id="gomc_config_input_Fugacity_Value"></label>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_DisFreq">DisFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_DisFreq">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RotFreq">RotFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_RotFreq">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_IntraSwapFreq">IntraSwapFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_IntraSwapFreq">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_VolFreq">VolFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_VolFreq">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_SwapFreq">SwapFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_SwapFreq">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">UseConstantArea</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="UseConstantArea" id="gomc_config_input_UseConstantArea_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="UseConstantArea" id="gomc_config_input_UseConstantArea_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">FixVolBox0</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="FixVolBox0" id="gomc_config_input_FixVolBox0_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="FixVolBox0" id="gomc_config_input_FixVolBox0_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label">BoxDim</label>
+        <div class="col-sm-2"><label>XAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_XAxis"></label>
+        </div>
+        <div class="col-sm-2"><label>YAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_YAxis"></label>
+        </div>
+        <div class="col-sm-2"><label>ZAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_ZAxis"></label>
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_CbmcFirst">CbmcFirst</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_CbmcFirst">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_CbmcNth">CbmcNth</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_CbmcNth">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_CbmcAng">CbmcAng</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_CbmcAng">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_CbmcDih">CbmcDih</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_CbmcDih">
+        </div>
+    </div><legend>Output Section</legend>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_OutputName">OutputName</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_OutputName">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">CoordinatesFreq</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="CoordinatesFreq" id="gomc_config_input_CoordinatesFreq_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="CoordinatesFreq" id="gomc_config_input_CoordinatesFreq_False" value="False">False</label>
+                </div><br>
+                <div class="form-check"><label>Value<input class="form-control" type="number" id="gomc_config_input_CoordinatesFreq"></label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">RestartFreq</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="RestartFreq" id="gomc_config_input_RestartFreq_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="RestartFreq" id="gomc_config_input_RestartFreq_False" value="False">False</label>
+                </div><br>
+                <div class="form-check"><label>Value<input class="form-control" type="number" id="gomc_config_input_RestartFreq"></label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">ConsoleFreq</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="ConsoleFreq" id="gomc_config_input_ConsoleFreq_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="ConsoleFreq" id="gomc_config_input_ConsoleFreq_False" value="False">False</label>
+                </div><br>
+                <div class="form-check"><label>Value<input class="form-control" type="number" id="gomc_config_input_ConsoleFreq"></label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">BlockAverageFreq</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="BlockAverageFreq" id="gomc_config_input_BlockAverageFreq_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="BlockAverageFreq" id="gomc_config_input_BlockAverageFreq_False" value="False">False</label>
+                </div><br>
+                <div class="form-check"><label>Value<input class="form-control" type="number" id="gomc_config_input_BlockAverageFreq"></label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">HistogramFreq</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="HistogramFreq" id="gomc_config_input_HistogramFreq_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="HistogramFreq" id="gomc_config_input_HistogramFreq_False" value="False">False</label>
+                </div><br>
+                <div class="form-check"><label>Value<input class="form-control" type="number" id="gomc_config_input_HistogramFreq"></label>
+                </div>
+            </div>
+        </div></fieldset>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_DistName">DistName</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_DistName">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_HistName">HistName</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_HistName">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RunNumber">RunNumber</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_RunNumber">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_RunLetter">RunLetter</label>
+        <div class="col-sm-2"><input class="form-control" type="text" id="gomc_config_input_RunLetter">
+        </div>
+    </div>
+    <div class="form-group row"><label class="col-sm-2 col-form-label" for="gomc_config_input_SampleFreq">SampleFreq</label>
+        <div class="col-sm-2"><input class="form-control" type="number" id="gomc_config_input_SampleFreq">
+        </div>
+    </div><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutEnergy</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutEnergy1" id="gomc_config_input_OutEnergy_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutEnergy1" id="gomc_config_input_OutEnergy_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutEnergy2" id="gomc_config_input_OutEnergy_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutEnergy2" id="gomc_config_input_OutEnergy_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutPressure</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutPressure1" id="gomc_config_input_OutPressure_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutPressure1" id="gomc_config_input_OutPressure_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutPressure2" id="gomc_config_input_OutPressure_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutPressure2" id="gomc_config_input_OutPressure_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutMolNumber</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutMolNumber1" id="gomc_config_input_OutMolNumber_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutMolNumber1" id="gomc_config_input_OutMolNumber_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutMolNumber2" id="gomc_config_input_OutMolNumber_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutMolNumber2" id="gomc_config_input_OutMolNumber_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutDensity</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutDensity1" id="gomc_config_input_OutDensity_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutDensity1" id="gomc_config_input_OutDensity_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutDensity2" id="gomc_config_input_OutDensity_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutDensity2" id="gomc_config_input_OutDensity_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutVolume</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutVolume1" id="gomc_config_input_OutVolume_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutVolume1" id="gomc_config_input_OutVolume_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutVolume2" id="gomc_config_input_OutVolume_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutVolume2" id="gomc_config_input_OutVolume_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset><fieldset class="form-group">
+        <div class="row"><label class="col-form-label col-sm-2">OutSurfaceTension</label>
+            <div class="col-sm-2">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutSurfaceTension1" id="gomc_config_input_OutSurfaceTension_1_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutSurfaceTension1" id="gomc_config_input_OutSurfaceTension_1_False" value="False">False</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutSurfaceTension2" id="gomc_config_input_OutSurfaceTension_2_True" value="True">True</label>
+                </div>
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="OutSurfaceTension2" id="gomc_config_input_OutSurfaceTension_2_False" value="False">False</label>
+                </div>
+            </div>
+        </div></fieldset>
+    </form>
+</div>

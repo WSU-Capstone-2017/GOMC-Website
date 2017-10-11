@@ -1,10 +1,20 @@
 ﻿namespace Project.Models.Gomc
 {
+	public enum Ensemble
+	{
+		Nvt,
+		Npt,
+		GibbsNvt,
+		GibbsNpt
+	}
+
 	/// <summary>
 	///     This is a model for the control file. The control file is GOMC’s proprietary input file. It contains key settings
 	/// </summary>
 	public class ConfigModel
 	{
+		public Ensemble Ensemble { get; set; }
+
 		/// <summary>
 		///     In this section, input file names are listed.In addition, if you want to restart your simulation or use integer
 		///     seed for running your simulation, you need to modify this section according to your purpose.

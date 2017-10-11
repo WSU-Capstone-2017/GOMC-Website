@@ -3,7 +3,7 @@ namespace Project.Models.Gomc
 	/// <summary>
 	/// A class that represents two boolean values.
 	/// </summary>
-	public class DiBoolean
+	public class OutBoolean
 	{
 		/// <summary>
 		/// The first boolean value.
@@ -15,12 +15,12 @@ namespace Project.Models.Gomc
 		/// </summary>
 		public bool Second { get; set; }
 
-		public DiBoolean()
+		public OutBoolean()
 		{
 			
 		}
 
-		public DiBoolean(bool first, bool second)
+		public OutBoolean(bool first, bool second)
 		{
 			First = first;
 			Second = second;

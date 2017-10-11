@@ -27,23 +27,23 @@ namespace Project.Models.Gomc
 
 		public uint SampleFreq { get; set; }
 
-		public DiBoolean OutEnergy { get; set; }
+		public OutBoolean OutEnergy { get; set; }
 
-		public DiBoolean OutPressure { get; set; }
+		public OutBoolean OutPressure { get; set; }
 
-		public DiBoolean OutMolNumber { get; set; }
+		public OutBoolean OutMolNumber { get; set; }
 
-		public DiBoolean OutDensity { get; set; }
+		public OutBoolean OutDensity { get; set; }
 
-		public DiBoolean OutVolume { get; set; }
+		public OutBoolean OutVolume { get; set; }
 
-		public DiBoolean OutSurfaceTension { get; set; }
+		public OutBoolean OutSurfaceTension { get; set; }
 
 		public ConfigOutputSection()
 		{
 			
 		}
-		public ConfigOutputSection(string outputName, FreqInput coordinatesFreq, FreqInput restartFreq, FreqInput consoleFreq, FreqInput blockAverageFreq, FreqInput histogramFreq, string distName, string histName, uint runNumber, char runLetter, uint sampleFreq, DiBoolean outEnergy, DiBoolean outPressure, DiBoolean outMolNumber, DiBoolean outDensity, DiBoolean outVolume, DiBoolean outSurfaceTension)
+		public ConfigOutputSection(string outputName, FreqInput coordinatesFreq, FreqInput restartFreq, FreqInput consoleFreq, FreqInput blockAverageFreq, FreqInput histogramFreq, string distName, string histName, uint runNumber, char runLetter, uint sampleFreq, OutBoolean outEnergy, OutBoolean outPressure, OutBoolean outMolNumber, OutBoolean outDensity, OutBoolean outVolume, OutBoolean outSurfaceTension)
 		{
 			OutputName = outputName;
 			CoordinatesFreq = coordinatesFreq;

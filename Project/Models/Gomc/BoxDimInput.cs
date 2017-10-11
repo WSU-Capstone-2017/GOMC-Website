@@ -6,11 +6,6 @@ namespace Project.Models.Gomc
 	public class BoxDimInput
 	{
 		/// <summary>
-		///     Sets box number (first box is box ‘0’)
-		/// </summary>
-		public int BoxNumber { get; set; }
-
-		/// <summary>
 		///     X-axis length in Angstroms
 		/// </summary>
 		public double XAxis { get; set; }
@@ -29,9 +24,8 @@ namespace Project.Models.Gomc
 		{
 			
 		}
-		public BoxDimInput(int boxNumber, double xAxis, double yAxis, double zAxis)
+		public BoxDimInput(double xAxis, double yAxis, double zAxis)
 		{
-			BoxNumber = boxNumber;
 			XAxis = xAxis;
 			YAxis = yAxis;
 			ZAxis = zAxis;
