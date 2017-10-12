@@ -160,6 +160,7 @@
     <Compile Include="Models\Gomc\ConfigModel.cs" />
     <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
     <Compile Include="Models\Gomc\ConfigSystemSection.cs" />
+    <Compile Include="Models\Gomc\Ensemble.cs" />
     <Compile Include="Models\Gomc\OutBoolean.cs" />
     <Compile Include="Models\Gomc\ExcludeType.cs" />
     <Compile Include="Models\Gomc\ForceFieldType.cs" />

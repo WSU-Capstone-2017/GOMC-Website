@@ -71,7 +71,7 @@ namespace Project.Models.Gomc
 		public double Rswitch { get; set; }
 
 		public bool ElectroStatic { get; set; }
-		public double Ewald { get; set; }
+		public bool Ewald { get; set; }
 		public bool CachedFourier { get; set; }
 		public double Tolerance { get; set; }
 		public double Dielectric { get; set; }
@@ -101,7 +101,7 @@ namespace Project.Models.Gomc
 		}
 
 		public ConfigSystemSection(GemcType gemc, double pressure, double temperature, double rcut, double rcutLow, bool lrc,
-			ExcludeType exclude, PotentialType potential, double rswitch, bool electroStatic, double ewald, bool cachedFourier,
+			ExcludeType exclude, PotentialType potential, double rswitch, bool electroStatic, bool ewald, bool cachedFourier,
 			double tolerance, double dielectric, ulong? pressureCalc, double oneFourScaling, ulong runSteps, ulong eqSteps,
 			ulong adjSteps, ResNameValue chemPot, ResNameValue fugacity, double disFreq, double rotFreq, double intraSwapFreq,
 			double volFreq, double swapFreq, bool useConstantArea, bool fixVolBox0, BoxDimInput boxDim, int cbmcFirst,

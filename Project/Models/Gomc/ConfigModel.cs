@@ -1,14 +1,5 @@
 ﻿namespace Project.Models.Gomc
 {
-	public enum Ensemble
-	{
-		Nvt,
-		Npt,
-		Vt,
-		GibbsNvt,
-		GibbsNpt
-	}
-
 	/// <summary>
 	///     This is a model for the control file. The control file is GOMC’s proprietary input file. It contains key settings
 	/// </summary>
