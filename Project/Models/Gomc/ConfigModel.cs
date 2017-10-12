@@ -4,6 +4,7 @@
 	{
 		Nvt,
 		Npt,
+		Vt,
 		GibbsNvt,
 		GibbsNpt
 	}
