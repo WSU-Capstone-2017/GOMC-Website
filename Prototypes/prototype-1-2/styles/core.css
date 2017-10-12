@@ -19,8 +19,8 @@
 
 /* Selector styles - General for nav footer and consistent page scheme */
 body {
-  color: #000000;
-  background-color: #FFFFFF;
+  color: #020816;
+  background-color: #FDFFFC;
   padding-top: 70px;
   font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must override font-family of scaffolding.less*/
 }
@@ -36,13 +36,15 @@ main {
 
 footer {
     text-align: center;
-    background-color: #FFF;
-    color: #000;
+    background-color: #FDFFFC;
+    color: #020816;
     padding-bottom: 10px; /*Just to fluff out the bottom*/
 }
 
 header, h1, h2, h3 {
   text-align: center;
+  background-color: #9ACD32;
+  color: #FDFFFC;
 }
 
 p {
@@ -82,6 +84,10 @@ footer {
     margin-top: 5.5em;
 }
 
+::selection {
+  background-color: #E58242;
+}
+
 /*font-test.html specific classes*/
 
 .card {
@@ -104,8 +110,8 @@ footer {
 }
 
 .test-square { /*For view testing in a space, TESTING ONLY*/
-    /*border: 2px solid #007FFF;
-    margin: 5px;*/
+    border: 2px solid #007FFF;
+    margin: 5px;
 }
 
 .formatted-container {
@@ -149,6 +155,10 @@ td {
 
 .gomcHome {
     min-height: 250px;
+}
+
+.gomcHome h1 {
+  background-color: none;
 }
 
 .sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/

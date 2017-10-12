@@ -12,7 +12,7 @@ $('#btn').click(function(){
     if($('#btn').children().hasClass('glyphicon-align-justify')){
       $('#btn').children().removeClass('glyphicon-align-justify');
       $('#btn').children().addClass('glyphicon-remove');
-      $('header').css('margin-top', '20em');
+      $('header').css('margin-top', '22.5em');
     }
     else {
        $('#btn').children().removeClass('glyphicon-remove');

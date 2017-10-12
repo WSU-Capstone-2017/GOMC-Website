@@ -125,7 +125,9 @@
              <script src='javascript/gomc.js'></script>
              <script>
              $(function(){
+               console.log('jumbotron, your\'re up!');
                  $('.jumbotron').css('background-color', '#91D3EF');
+                  $('.jumbotron h1').css('background-color', '#91D3EF');
              });
 
              $("#gomcHome").on('slid.bs.carousel', function () {
@@ -133,13 +135,16 @@
                 // console.log("Current card is: "+ focusedCard);
                  if(focusedCard.hasClass('cardA')){
                      $('.jumbotron').css('background-color', '#91D3EF');
+                     $('.jumbotron h1').css('background-color', '#91D3EF');
 
                  }
                  else if(focusedCard.hasClass('cardB')){
                       $('.jumbotron').css('background-color', '#9ACD32');
+                      $('.jumbotron h1').css('background-color', '#9ACD32');
                  }
                  else if(focusedCard.hasClass('cardC')) {
                       $('.jumbotron').css('background-color', '#CFE7A7');
+                      $('.jumbotron h1').css('background-color', '#CFE7A7');
                  }
              });
              </script>
