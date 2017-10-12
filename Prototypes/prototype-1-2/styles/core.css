@@ -63,7 +63,7 @@ footer {
     background-color: #9acd32;
 }
 
-/*classes - General Navigation*/
+/*classes - General Navigation & other stuff*/
 .main-menu {
     color: #FFF;
     background-color: #2c3539;
@@ -75,6 +75,10 @@ footer {
 
 .render {
     display: block;
+}
+
+.special-jumbotron { /*Add to each page header aside*/
+    margin-top: 5.5em;
 }
 
 /*font-test.html specific classes*/
@@ -108,12 +112,15 @@ footer {
   float: left;
 }
 
-/*resources.html specific classes*/
-
+/*documentation.html specific classes*/
 
 /*downloads.html specific classes*/
 
-/*home.html specific classes*/
+/*features.html specific classes*/
+
+/*publication.html specific classes*/
+
+/*gomc.html specific classes*/
 
 .gomcHome {
     min-height: 250px;
@@ -127,13 +134,23 @@ footer {
     margin: 40px;
 }
 
-/*Ids for menu items, attach ids only on the page focus, kind of a hack in but we can optimize later*/
+.footer-text {
+    font-weight: 600;
+}
+
+.mid-card {
+    background-color: #2C3539;
+    color: #FFF;
+}
+
+
+/*Ids for menu items, attach ids only on the page focus*/
 
 #onFontPage{
     border-bottom: 3px #106A3A solid;
 }
 
-#onHomePage{
+#onGomcPage{
     border-bottom: 3px #E58242 solid;
 }
 
@@ -145,6 +162,14 @@ footer {
     border-bottom: 3px #7F3E97 solid;
 }
 
-#onResourcesPage{
+#onDocumentationPage{
     border-bottom: 3px #CFE7A7 solid;
+}
+
+#onFeaturesPage {
+     border-bottom: 3px #FF3232 solid;
+}
+
+#onPublicationPage {
+     border-bottom: 3px #7F7FFF solid;
 }
