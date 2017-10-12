@@ -41,73 +41,53 @@
              <header>
                <h1>Downloads</h1>
              </header>
+             <hr class='grand-line'/>
              <main>
                <div class='container-fluid'>
                  <div class='row'>
                    <section>
                        <div class='col-md-8'>
-                           <h4>Most Recent Downloads</h4>
+                           <h2>Recent Downloads</h2>
                            </div>
                            <div  class='col-md-4'>
                                <ul id='dataOfReleasesFromAJAX'> <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
-                                 <li>GOMC version 2.1 is available for download.</li>
-                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
-                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
-                                 <li>GOMC version 2.0 is available for download. 6/11/2017.</li>
+                                 <li>GOMC version 2.1 is available for <a href='#'> download</a>.</li>
+                                 <li>GOMC version 2.0 is available for<a href='#'> download</a> 6/11/2017.</li>
+                                 <li>GOMC version 2.0 is available for<a href='#'> download</a> 6/11/2017.</li>
+                                 <li>GOMC version 2.0 is available for <a href='#'> download</a> 6/11/2017.</li>
                                </ul>
+                               <p>For older versions click <a href='#'>here</a></p>
                            </div>
+                       </div>
+                            <hr class='grand-line'/>
                      <aside>
+                         <div class='row'>
+                         <div class='col-md-4'>
+                             <h2>GOMC</h2>
+                         </div>
                          <div class='col-md-8'>
                              <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p>
                              <p>More and more details</p>
-                             <p>End of details</p> <!-- Gotta look into how to do this markup -->
+                             <p>The Monte Carlo method is a well-known method in finance, as it lets us compute difficult, if not impossible, expected values of complex stochastic functions. Mike has already discussed the method in several articles regarding option pricing, but a few recap lines can be helpful for those that are new to it. <br/>The Monte Carlo method was first introduced in the field of physics, for complex simulations, very likely by Enrico Fermi in the 1930s for studying neutron diffusion. It then became popular in the 1940s among physicists and mathematicians involved in creating bombs for the U.S. Army. The projects needed a code name, so John Von Neumann chose "Monte Carlo", referring to the famous Monte Carlo Casino. Since then, technology and especially computational power have increased dramatically, letting us use these methods for a large variety of problems.<br/> In finance the Monte Carlo method is mainly used for option pricing as, especially with exotic options, the payoff is sometimes too complex, if not impossible, to compute. The main idea behind it is quite simple: simulate the stochastic components in a formula and then average the results, leading to the expected value. Of course, the more simulations (paths) you make, the more accurate the result will be. A commonly accepted value for the minimum number of paths is 106106. That should give good results for most of the simulations. Otherwise, there are techniques that can reduce variance in order to make even more accurate predictions. <br/> Given the random nature of this process, variance reduction is not the only problem we can encounter. Another one, probably the most important, is how the random numbers are generated. There is an entire branch of mathematics talking about this and a detailed explanation is well beyond the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.</p>
+                              <!-- Gotta look into how to do this markup -->
                          </div>
-                         <div class='col-md-4'>
-                             <h4>Release Notes</h4>
-                         </div>
+                     </div>
                      </aside>
                    </section>
                  </div>
+                  <hr class='grand-line'/>
                  <div class='row'>
                    <article>
-                     <div class='col-md-8'>
-                       <h4>Getting Started</h4>
-                       <dl>
-                         <dt>Set up</dt>
-                         <dd>Here are some set up instructions</dd>
-
-                         <dt>Running a simulation</dt>
-                         <dd>Doing this gets you an up and running simulation for your data</dd>
-                         <dt>Sample results</dt>
-                         <dd>This is what you should expect once the simulation ends</dd>
-                       </dl>
-                     </div>
-                     <div class='col-md-4'>
-                       <h4>ReadMe</h4>
-                       <p>This is a read me</p>
-                       <p>User will read me</p>
-                       <p>Maybe they won't read me</p> <!-- Maybe use formatted markdown here?-->
+                     <div class='col-md-12'>
+                       <h2>Examples</h2>
+                       <p>Not sure how the examples will be presented yet but they will be added here most likely as a table or description list</p>
                      </div>
                    </article>
                  </div>
-                 <div class='row'>
-                   <article>
-                     <!--How it works and what it is-->
-                     <div class='col-md-8'>
-                       <h4>What it is</h4>
-                       <p>This is a brief description at a high level of what it actually is</p>
-                     </div>
-                     <div class='col-md-4'>
-                       <h4>How it works</h4>
-                       <p>This is a brief description at a high level of how the thing will work</p>
-                     </div>
-                   </article>
-                 </div>
-               </div>
              </main>
              <footer>
                  <hr />
-                <p>Terms &amp; Conditions | Site Map | Privacy Policy | FAQ <br/></p>
+              <p class='footer-text'><a href='#'>Terms &amp; Conditions</a> | <a href='#'>Site Map</a> | <a href='#'>Privacy Policy</a> | <a href='#'>FAQ</a> <br/></p>
                 <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
              </footer>
              <script src='javascript/jquery-3.2.1.min.js'></script>
