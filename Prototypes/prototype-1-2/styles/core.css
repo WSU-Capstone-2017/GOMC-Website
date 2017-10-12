@@ -137,7 +137,9 @@ footer {
 
 /*downloads.html specific classes*/
 
-
+.hidden-until {
+  display: none;
+}
 
 /*features.html specific classes*/
 
@@ -176,6 +178,19 @@ td {
 .mid-card {
     background-color: #2C3539;
     color: #FFF;
+}
+
+/*Admin page styles*/
+
+.adminPage {
+  background-color: #FDFFFC;
+  color: #020816
+  padding: 10px;
+  margin: 20px;
+}
+
+.adminLabel {
+  padding: 10px;
 }
 
 /*Ids for menu items, attach ids only on the page focus*/
