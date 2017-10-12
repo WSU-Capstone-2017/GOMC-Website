@@ -113,7 +113,9 @@ footer {
 }
 
 /*documentation.html specific classes*/
-
+.center-p {
+    text-align: center;
+}
 /*downloads.html specific classes*/
 
 /*features.html specific classes*/
