@@ -64,6 +64,7 @@ footer {
 }
 
 /*classes - General Navigation & other stuff*/
+
 .main-menu {
     color: #FFF;
     background-color: #2c3539;
@@ -113,17 +114,26 @@ footer {
 }
 
 /*documentation.html specific classes*/
+
 .center-p {
     text-align: center;
 }
+
 /*downloads.html specific classes*/
 
+
+
 /*features.html specific classes*/
+
 .different-main {
     background-color: #020816;
     color: #FDFFFC;
 }
 /*publication.html specific classes*/
+
+td {
+  padding: 10px;
+}
 
 /*gomc.html specific classes*/
 
@@ -147,7 +157,6 @@ footer {
     background-color: #2C3539;
     color: #FFF;
 }
-
 
 /*Ids for menu items, attach ids only on the page focus*/
 
