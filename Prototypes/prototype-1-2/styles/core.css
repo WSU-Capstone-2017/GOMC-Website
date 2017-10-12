@@ -117,7 +117,10 @@ footer {
 /*downloads.html specific classes*/
 
 /*features.html specific classes*/
-
+.different-main {
+    background-color: #020816;
+    color: #FDFFFC;
+}
 /*publication.html specific classes*/
 
 /*gomc.html specific classes*/
