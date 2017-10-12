@@ -15,15 +15,11 @@ Prototype based off of the combination of design 3 and 6 in summation with feedb
 
 - Custom Color Palette
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Color Palette selected and implemented in a plug and chug fashion
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Color Palette selected and implemented as per client's request
 
-- Same content as current static site
+- Features previous content from static site
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Prototype  renders the same data as the original app
-
-- Deployed at EC instance
-
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Page is up live at the domain listed here (placeholder)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Prototype features all the old content and then some
 
 - New menu scheme following idea of Aiming for optimality for search engines and user focus
 
@@ -33,19 +29,22 @@ Prototype based off of the combination of design 3 and 6 in summation with feedb
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A font-stack of 2 custom fonts and 2 web-safe fonts
 
-- Icon Library
-
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Font-Awesome 4.7 applied for ease of icon consistency
 
 - Colors and typography
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  - Headers and important tags with Roboto
                                                                  - Minor tags with Open Sans
-                                                                 - Background color:
-                                                                 - Text-color:
-                                                                 - Highlight:
-                                                                 - Menu Focus:
+                                                                 - Background color: white, gunmetal or yellow green
+                                                                 - Text-color: black or white
+                                                                 - Highlight: gray
+                                                                 - Menu Focus: alternation of colors used in the main logo
 The following color palette presents the colors used:
-> Image will be uploaded here                                                                 
+
+Main Palette
+![main palette](/styles/img/Offficial Palette.png)
+
+Logo Palette
+![second palette](/styles/img/palette From Log.png)
+ here                                                                 
 - Other requirements will be added as development continues
 
 > Nothing yet...
@@ -55,10 +54,9 @@ The following color palette presents the colors used:
 This prototype was built out of the following:
 
 - HTML5
-- CSS3
-- Pure.css 1.0
-- Font-Awesome 4.7
+- Bootstrap
 - jQuery 3.2.1
-- Underscore.js 1.8.3
+- Gulp.JS
+- QUnit
 
 > Fonts provided by google fonts and colors picked by using the palette tool provided by www.coolors.co
