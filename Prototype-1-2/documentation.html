@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--Features Page will contain
     - Nav
-    - Manual, Tutorial, Input Generator
+    - Manual, Tutorial, Input Generator(use naming convention, in ConfigInputModel.cs)
     - Footer
 
 Personal notes:
@@ -82,8 +82,10 @@ Personal notes:
                          <div class='row'>
                              <div class='col-md-12'>
                                  <h2>XML Generator</h2>
-                                 <p>Click the button below to fill out a form for conversion into xml</p>
-                                 <button class='btn btn-large btn-primary' id='xmlTrigger'>Start</button>
+                                 <p class='center-p'>Click the button below to fill out a form for conversion into xml</p>
+                                 <div class='center-p'>
+                                   <button class='btn btn-large btn-primary' id='xmlTrigger'>Start</button>
+                                 </div>
                              </div>
                          </div>
                          <div class='row'>
@@ -101,23 +103,24 @@ Personal notes:
                                             <div class="panel-body">
                                                 <div class="radio">
                                                     <label >
-                                                        <input class="form-check-input" type="radio"     name="gomc_config_input_Ensemble"   id="gomc_config_input_Ensemble_Nvt" value="Nvt">
+                                                        <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Nvt" value="Nvt">
                                                         Nvt</label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input class="form-check-input" type="radio"     name="gomc_config_input_Ensemble"   id="gomc_config_input_Ensemble_Npt" value="Npt">
+                                                            <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Npt" value="Npt">
                                                             Npt</label>
                                                      </div>
                                                      <div class="radio">
                                                         <label>
-                                                            <input class="form-check-input" type="radio"     name="gomc_config_input_Ensemble"   id="gomc_config_input_Ensemble_GibbsNvt"    value="GibbsNvt">GibbsNvt</label>
+                                                            <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNvt" value="GibbsNvt">
+                                                            GibbsNvt</label>
                                                      </div>
                                                     <div class="radio">
                                                     <label>
-                                                        <input class="form-check-input" type="radio"     name="gomc_config_input_Ensemble"   id="gomc_config_input_Ensemble_GibbsNpt"    value="GibbsNpt">GibbsNpt
-                                                </label>
-                                                </div>
+                                                        <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNpt" value="GibbsNpt">
+                                                        GibbsNpt</label>
+                                              </div>
                                             </div>
                                         </div>
                                         <div class="panel panel-success">
@@ -149,15 +152,295 @@ Personal notes:
                                                 </div>
                                                 <label>ParaType</label>
                                                 <div class='radio'>
-
+                                                  <label><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Charmm" value="Charmm">
+                                                    Charmm</label>
                                                 </div>
                                                 <div class='radio'>
-
+                                                  <label><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Exotic" value="Exotic">
+                                                    Exotic</label>
                                                 </div>
                                                 <div class='radio'>
-
+                                                  <label><input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Martini" value="Martini"
+                                                    >Martini</label>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class='panel panel-default'>
+                                          <div class='panel-heading'>Please enter the input configuration data</div>
+                                          <div class='panel-body'>
+                                            <div class='form-group'>
+                                              <label>ParametersFileName</label>
+                                              <input class="form-control" type="text" id="gomc_config_input_ParametersFileName">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Coordinates</label>
+                                              <input class="form-control" type="text" id="gomc_config_input_Coordinates_1">
+                                              <input class="form-control" type="text" id="gomc_config_input_Coordinates_2">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Structures</label>
+                                              <input class="form-control" type="text" id="gomc_config_input_Structures_1">
+                                              <input class="form-control" type="text" id="gomc_config_input_Structures_2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class='panel panel-info'>
+                                          <div class='panel-heading'>Enter the following System Data</div>
+                                          <div class='panel-body'>
+                                            <div class='form-group'>
+                                              <label>Pressure</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Pressure">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Temperature</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Temperature">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Rcut</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Rcut">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>RcutLow</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_RcutLow">
+                                            </div>
+                                            <label>LRC</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="Lrc" id="gomc_config_input_Lrc_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio'>
+                                                <label><input class="form-check-input" type="radio" name="Lrc" id="gomc_config_input_Lrc_False" value="False">
+                                                  False</label>
+                                            </div>
+                                            <label>Exclude</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneTwo" value="OneTwo">
+                                                OneTwo</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneThree" value="OneThree">
+                                                OneThree</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneFour" value="OneFour">
+                                                OneFour</label>
+                                            </div>
+                                            <label>Potential</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Vdw" value="Vdw">
+                                                Vdw</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Shift" value="Shift">
+                                                Shift</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Switch" value="Switch">
+                                                Switch</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Rswitch</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Rswitch">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class='panel panel-success'>
+                                          <div class='panel-heading'>Enter metadata</div>
+                                          <div class='panel-body'>
+                                            <label>ElectroStatic</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="ElectroStatic" id="gomc_config_input_ElectroStatic_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio '>
+                                              <label><input class="form-check-input" type="radio" name="ElectroStatic" id="gomc_config_input_ElectroStatic_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Ewald</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Ewald">
+                                            </div>
+                                            <label>CachedFourier</label>
+                                            <div class='radio'>
+                                              <label><input type="radio" name="CachedFourier" id="gomc_config_input_CachedFourier_True" value="True">
+                                              True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="CachedFourier" id="gomc_config_input_CachedFourier_False" value="False">
+                                              False</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Tolerance</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Tolerance">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Dielectric</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_Dielectric">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>PressureCalc</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_PressureCalc">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>OneFourScaling</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_OneFourScaling">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>RunSteps</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_RunSteps">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>EqSteps</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_EqSteps">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>AdjSteps</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_AdjSteps">
+                                            </div>
+                                            <label>ChemPot</label>
+                                            <div class='form-group'>
+                                              <label>Name<input class="form-control" type="text" id="gomc_config_input_ChemPot_Name"></label>
+                                              <label>Value<input class="form-control" type="number" id="gomc_config_input_ChemPot_Value"></label>
+                                            </div>
+                                            <label>Fugacity</label>
+                                            <div class='form-group'>
+                                              <label>Name<input class="form-control" type="text" id="gomc_config_input_Fugacity_Name"></label>
+                                              <label>Value<input class="form-control" type="number" id="gomc_config_input_Fugacity_Value"></label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>DisFreq</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_DisFreq">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>RotFreq</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_RotFreq">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>IntraSwapFreq</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_IntraSwapFreq">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>VolFreq</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_VolFreq">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>SwapFreq</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_SwapFreq">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class='panel panel-default'>
+                                          <div class='panel-heading'>Enter Metadata Configuration Data</div>
+                                          <div class='panel-body'>
+                                            <label>UseConstantArea</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="UseConstantArea" id="gomc_config_input_UseConstantArea_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="UseConstantArea" id="gomc_config_input_UseConstantArea_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <label>FixVolBox0</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="FixVolBox0" id="gomc_config_input_FixVolBox0_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label>
+                                                <input class="form-check-input" type="radio" name="FixVolBox0" id="gomc_config_input_FixVolBox0_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <label>BoxDim</label>
+                                            <label>XAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_XAxis"></label>
+                                            <label>YAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_YAxis"></label>
+                                            <label>ZAxis<input class="form-control" type="number" id="gomc_config_input_BoxDim_ZAxis"></label>
+                                            <div class='form-group'>
+                                              <label>CbmcFirst</label>
+                                                <input class="form-control" type="number" id="gomc_config_input_CbmcFirst">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>CbmcNth</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_CbmcNth">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>CbmcAng</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_CbmcAng">
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>CbmcDih</label>
+                                              <input class="form-control" type="number" id="gomc_config_input_CbmcDih">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class='panel panel-info'>
+                                          <div class='panel-heading'>Please Enter Output Header Format</div>
+                                          <div class='panel-body'>
+                                            <div class='form-group'>
+                                              <label>OutputName</label>
+                                              <input class="form-control" type="text" id="gomc_config_input_OutputName">
+                                            </div>
+                                            <label>CoordinatesFreq</label>
+                                            <div class='radio'>
+                                                <label>
+                                                  <input class="form-check-input" type="radio" name="CoordinatesFreq" id="gomc_config_input_CoordinatesFreq_True" value="True">
+                                                  True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label>
+                                                <input class="form-check-input" type="radio" name="CoordinatesFreq" id="gomc_config_input_CoordinatesFreq_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Value<input class="form-control" type="number" id="gomc_config_input_CoordinatesFreq"></label>
+                                            </div>
+                                            <label>RestartFreq</label>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="RestartFreq" id="gomc_config_input_RestartFreq_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="RestartFreq" id="gomc_config_input_RestartFreq_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Value<input class="form-control" type="number" id="gomc_config_input_RestartFreq"></label>
+                                            </div>
+                                            <label>ConsoleFreq</label>
+                                            <div class='radio'>
+                                              <label>
+                                                <input class="form-check-input" type="radio" name="ConsoleFreq" id="gomc_config_input_ConsoleFreq_True" value="True">
+                                                True</label>
+                                            </div>
+                                            <div class='radio'>
+                                              <label><input class="form-check-input" type="radio" name="ConsoleFreq" id="gomc_config_input_ConsoleFreq_False" value="False">
+                                                False</label>
+                                            </div>
+                                            <div class='form-group'>
+                                              <label>Value<input class="form-control" type="number" id="gomc_config_input_ConsoleFreq"></label>
+                                            </div>
+                                            <label>BlockAvgFreq</label>
+                                            <div class='radio'>
+                                              <!--Form will be configured as part of the requirements for Prototype 2 built on the alpha-branch
+                                                  Requirements-wise prototype-1-2 shouldn't even have any of this form code so I will break here, do a merge and then be working off of the XML-Config branch-->
+                                            </div>
+                                            <div class='radio'>
+
+                                            </div>
+                                            <div class='form-group'>
+
+                                            </div>
+                                            <label>HistogramAvgFreq</label>
+                                            <div class='radio'>
+
+                                            </div>
+                                            <div class='radio'>
+
+                                            </div>
+                                            <div class='form-group'>
+
+                                            </div>
+                                          </div>
                                         </div>
                                     </div>
 
