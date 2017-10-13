@@ -49,6 +49,7 @@
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigInput\ConfigInputModelTests.cs" />
     <Compile Include="Controllers\HomeControllersTest.cs" />
     <Compile Include="Core\UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

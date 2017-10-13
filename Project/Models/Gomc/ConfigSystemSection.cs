@@ -89,7 +89,7 @@ namespace Project.Models.Gomc
 		public double SwapFreq { get; set; }
 		public bool UseConstantArea { get; set; }
 		public bool FixVolBox0 { get; set; }
-		public BoxDimInput BoxDim { get; set; }
+		public BoxDimInput[] BoxDim { get; set; }
 		public int CbmcFirst { get; set; }
 		public int CbmcNth { get; set; }
 		public int CbmcAng { get; set; }
@@ -104,7 +104,7 @@ namespace Project.Models.Gomc
 			ExcludeType exclude, PotentialType potential, double rswitch, bool electroStatic, bool ewald, bool cachedFourier,
 			double tolerance, double dielectric, ulong? pressureCalc, double oneFourScaling, ulong runSteps, ulong eqSteps,
 			ulong adjSteps, ResNameValue chemPot, ResNameValue fugacity, double disFreq, double rotFreq, double intraSwapFreq,
-			double volFreq, double swapFreq, bool useConstantArea, bool fixVolBox0, BoxDimInput boxDim, int cbmcFirst,
+			double volFreq, double swapFreq, bool useConstantArea, bool fixVolBox0, BoxDimInput[] boxDim, int cbmcFirst,
 			int cbmcNth, int cbmcAng, int cbmcDih)
 		{
 			Gemc = gemc;
