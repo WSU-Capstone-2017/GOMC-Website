@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--About Page will contain
+    - Nav
+    - People
+    - Grants
+    - Help
+    - Contact
+-->
+    <html>
+        <head>
+            <title>About</title>
+            <meta charset='utf-8' />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+             <link rel='icon' href='styles/img/gomc-ico.png' />
+            <link rel='stylesheet' href='styles/bootstrap/dist/css/bootstrap.min.css' />
+            <link rel='stylesheet' href='styles/core.css' />
+         </head>
+         <body class='adminPage'>
+          <h1>Admininstator page</h1>
+          <p class='center-p'>If you have reached this page in error, click the back button.</p>
+          <p class='center-p'>Otherwise please login with your credintials</p>
+          <hr class='grand-line'/>
+           <div class='well well-lg container'>
+             <form method="post" action='http://www.tipjar.com/cgi-bin/test'>
+               <div class='form-group'>
+                 <label for='userName'>Login</label>
+                 <input class='form-control' type='text' name='uName' id='userName' placeholder="Login"/>
+               </div>
+               <div class='form-group'>
+                 <label for='passCode'>Password</label>
+                 <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password"/>
+               </div>
+               <button class='btn btn-success' type='submit'>Login</button>
+             </form>
+           </div>
+          <script src='javascript/jquery-3.2.1.min.js'></script>
+          <script src='styles/bootstrap/dist/js/bootstrap.min.js'></script>
+          <script src='javascript/gomc.js'></script>
+          <!--The script below is for the google-analytics, as demanded by client, code is pulled from present website-->
+          <script async src="https://www.google-analytics.com/analytics.js"></script>
+          <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-83966581-1', 'auto');
+          ga('send', 'pageview');
+          </script>
+        </body>
+    </html>

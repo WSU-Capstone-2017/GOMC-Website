@@ -1,0 +1,17 @@
+{
+  "name": "prototype-1-2",
+  "version": "1.0.0",
+  "description": "Precursor of prototype 1",
+  "main": "home.html",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "grunt": "^1.0.1",
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caleb Latimer",
+  "license": "ISC"
+}
