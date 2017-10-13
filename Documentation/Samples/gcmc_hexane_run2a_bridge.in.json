@@ -1,5 +1,5 @@
 {
-	"Ensemble" : "NvtGemc",
+	"Ensemble" : "Gcmc",
 	"Restart" : false,
 	"Prng" : "Random",
 	"ParaType" : "Exotic",

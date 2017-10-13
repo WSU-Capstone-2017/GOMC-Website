@@ -9,9 +9,12 @@ namespace Project.ConfigInput
 		// input section
 		public Ensemble Ensemble { get; set; }
 		public bool Restart { get; set; }
+		[InConfName("PRNG")]
 		public PrngType Prng { get; set; }
+		[InConfName("Random_Seed")]
 		public int? RandomSeed { get; set; }
 		public ForceFieldType ParaType { get; set; }
+		[InConfName("Parameters")]
 		public string ParametersFileName { get; set; }
 		public string[] Coordinates { get; set; }
 		public string[] Structures { get; set; }
@@ -21,6 +24,7 @@ namespace Project.ConfigInput
 		public double Temperature { get; set; }
 		public double Rcut { get; set; }
 		public double RcutLow { get; set; }
+		[InConfName("LRC")]
 		public bool Lrc { get; set; }
 		public ExcludeType Exclude { get; set; }
 		public PotentialType Potential { get; set; }
@@ -31,6 +35,7 @@ namespace Project.ConfigInput
 		public double Tolerance { get; set; }
 		public double Dielectric { get; set; }
 		public ulong? PressureCalc { get; set; }
+		[InConfName("1-4scaling")]
 		public double OneFourScaling { get; set; }
 		public ulong RunSteps { get; set; }
 		public ulong EqSteps { get; set; }
@@ -84,5 +89,16 @@ namespace Project.ConfigInput
 			}
 		}
 
+		public static ConfigInputModel FromInConfFile(string inConfFile)
+		{
+			try
+			{
+				return InConf.Parse(inConfFile);
+			}
+			catch (Exception e)
+			{
+				return null;
+			}
+		}
 	}
 }

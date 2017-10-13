@@ -8,7 +8,7 @@ namespace Project.ConfigInput
 	{
 		public static bool IsValid(ConfigInputModel input)
 		{
-			if (input == null)
+			if (!BasicIsValid(input))
 			{
 				return false;
 			}
@@ -19,20 +19,45 @@ namespace Project.ConfigInput
 				case Ensemble.Npt: return NptIsValid(input);
 				case Ensemble.GibbsNvt: return GibbsNvtIsValid(input);
 				case Ensemble.GibbsNpt: return GibbsNptIsValid(input);
-				case Ensemble.NvtGemc: return NvtGemcIsValid(input);
+				case Ensemble.Gcmc: return GcmcIsValid(input);
 				default:
 					throw new InvalidEnumArgumentException(nameof(input.Ensemble));
 			}
 		}
 
+		private static bool BasicIsValid(ConfigInputModel input)
+		{
+			if(input == null)
+			{
+				return false;
+			}
+			return true;
+		}
+
 		private static bool NvtIsValid(ConfigInputModel input)
 		{
-			throw new NotImplementedException();
+			if (input.Structures?.Length != 1)
+			{
+				return false;
+			}
+			if (input.Coordinates?.Length != 1)
+			{
+				return false;
+			}
+			return true;
 		}
 
 		private static bool NptIsValid(ConfigInputModel input)
 		{
-			throw new NotImplementedException();
+			if (input.Structures?.Length != 1)
+			{
+				return false;
+			}
+			if (input.Coordinates?.Length != 1)
+			{
+				return false;
+			}
+			return true;
 		}
 		private static bool GibbsNvtIsValid(ConfigInputModel input)
 		{
@@ -42,7 +67,7 @@ namespace Project.ConfigInput
 		{
 			throw new NotImplementedException();
 		}
-		private static bool NvtGemcIsValid(ConfigInputModel input)
+		private static bool GcmcIsValid(ConfigInputModel input)
 		{
 			throw new NotImplementedException();
 		}

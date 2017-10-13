@@ -1,3 +1,5 @@
+using Project.ConfigInput;
+
 namespace Project.Models.Gomc
 {
 	/// <summary>
@@ -5,8 +7,11 @@ namespace Project.Models.Gomc
 	/// </summary>
 	public enum ForceFieldType
 	{
+		[InConfName("ParaTypeCHARMM")]
 		Charmm,
+		[InConfName("ParaTypeEXOTIC")]
 		Exotic,
+		[InConfName("ParaTypeMARTINI")]
 		Martini
 	}
 }

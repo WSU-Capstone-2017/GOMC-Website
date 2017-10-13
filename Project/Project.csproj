@@ -149,8 +149,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ConfigInput\ConfigInputModel.cs" />
+    <Compile Include="ConfigInput\InConf.cs" />
+    <Compile Include="ConfigInput\InConfNameAttribute.cs" />
     <Compile Include="ConfigInput\Validator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Core\Exten.cs" />
     <Compile Include="Core\JsonConv.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Data\ProjectDbContext.cs" />

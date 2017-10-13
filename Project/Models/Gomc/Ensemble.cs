@@ -4,7 +4,7 @@ namespace Project.Models.Gomc
 	{
 		Nvt,
 		Npt,
-		NvtGemc,
+		Gcmc,
 		GibbsNvt,
 		GibbsNpt
 	}

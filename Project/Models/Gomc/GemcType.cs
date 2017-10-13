@@ -1,3 +1,5 @@
+using Project.ConfigInput;
+
 namespace Project.Models.Gomc
 {
 	public enum GemcType
@@ -5,11 +7,13 @@ namespace Project.Models.Gomc
 		/// <summary>
 		///     NVT.
 		/// </summary>
+		[InConfName("NVT")]
 		Nvt,
 
 		/// <summary>
 		///     NPT.
 		/// </summary>
+		[InConfName("NPT")]
 		Npt
 	}
 }

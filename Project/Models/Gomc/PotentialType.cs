@@ -1,3 +1,5 @@
+using Project.ConfigInput;
+
 namespace Project.Models.Gomc
 {
 	/// <summary>
@@ -10,12 +12,14 @@ namespace Project.Models.Gomc
 		///     This function will be discussed further in the Intermolecular energy and Virial calculation
 		///     section.
 		/// </summary>
+		[InConfName("VDW")]
 		Vdw,
 
 		/// <summary>
 		///     This option forces the potential energy to be zero at Rcut distance. This function will
 		///     be discussed further in the Intermolecular energy and Virial calculation section.
 		/// </summary>
+		[InConfName("SHIFT")]
 		Shift,
 
 		/// <summary>
@@ -24,6 +28,7 @@ namespace Project.Models.Gomc
 		///     function will be applied. These functions will be discussed further in the Intermolecular energy
 		///     and Virial calculation section.
 		/// </summary>
+		[InConfName("SWITCH")]
 		Switch
 	}
 }

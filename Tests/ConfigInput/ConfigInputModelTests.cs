@@ -14,6 +14,17 @@ namespace Project.ConfigInput
 		}
 
 		[TestMethod]
+		public void FromInConfTest()
+		{
+			var inConf = File.ReadAllText(Path.Combine(GetCallerFolderPath(),
+				"../../Documentation/Samples/gcmc_hexane_run2a_bridge.in.conf"));
+
+			var model = ConfigInputModel.FromInConfFile(inConf);
+
+			Assert.IsNotNull(model);
+		}
+
+		[TestMethod]
 		public void FromJsonTest()
 		{
 			var jsonString = File.ReadAllText(Path.Combine(GetCallerFolderPath(),
