@@ -6,7 +6,7 @@ using System.Web.Mvc;
 namespace Project.Controllers
 {
     [TestClass]
-    class HomeControllersTest
+    public class HomeControllersTest
     {
         [TestMethod]
         public void GetDownloadModelNullTest()
