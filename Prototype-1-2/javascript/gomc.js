@@ -54,6 +54,7 @@ function addButtons(){
     $('.panel-eigth').find('.form-right-nav').css('display', 'none');
     currentWidth+=12.5;
     var temp = currentWidth + '%'
+    $('#userProgress').html(parseInt(currentWidth) + '%');
     $('#userProgress').css('width', temp);
     $('.panel').toggle();
     $('.panel-first').toggle();
@@ -86,21 +87,19 @@ function displayMenuChunks() {
         adjustBar(true);
     });
 }
-
+// Maybe this should get adjusted on input as opposed to on panel rotation
 function adjustBar(operation) {
-    // max is 100% with 8 panels so 12.5% per adjustment
-    // 224.125 px
     if(operation == true){ // increase
         currentWidth = currentWidth + 12.5;
        var newWidth = currentWidth + '%';
         $('#userProgress').css('width', newWidth);
-        $('#userProgress').html(parseInt(newWidth));
+        $('#userProgress').html(parseInt(newWidth)+ '%');
 
     }
     else { // decrease
         currentWidth = currentWidth - 12.5;
        var newWidth = currentWidth + '%';
         $('#userProgress').css('width', newWidth);
-        $('#userProgress').html(parseInt(newWidth));
+        $('#userProgress').html(parseInt(newWidth)+ '%');
     }
 }
