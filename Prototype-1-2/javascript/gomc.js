@@ -3,7 +3,7 @@
 // Global Object events
 $(function(){
     console.log('READY? GOMC');
-    $('#dataOfReleasesFromAJAX').get('/Models/DownloadsModel.cs/'); // Placeholder for now
+    //$('#dataOfReleasesFromAJAX').get('/Models/DownloadsModel.cs/'); // Placeholder for now
 });
 
 // Event Listeners
@@ -18,10 +18,12 @@ $('#btn').click(function(){
        $('#btn').children().addClass('glyphicon-align-justify');
        $('header').css('margin-top', '6.5em');
     }
+    $('#btn').css('color', '#FFFFFF');
+    $('#btn').css('backgroundColor', '#2C3539');
 });
 
 $('#xmlTrigger').click(function(){
-  $('#xmlDataContainer').slideToggle(700,function(){
+   $('#xmlDataContainer').slideToggle(700,function(){
     $('#xmlDataContainer').toggleClass('hidden-until');
     $('#xmlTrigger').slideUp(500, 'linear', morphXmlTrigger);
   });
@@ -56,6 +58,9 @@ function removeButtons(){
 }
 
 function displayMenuChunks() {
+    if($(this).hasClass('first-panel')){
+        $('button').prop('disabled', disabled); // this doesn't work needs a workaround, this keyword passes the window object instead
+    }
     $('.left-nav').click(function(){
 
     });
@@ -63,5 +68,5 @@ function displayMenuChunks() {
 
     });
     $('.panel').toggle();
-    $('#xml1').toggle();
+    $('.panel-first').toggle();
 }
