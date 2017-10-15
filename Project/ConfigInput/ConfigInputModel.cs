@@ -50,9 +50,13 @@ namespace Project.ConfigInput
 		public bool UseConstantArea { get; set; }
 		public bool FixVolBox0 { get; set; }
 		public BoxDimInput[] BoxDim { get; set; }
+		[InConfName("CBMC_First")]
 		public int CbmcFirst { get; set; }
+		[InConfName("CBMC_Nth")]
 		public int CbmcNth { get; set; }
+		[InConfName("CBMC_Ang")]
 		public int CbmcAng { get; set; }
+		[InConfName("CBMC_Dih")]
 		public int CbmcDih { get; set; }
 
 		// output section
@@ -70,6 +74,7 @@ namespace Project.ConfigInput
 		public uint SampleFreq { get; set; }
 		public OutBoolean OutEnergy { get; set; }
 		public OutBoolean OutPressure { get; set; }
+		[InConfName("OutMolNum")]
 		public OutBoolean OutMolNumber { get; set; }
 		public OutBoolean OutDensity { get; set; }
 		public OutBoolean OutVolume { get; set; }
