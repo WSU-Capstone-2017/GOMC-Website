@@ -67,35 +67,19 @@ namespace Project.ConfigInput
 					return null;
 				}
 
-				if (args.Length == 3 && args[0] == "Structure")
+				if (args.Length == 3 && args[0] == "Structure" && args[1].AsInt().HasValue)
 				{
-					var box = args[1].AsInt();
-					if (box == null)
-					{
-						return null;
-					}
 					model.Structures = (model.Structures ?? new string[0]).Concat(new[] { args[2] }).ToArray();
 					continue;
 				}
-				if (args.Length == 3 && args[0] == "Coordinates")
+				if (args.Length == 3 && args[0] == "Coordinates" && args[1].AsInt().HasValue)
 				{
-					var box = args[1].AsInt();
-					if (box == null)
-					{
-						return null;
-					}
 					model.Coordinates = (model.Coordinates ?? new string[0]).Concat(new[] { args[2] }).ToArray();
 					continue;
 				}
-				if (args.Length == 3 && args[0] == "ChemPot")
+				if (args.Length == 3 && args[0] == "ChemPot" && args[2].AsDouble().HasValue)
 				{
-					var val = args[2].AsDouble();
-					if (val == null)
-					{
-						return null;
-					}
-					model.ChemPot.ResName = args[1];
-					model.ChemPot.Value = val.Value;
+					model.ChemPot = new ResNameValue(args[1], args[2].AsDouble().Value);
 					continue;
 				}
 
@@ -118,35 +102,15 @@ namespace Project.ConfigInput
 
 				var prop = props.GetValue(args[0]);
 
-				if (args.Length == 2 && prop?.PropertyType == typeof(FreqInput))
+				if (args.Length == 3 && prop?.PropertyType == typeof(FreqInput) && args[1].AsBool().HasValue && args[2].AsUlong().HasValue)
 				{
-					var val1 = args[2].AsBool();
-					if (val1 == null)
-					{
-						return null;
-					}
-					var val2 = args[2].AsUlong();
-					if (val2 == null)
-					{
-						return null;
-					}
-					var fqin = new FreqInput(val1.Value, val2.Value);
+					var fqin = new FreqInput(args[1].AsBool().Value, args[2].AsUlong().Value);
 					prop.SetValue(model, fqin);
 					continue;
 				}
-				if (args.Length == 2 && prop?.PropertyType == typeof(OutBoolean))
+				if (args.Length == 3 && prop?.PropertyType == typeof(OutBoolean) && args[1].AsBool().HasValue && args[2].AsBool().HasValue)
 				{
-					var val1 = args[2].AsBool();
-					if (val1 == null)
-					{
-						return null;
-					}
-					var val2 = args[2].AsBool();
-					if (val2 == null)
-					{
-						return null;
-					}
-					var fqin = new OutBoolean(val1.Value, val2.Value);
+					var fqin = new OutBoolean(args[1].AsBool().Value, args[2].AsBool().Value);
 					prop.SetValue(model, fqin);
 					continue;
 				}

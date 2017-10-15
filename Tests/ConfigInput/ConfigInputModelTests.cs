@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,7 +19,7 @@ namespace Project.ConfigInput
 		public void FromInConfTest()
 		{
 			var inConf = File.ReadAllText(Path.Combine(GetCallerFolderPath(),
-				"../../Documentation/Samples/gcmc_hexane_run2a_bridge.in.conf"));
+				"../../Other/gcmc_hexane_run2a_bridge.in.conf"));
 
 			var model = ConfigInputModel.FromInConfFile(inConf);
 
@@ -28,7 +30,7 @@ namespace Project.ConfigInput
 		public void FromJsonTest()
 		{
 			var jsonString = File.ReadAllText(Path.Combine(GetCallerFolderPath(),
-				"../../Documentation/Samples/gcmc_hexane_run2a_bridge.in.json"));
+				"../../Other/gcmc_hexane_run2a_bridge.in.json"));
 
 			var model = ConfigInputModel.FromJson(jsonString);
 
