@@ -1,5 +1,5 @@
 // gomc.js is the main javascript file for the web application
-
+var currentWidth = 0;
 // Global Object events
 $(function(){
     console.log('READY? GOMC');
@@ -49,6 +49,14 @@ function morphXmlTrigger(){
 function addButtons(){
     $('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
     $('.panel-body').append('<button class=" btn btn-success form-right-nav"><span class="glyphicon glyphicon-menu-right"></span></button>');
+    $('.panel-first').addClass('in-focus');
+    $('.panel-first').find('.form-left-nav').prop('disabled', true);
+    $('.panel-eigth').find('.form-right-nav').css('display', 'none');
+    currentWidth+=12.5;
+    var temp = currentWidth + '%'
+    $('#userProgress').css('width', temp);
+    $('.panel').toggle();
+    $('.panel-first').toggle();
     displayMenuChunks();
 }
 
@@ -58,15 +66,41 @@ function removeButtons(){
 }
 
 function displayMenuChunks() {
-    if($(this).hasClass('first-panel')){
-        $('button').prop('disabled', disabled); // this doesn't work needs a workaround, this keyword passes the window object instead
+    $('.form-left-nav').click(function(e){
+         e.preventDefault();
+        var currentCard = $('.in-focus');
+        currentCard.removeClass('in-focus');
+        currentCard.prev().addClass('in-focus');
+        currentCard.toggle();
+        currentCard.prev().toggle();
+        adjustBar(false);
+    });
+
+    $('.form-right-nav').click(function(e){
+        e.preventDefault();
+        var currentCard = $('.in-focus');
+        currentCard.removeClass('in-focus');
+        currentCard.next().addClass('in-focus');
+        currentCard.toggle();
+        currentCard.next().toggle();
+        adjustBar(true);
+    });
+}
+
+function adjustBar(operation) {
+    // max is 100% with 8 panels so 12.5% per adjustment
+    // 224.125 px
+    if(operation == true){ // increase
+        currentWidth = currentWidth + 12.5;
+       var newWidth = currentWidth + '%';
+        $('#userProgress').css('width', newWidth);
+        $('#userProgress').html(parseInt(newWidth));
+
     }
-    $('.left-nav').click(function(){
-
-    });
-    $('.right-nav').click(function(){
-
-    });
-    $('.panel').toggle();
-    $('.panel-first').toggle();
+    else { // decrease
+        currentWidth = currentWidth - 12.5;
+       var newWidth = currentWidth + '%';
+        $('#userProgress').css('width', newWidth);
+        $('#userProgress').html(parseInt(newWidth));
+    }
 }
