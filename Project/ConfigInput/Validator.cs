@@ -34,6 +34,50 @@ namespace Project.ConfigInput
 			{
 				return false;
 			}
+			if (!NvtIsValid(input))
+			{
+				return false;
+			}
+			if (!NptIsValid(input))
+			{
+				return false;
+			}
+			if (!PrngSeedValid(input))
+			{
+				return false;
+			}
+			if (!CoordinatesLengthValid(input))
+			{
+				return false;
+			}
+			if (!PressureNptValid(input))
+			{
+				return false;
+			}
+			if (!LrcValid(input))
+			{
+				return false;
+			}
+			if (!SwitchValidi(input))
+			{
+				return false;
+			}
+			if (!StructuresLengthValid(input))
+			{
+				return false;
+			}
+			if (!ValidEwaldStatic(input))
+			{
+				return false;
+			}
+			if (!ValidCachedFourierEwald(input))
+			{
+				return false;
+			}
+			if (!ValidDielectricCachedFourier(input))
+			{
+				return false;
+			}
 			return true;
 		}
 
