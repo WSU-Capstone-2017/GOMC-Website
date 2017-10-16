@@ -154,6 +154,11 @@ footer {
 .xml-submission {
     float: right;
 }
+
+.bar-style {
+    color: #020816;
+    background-color: #CFE7A7;
+}
 /*downloads.html specific classes*/
 
 .hidden-until {
