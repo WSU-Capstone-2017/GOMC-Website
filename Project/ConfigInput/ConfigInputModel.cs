@@ -20,23 +20,23 @@ namespace Project.ConfigInput
 		public string[] Structures { get; set; }
 
 		// system section
-		public double Pressure { get; set; }
+		public double? Pressure { get; set; }
 		public double Temperature { get; set; }
 		public double Rcut { get; set; }
 		public double RcutLow { get; set; }
 		[InConfName("LRC")]
-		public bool Lrc { get; set; }
+		public bool? Lrc { get; set; }
 		public ExcludeType Exclude { get; set; }
 		public PotentialType Potential { get; set; }
-		public double Rswitch { get; set; }
+		public double? Rswitch { get; set; }
 		public bool ElectroStatic { get; set; }
-		public bool Ewald { get; set; }
-		public bool CachedFourier { get; set; }
-		public double Tolerance { get; set; }
-		public double Dielectric { get; set; }
+		public bool? Ewald { get; set; }
+		public bool? CachedFourier { get; set; }
+		public double? Tolerance { get; set; }
+		public double? Dielectric { get; set; }
 		public ulong? PressureCalc { get; set; }
 		[InConfName("1-4scaling")]
-		public double OneFourScaling { get; set; }
+		public double? OneFourScaling { get; set; }
 		public ulong RunSteps { get; set; }
 		public ulong EqSteps { get; set; }
 		public ulong AdjSteps { get; set; }
