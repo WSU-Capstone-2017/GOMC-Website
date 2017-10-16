@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using System.Xml.Serialization;
 using Project.Core;
 using Project.Models.Gomc;
 
@@ -6,6 +7,8 @@ namespace Project.ConfigInput
 {
 	public class ConfigInputModel
 	{
+		private static readonly XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigInputModel));
+
 		// input section
 		public Ensemble Ensemble { get; set; }
 		public bool Restart { get; set; }
@@ -88,7 +91,7 @@ namespace Project.ConfigInput
 			{
 				return JsonConv.ToObject<ConfigInputModel>(jsonString);
 			}
-			catch(Exception e)
+			catch
 			{
 				return null;
 			}
@@ -100,7 +103,25 @@ namespace Project.ConfigInput
 			{
 				return InConf.Parse(inConfFile);
 			}
-			catch (Exception e)
+			catch
+			{
+				return null;
+			}
+		}
+
+
+		public void ToXml(Stream stream)
+		{
+			xmlSerializer.Serialize(stream, this);
+		}
+
+		public static ConfigInputModel FromXml(Stream stream)
+		{
+			try
+			{
+				return (ConfigInputModel)xmlSerializer.Deserialize(stream);
+			}
+			catch
 			{
 				return null;
 			}
