@@ -31,6 +31,25 @@ namespace Project.LoginSystem
             }
             return false;
         }
+        public int? GetLoginID(string email, string password)
+        {
+            if (IsValidEmail(email) == false)
+            {
+                return null;
+            }
+            if (password.Length <= 7)
+            {
+                return null;
+            }
+            foreach (var i in dbContext.UserLogins)
+            {
+                if (i.Email == email && i.PasswordHash == password)
+                {
+                    return i.ID;
+                }
+            }
+            return null;
+        }
         private bool IsValidEmail(string email)
         {
             try
