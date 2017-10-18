@@ -5,12 +5,58 @@ body {
     font-family: Open Sans;
 }
 
+.center-p {
+    text-align: center;
+}
+
+h4{
+font-family: Roboto;
+font-size: 23px;
+text-align: center;
+}
+
+h5{
+font-family: Roboto;
+font-size: 40px;
+text-align: center;
+}
+
+
+#onGomcPage{
+    border-bottom: 3px #E58242 solid;
+}
+
+#onDownloadsPage{
+    border-bottom: 3px #91D3EF solid;
+}
+
+#onAboutPage{
+    border-bottom: 3px #7F3E97 solid;
+}
+
+#onDocumentationPage{
+    border-bottom: 3px #CFE7A7 solid;
+}
+
+#onFeaturesPage {
+     border-bottom: 3px #FF3232 solid;
+}
+
+#onPublicationPage {
+     border-bottom: 3px #7F7FFF solid;
+}
+
+
 a {
     color: yellowgreen;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
 }
+
+
+
+
 
 a:hover,
 a:focus {
@@ -202,8 +248,6 @@ float: left;
 
 
 
-
-
 b{
 font-size:15px;
 font-family: Open Sans;
@@ -377,10 +421,19 @@ font-size: 15px;
     color: #222;
 }
 
-.navbar-default .nav > li>a:hover,
-.navbar-default .nav>li>a:focus:hover {
-    color: yellowgreen;
+
+
+
+.navbar-default .nav > li>a:hover, 
+.navbar-default .nav>li>a:focus:hover{
+color: yellowgreen;
 }
+
+
+
+
+
+
 
 .navbar-default .nav > li.active>a,
 .navbar-default .nav>li.active>a:focus {
@@ -406,17 +459,12 @@ font-size: 15px;
 
     .navbar-default .navbar-header .navbar-brand:hover,
     .navbar-default .navbar-header .navbar-brand:focus {
-        color: #fff;
+        color: #aaa;
     }
 
     .navbar-default .nav > li>a,
     .navbar-default .nav>li>a:focus {
-        color: rgba(255,255,255,.7);
-    }
-
-    .navbar-default .nav > li>a:hover,
-    .navbar-default .nav>li>a:focus:hover {
-        color: #fff;
+        color: rgb(0,0,0) ;
     }
 
     .navbar-default.affix {
