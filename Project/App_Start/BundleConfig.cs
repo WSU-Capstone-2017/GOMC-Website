@@ -23,8 +23,7 @@ namespace Project
 					  "~/Scripts/respond.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/gomc").Include(
-				"~/Scripts/bootstrap.js",
-				"~/Scripts/respond.js"));
+				"~/Scripts/gomc.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
