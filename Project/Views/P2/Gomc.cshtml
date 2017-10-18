@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/P2/_P2_Layout.cshtml";
+}
+
+<header class='special-jumbotron'>
+    <div class='jumbotron'>
+        <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
+            <!-- Identify the number of slides in the carousel, what is a good design convention for this? -->
+            <ol class='carousel-indicators'>
+                <!-- Can add content as needed -->
+                <li data-target='#gomcHome' data-slide-to='0' class='active'></li>
+                <li data-target='#gomcHome' data-slide-to='1'></li>
+                <li data-target='#gomcHome' data-slide-to='2'></li>
+            </ol>
+            <div class='carousel-inner' role='listbox'>
+                <!-- This part contains the slides -->
+                <div class='item active cardA'>
+                    <!-- What's in here needs to be relateable for the demo tommorow, from mockup 6 a different bg is used and no images are actually on display, we should go with that-->
+                    <h1>Announcements</h1>
+                    <a class='btn btn-primary btn-lg' href='downloads.html'><span class='glyphicon glyphicon-download-alt' ></span> Bound to the newest release note</a>
+                </div>
+                <div class='item cardB'>
+                    <h1>Research</h1>
+                    <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file'></span> Check out our newest work</a>
+                </div>
+                <div class='item cardC'>
+                    <h1>Need help?</h1>
+                    <a class='btn btn-primary btn-lg' href='about.html'><span class='glyphicon glyphicon-comment'></span> Check out our FAQ</a>
+                </div>
+            </div>
+            <!-- This part contains the controls for the carousel -->
+            <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev'>
+                <span class='glyphicon glyphicon-menu-left sit-down'></span>
+            </a>
+            <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next'>
+                <span class='glyphicon glyphicon-menu-right sit-down'></span>
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+    <hr class='grand-line' />
+    <div class='container-fluid'>
+        <section>
+            <div class='row'>
+                <div class='col-md-7'>
+                    <h2>Simulate</h2>
+                    <p>The software provides the capability to simulate live ensembles of molecules and return meaningful data that be extracted into further tests</p>
+                    <p>More details will come in later..</p>
+                </div>
+                <div class='col-md-5'>
+                    <img src='~/Content/img/placeholder.jpg' class='img-responsive' alt='Place-Holder Image' />
+                </div>
+            </div>
+        </section>
+        <hr class='grand-line' />
+        <section>
+            <div class='row mid-card'>
+                <div class='col-md-7'>
+                    <img src='~/Content/img/placeholder.jpg' class='img-responsive' alt='Place-Holder Image' />
+                </div>
+                <div class='col-md-5'>
+                    <h2>Absorb</h2>
+                    <p>Our software does product the percentage of absorption in solutions</p>
+                    <p>More details will come in later..</p>
+                </div>
+            </div>
+        </section>
+        <hr class='grand-line' />
+        <section>
+            <div class='row'>
+                <div class='col-md-7'>
+                    <h2>XML Input</h2>
+                    <p>We also allow for various forms of input files which now involves accepting and parsing xml files</p>
+                    <p>More details will come in later..</p>
+                </div>
+                <div class='col-md-5'>
+                    <img src='~/Content/img/placeholder.jpg' class='img-responsive' alt='Place-Holder Image' />
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+    

@@ -22,9 +22,22 @@ namespace Project
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/respond.js"));
 
+			bundles.Add(new ScriptBundle("~/bundles/gomc").Include(
+				"~/Scripts/bootstrap.js",
+				"~/Scripts/respond.js"));
+
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
+
+			bundles.Add(
+				new StyleBundle("~/Content/bootstrap").Include(
+					"~/Content/bootstrap.css",
+					"~/Content/bootstrap.theme.css"));
+
+			bundles.Add(
+				new StyleBundle("~/Content/core").Include(
+					"~/Content/core.css"));
 		}
 	}
 }
