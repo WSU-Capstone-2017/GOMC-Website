@@ -57,8 +57,7 @@
     <div class='progress-bar progress-bar-striped active bar-style' role='progressbar' aria-valueactive='1' aria-valuemin='0' aria-valuemax='8 ' id='userProgress'>
     </div>
 </div>
-<form method="post" action='http://www.tipjar.com/cgi-bin/test'>
-<!--Form is a wombo-combo of Caleb and Ahmed-->
+<form id="ConfigInput_TestInput_Form" method="post" action="/api/ConfigInput/TestInput">
 <div class='panel-group '>
 <div class="panel panel-info panel-first">
     <div class="panel-heading">Please select an Ensemble</div>
@@ -557,7 +556,7 @@
                 <input class="form-check-input" type="radio" name="OutSurfaceTension2" id="gomc_config_input_OutSurfaceTension_2_False" value="False">
                 False</label>
         </div>
-        <button class='btn btn-success btn-lg xml-submission ' type='submit'>Create XML</button>
+        <button id="api_ConfigInput_TestInput_Submit" class='btn btn-success btn-lg xml-submission' type='submit'>Create XML</button>
     </div>
 </div>
 </div>
@@ -567,3 +566,24 @@
 </section>
 </div>
 </main>
+
+@section scripts
+{
+    <script>
+        //$("#api_ConfigInput_TestInput_Submit").text("create_xml");
+        //$("#api_ConfigInput_TestInput_Submit").click(function () {
+        //    $.ajax({
+        //        url: '/api/ConfigInput/TestInput',
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        data: $('#ConfigInput_TestInput_Form').serialize(),
+        //        success: function (data, textStatus, xhr) {
+        //            console.log(data);
+        //        },
+        //        error: function (xhr, textStatus, errorThrown) {
+        //            console.log(textStatus);
+        //        }
+        //    });
+        //});
+    </script>
+}

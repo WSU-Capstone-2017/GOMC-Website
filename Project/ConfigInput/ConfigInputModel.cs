@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using Project.Core;
 using Project.Models.Gomc;
@@ -85,6 +86,17 @@ namespace Project.ConfigInput
 
 		public string AsJsonString() => JsonConv.ToJson(this);
 
+		public static ConfigInputModel FromFormData(IDictionary<string, string> formData)
+		{
+			try
+			{
+				return new ConfigInputModel();
+			}
+			catch
+			{
+				return null;
+			}
+		}
 		public static ConfigInputModel FromJson(string jsonString)
 		{
 			try
