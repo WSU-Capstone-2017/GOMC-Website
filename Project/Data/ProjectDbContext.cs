@@ -8,6 +8,7 @@ namespace Project.Data
 	{
 		public DbSet<MenuModelItem> Menus { get; set; }
         public DbSet<UserLoginModel> UserLogins { get; set; }
+        public DbSet<AlreadyLoggedModel> AlreadyLoggedIns { get; set; }
 
         public ProjectDbContext() : base("name=ProjectDbConnectionString")
 		{
