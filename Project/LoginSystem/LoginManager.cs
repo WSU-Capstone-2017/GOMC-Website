@@ -12,6 +12,10 @@ namespace Project.LoginSystem
     public class LoginManager
     {
         private ProjectDbContext dbContext;
+        public LoginManager(ProjectDbContext databaseContext)
+        {
+            dbContext = databaseContext;                                
+        }
         public Boolean LoginIsValid(string email, string password)
         {
             if (IsValidEmail(email) == false) 
@@ -24,14 +28,14 @@ namespace Project.LoginSystem
             }
             foreach (var i in dbContext.UserLogins)
             {
-                if (i.Email == email&&i.PasswordHash == password)
+                if (i.Email == email && i.PasswordHash == GetHash(password)) 
                 {
                     return true;
                 }
             }
             return false;
         }
-        public int? GetLoginID(string email, string password)
+        public int? GetLoginID(string email, string password)                //We put int? that way we are able to return null
         {
             if (IsValidEmail(email) == false)
             {
@@ -43,9 +47,9 @@ namespace Project.LoginSystem
             }
             foreach (var i in dbContext.UserLogins)
             {
-                if (i.Email == email && i.PasswordHash == password)
+                if (i.Email == email && i.PasswordHash == GetHash(password))  //Password that is hashed needs to be the same as the hashed password
                 {
-                    return i.ID;
+                    return i.ID;                                          //If the email and password is correct, it will return the ID
                 }
             }
             return null;
@@ -62,20 +66,20 @@ namespace Project.LoginSystem
                 return false;
             }
         }
-        public static String GetHash(string value)
+        public static String GetHash(string value)                                //Function for getting password to hash value
         {
-            StringBuilder stringbuilder = new StringBuilder();
+            StringBuilder stringbuilder = new StringBuilder();                    //For building a string
 
-            using (var hash = SHA256.Create())
+            using (var hash = SHA256.Create())                                     //var confonts to w.e hash is and this is where we start creating using sha256 algorithm
             {
-                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
+                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value));   //Password is in string, gets computed to hash value and byte value
 
-                foreach (var i in hashmi)
+                foreach (var i in hashmi)                                        //Used for changing it back to string value
                 {
-                    stringbuilder.Append(i.ToString("x2"));
+                    stringbuilder.Append(i.ToString("x2"));                      //String builder for making the string into one whole string,append is adding var i to the string which will have hex value and 2 bytes each
                 }
 
-                return stringbuilder.ToString();
+                return stringbuilder.ToString();                                  //Returning the string created
 
             }
         }
