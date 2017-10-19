@@ -7,7 +7,10 @@ namespace Project.Core
 {
 	public static class Exten
 	{
-
+		public static bool IsOneOf(this string d, params string[] args)
+		{
+			return args.Any(j => j == d);
+		}
 		public static TVal GetValue<TKey, TVal>(this IDictionary<TKey, TVal> dict, TKey key)
 		{
 			return dict.TryGetValue(key, out TVal val) ? val : default(TVal);
@@ -21,6 +24,10 @@ namespace Project.Core
 		public static int? AsInt(this string str)
 		{
 			return int.TryParse(str, out var result) ? result : (int?)null;
+		}
+		public static long? AsLong(this string str)
+		{
+			return long.TryParse(str, out var result) ? result : (long?)null;
 		}
 		public static uint? AsUint(this string str)
 		{

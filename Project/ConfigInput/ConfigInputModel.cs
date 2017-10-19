@@ -11,7 +11,7 @@ namespace Project.ConfigInput
 	{
 		private static readonly XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigInputModel));
 
-		private static readonly PropertyInfo[] propertyInfos = typeof(ConfigInputModel).GetProperties();
+		public static PropertyInfo[] PropertyInfos { get; } = typeof(ConfigInputModel).GetProperties();
 
 		// input section
 		public Ensemble Ensemble { get; set; }
@@ -93,7 +93,7 @@ namespace Project.ConfigInput
 		{
 			try
 			{
-				return new ConfigInputModel();
+				return ConfigFormDataConvertor.Convert(formData);
 			}
 			catch
 			{

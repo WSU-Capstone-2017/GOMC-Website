@@ -157,6 +157,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ConfigInput\ConfigFormDataConvertor.cs" />
     <Compile Include="ConfigInput\ConfigInputModel.cs" />
     <Compile Include="ConfigInput\InConf.cs" />
     <Compile Include="ConfigInput\InConfNameAttribute.cs" />

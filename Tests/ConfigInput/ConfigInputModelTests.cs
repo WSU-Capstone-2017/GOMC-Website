@@ -27,6 +27,17 @@ namespace Project.ConfigInput
 		}
 
 		[TestMethod]
+		public void FromFormDataTest()
+		{
+			var formData = File.ReadAllLines(Path.Combine(GetCallerFolderPath(), "../../Other/tests_ConfigInputModelTests_FromFormDataTest.txt"))
+				.Select(j => j.Split('=')).ToDictionary(j => $"gomc_config_input_{j[0]}", j => j[1]);
+
+			var model = ConfigInputModel.FromFormData(formData);
+
+			Assert.IsNotNull(model);
+		}
+
+		[TestMethod]
 		public void FromJsonTest()
 		{
 			var jsonString = File.ReadAllText(Path.Combine(GetCallerFolderPath(),
