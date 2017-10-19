@@ -1,3 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=45aea5a4_002D02c5_002D4a27_002D9d89_002D61f1eaf6b856/@EntryIndexedValue"></s:String>
-	<s:Boolean x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=45aea5a4_002D02c5_002D4a27_002D9d89_002D61f1eaf6b856/@EntryIndexRemoved">True</s:Boolean></wpf:ResourceDictionary>
