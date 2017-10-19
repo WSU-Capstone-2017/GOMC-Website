@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 using Project.Core;
 using Project.Models.Gomc;
@@ -9,6 +10,8 @@ namespace Project.ConfigInput
 	public class ConfigInputModel
 	{
 		private static readonly XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigInputModel));
+
+		private static readonly PropertyInfo[] propertyInfos = typeof(ConfigInputModel).GetProperties();
 
 		// input section
 		public Ensemble Ensemble { get; set; }
