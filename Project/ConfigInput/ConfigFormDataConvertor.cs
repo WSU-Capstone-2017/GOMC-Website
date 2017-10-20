@@ -16,9 +16,9 @@ namespace Project.ConfigInput
 
 		private static void SetProp(object model, PropertyInfo prop, string value)
 		{
-			if (model == null || prop == null)
+			if (model == null || prop == null ||string.IsNullOrEmpty(value))
 			{
-				;
+				return;
 			}
 			var t = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 			if (t == typeof(string))

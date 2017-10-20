@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Http;
 using Project.ConfigInput;
+using Project.Core;
+using Project.Models.Gomc;
 
 namespace Project.Controllers
 {
@@ -14,63 +18,48 @@ namespace Project.Controllers
 	{
 		private const string ApplicationOctetStream = "application/octet-stream";
 
-		[HttpPost]
-		public HttpResponseMessage PostInput(FormDataCollection formDataCollection)
+		private static readonly Dictionary<Guid, ConfigInputModel> tempModelMap = new Dictionary<Guid, ConfigInputModel>();
+
+		public Guid FormPost(FormDataCollection formDataCollection)
 		{
-			var txt = formDataCollection.Select(j => $"{j.Key}={j.Value}").Aggregate("", (a, b) => a += b + "\n");
 			var model = ConfigInputModel.FromFormData(formDataCollection.ToDictionary(j => j.Key, j => j.Value));
 
-			if(model == null || !Validator.IsValid(model))
+			if (model == null)
 			{
-				throw new HttpResponseException(HttpStatusCode.InternalServerError);
+				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+					"Could not parse config input."
+				));
 			}
 
-			var ms = new MemoryStream();
-
-			try
+			if (!Validator.IsValid(model))
 			{
-				model.ToXml(ms);
-			}
-			catch
-			{
-				throw new HttpResponseException(HttpStatusCode.InternalServerError);
+				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+					"The input is invalid."
+				));
 			}
 
-			var result = new HttpResponseMessage(HttpStatusCode.OK)
-			{
-				Content = new ByteArrayContent(ms.ToArray())
-			};
-			result.Content.Headers.ContentDisposition =
-				new ContentDispositionHeaderValue("attachment")
-				{
-					FileName = "input.xml"
-				};
-			result.Content.Headers.ContentType =
-				new MediaTypeHeaderValue(ApplicationOctetStream);
+			var guid = Guid.NewGuid();
 
-			return result;
+			tempModelMap.Add(guid, model);
+
+			return guid;
 		}
 
 		[HttpGet]
-		public HttpResponseMessage ValidateConfigInput(string jsonInput)
+		public HttpResponseMessage DownloadFromGuid(Guid guid)
 		{
-			var model = ConfigInputModel.FromJson(jsonInput);
+			var model = tempModelMap.GetValue(guid);
 
-			if(model == null || !Validator.IsValid(model))
+			if (model == null)
 			{
-				throw new HttpResponseException(HttpStatusCode.InternalServerError);
-			}
 
+				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+					"The input guid is invalid."
+				));
+			}
 			var ms = new MemoryStream();
+			model.ToXml(ms);
 
-			try
-			{
-				model.ToXml(ms);
-			}
-			catch
-			{
-				throw new HttpResponseException(HttpStatusCode.InternalServerError);
-			}
 
 			var result = new HttpResponseMessage(HttpStatusCode.OK)
 			{
@@ -81,6 +70,7 @@ namespace Project.Controllers
 				{
 					FileName = "input.xml"
 				};
+
 			result.Content.Headers.ContentType =
 				new MediaTypeHeaderValue(ApplicationOctetStream);
 

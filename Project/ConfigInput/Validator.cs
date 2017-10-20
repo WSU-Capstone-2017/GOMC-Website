@@ -83,6 +83,7 @@ namespace Project.ConfigInput
 
 		private static bool NvtIsValid(ConfigInputModel input)
 		{
+			if(input.Ensemble != Ensemble.Nvt) return true;
 			if (input.Structures?.Length != 1)
 			{
 				return false;
@@ -96,6 +97,7 @@ namespace Project.ConfigInput
 
 		private static bool NptIsValid(ConfigInputModel input)
 		{
+			if (input.Ensemble != Ensemble.Npt) return true;
 			if (input.Structures?.Length != 1)
 			{
 				return false;
@@ -192,7 +194,11 @@ namespace Project.ConfigInput
 
 		private static bool ValidEwaldStatic(ConfigInputModel input)
 		{
-			if(input.Ewald.HasValue)
+			if(input.ElectroStatic == false)
+			{
+				return !input.Ewald.HasValue || input.Ewald == false;
+			}
+			if(input.Ewald == true)
 			{
 				return input.ElectroStatic;
 			}
@@ -210,9 +216,9 @@ namespace Project.ConfigInput
 
 		private static bool ValidDielectricCachedFourier(ConfigInputModel input)
 		{
-			if(input.Ewald == false)
+			if(input.Dielectric.HasValue)
 			{
-				return input.Dielectric.HasValue;
+				return !input.Ewald.HasValue || input.Ewald == false;
 			}
 			return !input.Dielectric.HasValue;
 		}
