@@ -1,50 +1,14 @@
 ﻿<!DOCTYPE html>
-<!--Features Page will contain
-- Nav
-- Manual, Tutorial, Input Generator(use naming convention, in ConfigInputModel.cs)
-- Footer
-
-Personal notes:
--https://getbootstrap.com/docs/3.3/examples/carousel/# use that as an example of how to make a stagged home page
-- research design conventions for a good homepage
-- extra, try to fix up the search bar? maybe come into the code and uncomment it and show it during the demo
+<!-- P2 template, contains resusable html which consists of the following:
+      - Footer
+      - The analytics script 
 -->
 <html>
-
-<head>
-    <title>Documentation</title>
-    <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-        @Styles.Render("~/Content/bootstrap")
-        @Styles.Render("~/Content/core")
-    <link rel="icon" href="~/Content/img/gomc-ico.png" />
-</head>
-
 <body>
-<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container-fluid'>
-        <div class='navbar-header' id='menu '>
-            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                <span class='glyphicon glyphicon-align-justify'></span>
-            </button>
-            <div class='collapse navbar-collapse' id='navCollapse'>
-                <ul class='nav nav-tabs nav-justified nav '>
-                    <li>@Html.ActionLink("GOMC", "Gomc", "P2")</li>
-                    <li>@Html.ActionLink("Features", "Features", "P2")</li>
-                    <li>@Html.ActionLink("Downloads", "Downloads", "P2")</li>
-                    <li>@Html.ActionLink("Documentation", "Documentation", "P2")</li>
-                    <li>@Html.ActionLink("Publication", "Publication", "P2")</li>
-                    <li>@Html.ActionLink("About", "About", "P2")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
     @RenderBody()
 <footer>
     <hr />
-    <p class='footer-text'><a href='#'>Terms &amp; Conditions</a> | <a href='#'>Site Map</a> | <a href='#'>Privacy Policy</a> | <a href='#'>FAQ</a> <br/></p>
+    <p class='footer-text'>@Html.ActionLink("Terms & Conditions", "Terms", "P2") |@Html.ActionLink("Site Map", "SiteMap", "P2") | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "P2") | @Html.ActionLink("FAQ", "Faq", "P2") <br/></p>
     <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
 </footer>
 

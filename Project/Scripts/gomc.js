@@ -1,4 +1,5 @@
 // gomc.js is the main javascript file for the web application
+
 var currentWidth = 0;
 // Global Object events
 $(function(){
