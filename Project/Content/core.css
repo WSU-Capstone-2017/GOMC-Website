@@ -222,29 +222,29 @@ td {
 /*Ids for menu items, attach ids only on the page focus*/
 
 #onFontPage{
-    border-bottom: 3px #106A3A solid;
+    border-bottom: 6px #106A3A solid;
 }
 
 #onGomcPage{
-    border-bottom: 3px #E58242 solid;
+    border-bottom: 6px #E58242 solid;
 }
 
 #onDownloadsPage{
-    border-bottom: 3px #91D3EF solid;
+    border-bottom: 6px #91D3EF solid;
 }
 
 #onAboutPage{
-    border-bottom: 3px #7F3E97 solid;
+    border-bottom: 6px #7F3E97 solid;
 }
 
 #onDocumentationPage{
-    border-bottom: 3px #CFE7A7 solid;
+    border-bottom: 6px #CFE7A7 solid;
 }
 
 #onFeaturesPage {
-     border-bottom: 3px #FF3232 solid;
+     border-bottom: 6px #FF3232 solid;
 }
 
 #onPublicationPage {
-     border-bottom: 3px #7F7FFF solid;
+     border-bottom: 6px #7F7FFF solid;
 }
