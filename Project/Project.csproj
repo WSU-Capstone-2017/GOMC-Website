@@ -206,7 +206,7 @@
     <Content Include="Content\img\downloads.PNG" />
     <Content Include="Content\img\eyad.jpg" />
     <Content Include="Content\img\footer and nav.PNG" />
-    <Content Include="Content\img\gomc-ico.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Content\img\gomc.png" />
     <Content Include="Content\img\gpu.png" />
     <Content Include="Content\img\grants.PNG" />
@@ -235,7 +235,6 @@
     <Content Include="Content\img\wsu.jpg" />
     <Content Include="Content\img\younes.jpg" />
     <Content Include="Content\img\yuanzhe.jpg" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -304,6 +303,10 @@
     <Content Include="Views\P2\Downloads.cshtml" />
     <Content Include="Views\P2\Documentation.cshtml" />
     <Content Include="Views\P2\About.cshtml" />
+    <Content Include="Views\P2\Terms.cshtml" />
+    <Content Include="Views\P2\SiteMap.cshtml" />
+    <Content Include="Views\P2\PrivacyPolicy.cshtml" />
+    <Content Include="Views\P2\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

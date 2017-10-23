@@ -1,8 +1,34 @@
 ﻿@{
     Layout = "~/Views/P2/_P2_Layout.cshtml";
 }
-
-<header class='special-jumbotron'>
+<head>
+    <title>GOMC</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/core")
+</head>
+<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+    <div class='container-fluid'>
+        <div class='navbar-header' id='menu '>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                <span class='glyphicon glyphicon-align-justify'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navCollapse'>
+                <ul class='nav nav-tabs nav-justified nav '>
+                    <li>@Html.ActionLink("GOMC", "Gomc", "P2", htmlAttributes: new {id="onGomcPage"})</li>
+                    <li>@Html.ActionLink("Features", "Features", "P2")</li>
+                    <li>@Html.ActionLink("Downloads", "Downloads", "P2")</li>
+                    <li>@Html.ActionLink("Documentation", "Documentation", "P2")</li>
+                    <li>@Html.ActionLink("Publication", "Publication", "P2")</li>
+                    <li>@Html.ActionLink("About", "About", "P2")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<header class='special-jumbotron' onload="applyJumbotron">
     <div class='jumbotron'>
         <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
             <!-- Identify the number of slides in the carousel, what is a good design convention for this? -->
@@ -81,4 +107,37 @@
         </section>
     </div>
 </main>
-    
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState === 'interactive') {
+            console.log('jumbotron, your\'re up!');
+            $('.jumbotron').css('background-color', '#91D3EF');
+            $('.jumbotron h1').css('background-color', '#91D3EF');
+            $('.carousel-control').css({
+                'background-color': '#91D3EF',
+                'background-image' : 'none'
+            });
+
+
+            $("#gomcHome").on('slid.bs.carousel', function () {
+                var focusedCard = $(this).find('div .active');
+                // console.log("Current card is: "+ focusedCard);
+                if (focusedCard.hasClass('cardA')) {
+                    $('.jumbotron').css('background-color', '#91D3EF');
+                    $('.jumbotron h1').css('background-color', '#91D3EF');
+                    $('.carousel-control').css('background-color', '#91D3EF');
+
+                } else if (focusedCard.hasClass('cardB')) {
+                    $('.jumbotron').css('background-color', '#9ACD32');
+                    $('.jumbotron h1').css('background-color', '#9ACD32');
+                    $('.carousel-control').css('background-color', '#9ACD32');
+
+                } else if (focusedCard.hasClass('cardC')) {
+                    $('.jumbotron').css('background-color', '#CFE7A7');
+                    $('.jumbotron h1').css('background-color', '#CFE7A7');
+                    $('.carousel-control').css('background-color', '#CFE7A7');
+                }
+            });
+        }
+    }
+</script>  
