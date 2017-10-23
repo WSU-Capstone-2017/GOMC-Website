@@ -1,4 +1,4 @@
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Team Logo](/Other/GOMC.png)
+<p align="center"> <img src="https://github.com/WSU-Capstone-2017/GOMC-Website/raw/master/Other/GOMC.png" width="340px" height="301px"></p>
 
 # Capstone-Senior-Project
 
@@ -66,13 +66,19 @@ MySql
 
 # Team Breakdown
 
-Team Lead: Ahmed Taher, Database / Back-End Lead
+Team Lead:
 
-Team Members: Muamer Besic, QA / Documentation Lead
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ahmed Taher, Database / Back-End Lead
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
+Team Members: 
 
-TA : Azam Peyvandipour
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Muamer Besic, QA / Documentation Lead
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
+
+TA:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Azam Peyvandipour
 
 
 ### Terminology

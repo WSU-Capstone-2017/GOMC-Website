@@ -166,12 +166,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\P2Controller.cs" />
     <Compile Include="Core\Exten.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Core\JsonConv.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Data\ProjectDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
+    <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
     <Compile Include="Models\Gomc\ConfigInputSection.cs" />
     <Compile Include="Models\Gomc\ConfigModel.cs" />
@@ -189,6 +193,7 @@
     <Compile Include="Models\DownloadsModel.cs" />
     <Compile Include="Models\Github\ReleasesModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\LoginSystem\UserLoginModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\MenuModelItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
