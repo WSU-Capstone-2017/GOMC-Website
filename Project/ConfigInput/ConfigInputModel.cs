@@ -30,7 +30,7 @@ namespace Project.ConfigInput
 		public double? Pressure { get; set; }
 		public double Temperature { get; set; }
 		public double Rcut { get; set; }
-		public double RcutLow { get; set; }
+		public double? RcutLow { get; set; }
 		[InConfName("LRC")]
 		public bool? Lrc { get; set; }
 		public ExcludeType Exclude { get; set; }
@@ -51,8 +51,8 @@ namespace Project.ConfigInput
 		public ResNameValue Fugacity { get; set; }
 		public double DisFreq { get; set; }
 		public double RotFreq { get; set; }
-		public double IntraSwapFreq { get; set; }
-		public double VolFreq { get; set; }
+		public double? IntraSwapFreq { get; set; }
+		public double? VolFreq { get; set; }
 		public double SwapFreq { get; set; }
 		public bool UseConstantArea { get; set; }
 		public bool FixVolBox0 { get; set; }

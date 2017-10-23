@@ -88,6 +88,10 @@ namespace Project.ConfigInput
 				}
 				else if (sp.Length == 2 && sp[0].IsOneOf("ChemPot", "Fugacity") && sp[1].IsOneOf("ResName", "Value"))
 				{
+					if(string.IsNullOrEmpty(i.Value))
+					{
+						continue;
+					}
 					prop = propMap[sp[0]];
 
 					if (prop.GetValue(model) == null)

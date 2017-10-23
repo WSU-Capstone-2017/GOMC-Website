@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://microsoft.com/wsdl/types/" />
+  <xs:element name="ConfigInputModel" nillable="true" type="ConfigInputModel" />
+  <xs:complexType name="ConfigInputModel">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Ensemble" type="Ensemble" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Restart" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Prng" type="PrngType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RandomSeed" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ParaType" type="ForceFieldType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ParametersFileName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Coordinates" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Structures" type="ArrayOfString" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Pressure" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Temperature" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Rcut" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RcutLow" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Lrc" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Exclude" type="ExcludeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Potential" type="PotentialType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Rswitch" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ElectroStatic" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Ewald" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CachedFourier" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Tolerance" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Dielectric" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PressureCalc" nillable="true" type="xs:unsignedLong" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OneFourScaling" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RunSteps" type="xs:unsignedLong" />
+      <xs:element minOccurs="1" maxOccurs="1" name="EqSteps" type="xs:unsignedLong" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AdjSteps" type="xs:unsignedLong" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ChemPot" type="ResNameValue" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Fugacity" type="ResNameValue" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DisFreq" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RotFreq" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IntraSwapFreq" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VolFreq" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SwapFreq" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UseConstantArea" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FixVolBox0" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BoxDim" type="ArrayOfBoxDimInput" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CbmcFirst" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CbmcNth" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CbmcAng" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CbmcDih" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutputName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CoordinatesFreq" type="FreqInput" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RestartFreq" type="FreqInput" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ConsoleFreq" type="FreqInput" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BlockAverageFreq" type="FreqInput" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HistogramFreq" type="FreqInput" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DistName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HistName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RunNumber" type="xs:unsignedInt" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RunLetter" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SampleFreq" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutEnergy" type="OutBoolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutPressure" type="OutBoolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutMolNumber" type="OutBoolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutDensity" type="OutBoolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutVolume" type="OutBoolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OutSurfaceTension" type="OutBoolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Ensemble">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Nvt" />
+      <xs:enumeration value="Npt" />
+      <xs:enumeration value="Gcmc" />
+      <xs:enumeration value="GibbsNvt" />
+      <xs:enumeration value="GibbsNpt" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrngType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Random" />
+      <xs:enumeration value="Intseed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ForceFieldType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Charmm" />
+      <xs:enumeration value="Exotic" />
+      <xs:enumeration value="Martini" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ExcludeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OneTwo" />
+      <xs:enumeration value="OneThree" />
+      <xs:enumeration value="OneFour" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PotentialType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Vdw" />
+      <xs:enumeration value="Shift" />
+      <xs:enumeration value="Switch" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ResNameValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ResName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfBoxDimInput">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BoxDimInput" nillable="true" type="BoxDimInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BoxDimInput">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="XAxis" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="YAxis" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ZAxis" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FreqInput">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:unsignedLong" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutBoolean">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="First" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Second" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
