@@ -93,10 +93,15 @@ footer {
     background-color: #2c3539;
 }
 
-/*about.html specific classes*/
+.jumbo-description {
+    text-align: center;
+    margin: 0 50px 50px 50px;
+    padding: 30px 30px 30px 30px;
+}
 
+/*about.html specific classes*/
 .new-head {
-  padding: 10px;
+    padding: 10px;
 }
 
 .formatted-container {
@@ -112,6 +117,7 @@ footer {
 
 .person-picture {
   float: left;
+  margin-right: 5px;
 }
 
 /*documentation.html specific classes*/
@@ -157,6 +163,10 @@ footer {
 
 td {
   padding: 10px;
+}
+
+.publication-header {
+    margin-top: 10.5em;
 }
 
 /*gomc.html specific classes*/
@@ -227,4 +237,15 @@ td {
 
 #onPublicationPage {
      border-bottom: 6px #7F7FFF solid;
+}
+
+/*Special media Queries, applied on about.cshtml*/
+@media only screen and (max-width: 768px){
+    .top-card {
+        margin-bottom: 25px; /*Stops bunching of the grants*/
+    }
+
+    .person-picture {
+        float: none;
+    }
 }
