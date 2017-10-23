@@ -166,7 +166,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\P2Controller.cs" />
     <Compile Include="Core\Exten.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Core\JsonConv.cs" />
     <Compile Include="Core\Utils.cs" />
