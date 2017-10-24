@@ -40,31 +40,30 @@
            <div class="container">
                <div class="row">
                    <h2><b>OPTIONAL</b></h2>
-                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form. Otherwise click the red button below: </p>
+                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form.</p>
+                   <p><i>All * fields are required</i></p>
+                   <p>Otherwise click the red button below: </p>
                </div>
-               <div class="row">
-                   <button class="btn btn-block btn-warning" id="closeRegistration"><span class="glyphicon glyphicon-download-alt"></span> Close Form and go straight to download</button>
-                   <form>
+               <button class="btn btn-block btn-warning" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
+               <div class="row well well-sm custom-well">
+                   <form method="post" action="http://www.tipjar.com/cgi-bin/test" id="registrationForm">
                        <div class="form-group">
-                           <label>Name</label>
-                           <input type="text" />
+                           <label>Name *</label>
+                           <input type="text" class="form-control" name="userName" required />
                        </div>
                        <div class="form-group">
-                           <label>Email</label>
-                           <input type="email" />
+                           <label>Email *</label>
+                           <input type="email"  class="form-control" name="userEmail" required />
                        </div>
                        <div class="form-group">
                            <label>Affliation</label>
-                           <input type="text" />
-                       </div>
-                       <div class="form-group">
-                           <label>Title</label>
-                           <input type="text" /> <!--Maybe use radio buttons?-->
+                           <input type="text"  class="form-control" name="userAffliation"/>
                        </div>
                        <div class="form-group">
                            <label>Please take a moment to tell us why you are interested in GOMC</label>
-                           <textarea></textarea>
+                           <textarea  class="form-control" rows="3" name="extraComment"></textarea>
                        </div>
+                       <button class="btn btn-group-lg btn-success submit" id="submitRegistration"><span class="glyphicon glyphicon-save"></span> Register</button>
                    </form>
                </div>
            </div>
@@ -72,7 +71,7 @@
     <div class='container-fluid'>
         <div class='row'>
             <section>
-                <div class='well well-sm download-well col-md-4'>
+                <div class='well well-sm custom-well col-md-4'>
                     <h3>Most Recent Version: @Model.Name</h3>
                     <ul>
                         @foreach (var i in Model.Items)
