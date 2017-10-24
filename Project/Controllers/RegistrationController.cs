@@ -10,7 +10,8 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-	    public RegistrationResult Get(FormDataCollection formData)
+		[HttpPost]
+	    public RegistrationResult Input(FormDataCollection formData)
 	    {
 		    var dict = formData.ToDictionary(j => j.Key, j => j.Value);
 
