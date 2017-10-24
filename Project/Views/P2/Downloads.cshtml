@@ -36,63 +36,88 @@
 </header>
 <hr class='grand-line' />
 <main>
-    <h3>@Model.Name</h3>
-    <ul>
-        @foreach(var i in Model.Items)
-        {
-            <li>@i.Name <a href="@i.Link">Download</a></li>    
-        }
-    </ul>
+       <div class="jumbotron">
+           <div class="container">
+               <div class="row">
+                   <h2><b>OPTIONAL</b></h2>
+                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form. Otherwise click the red button below: </p>
+               </div>
+               <div class="row">
+                   <button class="btn btn-block btn-warning" id="closeRegistration"><span class="glyphicon glyphicon-download-alt"></span> Close Form and go straight to download</button>
+                   <form>
+                       <div class="form-group">
+                           <label>Name</label>
+                           <input type="text" />
+                       </div>
+                       <div class="form-group">
+                           <label>Email</label>
+                           <input type="email" />
+                       </div>
+                       <div class="form-group">
+                           <label>Affliation</label>
+                           <input type="text" />
+                       </div>
+                       <div class="form-group">
+                           <label>Title</label>
+                           <input type="text" /> <!--Maybe use radio buttons?-->
+                       </div>
+                       <div class="form-group">
+                           <label>Please take a moment to tell us why you are interested in GOMC</label>
+                           <textarea></textarea>
+                       </div>
+                   </form>
+               </div>
+           </div>
+        </div>
     <div class='container-fluid'>
         <div class='row'>
             <section>
-            <div class='col-md-8'>
-                <h2>Recent Downloads</h2>
-            </div>
-            <div class='col-md-4'>
-           
-                <!-- Yep, time to fill in some AJAX later and pair with Ahmed to get this feature zipped -->
-                <!-- <li>GOMC version 2.1 is available for <a href='#'> download</a>.</li>
-                <li>GOMC version 2.0 is available for<a href='#'> download</a> 6/11/2017.</li>
-                <li>GOMC version 2.0 is available for<a href='#'> download</a> 6/11/2017.</li>
-                <li>GOMC version 2.0 is available for <a href='#'> download</a> 6/11/2017.</li>
-                </ul>
-                <p>For older versions click <a href='#'>here</a></p> -->
-            </div>
-        
-        <hr class='grand-line' />
-        <aside>
-            <div class='row'>
-                <div class='col-md-4'>
-                    <h2>GOMC</h2>
+                <div class='well well-sm download-well col-md-4'>
+                    <h3>Most Recent Version: @Model.Name</h3>
+                    <ul>
+                        @foreach (var i in Model.Items)
+                        {
+                            <li class="download-link">@i.Name <a href="@i.Link">Download</a></li>
+                        }
+                    </ul>
                 </div>
+            </section>
+            <aside>
                 <div class='col-md-8'>
+                    <h3>GOMC</h3>
                     <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p>
-                    <p>More and more details</p>
-                    <p>The Monte Carlo method is a well-known method in finance, as it lets us compute difficult, if not impossible, expected values of complex stochastic functions. Mike has already discussed the method in several articles regarding
-                        option pricing, but a few recap lines can be helpful for those that are new to it. <br/>The Monte Carlo method was first introduced in the field of physics, for complex simulations, very likely by Enrico Fermi in the 1930s
-                        for studying neutron diffusion. It then became popular in the 1940s among physicists and mathematicians involved in creating bombs for the U.S. Army. The projects needed a code name, so John Von Neumann chose "Monte Carlo",
-                        referring to the famous Monte Carlo Casino. Since then, technology and especially computational power have increased dramatically, letting us use these methods for a large variety of problems.<br/> In finance the Monte Carlo
+                    <p>
+                        The Monte Carlo method is a well-known method in finance, as it lets us compute difficult, if not impossible, expected values of complex stochastic functions. Mike has already discussed the method in several articles regarding
+                        option pricing, but a few recap lines can be helpful for those that are new to it.
+                    </p>
+                    <p>The Monte Carlo method was first introduced in the field of physics, for complex simulations, very likely by Enrico Fermi in the 1930s for studying neutron diffusion. It then became popular in the 1940s among physicists and mathematicians involved in creating bombs for the U.S. Army. </p>
+                    <p>
+                        The projects needed a code name, so John Von Neumann chose "Monte Carlo",
+                        referring to the famous Monte Carlo Casino. Since then, technology and especially computational power have increased dramatically, letting us use these methods for a large variety of problems.
+                    </p>
+                    <p>
+                        In finance the Monte Carlo
                         method is mainly used for option pricing as, especially with exotic options, the payoff is sometimes too complex, if not impossible, to compute. The main idea behind it is quite simple: simulate the stochastic components in
-                        a formula and then average the results, leading to the expected value. Of course, the more simulations (paths) you make, the more accurate the result will be. A commonly accepted value for the minimum number of paths is 106106.
-                        That should give good results for most of the simulations. Otherwise, there are techniques that can reduce variance in order to make even more accurate predictions. <br/> Given the random nature of this process, variance reduction
+                        a formula and then average the results, leading to the expected value. Of course, the more simulations (paths) you make, the more accurate the result will be.
+                    </p>
+                    <p>
+                        A commonly accepted value for the minimum number of paths is 106106.
+                        That should give good results for most of the simulations. Otherwise, there are techniques that can reduce variance in order to make even more accurate predictions. Given the random nature of this process, variance reduction
                         is not the only problem we can encounter. Another one, probably the most important, is how the random numbers are generated. There is an entire branch of mathematics talking about this and a detailed explanation is well beyond
-                        the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.</p>
+                        the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.
+                    </p>
                     <!-- Gotta look into how to do this markup -->
                 </div>
-            </div>
-        </aside>
-        </section>
-    </div>
-    <hr class='grand-line' />
-    <div class='row'>
-        <article>
-            <div class='col-md-12'>
-                <h2>Examples</h2>
-                <p>Not sure how the examples will be presented yet but they will be added here most likely as a table or description list</p>
-            </div>
-        </article>
-    </div>
+            </aside>
         </div>
-
+        <hr class='grand-line' />
+        <div class='row'>
+            <article>
+                <div class='col-md-12'>
+                    <h2>Examples</h2>
+                    <p>Not sure how the examples will be presented yet but they will be added here most likely as a table or description list</p>
+                </div>
+            </article>
+        </div>
+    </div>
 </main>

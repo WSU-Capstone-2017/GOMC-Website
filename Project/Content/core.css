@@ -158,6 +158,15 @@ footer {
   display: none;
 }
 
+.download-link {
+    padding: 3px;
+}
+
+.download-well {
+    background-color: #CFE7A7;
+    padding-top: 0;
+}
+
 /*Features.cshtml specific*/
 .different-main {
     background-color: #020816;
@@ -242,6 +251,7 @@ td {
 .panel-footer {
     background-color: #FF3232;
 }
+
 /*Ids for menu items, attach ids only on the page focus*/
 #onFontPage{
     border-bottom: 6px #106A3A solid;
