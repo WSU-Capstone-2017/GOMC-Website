@@ -10,10 +10,9 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-		[HttpPost]
-	    public RegistrationResult Input(FormDataCollection formData)
+	    public RegistrationResult Input(FormDataCollection formDataCollection)
 	    {
-		    var dict = formData.ToDictionary(j => j.Key, j => j.Value);
+		    var dict = formDataCollection.ToDictionary(j => j.Key, j => j.Value);
 
 		    var name = dict.GetValue("userName");
 		    var email = dict.GetValue("userEmail");
@@ -21,14 +20,18 @@ namespace Project.Controllers
 		    // var title = dict.GetValue("gomc_downloads_registration_tile"); // Same as in other places, commented for now
 		    var text = dict.GetValue("extraComment");
 
-		    if(name == null)
+		    var result = new RegistrationResult();
+
+
+			if (name == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingName);
+			    result.ErrorResult(RegistrationErrorType.MissingName);
 			}
 		    if (email == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingEmail);
+			    result.ErrorResult(RegistrationErrorType.MissingEmail);
 			}
+
             // Commmented out this code because the only required fields I have are name and email, again this may change so only commenting and not deleting ~CL
 		 //   if (affiliation == null)
 		 //   {
@@ -42,9 +45,10 @@ namespace Project.Controllers
 		 //   {
 			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingText);
 			//}
+
 		    if (!LoginSystem.LoginManager.IsValidEmail(email))
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.EmailInvalidFormat);
+			    result.ErrorResult(RegistrationErrorType.EmailInvalidFormat);
 		    }
 
 		    var model = new RegistrationModel
@@ -56,17 +60,13 @@ namespace Project.Controllers
 			    Text = text
 		    };
 
-		    var result = new RegistrationResult
-		    {
-			    Model = model,
-			    ErrorType = RegistrationErrorType.Success
-		    };
-
 		    using(var db = new ProjectDbContext())
 		    {
 			    db.Registrations.Add(model);
 			    db.SaveChanges();
 		    }
+
+		    result.Model = model;
 
 		    return result;
 	    }
