@@ -34,13 +34,15 @@
         </div>
     </div>
 </nav>
-<main>
+<header>
     <h1>Admininstator page</h1>
+</header>
+<main>
     <p class='center-p'>If you have reached this page in error, click the navigation buttons to return to the main site</p>
     <p class='center-p'>Otherwise please login with your credintials</p>
     <hr class='grand-line' />
     <div class='well well-lg container'>
-        <form method="post" action='http://www.tipjar.com/cgi-bin/test'>
+        <form method="post" action='/api/Login/Process'> <!--Need endpoint? Pull Moe's branch-->
             <div class='form-group'>
                 <label for='userName'>Login</label>
                 <input class='form-control' type='text' name='uName' id='userName' placeholder="Login" />

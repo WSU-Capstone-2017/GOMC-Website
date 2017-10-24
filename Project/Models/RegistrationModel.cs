@@ -6,7 +6,7 @@
 		public string Name { get; set; }
 		public string Email { get; set; }
 		public string Affiliation { get; set; }
-		public string Title { get; set; }
+		//public string Title { get; set; } // I removed this in the UI but I can add it back if it's a problem, it seems kind of redundant so I'm only commenting this out in case we need it later ~ CL
 		public string Text { get; set; }
 	}
 
@@ -16,7 +16,7 @@
 		MissingName,
 		MissingEmail,
 		MissingAffiliation,
-		MissingTitle,
+		// MissingTitle,
 		MissingText,
 		EmailInvalidFormat,
 	}

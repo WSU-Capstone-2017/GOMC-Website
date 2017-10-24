@@ -15,11 +15,11 @@ namespace Project.Controllers
 	    {
 		    var dict = formData.ToDictionary(j => j.Key, j => j.Value);
 
-		    var name = dict.GetValue("gomc_downloads_registration_name");
-		    var email = dict.GetValue("gomc_downloads_registration_email");
-		    var affiliation = dict.GetValue("gomc_downloads_registration_affiliation");
-		    var title = dict.GetValue("gomc_downloads_registration_tile");
-		    var text = dict.GetValue("gomc_downloads_registration_text");
+		    var name = dict.GetValue("userName");
+		    var email = dict.GetValue("userEmail");
+		    var affiliation = dict.GetValue("userAffliation");
+		    // var title = dict.GetValue("gomc_downloads_registration_tile"); // Same as in other places, commented for now
+		    var text = dict.GetValue("extraComment");
 
 		    if(name == null)
 		    {
@@ -29,18 +29,19 @@ namespace Project.Controllers
 		    {
 			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingEmail);
 			}
-		    if (affiliation == null)
-		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingAffiliation);
-			}
-		    if (title == null)
-		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingTitle);
-			}
-		    if (text == null)
-		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingText);
-			}
+            // Commmented out this code because the only required fields I have are name and email, again this may change so only commenting and not deleting ~CL
+		 //   if (affiliation == null)
+		 //   {
+			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingAffiliation);
+			//}
+		 //   if (title == null)
+		 //   {
+			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingTitle);
+			//}
+		 //   if (text == null)
+		 //   {
+			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingText);
+			//}
 		    if (!LoginSystem.LoginManager.IsValidEmail(email))
 		    {
 			    return RegistrationResult.ErrorResult(RegistrationErrorType.EmailInvalidFormat);
@@ -51,7 +52,7 @@ namespace Project.Controllers
 			    Name = name,
 			    Email = email,
 			    Affiliation = affiliation,
-			    Title = title,
+			   // Title = null,
 			    Text = text
 		    };
 
