@@ -1,14 +1,30 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
+using Project.Core;
 using Project.Models.Gomc;
 
 namespace Project.ConfigInput
 {
 	public class Validator
 	{
-		public static bool IsValid(ConfigInputModel input)
+		private const string OnlyOneXAllowedFmt = "Only one {0} input is allowed for '{1}' mode.";
+
+		private readonly ConfigInputModel input;
+
+		private readonly Dictionary<InputModelFieldType, string> fieldErrors = new Dictionary<InputModelFieldType, string>();
+
+		public Validator(ConfigInputModel configInput)
 		{
-			if (!BasicIsValid(input))
+			input = configInput;
+		}
+
+		public string GetErrorMessage()
+		{
+			return JsonConv.ToJson(fieldErrors);
+		}
+
+		public bool IsValid()
+		{
+			if (!BasicIsValid())
 			{
 				return false;
 			}
@@ -16,211 +32,250 @@ namespace Project.ConfigInput
 			return true;
 		}
 
-		private static bool BasicIsValid(ConfigInputModel input)
+		private bool BasicIsValid()
 		{
 			if (input == null)
 			{
 				return false;
 			}
-			if(!GcOnly(input))
+
+			var b = !GcOnly();
+		
+			if (!ValidPressureCalcPressure())
+			{
+				b = false;
+			}
+			if (!ValidToleranceEwald())
+			{
+				b = false;
+			}
+
+			if (!PrngSeedValid())
+			{
+				b = false;
+			}
+			if (!CoordinatesLengthValid())
+			{
+				b = false;
+			}
+			if (!PressureNptValid())
+			{
+				b = false;
+			}
+			if (!LrcValid())
+			{
+				b = false;
+			}
+			if (!SwitchValid())
+			{
+				b = false;
+			}
+			if (!StructuresLengthValid())
+			{
+				b = false;
+			}
+			if (!ValidEwaldStatic())
+			{
+				b = false;
+			}
+			if (!ValidCachedFourierEwald())
+			{
+				b = false;
+			}
+			if (!ValidDielectricCachedFourier())
 			{
 				return false;
 			}
-			if (!ValidPressureCalcPressure(input))
+			return b;
+		}
+
+		private bool PrngSeedValid()
+		{
+			if (input.Prng == PrngType.Random && input.RandomSeed != null)
 			{
+				fieldErrors.Add(InputModelFieldType.RandomSeed, "Field must be null, since Prng is set to 'Random'.");
 				return false;
 			}
-			if (!ValidToleranceEwald(input))
+			if (input.Prng == PrngType.Intseed && input.RandomSeed == null)
 			{
-				return false;
-			}
-			if (!NvtIsValid(input))
-			{
-				return false;
-			}
-			if (!NptIsValid(input))
-			{
-				return false;
-			}
-			if (!PrngSeedValid(input))
-			{
-				return false;
-			}
-			if (!CoordinatesLengthValid(input))
-			{
-				return false;
-			}
-			if (!PressureNptValid(input))
-			{
-				return false;
-			}
-			if (!LrcValid(input))
-			{
-				return false;
-			}
-			if (!SwitchValidi(input))
-			{
-				return false;
-			}
-			if (!StructuresLengthValid(input))
-			{
-				return false;
-			}
-			if (!ValidEwaldStatic(input))
-			{
-				return false;
-			}
-			if (!ValidCachedFourierEwald(input))
-			{
-				return false;
-			}
-			if (!ValidDielectricCachedFourier(input))
-			{
+				fieldErrors.Add(InputModelFieldType.RandomSeed, "Field cannot be null, since Prng is set to 'IntSeed'.");
 				return false;
 			}
 			return true;
 		}
 
-		private static bool NvtIsValid(ConfigInputModel input)
+		private bool CoordinatesLengthValid()
 		{
-			if(input.Ensemble != Ensemble.Nvt) return true;
-			if (input.Structures?.Length != 1)
+			if (input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.Npt)
 			{
-				return false;
-			}
-			if (input.Coordinates?.Length != 1)
-			{
-				return false;
-			}
-			return true;
-		}
-
-		private static bool NptIsValid(ConfigInputModel input)
-		{
-			if (input.Ensemble != Ensemble.Npt) return true;
-			if (input.Structures?.Length != 1)
-			{
-				return false;
-			}
-			if (input.Coordinates?.Length != 1)
-			{
-				return false;
-			}
-			return true;
-		}
-
-		private static bool PrngSeedValid(ConfigInputModel input)
-		{
-			if(input.Prng == PrngType.Random && input.RandomSeed != null)
-			{
-				return false;
-			}
-			if(input.Prng == PrngType.Intseed && input.RandomSeed == null)
-			{
-				return false;
-			}
-			return true;
-		}
-
-		private static bool CoordinatesLengthValid(ConfigInputModel input)
-		{
-			if(input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.Npt)
-			{
+				fieldErrors.Add(InputModelFieldType.Coordinates, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Coordinates, input.Ensemble));
 				return input.Coordinates?.Length == 1;
 			}
 			return input.Coordinates?.Length == 2;
 		}
 
-		private static bool PressureNptValid(ConfigInputModel input)
+		private bool PressureNptValid()
 		{
-			if(input.Pressure.HasValue)
+			if (input.Pressure.HasValue)
 			{
-				return input.Ensemble == Ensemble.Npt || input.Ensemble == Ensemble.GibbsNpt;
+				var b = input.Ensemble == Ensemble.Npt || input.Ensemble == Ensemble.GibbsNpt;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Pressure,
+						"Field cannot have a value unless the ensamble is 'Npt' of 'GibbsNpt'.");
+				}
+				return b;
 			}
 			return input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.GibbsNvt || input.Ensemble == Ensemble.Gcmc;
 		}
 
-		private static bool LrcValid(ConfigInputModel input)
+		private bool LrcValid()
 		{
-			if(input.Potential == PotentialType.Vdw)
+			if (input.Potential == PotentialType.Vdw)
 			{
-				return input.Lrc.HasValue;
+				var b = input.Lrc.HasValue;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Lrc, "Field cannot have a value if Potential is not set to 'Vdw'.");
+				}
+				return b;
 			}
 			return !input.Lrc.HasValue;
 		}
 
-		private static bool SwitchValidi(ConfigInputModel input)
+		private bool SwitchValid()
 		{
-			if(input.Potential == PotentialType.Shift)
+			bool b;
+			if (input.Potential == PotentialType.Shift)
 			{
-				return input.Rswitch.HasValue;
+				b = input.Rswitch.HasValue;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Rswitch, "Field must have a value if Potential is set to 'Shift'.");
+				}
+				return b;
 			}
-			return !input.Rswitch.HasValue;
+			b = !input.Rswitch.HasValue;
+			if (!b)
+			{
+				fieldErrors.Add(InputModelFieldType.Rswitch, "Field cannot hvae a value if Potential is not set to 'Shift'.");
+			}
+			return b;
 		}
-		private static bool StructuresLengthValid(ConfigInputModel input)
+
+		private bool StructuresLengthValid()
 		{
 			if (input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.Npt)
 			{
+				fieldErrors.Add(InputModelFieldType.Structures, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Structures, input.Ensemble));
 				return input.Structures?.Length == 1;
 			}
 			return input.Structures?.Length == 2;
 		}
-		private static bool GcOnly(ConfigInputModel input)
+
+		private bool GcOnly()
 		{
-			if(input.ChemPot != null || input.Fugacity != null)
+			if (input.ChemPot != null)
 			{
-				return input.Ensemble == Ensemble.Gcmc;
+				var b = input.Ensemble == Ensemble.Gcmc;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.ChemPot, "Field cannot have a value unless the Ensemble is 'Gcmc'.");
+				}
+				return b;
+			}
+			if (input.Fugacity != null)
+			{
+				var b = input.Ensemble == Ensemble.Gcmc;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Fugacity, "Field cannot have a value unless the Ensemble is 'Gcmc'.");
+				}
+				return b;
 			}
 			return true;
 		}
 
-		private static bool ValidPressureCalcPressure(ConfigInputModel input)
+		private bool ValidPressureCalcPressure()
 		{
 			if (input.PressureCalc.HasValue)
 			{
-				return input.Pressure.HasValue;
+				var b = input.Pressure.HasValue;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.PressureCalc, "Field cannot have a value if Pressure is not set.");
+				}
+				return b;
 			}
 			return true;
 		}
 
-		private static bool ValidToleranceEwald(ConfigInputModel input)
+		private bool ValidToleranceEwald()
 		{
 			if (input.Ewald == true)
 			{
-				return input.Tolerance.HasValue;
+				var b = input.Tolerance.HasValue;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Tolerance, "Field must have a value if Ewald is set to 'true'.");
+				}
+				return b;
 			}
 			return true;
 		}
 
-		private static bool ValidEwaldStatic(ConfigInputModel input)
+		private bool ValidEwaldStatic()
 		{
-			if(input.ElectroStatic == false)
+			if (input.ElectroStatic == false)
 			{
-				return !input.Ewald.HasValue || input.Ewald == false;
+				var b = !input.Ewald.HasValue || input.Ewald == false;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Ewald, "Field must be empty or 'false' if ElectroStatic is set to 'false'.");
+				}
+				return b;
 			}
-			if(input.Ewald == true)
-			{
-				return input.ElectroStatic;
-			}
-			return !input.ElectroStatic;
+			return true;
 		}
 
-		private static bool ValidCachedFourierEwald(ConfigInputModel input)
+		private bool ValidCachedFourierEwald()
 		{
-			if(input.CachedFourier.HasValue)
+			bool b;
+			if (input.CachedFourier.HasValue)
 			{
-				return input.Ewald == true;
+				b = input.Ewald == true;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.CachedFourier, "Field cannot have a value if Ewald is not set to 'true'.");
+				}
+				return b;
 			}
-			return !input.Ewald.HasValue || input.Ewald == false;
+			b = !input.Ewald.HasValue || input.Ewald == false;
+			if (!b)
+			{
+				fieldErrors.Add(InputModelFieldType.CachedFourier, "Field must have a value if Ewald is set to 'true'.");
+			}
+			return b;
 		}
 
-		private static bool ValidDielectricCachedFourier(ConfigInputModel input)
+		private bool ValidDielectricCachedFourier()
 		{
-			if(input.Dielectric.HasValue)
+			bool b;
+			if (input.Dielectric.HasValue)
 			{
-				return !input.Ewald.HasValue || input.Ewald == false;
+				b = !input.Ewald.HasValue || input.Ewald == false;
+				if (!b)
+				{
+					fieldErrors.Add(InputModelFieldType.Dielectric, "Field cannot have a value if Ewald is not set to 'true'");
+				}
+				return b;
 			}
-			return !input.Dielectric.HasValue;
+			b = !input.Dielectric.HasValue;
+			if (!b)
+			{
+				fieldErrors.Add(InputModelFieldType.Dielectric, "Field must have a value if Ewald is set to 'true'.");
+			}
+			return b;
 		}
 	}
 }

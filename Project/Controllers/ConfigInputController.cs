@@ -31,10 +31,12 @@ namespace Project.Controllers
 				));
 			}
 
-			if (!Validator.IsValid(model))
+			var validator = new Validator(model);
+
+			if (!validator.IsValid())
 			{
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
-					"The input is invalid."
+					validator.GetErrorMessage()
 				));
 			}
 

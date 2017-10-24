@@ -161,6 +161,7 @@
     <Compile Include="ConfigInput\ConfigInputModel.cs" />
     <Compile Include="ConfigInput\InConf.cs" />
     <Compile Include="ConfigInput\InConfNameAttribute.cs" />
+    <Compile Include="ConfigInput\InputModelFieldType.cs" />
     <Compile Include="ConfigInput\Validator.cs" />
     <Compile Include="Controllers\ConfigInputController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
