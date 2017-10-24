@@ -65,8 +65,6 @@ footer {
     background-color: #9acd32;
 }
 
-/*classes - General Navigation & other stuff*/
-
 .main-menu {
     color: #FFF;
     background-color: #2c3539;
@@ -99,7 +97,7 @@ footer {
     padding: 30px 30px 30px 30px;
 }
 
-/*about.html specific classes*/
+/*About.cshtml specific */
 .new-head {
     padding: 10px;
 }
@@ -120,8 +118,17 @@ footer {
   margin-right: 5px;
 }
 
-/*documentation.html specific classes*/
+@media only screen and (max-width: 768px) {
+    .top-card {
+        margin-bottom: 25px; /*Stops bunching of the grants*/
+    }
 
+    .person-picture {
+        float: none;
+    }
+}
+
+/*Documentation.cshtml specific*/
 .center-p {
     text-align: center;
 }
@@ -146,21 +153,18 @@ footer {
     background-color: #CFE7A7;
 }
 
-/*downloads.html specific classes*/
-
+/*Downloads.cshtml specific*/
 .hidden-until {
   display: none;
 }
 
-/*features.html specific classes*/
-
+/*Features.cshtml specific*/
 .different-main {
     background-color: #020816;
     color: #FDFFFC;
 }
 
-/*publication.html specific classes*/
-
+/*Publication.cshtml specific*/
 td {
   padding: 10px;
 }
@@ -169,8 +173,7 @@ td {
     margin-top: 10.5em;
 }
 
-/*gomc.html specific classes*/
-
+/*Gomc.cshtml specific*/
 .gomcHome {
     min-height: 250px;
 }
@@ -196,8 +199,7 @@ td {
     color: #FFF;
 }
 
-/*Admin page styles*/
-
+/*Admin.cshtml  specific*/
 .adminPage {
   background-color: #FDFFFC;
   color: #020816;
@@ -209,8 +211,38 @@ td {
   padding: 10px;
 }
 
-/*Ids for menu items, attach ids only on the page focus*/
+/*Site-Map.cshtml specific*/
+.panel-gomc {
+    background-color: #E58242;
+}
 
+.panel-features {
+    background-color: #106A3A;
+    color: #FFF;
+}
+
+.panel-downloads {
+    background-color: #91D3EF;
+}
+
+.panel-documentation {
+    background-color: #7F3E97;
+    color: #FFF;
+}
+
+.panel-publication {
+    background-color: #CFE7A7;
+}
+
+.panel-about {
+    background-color: #7F7FFF;
+    color: #FFF;
+}
+
+.panel-footer {
+    background-color: #FF3232;
+}
+/*Ids for menu items, attach ids only on the page focus*/
 #onFontPage{
     border-bottom: 6px #106A3A solid;
 }
@@ -239,13 +271,4 @@ td {
      border-bottom: 6px #7F7FFF solid;
 }
 
-/*Special media Queries, applied on about.cshtml*/
-@media only screen and (max-width: 768px){
-    .top-card {
-        margin-bottom: 25px; /*Stops bunching of the grants*/
-    }
 
-    .person-picture {
-        float: none;
-    }
-}
