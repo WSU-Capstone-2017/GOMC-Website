@@ -312,6 +312,7 @@
     <Content Include="Views\P2\SiteMap.cshtml" />
     <Content Include="Views\P2\PrivacyPolicy.cshtml" />
     <Content Include="Views\P2\Faq.cshtml" />
+    <Content Include="Views\P2\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
