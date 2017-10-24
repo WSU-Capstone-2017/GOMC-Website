@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Project.Models
 {
+    [Table("Registrations")]
 	public class RegistrationModel
 	{
 		public int Id { get; set; }
@@ -19,7 +21,6 @@ namespace Project.Models
 
 	public enum RegistrationErrorType
 	{
-		Success,
 		MissingName,
 		MissingEmail,
 		MissingAffiliation,

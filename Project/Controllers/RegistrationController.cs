@@ -32,20 +32,6 @@ namespace Project.Controllers
 			    result.ErrorResult(RegistrationErrorType.MissingEmail);
 			}
 
-            // Commmented out this code because the only required fields I have are name and email, again this may change so only commenting and not deleting ~CL
-		 //   if (affiliation == null)
-		 //   {
-			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingAffiliation);
-			//}
-		 //   if (title == null)
-		 //   {
-			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingTitle);
-			//}
-		 //   if (text == null)
-		 //   {
-			//    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingText);
-			//}
-
 		    if (!LoginSystem.LoginManager.IsValidEmail(email))
 		    {
 			    result.ErrorResult(RegistrationErrorType.EmailInvalidFormat);

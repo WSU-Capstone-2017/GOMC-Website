@@ -21,7 +21,7 @@ namespace Project.Controllers
 
         public Guid ValididateLogin(string email, string password)                       //Guid function for loginvalid 
         {
-            var loginID = loginManager.GetLoginID(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
+            var loginID = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
             if (loginID == null)
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);   //Will throw an exception which says unathorized if the login is false
