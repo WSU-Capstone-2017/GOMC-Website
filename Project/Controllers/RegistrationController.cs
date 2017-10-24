@@ -17,7 +17,6 @@ namespace Project.Controllers
 		    var name = dict.GetValue("userName");
 		    var email = dict.GetValue("userEmail");
 		    var affiliation = dict.GetValue("userAffliation");
-		    // var title = dict.GetValue("gomc_downloads_registration_tile"); // Same as in other places, commented for now
 		    var text = dict.GetValue("extraComment");
 
 		    var result = new RegistrationResult();
@@ -42,17 +41,19 @@ namespace Project.Controllers
 			    Name = name,
 			    Email = email,
 			    Affiliation = affiliation,
-			   // Title = null,
 			    Text = text
 		    };
 
-		    using(var db = new ProjectDbContext())
-		    {
-			    db.Registrations.Add(model);
-			    db.SaveChanges();
-		    }
+	        if (result.Success)
+	        {
+	            using (var db = new ProjectDbContext())
+	            {
+	                db.Registrations.Add(model);
+	                db.SaveChanges();
+	            }
+	        }
 
-		    result.Model = model;
+	        result.Model = model;
 
 		    return result;
 	    }
