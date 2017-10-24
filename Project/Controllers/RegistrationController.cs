@@ -10,40 +10,42 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-		[HttpPost]
-	    public RegistrationResult Input(FormDataCollection formData)
+	    public RegistrationResult Input(FormDataCollection formDataCollection)
 	    {
-		    var dict = formData.ToDictionary(j => j.Key, j => j.Value);
+		    var dict = formDataCollection.ToDictionary(j => j.Key, j => j.Value);
 
 		    var name = dict.GetValue("gomc_downloads_registration_name");
 		    var email = dict.GetValue("gomc_downloads_registration_email");
 		    var affiliation = dict.GetValue("gomc_downloads_registration_affiliation");
-		    var title = dict.GetValue("gomc_downloads_registration_tile");
+		    var title = dict.GetValue("gomc_downloads_registration_title");
 		    var text = dict.GetValue("gomc_downloads_registration_text");
 
-		    if(name == null)
+		    var result = new RegistrationResult();
+
+
+			if (name == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingName);
+			    result.ErrorResult(RegistrationErrorType.MissingName);
 			}
 		    if (email == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingEmail);
+			    result.ErrorResult(RegistrationErrorType.MissingEmail);
 			}
 		    if (affiliation == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingAffiliation);
+			    result.ErrorResult(RegistrationErrorType.MissingAffiliation);
 			}
 		    if (title == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingTitle);
+			    result.ErrorResult(RegistrationErrorType.MissingTitle);
 			}
 		    if (text == null)
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.MissingText);
+			    result.ErrorResult(RegistrationErrorType.MissingText);
 			}
 		    if (!LoginSystem.LoginManager.IsValidEmail(email))
 		    {
-			    return RegistrationResult.ErrorResult(RegistrationErrorType.EmailInvalidFormat);
+			    result.ErrorResult(RegistrationErrorType.EmailInvalidFormat);
 		    }
 
 		    var model = new RegistrationModel
@@ -55,17 +57,13 @@ namespace Project.Controllers
 			    Text = text
 		    };
 
-		    var result = new RegistrationResult
-		    {
-			    Model = model,
-			    ErrorType = RegistrationErrorType.Success
-		    };
-
 		    using(var db = new ProjectDbContext())
 		    {
 			    db.Registrations.Add(model);
 			    db.SaveChanges();
 		    }
+
+		    result.Model = model;
 
 		    return result;
 	    }

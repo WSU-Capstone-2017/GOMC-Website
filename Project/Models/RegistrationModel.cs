@@ -1,4 +1,7 @@
-﻿namespace Project.Models
+﻿using System;
+using System.Linq;
+
+namespace Project.Models
 {
 	public class RegistrationModel
 	{
@@ -8,6 +11,10 @@
 		public string Affiliation { get; set; }
 		public string Title { get; set; }
 		public string Text { get; set; }
+
+		public RegistrationModel()
+		{
+		}
 	}
 
 	public enum RegistrationErrorType
@@ -23,15 +30,14 @@
 
 	public class RegistrationResult
 	{
+		public bool Success => Errors == null || Errors.Length == 0;
 		public RegistrationModel Model { get; set; }
-		public RegistrationErrorType? ErrorType { get; set; }
+		public RegistrationErrorType[] Errors { get; set; }
 
-		public static RegistrationResult ErrorResult(RegistrationErrorType error)
+		public RegistrationResult ErrorResult(RegistrationErrorType error)
 		{
-			return new RegistrationResult
-			{
-				ErrorType = error
-			};
+			Errors = Errors.Concat(new[] {error}).ToArray();
+			return this;
 		}
 
 	}

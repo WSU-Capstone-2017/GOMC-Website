@@ -35,7 +35,7 @@ namespace Project.LoginSystem
             }
             return false;
         }
-        public int? GetLoginID(string email, string password)                //We put int? that way we are able to return null
+        public int? GetLoginId(string email, string password)                //We put int? that way we are able to return null
         {
             if (IsValidEmail(email) == false)
             {
@@ -49,7 +49,7 @@ namespace Project.LoginSystem
             {
                 if (i.Email == email && i.PasswordHash == GetHash(password))  //Password that is hashed needs to be the same as the hashed password
                 {
-                    return i.ID;                                          //If the email and password is correct, it will return the ID
+                    return i.Id;                                          //If the email and password is correct, it will return the ID
                 }
             }
             return null;
