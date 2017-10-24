@@ -1,10 +1,13 @@
 // gomc.js is the main javascript file for the web application
 
 var currentWidth = 0;
+var registrationString = {
+    init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
+    fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
+};
 // Global Object events
 $(function(){
-	console.log('READY? GOMC');
-	//$('#dataOfReleasesFromAJAX').get('/Models/DownloadsModel.cs/'); // Placeholder for now
+	console.log('READY');
 });
 
 // Event Listeners
@@ -28,6 +31,14 @@ $('#xmlTrigger').click(function(){
 	$('#xmlDataContainer').toggleClass('hidden-until');
 	$('#xmlTrigger').slideUp(500, 'linear', morphXmlTrigger);
   });
+});
+
+$('#closeRegistration').click(function () {
+    $(this).next().slideToggle(() => {
+        $(this).html((count, words)=>{
+            return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download' ? registrationString.fin : registrationString.init;
+        });
+    });
 });
 
 // Callback methods

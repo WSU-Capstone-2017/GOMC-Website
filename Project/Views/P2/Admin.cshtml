@@ -2,7 +2,12 @@
     Layout = "~/Views/P2/_P2_Layout.cshtml";
 }
 <head>
-    <title>SiteMap</title>
+    <!--
+        Login Page will contain login form for admins.
+        WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T
+    -->
+
+    <title>Admin</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @Styles.Render("~/Content/bootstrap")
@@ -29,6 +34,24 @@
         </div>
     </div>
 </nav>
-<header>
-    <h1>Content still needs to be ported in</h1>
-</header>
+<main>
+    <h1>Admininstator page</h1>
+    <p class='center-p'>If you have reached this page in error, click the navigation buttons to return to the main site</p>
+    <p class='center-p'>Otherwise please login with your credintials</p>
+    <hr class='grand-line' />
+    <div class='well well-lg container'>
+        <form method="post" action='http://www.tipjar.com/cgi-bin/test'>
+            <div class='form-group'>
+                <label for='userName'>Login</label>
+                <input class='form-control' type='text' name='uName' id='userName' placeholder="Login" />
+            </div>
+            <div class='form-group'>
+                <label for='passCode'>Password</label>
+                <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" />
+            </div>
+            <button class='btn btn-success' type='submit'>Login</button>
+        </form>
+    </div>
+</main>
+  
+
