@@ -20,6 +20,7 @@ namespace Project.Models
 
 	public enum RegistrationErrorType
 	{
+		CaptchaInvalid,
 		MissingName,
 		MissingEmail,
 		MissingAffiliation,
