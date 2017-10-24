@@ -14,65 +14,118 @@ namespace Project.ConfigInput
 		private static readonly Dictionary<string, PropertyInfo> propMap =
 			ConfigInputModel.PropertyInfos.ToDictionary(j => j.Name, j => j);
 
-		private static void SetProp(object model, PropertyInfo prop, string value)
+		private readonly IDictionary<string, string> formData;
+
+		private readonly Dictionary<InputModelFieldType, string> fieldErrors = new Dictionary<InputModelFieldType, string>();
+
+		private readonly List<string> generalErrors = new List<string>();
+
+		public ConfigFormDataConvertor(IDictionary<string, string> inputFormData)
 		{
-			if (model == null || prop == null ||string.IsNullOrEmpty(value))
+			formData = inputFormData;
+		}
+
+		public string GetErrorMessage()
+		{
+			return JsonConv.ToJson(new { General = generalErrors, Fields = fieldErrors });
+		}
+
+		private void SetProp(object model, PropertyInfo prop, string value)
+		{
+			if (prop == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			if (model == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			var ptyp = Utils.EnumParse<InputModelFieldType>(prop.Name);
+
+			void setPropHelper<T>(Func<T> valFn, string onValErr, string onSetErr)
+			{
+				T v;
+				try
+				{
+					v = valFn();
+				}
+				catch
+				{
+					fieldErrors.Add(ptyp, onValErr);
+					return;
+				}
+				try
+				{
+					prop.SetValue(model, v);
+				}
+				catch
+				{
+					fieldErrors.Add(ptyp, onSetErr);
+				}
+			}
+
+			if (string.IsNullOrEmpty(value))
 			{
 				return;
 			}
 			var t = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 			if (t == typeof(string))
 			{
-				prop.SetValue(model, value);
+				setPropHelper(() => value, null, "Field cannot bet set to a string value.");
 			}
 			else if (t == typeof(char))
 			{
-				prop.SetValue(model, char.Parse(value));
+				setPropHelper(() => char.Parse(value), "Input is not a valid char value.", "Field cannot bet set to a char value.");
 			}
 			else if (t == typeof(bool) && value.AsBool().HasValue)
 			{
-				prop.SetValue(model, value.AsBool() ?? false);
+				setPropHelper(() => value.AsBool().Value, "Input is not a valid bool value.", "Field cannot bet set to a bool value.");
 			}
 			else if (t == typeof(int) && value.AsInt().HasValue)
 			{
-				prop.SetValue(model, value.AsInt() ?? 0);
+				setPropHelper(() => value.AsInt().Value, "Input is not a valid int value.", "Field cannot bet set to a int value.");
 			}
 			else if (t == typeof(long) && value.AsLong().HasValue)
 			{
-				prop.SetValue(model, value.AsLong() ?? 0);
+				setPropHelper(() => value.AsLong().Value, "Input is not a valid long value.", "Field cannot bet set to a long value.");
 			}
 			else if (t == typeof(uint) && value.AsUint().HasValue)
 			{
-				prop.SetValue(model, value.AsUint() ?? 0);
+				setPropHelper(() => value.AsUint().Value, "Input is not a valid uint value.", "Field cannot bet set to a uint value.");
 			}
 			else if (t == typeof(ulong) && value.AsUlong().HasValue)
 			{
-				prop.SetValue(model, value.AsUlong() ?? 0);
+				setPropHelper(() => value.AsUlong().Value, "Input is not a valid ulong value.", "Field cannot bet set to a ulong value.");
 			}
 			else if (t == typeof(float) && value.AsFloat().HasValue)
 			{
-				prop.SetValue(model, value.AsFloat() ?? 0);
+				setPropHelper(() => value.AsFloat().Value, "Input is not a valid float value.", "Field cannot bet set to a float value.");
 			}
 			else if (t == typeof(double) && value.AsDouble().HasValue)
 			{
-				prop.SetValue(model, value.AsDouble() ?? 0);
+				setPropHelper(() => value.AsDouble().Value, "Input is not a valid double value.", "Field cannot bet set to a double value.");
 			}
 			else if (t.IsEnum)
 			{
-				prop.SetValue(model, Enum.Parse(t, value));
+				setPropHelper(() => Enum.Parse(t, value), $"Input is not a valid value of {prop.Name}", $"Field cannot bet set to '{value}'.");
 			}
 			else
 			{
 				throw new ArgumentException();
 			}
 		}
-		public static ConfigInputModel Convert(IDictionary<string, string> formData)
+
+		public ConfigInputModel Convert()
 		{
 			var model = new ConfigInputModel();
+
 			foreach (var i in formData)
 			{
 				if (!i.Key.StartsWith(NameStart))
 				{
+					generalErrors.Add($"The input key '{i.Key}' could not be recognized.");
 					return null;
 				}
 
@@ -88,7 +141,7 @@ namespace Project.ConfigInput
 				}
 				else if (sp.Length == 2 && sp[0].IsOneOf("ChemPot", "Fugacity") && sp[1].IsOneOf("ResName", "Value"))
 				{
-					if(string.IsNullOrEmpty(i.Value))
+					if (string.IsNullOrEmpty(i.Value))
 					{
 						continue;
 					}
@@ -146,8 +199,9 @@ namespace Project.ConfigInput
 					}
 					else
 					{
-						return null;
+						throw new ApplicationException();
 					}
+
 					prop.SetValue(model, prop.GetValue(model) ?? new OutBoolean());
 
 					var prop2 = typeof(OutBoolean).GetProperty(sp[1]);
@@ -156,6 +210,7 @@ namespace Project.ConfigInput
 				}
 				else
 				{
+					generalErrors.Add($"The input field '{key} : {i.Value}' was not recognized.");
 					return null;
 				}
 			}

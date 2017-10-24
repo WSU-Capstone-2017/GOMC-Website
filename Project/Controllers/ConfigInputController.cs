@@ -22,12 +22,14 @@ namespace Project.Controllers
 
 		public Guid FormPost(FormDataCollection formDataCollection)
 		{
-			var model = ConfigInputModel.FromFormData(formDataCollection.ToDictionary(j => j.Key, j => j.Value));
+			var formDataConv = new ConfigFormDataConvertor(formDataCollection.ToDictionary(j => j.Key, j => j.Value));
+
+			var model = formDataConv.Convert();
 
 			if (model == null)
 			{
 				throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
-					"Could not parse config input."
+					formDataConv.GetErrorMessage()
 				));
 			}
 

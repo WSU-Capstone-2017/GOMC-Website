@@ -89,17 +89,6 @@ namespace Project.ConfigInput
 
 		public string AsJsonString() => JsonConv.ToJson(this);
 
-		public static ConfigInputModel FromFormData(IDictionary<string, string> formData)
-		{
-			try
-			{
-				return ConfigFormDataConvertor.Convert(formData);
-			}
-			catch
-			{
-				return null;
-			}
-		}
 		public static ConfigInputModel FromJson(string jsonString)
 		{
 			try
