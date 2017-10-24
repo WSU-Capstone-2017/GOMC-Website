@@ -46,11 +46,10 @@
                </div>
                <button class="btn btn-block btn-warning" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
                <div class="row well well-sm custom-well">
-                   <form method="post" action="/api/registration/input" id="registrationForm">
-                       <!--Need dbo fix and regex and captcha implementation-->
+                   <form method="post" id="registrationForm">
                        <div class="form-group">
                            <label>Name *</label>
-                           <input type="text" class="form-control" name="userName" required />
+                           <input type="text" class="form-control" name="userName" required pattern="[A-Za-z]+" title="Enter a valid name, no special characters"/>
                        </div>
                        <div class="form-group">
                            <label>Email *</label>
@@ -64,7 +63,8 @@
                            <label>Please take a moment to tell us why you are interested in GOMC</label>
                            <textarea  class="form-control" rows="3" name="extraComment"></textarea>
                        </div>
-                       <button class="btn btn-group-lg btn-success submit" id="submitRegistration"><span class="glyphicon glyphicon-save"></span> Register</button>
+                       <div class="g-recaptcha" data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"></div> <!--Implemented for captcha-->
+                       <button class="btn btn-group-lg btn-success submit" id="submitRegistration" ><span class="glyphicon glyphicon-save"></span> Register</button>
                    </form>
                </div>
            </div>
@@ -106,7 +106,6 @@
                         is not the only problem we can encounter. Another one, probably the most important, is how the random numbers are generated. There is an entire branch of mathematics talking about this and a detailed explanation is well beyond
                         the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.
                     </p>
-                    <!-- Gotta look into how to do this markup -->
                 </div>
             </aside>
         </div>
@@ -121,3 +120,4 @@
         </div>
     </div>
 </main>
+<script src='https://www.google.com/recaptcha/api.js'></script> <!--Captcha script implementation-->

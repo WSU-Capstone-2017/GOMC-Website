@@ -21,6 +21,8 @@ namespace Project.Controllers
 
         public Guid ValididateLogin(string email, string password)                       //Guid function for loginvalid 
         {
+            //FormDataCollection uiData
+            //var loginSet = uiData.ToDictionary(j => j.Key, j => j.Value); // TRY THIS??? 
             var loginID = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
             if (loginID == null)
             {

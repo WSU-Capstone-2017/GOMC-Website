@@ -41,6 +41,26 @@ $('#closeRegistration').click(function () {
     });
 });
 
+$('#registrationForm').submit(function (e) {
+    $.post('/api/Registration/Input', $('#registrationForm').serialize())
+        .done(function (data) {
+            //var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
+            //window.location.replace(newUrl);
+            $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
+            $('#closeRegistration').addClass('btn-success');
+            $('#closeRegistration').removeClass('btn-warning');
+            $('#closeRegistration').next().slideToggle(() => {
+            $('#closeRegistration').prop('disabled', true);
+            });
+            document.write('Logged in');
+        })
+        .fail(function (jqXhR) {
+            console.log("Error has been thrown");
+            // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
+        });
+    e.preventDefault();
+});
+
 // Callback methods
 function morphXmlTrigger(){
   if($('#xmlDataContainer').hasClass('hidden-until')){
