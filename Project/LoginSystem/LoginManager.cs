@@ -54,7 +54,7 @@ namespace Project.LoginSystem
             }
             return null;
         }
-        private bool IsValidEmail(string email)
+        public static bool IsValidEmail(string email)
         {
             try
             {
