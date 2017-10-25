@@ -1,5 +1,6 @@
 // gomc.js is the main javascript file for the web application
 
+// Global Vars
 var currentWidth = 0;
 var registrationString = {
     init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
@@ -52,14 +53,34 @@ $('#registrationForm').submit(function (e) {
             $('#closeRegistration').next().slideToggle(() => {
             $('#closeRegistration').prop('disabled', true);
             });
-            document.write('Logged in');
+            // document.write('Logged in');
         })
+
         .fail(function (jqXhR) {
             console.log("Error has been thrown");
             // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
         });
     e.preventDefault();
 });
+
+$('#Admin').submit(function (e) {
+    $('.form-group').removeClass('has-error');
+    $('.form-group').remove('.help-block');
+    $.post('/api/Login/ValidateLogin', $(this).serialize())
+        .done(function (guidString) {
+            // manipulate session storage
+            sessionStorage.setItem('Admin', guidString);
+            $('.admin-main .custom-well').html("<h1>Welcome GOMC Admin</h1>");
+        })
+        .fail(function (data) {
+            console.log(data.statusText);
+            $('.form-group').addClass('has-error');
+            $('.form-group').append('<span class="help-block">Invalid credentials</span>');
+        });
+    e.preventDefault();
+});
+
+
 
 // Callback methods
 function morphXmlTrigger(){
@@ -135,3 +156,4 @@ function adjustBar(operation) {
 		$('#userProgress').html(parseInt(newWidth)+ '%');
 	}
 }
+

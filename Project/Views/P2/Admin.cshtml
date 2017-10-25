@@ -6,7 +6,6 @@
         Login Page will contain login form for admins.
         WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T
     -->
-
     <title>Admin</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,23 +36,37 @@
 <header>
     <h1>Admininstator page</h1>
 </header>
-<main>
+<main class="admin-main">
     <p class='center-p'>If you have reached this page in error, click the navigation buttons to return to the main site</p>
-    <p class='center-p'>Otherwise please login with your credintials</p>
+    <p class='center-p'>Otherwise please login with your credentials</p>
     <hr class='grand-line' />
-    <div class='well well-lg container'>
-        <form method="post" action=''> <!--Need endpoint? Pull Moe's branch-->
+    <div class='well well-lg custom-well'>
+        <form method="post" id="Admin">
             <div class='form-group'>
-                <label for='userName'>Login</label>
-                <input class='form-control' type='text' name='uName' id='userName' placeholder="Login" />
+                <label for='Email'>Login</label>
+                <input class='form-control' type='email' name='uName' id='userName' placeholder="Email" required />
             </div>
             <div class='form-group'>
                 <label for='passCode'>Password</label>
-                <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" />
+                <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
             </div>
             <button class='btn btn-success' type='submit'>Login</button>
         </form>
     </div>
 </main>
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState === 'interactive') {
+            console.log("Admin page accessed");
+            if (sessionStorage.getItem('Admin')) {
+                $('.admin-main .custom-well').html("<h1>Welcome GOMC Admin</h1>");
+            }
+            else {
+                return;
+            }
+        }
+    }
+</script>
+  
   
 
