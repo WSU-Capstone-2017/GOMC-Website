@@ -39,7 +39,7 @@ namespace Project.ConfigInput
 				return false;
 			}
 
-			var b = !GcOnly();
+			var b = GcOnly();
 		
 			if (!ValidPressureCalcPressure())
 			{
@@ -108,7 +108,7 @@ namespace Project.ConfigInput
 		{
 			if (input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.Npt)
 			{
-				fieldErrors.Add(InputModelFieldType.Coordinates2, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Coordinates2, input.Ensemble));
+				fieldErrors.Add(InputModelFieldType.Coordinates, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Coordinates, input.Ensemble));
 				return input.Coordinates?.Length == 1;
 			}
 			return input.Coordinates?.Length == 2;
@@ -167,7 +167,7 @@ namespace Project.ConfigInput
 		{
 			if (input.Ensemble == Ensemble.Nvt || input.Ensemble == Ensemble.Npt)
 			{
-				fieldErrors.Add(InputModelFieldType.Structures2, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Structures2, input.Ensemble));
+				fieldErrors.Add(InputModelFieldType.Structures, string.Format(OnlyOneXAllowedFmt, InputModelFieldType.Structures, input.Ensemble));
 				return input.Structures?.Length == 1;
 			}
 			return input.Structures?.Length == 2;

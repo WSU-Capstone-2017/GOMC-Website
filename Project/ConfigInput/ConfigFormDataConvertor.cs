@@ -20,6 +20,8 @@ namespace Project.ConfigInput
 
 		private readonly List<string> generalErrors = new List<string>();
 
+		private InputModelFieldType currentFieldType;
+
 		public ConfigFormDataConvertor(IDictionary<string, string> inputFormData)
 		{
 			formData = inputFormData;
@@ -42,8 +44,6 @@ namespace Project.ConfigInput
 				throw new ArgumentNullException();
 			}
 
-			var ptyp = Utils.EnumParse<InputModelFieldType>(prop.Name);
-
 			void setPropHelper<T>(Func<T> valFn, string onValErr, string onSetErr)
 			{
 				T v;
@@ -53,7 +53,7 @@ namespace Project.ConfigInput
 				}
 				catch
 				{
-					fieldErrors.Add(ptyp, onValErr);
+					fieldErrors.Add(currentFieldType, onValErr);
 					return;
 				}
 				try
@@ -62,7 +62,7 @@ namespace Project.ConfigInput
 				}
 				catch
 				{
-					fieldErrors.Add(ptyp, onSetErr);
+					fieldErrors.Add(currentFieldType, onSetErr);
 				}
 			}
 
@@ -137,6 +137,8 @@ namespace Project.ConfigInput
 
 				if (prop != null)
 				{
+					currentFieldType = Utils.EnumParse<InputModelFieldType>(prop.Name);
+
 					SetProp(model, prop, i.Value);
 				}
 				else if (sp.Length == 2 && sp[0].IsOneOf("ChemPot", "Fugacity") && sp[1].IsOneOf("ResName", "Value"))
@@ -146,6 +148,7 @@ namespace Project.ConfigInput
 						continue;
 					}
 					prop = propMap[sp[0]];
+					currentFieldType = Utils.EnumParse<InputModelFieldType>(prop.Name);
 
 					if (prop.GetValue(model) == null)
 					{
@@ -158,16 +161,19 @@ namespace Project.ConfigInput
 				}
 				else if (key.IsOneOf("Structures_1", "Structures_2"))
 				{
+					currentFieldType = InputModelFieldType.Structures;
 					model.Structures = model.Structures ?? new string[2];
 					model.Structures[sp[1].AsInt().Value - 1] = i.Value;
 				}
 				else if (key.IsOneOf("Coordinates_1", "Coordinates_2"))
 				{
+					currentFieldType = InputModelFieldType.Coordinates;
 					model.Coordinates = model.Coordinates ?? new string[2];
 					model.Coordinates[sp[1].AsInt().Value - 1] = i.Value;
 				}
 				else if (key.IsOneOf("BoxDim_1_XAxis", "BoxDim_1_YAxis", "BoxDim_1_ZAxis", "BoxDim_2_XAxis", "BoxDim_2_YAxis", "BoxDim_2_ZAxis"))
 				{
+					currentFieldType = InputModelFieldType.BoxDim;
 					model.BoxDim = model.BoxDim ?? new BoxDimInput[2];
 
 					var prop2 = typeof(BoxDimInput).GetProperty(sp[2]);
@@ -180,6 +186,8 @@ namespace Project.ConfigInput
 				else if (sp.Length == 2 && sp[0].EndsWith("Freq") && sp[1].IsOneOf("Enabled", "Value") &&
 					(prop = propMap.GetValue(sp[0])) != null && prop.PropertyType == typeof(FreqInput))
 				{
+					currentFieldType = Utils.EnumParse<InputModelFieldType>(prop.Name);
+
 					prop.SetValue(model, prop.GetValue(model) ?? new FreqInput());
 
 					var prop2 = typeof(FreqInput).GetProperty(sp[1]);
@@ -203,6 +211,8 @@ namespace Project.ConfigInput
 					}
 
 					prop.SetValue(model, prop.GetValue(model) ?? new OutBoolean());
+
+					currentFieldType = Utils.EnumParse<InputModelFieldType>(prop.Name);
 
 					var prop2 = typeof(OutBoolean).GetProperty(sp[1]);
 
