@@ -12,6 +12,8 @@ namespace Project
 
 		protected void Application_Start()
 		{
+			System.Web.Optimization.PreApplicationStartCode.Start();
+
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			GlobalConfiguration.Configure(WebApiConfig.Register);
