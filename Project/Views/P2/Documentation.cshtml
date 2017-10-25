@@ -708,5 +708,69 @@
                     $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]);
                 });
         });
+        $("#gomc_config_input_Ensemble_GibbsNpt, #gomc_config_input_Ensemble_GibbsNvt, #gomc_config_input_Ensemble_Npt, #gomc_config_input_Ensemble_Nvt, #gomc_config_input_Ensemble_Gcmc").change(function() {
+            console.debug($("#gomc_config_input_Ensemble_GibbsNpt").val());
+            console.debug($("#gomc_config_input_Ensemble_Npt").val());
+
+            if ($("#gomc_config_input_Ensemble_GibbsNpt").is(":checked") ||
+                $("#gomc_config_input_Ensemble_Npt").is(":checked")) {
+
+                $("#gomc_config_input_Pressure").removeAttr("disabled");
+                $("#gomc_config_input_PressureCalc").removeAttr("disabled");
+                $("#gomc_config_input_Coordinates_2").attr("disabled", "disabled");
+                $("#gomc_config_input_Structures_2").attr("disabled", "disabled");
+                $("#gomc_config_input_BoxDim_2_XAxis").attr("disabled", "disabled");
+                $("#gomc_config_input_BoxDim_2_YAxis").attr("disabled", "disabled");
+                $("#gomc_config_input_BoxDim_2_ZAxis").attr("disabled", "disabled");
+            } else {
+                $("#gomc_config_input_Pressure").attr("disabled", "disabled");
+                $("#gomc_config_input_PressureCalc").attr("disabled", "disabled");
+                $("#gomc_config_input_Coordinates_2").removeAttr("disabled");
+                $("#gomc_config_input_Structures_2").removeAttr("disabled");
+                $("#gomc_config_input_BoxDim_2_XAxis").removeAttr("disabled");
+                $("#gomc_config_input_BoxDim_2_YAxis").removeAttr("disabled");
+                $("#gomc_config_input_BoxDim_2_ZAxis").removeAttr("disabled");
+            }
+        });
+        $("#gomc_config_input_ElectroStatic_true, #gomc_config_input_ElectroStatic_false").change(function() {
+            if ($("#gomc_config_input_ElectroStatic_true").is(":checked")) {
+                $("#gomc_config_input_OneFourScaling").removeAttr("disabled");
+                $("#gomc_config_input_Dielectric").removeAttr("disabled");
+            } else {
+                $("#gomc_config_input_OneFourScaling").attr("disabled", "disabled");
+                $("#gomc_config_input_Dielectric").attr("disabled", "disabled");
+                $("#gomc_config_input_Ewald_false").prop("checked", true);
+                $("#gomc_config_input_CachedFourier_false").prop("checked", true);
+            }
+        });
+        $("#gomc_config_input_Ewald_true, #gomc_config_input_Ewald_false").change(function () {
+            if ($("#gomc_config_input_Ewald_true").is(":checked")) {
+                $("#gomc_config_input_ElectroStatic_true").prop("checked", true);
+                $("#gomc_config_input_Dielectric").removeAttr("disabled");
+            } else {
+                $("#gomc_config_input_CachedFourier_false").prop("checked", true);
+                $("#gomc_config_input_Dielectric").attr("disabled", "disabled");
+            }
+        });
+        $("#gomc_config_input_CachedFourier_true, #gomc_config_input_CachedFourier_false").change(function () {
+            if ($("#gomc_config_input_CachedFourier_true").is(":checked")) {
+                $("#gomc_config_input_Ewald_true").prop("checked", true);
+                $("#gomc_config_input_ElectroStatic_true").prop("checked", true);
+            }
+        });
+        $("#gomc_config_input_Prng_Random, #gomc_config_input_Prng_Intseed").change(function() {
+            if ($("#gomc_config_input_Prng_Intseed").is(":checked")) {
+                $("#gomc_config_input_RandomSeed").removeAttr("disabled");
+            } else {
+                $("#gomc_config_input_RandomSeed").attr("disabled", "disabled");
+            }
+        });
+        $("#gomc_config_input_Potential_Switch, #gomc_config_input_Potential_Shift, #gomc_config_input_Potential_Vdw").change(function () {
+            if ($("#gomc_config_input_Potential_Switch").is(":checked")) {
+                $("#gomc_config_input_Rswitch").removeAttr("disabled");
+            } else {
+                $("#gomc_config_input_Rswitch").attr("disabled", "disabled");
+            }
+        });
     </script>
 }

@@ -2,11 +2,10 @@
 using Project.LoginSystem;
 using Project.Models.LoginSystem;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
-using System.Web;
 using System.Web.Http;
+using Project.Core;
 
 namespace Project.Controllers
 {
@@ -14,8 +13,6 @@ namespace Project.Controllers
     {
         private ProjectDbContext dbContext;
         private LoginManager loginManager;
-        private DateTime expiredTime;
-        private Guid session;
 
         public LoginController()                                        //Created this that way stuff from dbContext will not be null when called from loginmanager
         {
@@ -26,8 +23,8 @@ namespace Project.Controllers
         public Guid ValidateLogin(FormDataCollection uiData)                       //Guid function for loginvalid 
         {
             var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
-            string email = uiData["uName"];
-            string password = uiData["pCode"];
+	        string email = loginCredentials.GetValue("uName");
+	        string password = loginCredentials.GetValue("pCode");
 
             var loginID = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
             if (loginID == null)
@@ -47,11 +44,11 @@ namespace Project.Controllers
             dbContext.SaveChanges();                //Saves changes automatically
             return session;
         }
-        public Boolean ValidateSession(Guid Session, DateTime Expiration)       //Create function for validating session
+        public Boolean ValidateSession(Guid session)       //Create function for validating session
         {
             foreach (var i in dbContext.AlreadyLoggedIns)                      //Var i gets table from AlreadyLoggedIns in the database
             {
-                if (i.Session == session && expiredTime < i.Expiration)      //checks to see if sessions math and input expiration is less than expiration in database
+                if (i.Session == session && DateTime.Now < i.Expiration)      //checks to see if sessions math and input expiration is less than expiration in database
                 {
                     return true;
                 }
