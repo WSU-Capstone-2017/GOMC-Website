@@ -11,7 +11,11 @@ namespace Project.LoginSystem
 {
     public class LoginManager
     {
-        private ProjectDbContext dbContext;
+	    private static readonly byte[] salt =
+		    Encoding.UTF8.GetBytes(
+			    "IvgpV69JXsiEb3VdhXuijykfjvWWutgsthAiQs1bdfXf0kKRgdkBGC2MSdJ9Sp92YeWehTXF9tzCywbmJSdW2hTmoClpejFV");
+
+		private ProjectDbContext dbContext;
         public LoginManager(ProjectDbContext databaseContext)
         {
             dbContext = databaseContext;                                
@@ -72,7 +76,7 @@ namespace Project.LoginSystem
 
             using (var hash = SHA256.Create())                                     //var confonts to w.e hash is and this is where we start creating using sha256 algorithm
             {
-                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value));   //Password is in string, gets computed to hash value and byte value
+                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value).Concat(salt).ToArray());   //Password is in string, gets computed to hash value and byte value
 
                 foreach (var i in hashmi)                                        //Used for changing it back to string value
                 {
