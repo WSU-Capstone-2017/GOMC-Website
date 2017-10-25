@@ -1,0 +1,248 @@
+/*==========================================================
+ Title: GOMC core.css
+ Description:
+   This is my standalone CSS for the GOMC app. It is core to every page with some specialities made here and there.
+==========================================================*/
+
+/*keyframe animation for the card icon indicating user action*/
+@keyframes slide {
+    0% {margin-left: 0px}
+    25% {margin-left: 10px; color: #e3f2fd;  opacity: 0.6;}
+    50% {margin-left: 30px;  color: #bbdefb; opacity: 0.4;}
+    75% {margin-left: 60px;  color: #64b5f6; opacity: 0.2;}
+    100% {margin-left: 70px; color: #e3f2fd; opacity: 0;}
+}
+
+/* Custom Fonts from google*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+/* Selector styles - General for nav footer and consistent page scheme */
+body {
+  color: #020816;
+  background-color: #FDFFFC;
+  padding-top: 70px;
+  font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must override font-family of scaffolding.less*/
+}
+
+header {
+    margin-top: 6.5em;
+}
+
+main {
+  margin: 20px;
+  padding: 10px;
+}
+
+footer {
+    text-align: center;
+    background-color: #FDFFFC;
+    color: #020816;
+    padding-bottom: 10px; /*Just to fluff out the bottom*/
+}
+
+header, h1, h2, h3 {
+  text-align: center;
+  background-color: #9ACD32;
+  color: #FDFFFC;
+}
+
+p {
+    font-size: 16px;
+}
+
+nav a {
+    color: #FFF;
+}
+
+nav {
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+footer {
+    color: #FFF;
+    background-color: #9acd32;
+}
+
+/*classes - General Navigation & other stuff*/
+
+.main-menu {
+    color: #FFF;
+    background-color: #2c3539;
+}
+
+.not-render {
+    display: none;
+}
+
+.render {
+    display: block;
+}
+
+.special-jumbotron { /*Add to each page header aside*/
+    margin-top: 5.5em;
+}
+
+::selection {
+  background-color: #E58242;
+}
+
+.navbar-toggle {
+    color: #FFF;
+    background-color: #2c3539;
+}
+
+/*font-test.html specific classes*/
+
+.card {
+    padding: 30px;
+    border: 5px double black;
+ }
+
+.card-swapped {
+    border: 5px dashed black;
+  }
+
+.card:hover {
+  cursor: pointer;
+}
+
+/*about.html specific classes*/
+
+.new-head {
+  padding: 10px;
+}
+
+.test-square { /*For view testing in a space, TESTING ONLY*/
+    border: 2px solid #007FFF;
+    margin: 5px;
+}
+
+.formatted-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 50px 0 50px;
+}
+
+.person-card {
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.person-picture {
+  float: left;
+}
+
+/*documentation.html specific classes*/
+
+.center-p {
+    text-align: center;
+}
+.form-left-nav {
+    float: left;
+    background-color: #9ACD32;
+    color: #FDFFFC;
+}
+
+.form-right-nav {
+    float: right;
+    background-color: #9ACD32;
+    color: #FDFFFC;
+}
+
+.xml-submission {
+    float: right;
+}
+
+.bar-style {
+    color: #020816;
+    background-color: #CFE7A7;
+}
+/*downloads.html specific classes*/
+
+.hidden-until {
+  display: none;
+}
+
+/*features.html specific classes*/
+
+.different-main {
+    background-color: #020816;
+    color: #FDFFFC;
+}
+/*publication.html specific classes*/
+
+td {
+  padding: 10px;
+}
+
+/*gomc.html specific classes*/
+
+.gomcHome {
+    min-height: 250px;
+}
+
+.gomcHome h1 {
+  background-color: none;
+}
+
+.sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
+    margin-top: 80px;
+}
+
+.grand-line {
+    margin: 40px;
+}
+
+.footer-text {
+    font-weight: 600;
+}
+
+.mid-card {
+    background-color: #2C3539;
+    color: #FFF;
+}
+
+/*Admin page styles*/
+
+.adminPage {
+  background-color: #FDFFFC;
+  color: #020816
+  padding: 10px;
+  margin: 20px;
+}
+
+.adminLabel {
+  padding: 10px;
+}
+
+/*Ids for menu items, attach ids only on the page focus*/
+
+#onFontPage{
+    border-bottom: 3px #106A3A solid;
+}
+
+#onGomcPage{
+    border-bottom: 3px #E58242 solid;
+}
+
+#onDownloadsPage{
+    border-bottom: 3px #91D3EF solid;
+}
+
+#onAboutPage{
+    border-bottom: 3px #7F3E97 solid;
+}
+
+#onDocumentationPage{
+    border-bottom: 3px #CFE7A7 solid;
+}
+
+#onFeaturesPage {
+     border-bottom: 3px #FF3232 solid;
+}
+
+#onPublicationPage {
+     border-bottom: 3px #7F7FFF solid;
+}
