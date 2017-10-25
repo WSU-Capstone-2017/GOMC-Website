@@ -12,7 +12,10 @@ namespace Project.Controllers
     public class LoginController : ApiController
     {
         private ProjectDbContext dbContext;
-        private LoginManager loginManager;   
+        private LoginManager loginManager;
+        private DateTime expiredTime;
+        private Guid session;
+
         public LoginController()                                        //Created this that way stuff from dbContext will not be null when called from loginmanager
         {
             dbContext = new ProjectDbContext();
@@ -40,6 +43,17 @@ namespace Project.Controllers
             //TODO:Save this to the alreadyloggedin table, create new entry of type alreadyloggedin model with the 3 different options database
             dbContext.SaveChanges();                //Saves changes automatically
             return session;
+        }
+        public Boolean ValidateSession(Guid Session, DateTime Expiration)       //Create function for validating session
+        {
+            foreach (var i in dbContext.AlreadyLoggedIns)                      //Var i gets table from AlreadyLoggedIns in the database
+            {
+                if (i.Session == session && expiredTime < i.Expiration)      //checks to see if sessions math and input expiration is less than expiration in database
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
