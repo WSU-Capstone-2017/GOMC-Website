@@ -7,8 +7,8 @@ namespace Project.Models.LoginSystem
 {
     public class AlreadyLoggedModel
     {
-        public int ID { get; set; }
-        public int LoginID { get; set; }
+        public int Id { get; set; }
+        public int LoginId { get; set; }
         public Guid Session { get; set; }
         public DateTime Expiration { get; set; }
     }

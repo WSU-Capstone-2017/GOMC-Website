@@ -33,7 +33,7 @@ namespace Project.Controllers
             var loggedIn = new AlreadyLoggedModel();                //loggedin using the table created in AlreadyLoggedModel(4 options)
             loggedIn.Expiration = expiredTime;
             loggedIn.Session = session;                         //Getting into loggedin and then session which is given to each user, session is a Guid(unique identifier)
-            loggedIn.LoginID = loginID.Value;                   //We use .value to get the loginID since it is nullable
+            loggedIn.LoginId = loginID.Value;                   //We use .value to get the loginID since it is nullable
             dbContext.AlreadyLoggedIns.Add(loggedIn);           //Lets you add stuff in the AlreadyLoggedIns 
            
             
