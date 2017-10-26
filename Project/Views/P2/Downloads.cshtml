@@ -36,15 +36,14 @@
 </header>
 <hr class='grand-line' />
 <main>
-       <div class="jumbotron">
-           <div class="container">
+           <div class="container-fluid">
                <div class="row">
-                   <h2><b>OPTIONAL</b></h2>
-                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form.</p>
-                   <p><i>All * fields are required</i></p>
-                   <p>Otherwise click the red button below: </p>
+                   <h2>OPTIONAL</h2>
+                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form</p>
+                   <p>Otherwise click the orange button below: </p>
                </div>
-               <button class="btn btn-block btn-warning" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
+               <button class="btn btn-warning" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
+        
                <div class="row well well-sm custom-well">
                    <form method="post" id="registrationForm">
                        <div class="form-group">
@@ -56,19 +55,18 @@
                            <input type="email"  class="form-control" name="userEmail" required  placeholder="Email"/>
                        </div>
                        <div class="form-group">
-                           <label>Affliation</label>
-                           <input type="text"  class="form-control" name="userAffliation" placeholder="Group or School"/>
+                           <label>Affliation *</label>
+                           <input type="text"  class="form-control" name="userAffliation" required placeholder="Group or School"/>
                        </div>
                        <div class="form-group">
-                           <label>Please take a moment to tell us why you are interested in GOMC</label>
-                           <textarea  class="form-control" rows="3" name="extraComment" placeholder="Comments"></textarea>
+                           <label>Please take a moment to tell us why you are interested in GOMC *</label>
+                           <textarea  class="form-control" rows="3" name="extraComment" required placeholder="Comments"></textarea>
                        </div>
                        <div class="g-recaptcha" data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"></div> <!--Implemented for captcha-->
                        <button class="btn btn-group-lg btn-success submit" id="submitRegistration" ><span class="glyphicon glyphicon-save"></span> Register</button>
                    </form>
                </div>
            </div>
-        </div>
     <div class='container-fluid'>
         <div class='row'>
             <section>
