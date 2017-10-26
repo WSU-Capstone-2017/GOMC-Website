@@ -9,24 +9,38 @@ namespace Project.Controllers
 	{
 		public DownloadsModel GetDownloadModel()
 		{
-			var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
-			var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
+			var rsp = Utils.SimpleGet("https://github.com/repos/GOMC-WSU/GOMC/releases");
+            var releasesResponse = Utils.SimpleGet("https://github.com/GOMC-WSU/GOMC_Examples/releases");
 
-			dynamic jsn0 = jsn[0];
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
+            var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(releasesResponse);
+
+            dynamic jsn0 = jsn[0];
 			string tag = jsn0.tag_name;
-
 			dynamic assets = jsn0.assets;
 
+            dynamic jsn1 = releasesJSON[0];
+            string releaseName = jsn1.tag_name;
+            dynamic releasesData = jsn1.assets;
 
-			var items = new List<DownloadsModel.DownloadItem>();
-			foreach (dynamic i in assets)
-			{
-				string name = i.name;
-				string iurl = i.browser_download_url;
+            var items = new List<DownloadsModel.DownloadItem>();
+            foreach (dynamic i in assets)
+            {
+                string name = i.name;
+                string iurl = i.browser_download_url;
 
-				items.Add(new DownloadsModel.DownloadItem(name, iurl));
-			}
-			return new DownloadsModel(tag, items);
+                items.Add(new DownloadsModel.DownloadItem(name, iurl));
+            }
+
+            var releaseItems = new List<DownloadsModel.ExampleList>();
+            foreach (dynamic set in releasesData)
+            {
+                string rName = set.name;
+                string rLink = set.browser_download_url;
+
+                releaseItems.Add(new DownloadsModel.ExampleList(rName, rLink));
+            }
+            return new DownloadsModel(tag, items,releaseName,releaseItems); // needs 4 params
 		}
 		public ActionResult Gomc()
 		{

@@ -71,11 +71,11 @@
         <div class='row'>
             <section>
                 <div class='well well-sm custom-well col-md-12'>
-                    <h3>Most Recent Version: @Model.Name</h3>
+                    <h3>Most Recent Version: @Model.DownloadName</h3>
                     <ul>
-                        @foreach (var i in Model.Items)
+                        @foreach (var download in Model.Downloads)
                         {
-                            <li class="model-link">@i.Name <a href="@i.Link">Download</a></li>
+                            <li class="model-link">@download.Name <a href="@download.Link">Download</a></li>
                         }
                     </ul>
                 </div>
@@ -111,11 +111,11 @@
         <div class='row'>
             <article>
                 <div class='col-md-12'>
-                    <h3>Examples</h3>
+                    <h3>Examples set: @Model.ExampleName</h3>
                     <ul>
-                        @foreach (var i in Model.Items)
+                        @foreach (var example in Model.Examples)
                         {
-                            <li class="model-link">@i.Name <a href="@i.Link">Example</a></li>
+                            <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
                         }
                     </ul>
                 </div>
