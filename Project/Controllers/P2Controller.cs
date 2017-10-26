@@ -26,7 +26,7 @@ namespace Project.Controllers
 
 				items.Add(new DownloadsModel.DownloadItem(name, iurl));
 			}
-			return new DownloadsModel(null, tag, items);
+			return new DownloadsModel(tag, items);
 		}
 		public ActionResult Gomc()
 		{
@@ -73,7 +73,7 @@ namespace Project.Controllers
             return View();
         }
 
-        public ActionResult admin()
+        public ActionResult Admin()
         {
             return View();
         }

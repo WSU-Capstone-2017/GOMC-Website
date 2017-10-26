@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace Project.Models
 {
-	public class DownloadsModel : HomeModel
+	public class DownloadsModel
 	{
 
 		public string Name { get; set; }
 
 		public DownloadItem[] Items { get; set; }
 		
-		public DownloadsModel(MenuModel menu, string name, IEnumerable<DownloadItem> items) : base(menu)
+		public DownloadsModel(string name, IEnumerable<DownloadItem> items)
 		{
 			Name = name;
 			Items = items.ToArray();
