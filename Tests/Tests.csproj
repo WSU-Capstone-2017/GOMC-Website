@@ -71,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigInput\ConfigInputModelTests.cs" />
-    <Compile Include="Controllers\HomeControllersTest.cs" />
     <Compile Include="Core\UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

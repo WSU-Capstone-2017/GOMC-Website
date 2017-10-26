@@ -1,5 +1,4 @@
 ﻿@model  Project.Models.DownloadsModel
-@model Project.Models.ExamplesModel
  
 @{
     Layout = "~/Views/P2/_P2_Layout.cshtml";
@@ -114,7 +113,7 @@
                 <div class='col-md-12'>
                     <h3>Examples</h3>
                     <ul>
-                        @foreach (var i in model.Items)
+                        @foreach (var i in Model.Items)
                         {
                             <li class="model-link">@i.Name <a href="@i.Link">Example</a></li>
                         }
