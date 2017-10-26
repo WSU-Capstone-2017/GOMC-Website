@@ -1,4 +1,5 @@
-﻿@model Project.Models.DownloadsModel
+﻿@model  Project.Models.DownloadsModel
+ 
 @{
     Layout = "~/Views/P2/_P2_Layout.cshtml";
 }
@@ -36,16 +37,14 @@
 </header>
 <hr class='grand-line' />
 <main>
-       <div class="jumbotron">
-           <div class="container">
-               <div class="row">
-                   <h2><b>OPTIONAL</b></h2>
-                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form.</p>
-                   <p><i>All * fields are required</i></p>
-                   <p>Otherwise click the red button below: </p>
-               </div>
-               <button class="btn btn-block btn-warning" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
-               <div class="row well well-sm custom-well">
+    <div class="container-fluid">
+        <div class="row">
+                   <h2>Optional</h2>
+                   <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form</p>
+                   <p>Otherwise click the orange button below: </p>
+               <div class="col-md-6">
+               <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
+               <div class="well well-sm custom-well">
                    <form method="post" id="registrationForm">
                        <div class="form-group">
                            <label>Name *</label>
@@ -56,33 +55,32 @@
                            <input type="email"  class="form-control" name="userEmail" required  placeholder="Email"/>
                        </div>
                        <div class="form-group">
-                           <label>Affliation</label>
-                           <input type="text"  class="form-control" name="userAffliation" placeholder="Group or School"/>
+                           <label>Affliation *</label>
+                           <input type="text"  class="form-control" name="userAffliation" required placeholder="Group or School"/>
                        </div>
                        <div class="form-group">
-                           <label>Please take a moment to tell us why you are interested in GOMC</label>
-                           <textarea  class="form-control" rows="3" name="extraComment" placeholder="Comments"></textarea>
+                           <label>Please take a moment to tell us why you are interested in GOMC *</label>
+                           <textarea  class="form-control" rows="3" name="extraComment" required placeholder="Comments"></textarea>
                        </div>
                        <div class="g-recaptcha" data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"></div> <!--Implemented for captcha-->
                        <button class="btn btn-group-lg btn-success submit" id="submitRegistration" ><span class="glyphicon glyphicon-save"></span> Register</button>
                    </form>
                </div>
+                   </div>
            </div>
-        </div>
-    <div class='container-fluid'>
         <div class='row'>
             <section>
-                <div class='well well-sm custom-well col-md-4'>
+                <div class='well well-sm custom-well col-md-12'>
                     <h3>Most Recent Version: @Model.Name</h3>
                     <ul>
                         @foreach (var i in Model.Items)
                         {
-                            <li class="download-link">@i.Name <a href="@i.Link">Download</a></li>
+                            <li class="model-link">@i.Name <a href="@i.Link">Download</a></li>
                         }
                     </ul>
                 </div>
             </section>
-            <aside>
+            @*<aside>
                 <div class='col-md-8'>
                     <h3>GOMC</h3>
                     <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p>
@@ -107,17 +105,22 @@
                         the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.
                     </p>
                 </div>
-            </aside>
+            </aside>*@
         </div>
         <hr class='grand-line' />
         <div class='row'>
             <article>
                 <div class='col-md-12'>
-                    <h2>Examples</h2>
-                    <p>Not sure how the examples will be presented yet but they will be added here most likely as a table or description list</p>
+                    <h3>Examples</h3>
+                    <ul>
+                        @foreach (var i in Model.Items)
+                        {
+                            <li class="model-link">@i.Name <a href="@i.Link">Example</a></li>
+                        }
+                    </ul>
                 </div>
             </article>
         </div>
-    </div>
+        </div>
 </main>
 <script src='https://www.google.com/recaptcha/api.js'></script> <!--Captcha script implementation-->

@@ -175,11 +175,6 @@ namespace Project.ConfigInput
 					prop.SetValue(model, EnumTryParse<ExcludeType>(args[1]));
 					continue;
 				}
-				if (args.Length == 2 && EnumTryParse<GemcType>(args[1]).HasValue)
-				{
-					prop.SetValue(model, EnumTryParse<GemcType>(args[1]));
-					continue;
-				}
 				if(args.Length >= 2 && args[0] == "PressureCalc" && args[1].AsBool().HasValue)
 				{
 					var b = args[1].AsBool().Value;
