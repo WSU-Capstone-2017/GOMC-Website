@@ -175,6 +175,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExamplesModel.cs" />
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />

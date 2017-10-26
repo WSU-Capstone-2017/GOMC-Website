@@ -5,13 +5,13 @@
 ==========================================================*/
 
 /*keyframe animation for the card icon indicating user action*/
-@keyframes slide {
+/*@keyframes slide {
     0% {margin-left: 0px}
     25% {margin-left: 10px; color: #e3f2fd;  opacity: 0.6;}
     50% {margin-left: 30px;  color: #bbdefb; opacity: 0.4;}
     75% {margin-left: 60px;  color: #64b5f6; opacity: 0.2;}
     100% {margin-left: 70px; color: #e3f2fd; opacity: 0;}
-}
+}*/
 
 /* Custom Fonts from google*/
 
@@ -22,7 +22,7 @@ body {
   color: #020816;
   background-color: #FDFFFC;
   padding-top: 70px;
-  font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must override font-family of scaffolding.less*/
+  font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
 }
 
 header {
@@ -158,13 +158,18 @@ footer {
   display: none;
 }
 
-.download-link {
+.model-link {
     padding: 3px;
+    list-style-type: none;
 }
 
 .custom-well {
     background-color: #CFE7A7;
     padding-top: 0;
+}
+
+.btn-push-down {
+    margin-bottom: 5px;
 }
 
 /*Features.cshtml specific*/

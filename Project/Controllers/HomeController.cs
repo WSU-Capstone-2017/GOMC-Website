@@ -33,6 +33,27 @@ namespace Project.Controllers
 			return View(GetHomeModel());
 		}
 
+        public ExamplesModel GetExamplesModel()
+        {
+            var repo = Utils.SimpleGet("https://github.com/GOMC-WSU/GOMC_Examples/releases");
+            var jString = Newtonsoft.Json.Linq.JArray.Parse(repo);
+
+            dynamic dString = jString[0];
+
+            string name = dString.tag_name;
+            dynamic list = dString.list;
+
+            var items = new List<ExamplesModel.ExamplesItem>();
+            foreach (dynamic node in list)
+            {
+                string exampleName = node.name;
+                string exampleLink = node.browser_download_url;
+
+                items.Add(new ExamplesModel.ExamplesItem(exampleName, exampleLink));
+            }
+            return new ExamplesModel(GetHomeModel().Menu, name, items);
+        }
+
 		public DownloadsModel GetDownloadModel()
 		{
 			var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
