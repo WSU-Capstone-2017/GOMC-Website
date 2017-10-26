@@ -21,20 +21,15 @@ In addition to that the project will require integration with the restful Github
 
 The website will allow users to input data required for the GOMC software, send it to an endpoint and receive an XML file consisting of the user's input in the form of a download. Lastly, the software itself will be modified by us to process and the simulation with the XML input saving the user time and giving them the convenience of installing the software and having their input file ready to go once they are up and running.
 
-# Technical Details
->Will implement graphic here
-
 ### Front end
 
 Razor
 
-Pure.css less.css
+Bootstrap
 
-jQuery underscore.js gulp.js
+jQuery
 
-***Explanation***
-
->Detailed at a later time...
+QUnit
 
 ### Back end
 ASP/ C#
@@ -47,46 +42,22 @@ C/C++
 
 Cmake
 
-***Explanation***
-
->Detailed at a later time...
-
 ### Database
 MySql
 
-***Explanation***
-
->Detailed at a later time...
-
-### Resources
-
-1) https://github.com/YounesN/GOMC_Manual
-
- >Need to add more body here
 
 # Team Breakdown
 
-Team Lead:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ahmed Taher, Database / Back-End Lead
+Team Lead: Ahmed Taher, Database / Back-End Lead
 
 Team Members: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Muamer Besic, QA / Documentation Lead
+Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caleb Latimer, UI / UX / Front-End / Presentation Lead
-
-TA:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Azam Peyvandipour
+Muamer Besic, QA / Documentation Lead
 
 
-### Terminology
-
-There are a couple of terms that will appear in our commit history and comments that readers should be made aware of:
-- cwfh checking in to work from home
-- cwfr checking in to work from remote
-- x% percentages are used based off of the developer's estimation of being done with a component of a feature. Used to gauge velocity and/or provide assistance
+TA: Azam Peyvandipour
 
 
-> This is version 3.0
+> This is version 4.0
