@@ -21,22 +21,23 @@ namespace Project.Controllers
 
             dynamic jsn1 = releasesJSON[0];
             string releaseName = jsn1.tag_name;
-            dynamic releasesData = jsn1.zipball_url; // need to make a list of zipball_url and tarball_url to resolve the information I need in the list
+           // dynamic releasesData = jsn1.zipball_url; // need to make a list of zipball_url and tarball_url to resolve the information I need in the list
 
             var items = new List<DownloadsModel.DownloadItem>();
             foreach (dynamic i in assets)
             {
                 string name = i.name;
+                name = name.Replace("_64","");
                 string iurl = i.browser_download_url;
 
                 items.Add(new DownloadsModel.DownloadItem(name, iurl));
             }
 
             var releaseItems = new List<DownloadsModel.ExampleList>();
-            foreach (dynamic set in releasesData)
+            foreach (dynamic set in releasesJSON)
             {
                 string rName = set.name;
-                string rLink = set.browser_download_url;
+                string rLink = set.zipball_url;
 
                 releaseItems.Add(new DownloadsModel.ExampleList(rName, rLink));
             }
