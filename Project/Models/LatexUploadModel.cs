@@ -8,7 +8,7 @@ namespace Project.Models
 		public int Id { get; set; }
 		public int AuthorId { get; set; }
 		public string Version { get; set; }
-		public string HtmlFile { get; set; }
-		public string PdfFile { get; set; }
+		public string Html { get; set; }
+		public string Pdf { get; set; }
 	}
 }
