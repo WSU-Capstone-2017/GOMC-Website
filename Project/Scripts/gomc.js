@@ -70,7 +70,7 @@ $('#registrationForm').submit(function (e) {
 
 $('#Admin').submit(function (e) {
     $('.form-group').removeClass('has-error');
-    $('.form-group').remove('.help-block');
+    $('.help-block').remove();
     $.post('/api/Login/ValidateLogin', $(this).serialize())
         .done(function (guidString) {
             // manipulate session storage
