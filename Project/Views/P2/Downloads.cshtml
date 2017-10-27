@@ -62,8 +62,11 @@
                            <label>Please take a moment to tell us why you are interested in GOMC *</label>
                            <textarea  class="form-control" rows="3" name="extraComment" required placeholder="Comments"></textarea>
                        </div>
-                       <div class="g-recaptcha" data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"></div> <!--Implemented for captcha-->
-                       <button class="btn btn-group-lg btn-success submit" id="submitRegistration" ><span class="glyphicon glyphicon-save"></span> Register</button>
+                       <div class="g-recaptcha" 
+                              data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"
+                              data-size="compact"
+                              data-callback="captchaSelect"></div> <!--Implemented for captcha-->
+                       <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true" ><span class="glyphicon glyphicon-save"></span> Register</button>
                    </form>
                </div>
                    </div>
@@ -78,6 +81,7 @@
                             <li class="model-link">@download.Name <a href="@download.Link">Download</a></li>
                         }
                     </ul>
+                   <a>@Html.ActionLink("Click here for other revisions", "Gomc", "P2")</a> 
                 </div>
             </section>
             @*<aside>
@@ -118,6 +122,7 @@
                             <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
                         }
                     </ul>
+                   <a>@Html.ActionLink("Click here for more examples", "Gomc", "P2")</a> 
                 </div>
             </section>
         </div>
