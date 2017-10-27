@@ -9,8 +9,8 @@ namespace Project.Controllers
 	{
 		public DownloadsModel GetDownloadModel()
 		{
-			var rsp = Utils.SimpleGet("https://github.com/repos/GOMC-WSU/GOMC/releases");
-            var releasesResponse = Utils.SimpleGet("https://github.com/GOMC-WSU/GOMC_Examples/releases");
+			var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
+            var releasesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
 
             var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
             var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(releasesResponse);
@@ -21,7 +21,7 @@ namespace Project.Controllers
 
             dynamic jsn1 = releasesJSON[0];
             string releaseName = jsn1.tag_name;
-            dynamic releasesData = jsn1.assets;
+            dynamic releasesData = jsn1.zipball_url; // need to make a list of zipball_url and tarball_url to resolve the information I need in the list
 
             var items = new List<DownloadsModel.DownloadItem>();
             foreach (dynamic i in assets)
