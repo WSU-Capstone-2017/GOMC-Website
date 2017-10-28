@@ -175,6 +175,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Latex\LatexConvertor.cs" />
+    <Compile Include="Latex\LatexConvertResult.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
