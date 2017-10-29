@@ -20,7 +20,7 @@
 /* Selector styles - General for nav footer and consistent page scheme */
 body {
   color: #020816;
-  background-color: #FDFFFC;
+  background-color: #ffffff;
   padding-top: 70px;
   font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
 }
@@ -36,15 +36,20 @@ main {
 
 footer {
     text-align: center;
-    background-color: #FDFFFC;
+    background-color: #eeeeee;
     color: #020816;
     padding-bottom: 10px; /*Just to fluff out the bottom*/
 }
 
+tr {
+    background-color: #eeeeee;
+}
+
 header, h1, h2, h3 {
   text-align: center;
-  background-color: #9ACD32;
-  color: #FDFFFC;
+  background-color: #9acd32;
+
+  color: #4c4c4c;
 }
 
 p {
@@ -174,8 +179,8 @@ footer {
 
 /*Features.cshtml specific*/
 .different-main {
-    background-color: #020816;
-    color: #FDFFFC;
+    background-color: #eeeeee;
+    color: #222222;
 }
 
 /*Publication.cshtml specific*/
