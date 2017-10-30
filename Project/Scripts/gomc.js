@@ -85,7 +85,10 @@ $('#Admin').submit(function (e) {
     e.preventDefault();
 });
 
-
+$('.logout-button').click(function () {
+    sessionStorage.clear();
+    window.location.href = "/Home/Admin"
+});
 
 // Callback methods
 function morphXmlTrigger(){
@@ -165,3 +168,15 @@ function adjustBar(operation) {
 function captchaSelect(captchaResponse) {
     $('#submitRegistration').prop('disabled', false);
 }
+
+//function testMe() {
+//        if (document.readyState === 'loading') {
+//            console.log("Admin page accessed");
+//            if (sessionStorage.getItem('Admin')) {
+//                return;
+//            }
+//            else {
+//                window.location.href = "/Home/Admin";
+//            }
+//        }
+//}

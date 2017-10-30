@@ -52,21 +52,18 @@
                         <label for='passCode'>Password</label>
                         <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
                     </div>
-                    <button class='btn btn-success' type='submit'>Login</button>
+                    <button class='btn btn-success' type='submit'><span class="glyphicon glyphicon-log-in"></span> Login</button>
                 </form>
             </div>
         </div>
     </div>
 </main>
 <script>
-    document.onreadystatechange = function () {
+    document.onload = function () {
         if (document.readyState === 'interactive') {
             console.log("Admin page accessed");
             if (sessionStorage.getItem('Admin')) {
                 window.location.href = "/Home/Temp";
-            }
-            else {
-                return;
             }
         }
     }
