@@ -167,6 +167,8 @@
     <Compile Include="Controllers\GithubController.cs" />
     <Compile Include="Controllers\LatexController.cs" />
     <Compile Include="Controllers\P2Controller.cs" />
+    <Compile Include="Models\Github\EventBaseModel.cs" />
+    <Compile Include="Models\Github\PingModel.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Core\Exten.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -178,6 +180,7 @@
     </Compile>
     <Compile Include="Latex\LatexConvertor.cs" />
     <Compile Include="Latex\LatexConvertResult.cs" />
+    <Compile Include="Models\Github\PushModel.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
