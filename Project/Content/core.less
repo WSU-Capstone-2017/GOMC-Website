@@ -1,21 +1,13 @@
 /*==========================================================
- Title: GOMC core.css
+ Title: GOMC core.less
  Description:
-   This is my standalone CSS for the GOMC app. It is core to every page with some specialities made here and there.
+   This is the standalone .LESS for the GOMC app. It is core to every page in tandem with bootstrap and jQuery, the dotless package and CSS tools package have been installed with this solution to help ease implementation
 ==========================================================*/
 
-/*keyframe animation for the card icon indicating user action*/
-/*@keyframes slide {
-    0% {margin-left: 0px}
-    25% {margin-left: 10px; color: #e3f2fd;  opacity: 0.6;}
-    50% {margin-left: 30px;  color: #bbdefb; opacity: 0.4;}
-    75% {margin-left: 60px;  color: #64b5f6; opacity: 0.2;}
-    100% {margin-left: 70px; color: #e3f2fd; opacity: 0;}
-}*/
-
 /* Custom Fonts from google*/
-
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+/*Variables*/
 
 /* Selector styles - General for nav footer and consistent page scheme */
 body {
@@ -262,8 +254,14 @@ td {
     background-color: #FF3232;
 }
 
+/*Classes for the footer pages*/
+
+.minimal-panel-page {
+    text-align: center;
+}
+
 /*Ids for menu items, attach ids only on the page focus*/
-#onFontPage{
+#onFontPage {
     border-bottom: 6px #106A3A solid;
 }
 

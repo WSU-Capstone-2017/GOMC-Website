@@ -10,7 +10,7 @@
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/core")
+    @Styles.Render("~/Content/core.less")
     <link rel="icon" href="~/Content/img/gomc-ico.png" />
 </head>
 <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
@@ -63,7 +63,7 @@
         if (document.readyState === 'interactive') {
             console.log("Admin page accessed");
             if (sessionStorage.getItem('Admin')) {
-                $('.admin-main .custom-well').html("<h1>Welcome GOMC Admin</h1>");
+                window.location.replace("temp.cshtml");
             }
             else {
                 return;

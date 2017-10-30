@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotless.Core, Version=1.5.2.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <HintPath>..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -197,7 +200,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\core.css" />
+    <None Include="Content\core.less" />
     <Content Include="Content\img\brock.jpg" />
     <Content Include="Content\img\eyad.jpg" />
     <Content Include="Content\img\journ2.png" />
@@ -285,6 +288,9 @@
     <Content Include="Views\P2\PrivacyPolicy.cshtml" />
     <Content Include="Views\P2\Faq.cshtml" />
     <Content Include="Views\P2\Admin.cshtml" />
+    <Content Include="Views\P2\temp.cshtml" />
+    <Content Include="Views\P2\latex.cshtml" />
+    <Content Include="Views\P2\XMLConfigForm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -75,7 +75,7 @@ $('#Admin').submit(function (e) {
         .done(function (guidString) {
             // manipulate session storage
             sessionStorage.setItem('Admin', guidString);
-            $('.admin-main .custom-well').html("<h1>Welcome GOMC Admin</h1>");
+            window.location.replace("temp.cshtml");
         })
         .fail(function (data) {
             console.log(data.statusText);
