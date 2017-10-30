@@ -75,7 +75,7 @@ $('#Admin').submit(function (e) {
         .done(function (guidString) {
             // manipulate session storage
             sessionStorage.setItem('Admin', guidString);
-            window.location.replace("temp.cshtml");
+            window.location.href = "/Home/Temp";
         })
         .fail(function (data) {
             console.log(data.statusText);

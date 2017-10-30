@@ -79,9 +79,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project\Project.csproj">
+    <ProjectReference Include="..\Project\GOMC.csproj">
       <Project>{c5284526-469d-425d-8ba1-467ac47d7ff9}</Project>
-      <Name>Project</Name>
+      <Name>GOMC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
