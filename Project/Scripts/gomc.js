@@ -90,6 +90,10 @@ $('#adminLogout').click(function () {
     window.location.href = "/Home/Admin";
 });
 
+$('#adminAnnouncement').submit(function () {
+
+});
+
 // Callback methods
 function morphXmlTrigger(){
   if($('#xmlDataContainer').hasClass('hidden-until')){
@@ -169,14 +173,14 @@ function captchaSelect(captchaResponse) {
     $('#submitRegistration').prop('disabled', false);
 }
 
-//function testMe() {
-//        if (document.readyState === 'loading') {
-//            console.log("Admin page accessed");
-//            if (sessionStorage.getItem('Admin')) {
-//                return;
-//            }
-//            else {
-//                window.location.href = "/Home/Admin";
-//            }
-//        }
-//}
+function refreshLatex() {
+    console.log("Refresh Latex Clicked!");
+}
+
+function refreshDownloads() {
+    console.log("Refresh Downloads Clicked!");
+}
+
+function refreshExamples() {
+    console.log("Refresh Examples Clicked!");
+}
