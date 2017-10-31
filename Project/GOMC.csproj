@@ -165,8 +165,8 @@
     <Compile Include="ConfigInput\Validator.cs" />
     <Compile Include="Controllers\ConfigInputController.cs" />
     <Compile Include="Controllers\GithubController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LatexController.cs" />
-    <Compile Include="Controllers\P2Controller.cs" />
     <Compile Include="Models\Github\EventBaseModel.cs" />
     <Compile Include="Models\Github\PingModel.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
