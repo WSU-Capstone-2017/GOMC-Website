@@ -2,6 +2,7 @@
 
 // Global Vars
 var currentWidth = 0;
+
 var registrationString = {
     init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
     fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
@@ -44,7 +45,6 @@ $('#closeRegistration').click(function () {
 
 $('#registrationForm').submit(function (e) {
     try {
-
         $.post('/api/Registration/Input', $('#registrationForm').serialize())
             .done(function (data) {
                 $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
@@ -85,9 +85,9 @@ $('#Admin').submit(function (e) {
     e.preventDefault();
 });
 
-$('.logout-button').click(function () {
+$('#adminLogout').click(function () {
     sessionStorage.clear();
-    window.location.href = "/Home/Admin"
+    window.location.href = "/Home/Admin";
 });
 
 // Callback methods
