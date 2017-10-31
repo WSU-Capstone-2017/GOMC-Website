@@ -31,85 +31,35 @@
 </nav>
 <header>
     <h1>GOMC Site-Map</h1>
-</header>			
+</header>
 <main>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-gomc">
-                    <h4>Gomc</h4>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>@Html.ActionLink("Downloads", "Downloads", "P2")</li>
-                        <li>@Html.ActionLink("Documentation", "Documentation", "P2")</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-features">
-                    <h4>Features</h4>
-                </div>
-                <div class="panel-body">
-
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-downloads">
-                    <h4>Downloads</h4>
-                </div>
-                <div class="panel-body">
-
-                </div>
-            </div>
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-documentation">
-                    <h4>Documentation</h4>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <!--Currently, dead links, need to confirm with client that these are internal pages-->
-                        <li>@Html.ActionLink("Latex Converter", "DocView", "P2")</li>
-                        <li>@Html.ActionLink("XML Generator", "XMLForm", "P2")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-publication">
-                    <h4>Publication</h4>
-                </div>
-                <div class="panel-body">
-
-                </div>
-            </div>
-            <div class="panel col-md-6">
-                <div class="panel-heading panel-about">
-                    <h4>About</h4>
-                </div>
-                <div class="panel-body">
-
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="panel col-md-12">
-                <div class="panel-heading panel-footer">
-                    <h4>Footer</h4>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>@Html.ActionLink("Terms & Conditions", "Terms", "P2")</li>
-                        <li>@Html.ActionLink("Site Map", "SiteMap", "P2")</li>
-                        <li>@Html.ActionLink("Privacy Policy", "PrivacyPolicy", "P2")</li>
-                        <li>@Html.ActionLink("FAQ", "Faq", "P2")</li>
-                    </ul>
-                </div>
-            </div>
+    <h4><a data-toggle="collapse" data-parent="accordion" href="#section1">- GOMC</a></h4>
+    <div id="section1" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+                <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+                <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+            </ul>
         </div>
     </div>
+    <h4>- @Html.ActionLink("Features", "Features", "Home")</h4>
+    <h4>- @Html.ActionLink("Downloads", "Downloads", "Home")</h4>
+    <h4><a data-toggle="collapse" data-parent="accordion" href="#section2">- Documentation</a></h4>
+    <div id="section2" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <!--Currently, dead links, need to confirm with client that these are internal pages-->
+                <li>@Html.ActionLink("Documentation", "Documentation", "Home")</</li>
+                <li>@Html.ActionLink("Latex Converter", "DocView", "Home")</li>
+                <li>@Html.ActionLink("XML Generator", "XMLForm", "Home")</li>
+            </ul>
+        </div>
+    </div>
+    <h4>- @Html.ActionLink("Publication", "Publication", "Home")</h4>
+    <h4>- @Html.ActionLink("About", "About", "Home")</h4>
+    <h4>- @Html.ActionLink("Terms & Conditions", "Terms", "Home")</h4>
+    <h4>- @Html.ActionLink("Site Map", "SiteMap", "Home")</h4>
+    <h4>- @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home")</h4>
+    <h4>- @Html.ActionLink("FAQ", "Faq", "Home")</h4>
 </main>
-
