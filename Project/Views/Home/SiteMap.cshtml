@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+}
+<head>
+    <title>SiteMap</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/core.less")
+    <link rel="icon" href="~/Content/img/gomc-ico.png" />
+</head>
+<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+    <div class='container-fluid'>
+        <div class='navbar-header' id='menu '>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                <span class='glyphicon glyphicon-align-justify'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navCollapse'>
+                <ul class='nav nav-tabs nav-justified nav '>
+                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<header>
+    <h1>GOMC Site-Map</h1>
+</header>
+<main>
+    <h4><a data-toggle="collapse" data-parent="accordion" href="#section1">- GOMC</a></h4>
+    <div id="section1" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+                <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+                <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+            </ul>
+        </div>
+    </div>
+    <h4>- @Html.ActionLink("Features", "Features", "Home")</h4>
+    <h4>- @Html.ActionLink("Downloads", "Downloads", "Home")</h4>
+    <h4><a data-toggle="collapse" data-parent="accordion" href="#section2">- Documentation</a></h4>
+    <div id="section2" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <!--Currently, dead links, need to confirm with client that these are internal pages-->
+                <li>@Html.ActionLink("Documentation", "Documentation", "Home")</</li>
+                <li>@Html.ActionLink("Latex Converter", "DocView", "Home")</li>
+                <li>@Html.ActionLink("XML Generator", "XMLForm", "Home")</li>
+            </ul>
+        </div>
+    </div>
+    <h4>- @Html.ActionLink("Publication", "Publication", "Home")</h4>
+    <h4>- @Html.ActionLink("About", "About", "Home")</h4>
+    <h4>- @Html.ActionLink("Terms & Conditions", "Terms", "Home")</h4>
+    <h4>- @Html.ActionLink("Site Map", "SiteMap", "Home")</h4>
+    <h4>- @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home")</h4>
+    <h4>- @Html.ActionLink("FAQ", "Faq", "Home")</h4>
+</main>

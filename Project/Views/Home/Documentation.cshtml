@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+}
+<head>
+    <title>Documentation</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/core.less")
+</head>
+<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+    <div class='container-fluid'>
+        <div class='navbar-header' id='menu '>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                <span class='glyphicon glyphicon-align-justify'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navCollapse'>
+                <ul class='nav nav-tabs nav-justified nav '>
+                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+                    <li>@Html.ActionLink("Documentation", "Documentation", "Home", htmlAttributes: new { id = "onDocumentationPage" })</li>
+                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <h1>Documentation</h1>
+</header>
+<hr class='grand-line ' />
+<main>
+    <div class='container-fluid '>
+        <section>
+            <div class="row">
+                <div class='col-md-12 '> <!--Fix this up for the latex link-->
+                    <span id="fromLatexConversion">This is where the text from the LaTeX conversion will render</span>
+                </div>
+                <div class='col-md-12 '>
+                    <p>But a link will be provided here in case the user wants to see the PDF: <a href='~/Content/img/Manual.pdf' target="_blank">here</a> </p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class='col-md-12 '>
+                    <h2>Tutorials</h2>
+                </div>
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded ' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial A</p>
+                </div>
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial B</p>
+                </div>
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial C</p>
+                </div>
+            </div>
+            <h3>For more info check us out on youtube<a href='# '> here</a></h3>
+        </section>
+        <hr class='grand-line ' />
+        <section>
+            <div class="row">
+                <div class='col-md-12 '>
+                    <h2>XML Generator</h2>
+                    <p class='center-p '>Click the button below to fill out a form for conversion into xml</p>
+                    <div class='center-p '>
+                        <button class='btn btn-large btn-primary ' id='xmlTrigger'>Start</button> <!--Link to XML Page, remove legacy jQuery-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
