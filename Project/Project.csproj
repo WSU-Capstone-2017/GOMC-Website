@@ -164,7 +164,6 @@
     <Compile Include="ConfigInput\InputModelFieldType.cs" />
     <Compile Include="ConfigInput\Validator.cs" />
     <Compile Include="Controllers\ConfigInputController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\P2Controller.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Core\Exten.cs" />
@@ -178,25 +177,17 @@
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
-    <Compile Include="Models\Gomc\ConfigInputSection.cs" />
-    <Compile Include="Models\Gomc\ConfigModel.cs" />
-    <Compile Include="Models\Gomc\ConfigOutputSection.cs" />
-    <Compile Include="Models\Gomc\ConfigSystemSection.cs" />
     <Compile Include="Models\Gomc\Ensemble.cs" />
     <Compile Include="Models\Gomc\OutBoolean.cs" />
     <Compile Include="Models\Gomc\ExcludeType.cs" />
     <Compile Include="Models\Gomc\ForceFieldType.cs" />
-    <Compile Include="Models\Gomc\GemcType.cs" />
     <Compile Include="Models\Gomc\PotentialType.cs" />
     <Compile Include="Models\Gomc\PrngType.cs" />
     <Compile Include="Models\Gomc\ResNameValue.cs" />
     <Compile Include="Models\Gomc\FreqInput.cs" />
     <Compile Include="Models\DownloadsModel.cs" />
     <Compile Include="Models\Github\ReleasesModel.cs" />
-    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\LoginSystem\UserLoginModel.cs" />
-    <Compile Include="Models\MenuModel.cs" />
-    <Compile Include="Models\MenuModelItem.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -207,52 +198,36 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\core.css" />
-    <Content Include="Content\img\blank-girl.jpg" />
-    <Content Include="Content\img\blank-guy.png" />
     <Content Include="Content\img\brock.jpg" />
-    <Content Include="Content\img\downloads.PNG" />
     <Content Include="Content\img\eyad.jpg" />
-    <Content Include="Content\img\footer and nav.PNG" />
     <Content Include="Content\img\journ2.png" />
     <Content Include="favicon.ico" />
     <Content Include="Content\img\gomc.png" />
     <Content Include="Content\img\gpu.png" />
-    <Content Include="Content\img\grants.PNG" />
-    <Content Include="Content\img\hel.PNG" />
     <Content Include="Content\img\jason.png" />
     <Content Include="Content\img\kamel.jpg" />
     <Content Include="Content\img\loren.jpg" />
-    <Content Include="Content\img\menu condense plans.jpg" />
-    <Content Include="Content\img\menu suggestions.jpg" />
-    <Content Include="Content\img\menu.jpg" />
     <Content Include="Content\img\micah.jpg" />
-    <Content Include="Content\img\mockup2.PNG" />
     <Content Include="Content\img\mohammad.jpg" />
     <Content Include="Content\img\nsf.png" />
     <Content Include="Content\img\nvidia.jpg" />
     <Content Include="Content\img\Official Palette.png" />
     <Content Include="Content\img\palette From Log.png" />
-    <Content Include="Content\img\people.PNG" />
     <Content Include="Content\img\placeholder.jpg" />
     <Content Include="Content\img\profp.jpg" />
-    <Content Include="Content\img\research.PNG" />
-    <Content Include="Content\img\resources.PNG" />
     <Content Include="Content\img\silicon.jpg" />
-    <Content Include="Content\img\snipOfOriginal.PNG" />
     <Content Include="Content\img\vernard.jpg" />
     <Content Include="Content\img\wsu.jpg" />
     <Content Include="Content\img\younes.jpg" />
     <Content Include="Content\img\yuanzhe.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Diagrams\DownloadsModel.cd" />
     <Content Include="Content\img\firstPoster.pdf" />
     <Content Include="Content\img\fourthPoster.pdf" />
     <Content Include="Content\img\Manual.pdf" />
@@ -298,12 +273,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Downloads.cshtml" />
-    <Content Include="Views\Home\ConfigForm.cshtml" />
     <Content Include="Views\P2\_P2_Layout.cshtml" />
     <Content Include="Views\P2\Gomc.cshtml" />
     <Content Include="Views\P2\Publication.cshtml" />
@@ -317,9 +286,7 @@
     <Content Include="Views\P2\Faq.cshtml" />
     <Content Include="Views\P2\Admin.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
