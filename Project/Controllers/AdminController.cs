@@ -29,7 +29,6 @@ namespace Project.Controllers
 					var announcement = new AnnouncementModel
 					{
 						AuthorId = s.LoginId,
-						Title = model.Title,
 						Content = model.Content,
 						Created = DateTime.Now
 					};
@@ -45,7 +44,6 @@ namespace Project.Controllers
 
 		public class NewAnnouncementModel
 		{
-			public string Title { get; set; }
 			public string Content { get; set; }
 			public string Session { get; set; }
 		}
