@@ -3,8 +3,7 @@
 }
 <head>
     <!--
-        Login Page will contain login form for admins.
-        WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T
+        WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T BE
     -->
     <title>Admin</title>
     <meta charset='utf-8' />
@@ -33,27 +32,85 @@
         </div>
     </div>
 </nav>
-<header>
-    <h1>Admininstator page</h1>
-</header>
-<main>
-    <p class='center-p'>If you have reached this page in error, click the navigation buttons to return to the main site</p>
-    <p class='center-p'>Otherwise please login with your credentials</p>
-    <hr class='grand-line' />
+<main class="admin-main">
     <div class="container-fluid">
-        <div class="row">
-            <div class='well well-sm custom-well col-md-4 col-md-offset-4'>
-                <form method="post" id="Admin">
-                    <div class='form-group'>
-                        <label for='Email'>Login</label>
-                        <input class='form-control' type='email' name='uName' id='userName' placeholder="Email" required />
+        <div class="panel panel-info admin-view-panel">
+            <div class="panel-heading">
+                <h4>Official Admin View<button class="btn btn-sm btn-primary pull-right logout-button" id="adminLogout"><span class="glyphicon glyphicon-log-out"></span> Logout</button></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <table class="table table-striped table-bordered" id="userNamesAndEmails"> <!--Need JS here to get info from table-->
+                            <thead>Registered Users</thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>A@abc.com</td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>A@abc.com</td>
+                            </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>A@abc.com</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class='form-group'>
-                        <label for='passCode'>Password</label>
-                        <input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <h4>Update Announcements</h4>
+                        <p>To update the announcements on the main page fill out the form below: </p>
+                        <form class="form-inline" id="adminAnnouncement" method="get" action="http://www.tipjar.com/cgi-bin/test">
+                            <form-group>
+                                <label>New Announcement: </label>
+                                <textarea type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="40" class="form-control"></textarea>
+                            </form-group>
+                            <form-group>
+                                <button class="btn btn-danger" type="reset">Clear</button>
+                                <button class="btn btn-success" type="submit">Post</button>
+                            </form-group>
+                        </form>
                     </div>
-                    <button class='btn btn-success' type='submit'><span class="glyphicon glyphicon-log-in"></span> Login</button>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <h5 class="center-p">Update the following dynamic content manually via webhooks</h5>
+                        <div class="btn-group btn-group-sm btn-group-vertical center-block">
+                            <button class="btn btn-sm btn-primary" onclick="refreshLatex()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh LaTeX File</button>
+                            <button class="btn btn-sm btn-success" onclick="refreshDownloads()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the downloads links</button>
+                            <button class="btn btn-sm btn-info" onclick="refreshExamples()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the examples links</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <table class="table table-striped table-bordered" id="webStats">
+                            <thead>Website Statistics</thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Downloads</td>
+                                <td>1200</td>
+                            </tr>
+                            <tr>
+                                <td>Clicks</td>
+                                <td>950</td>
+                            </tr>
+                            <tr>
+                                <td>Views</td>
+                                <td>120</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -61,13 +118,14 @@
 <script>
     document.onload = function () {
         if (document.readyState === 'interactive') {
-            console.log("Admin page accessed");
+            console.log("Admin full page accessed");
             if (sessionStorage.getItem('Admin')) {
-                window.location.href = "/Home/Temp";
+                
+            }
+            else {
+                window.location.href = "/Home/Admin";
             }
         }
     }
 </script>
-  
-  
 
