@@ -2,6 +2,7 @@
 
 // Global Vars
 var currentWidth = 0;
+
 var registrationString = {
     init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
     fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
@@ -43,34 +44,38 @@ $('#closeRegistration').click(function () {
 });
 
 $('#registrationForm').submit(function (e) {
-    $.post('/api/Registration/Input', $('#registrationForm').serialize())
-        .done(function (data) {
-            //var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
-            //window.location.replace(newUrl);
-            $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
-            $('#closeRegistration').addClass('btn-success');
-            $('#closeRegistration').removeClass('btn-warning');
-            $('#closeRegistration').next().slideToggle(() => {
-            $('#closeRegistration').prop('disabled', true);
-            });
-            // document.write('Logged in');
-        })
+    try {
+        $.post('/api/Registration/Input', $('#registrationForm').serialize())
+            .done(function (data) {
+                $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
+                $('#closeRegistration').addClass('btn-success');
+                $('#closeRegistration').removeClass('btn-warning');
+                $('#closeRegistration').next().slideToggle(() => {
+                $('#closeRegistration').prop('disabled', true);
+                });
+            })
 
-        .fail(function (jqXhR) {
-            console.log("Error has been thrown");
-            // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
-        });
-    e.preventDefault();
+            .fail(function (jqXhR) {
+                console.log("Error has been thrown");
+                // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
+            });
+    }
+    catch (ex) {
+        alert("The following error occured: " + ex.message + " in " + ex.fileName + " at " + ex.lineNumber);
+    }
+    finally {
+        e.preventDefault();
+    }
 });
 
 $('#Admin').submit(function (e) {
     $('.form-group').removeClass('has-error');
-    $('.form-group').remove('.help-block');
+    $('.help-block').remove();
     $.post('/api/Login/ValidateLogin', $(this).serialize())
         .done(function (guidString) {
             // manipulate session storage
             sessionStorage.setItem('Admin', guidString);
-            $('.admin-main .custom-well').html("<h1>Welcome GOMC Admin</h1>");
+            window.location.href = "/Home/Temp";
         })
         .fail(function (data) {
             console.log(data.statusText);
@@ -80,7 +85,14 @@ $('#Admin').submit(function (e) {
     e.preventDefault();
 });
 
+$('#adminLogout').click(function () {
+    sessionStorage.clear();
+    window.location.href = "/Home/Admin";
+});
 
+$('#adminAnnouncement').submit(function () {
+
+});
 
 // Callback methods
 function morphXmlTrigger(){
@@ -157,3 +169,18 @@ function adjustBar(operation) {
 	}
 }
 
+function captchaSelect(captchaResponse) {
+    $('#submitRegistration').prop('disabled', false);
+}
+
+function refreshLatex() {
+    console.log("Refresh Latex Clicked!");
+}
+
+function refreshDownloads() {
+    console.log("Refresh Downloads Clicked!");
+}
+
+function refreshExamples() {
+    console.log("Refresh Examples Clicked!");
+}

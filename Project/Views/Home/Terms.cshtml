@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+}
+<head>
+    <title>Terms</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/core.less")
+    <link rel="icon" href="~/Content/img/gomc-ico.png" />
+</head>
+<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+    <div class='container-fluid'>
+        <div class='navbar-header' id='menu '>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                <span class='glyphicon glyphicon-align-justify'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navCollapse'>
+                <ul class='nav nav-tabs nav-justified nav '>
+                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<main>
+   <div class="jumbotron">
+       <div class="container">
+           <div class="panel panel-info">
+               <div class="panel-heading">
+                   <h4 class="minimal-panel-page">Terms &amp; Conditions</h4>
+               </div>
+               <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                   Suspendisse purus nulla, dictum vitae augue vel, fermentum accumsan metus. Aliquam placerat mattis tortor, ut aliquet urna fermentum sed. 
+                   Aenean fermentum magna leo, vitae pellentesque lorem tincidunt a. Phasellus iaculis viverra tempus. Pellentesque sed neque vitae ligula elementum pharetra quis sed dolor. Duis at odio id enim pretium tristique at quis ipsum. 
+                   Aenean vitae euismod nisi, sed venenatis nisl. Integer sed neque dictum, consequat sem ut, dictum urna. Proin commodo neque in malesuada sagittis. Donec dapibus enim sit amet quam aliquam malesuada. 
+                   Aenean cursus nibh vel vehicula rhoncus. Sed viverra iaculis enim, a aliquam tellus consectetur in. In cursus tincidunt interdum. Morbi vestibulum feugiat eros, in feugiat urna ultrices nec. Aliquam mattis convallis accumsan. 
+                   Praesent aliquet ultricies velit, sed ullamcorper nunc egestas a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut sem elit, bibendum ac dolor posuere, sollicitudin ultrices eros. Donec et lacinia massa. 
+                   Nullam fermentum nisi sit amet mi suscipit auctor.
+                   Ut porta dui nec dolor lacinia, ut eleifend magna pulvinar. Nam vitae nisi ut nisl suscipit tempus facilisis vel urna. Quisque ante lorem, maximus consequat tincidunt vitae, sagittis non velit. Donec eleifend fringilla justo nec gravida. 
+                   Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed ultricies egestas urna, eu tincidunt est porttitor ac. Praesent pellentesque felis eget elit sollicitudin fermentum.
+                   Maecenas tempus mi vel porta tincidunt. Donec at semper nisi, gravida pellentesque est. Donec id interdum lorem. Mauris viverra risus dolor, ut porttitor nisi ultricies non. Vestibulum eget euismod arcu, sit amet posuere quam. 
+                   Quisque venenatis metus nec dui auctor, sed condimentum diam ultricies. Praesent velit lorem, eleifend vitae felis sed, imperdiet hendrerit est. Praesent vitae placerat justo, quis vestibulum augue. Quisque nec iaculis purus, et lacinia elit. 
+                   Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In sit amet ornare felis. Integer interdum velit vitae felis ornare laoreet. Nam dapibus, lorem ac commodo lacinia, sem est hendrerit justo, a volutpat eros arcu facilisis libero. 
+                   Vivamus suscipit ex vitae ligula sollicitudin porta a vitae sem. Integer nec felis dolor. Nulla vehicula tellus vitae tincidunt placerat.
+                   Nullam malesuada, odio consequat ornare tincidunt, ipsum odio volutpat tortor, sed lacinia mauris dui eu lacus. Integer varius convallis augue ut dapibus. 
+                   Aliquam erat volutpat. Nam ullamcorper, eros nec tristique tempus, ex arcu sollicitudin turpis, vel efficitur odio erat eget purus. Sed elit erat, interdum dapibus ex sit amet, fringilla rutrum augue. 
+                   Phasellus sollicitudin pulvinar urna, ut dignissim libero sagittis et. In turpis neque, tempor quis luctus eget, consequat dignissim orci. Vestibulum nec tincidunt purus. Ut felis turpis, lobortis at facilisis non, pellentesque ut velit. 
+                   Curabitur vehicula nec dui vitae tempus. Aenean aliquam consectetur scelerisque. Duis egestas elit rhoncus egestas faucibus. Donec pharetra nulla ligula, ut molestie massa feugiat non. Aenean dictum porta ex.
+                   Nulla tempor, eros quis egestas rhoncus, risus neque venenatis justo, nec posuere nulla libero quis diam.</p>
+               </div>
+           </div>
+       </div>
+   </div>
+</main>

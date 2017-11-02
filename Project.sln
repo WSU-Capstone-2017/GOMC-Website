@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "Project\Project.csproj", "{C5284526-469D-425D-8BA1-467AC47D7FF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOMC", "Project\GOMC.csproj", "{C5284526-469D-425D-8BA1-467AC47D7FF9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{AD593F89-9782-44BD-96A3-0FC8788AC602}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QUnitMVC", "QUnitMVC\QUnitMVC.csproj", "{5A4F805E-3CA4-4DC9-A684-9D8E25581D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{AD593F89-9782-44BD-96A3-0FC8788AC602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD593F89-9782-44BD-96A3-0FC8788AC602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD593F89-9782-44BD-96A3-0FC8788AC602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A4F805E-3CA4-4DC9-A684-9D8E25581D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4F805E-3CA4-4DC9-A684-9D8E25581D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4F805E-3CA4-4DC9-A684-9D8E25581D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4F805E-3CA4-4DC9-A684-9D8E25581D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
