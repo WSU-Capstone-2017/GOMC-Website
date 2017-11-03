@@ -24,7 +24,6 @@ namespace Project.Controllers
 
             dynamic jsn1 = releasesJSON[0];
             string releaseName = jsn1.tag_name;
-           // dynamic releasesData = jsn1.zipball_url; // need to make a list of zipball_url and tarball_url to resolve the information I need in the list
 
             var items = new List<DownloadsModel.DownloadItem>();
             foreach (dynamic i in assets)
@@ -44,27 +43,26 @@ namespace Project.Controllers
 
                 releaseItems.Add(new DownloadsModel.ExampleList(rName, rLink));
             }
-            return new DownloadsModel(tag, items,releaseName,releaseItems); // needs 4 params
+            return new DownloadsModel(tag, items,releaseName,releaseItems);
 		}
         public RegistrationModel RegistrationData()
         {
             using (var serverConn = new ProjectDbContext())
             {
-                var AllRegister = serverConn.Registrations.ToList();
-                var nameRoster = (
-                    from row in AllRegister
-                    select new { row.Name}
-                    ).ToArray();
-
-                var emailRoster = (
-                    from row in AllRegister
-                    select new { row.Email }
-                    ).ToArray();
-
+                var ResultRoster = new List<RegistrationModel>();
+                var Roster = (
+                    from row in serverConn.Registrations
+                    select new { row.Name, row.Email }
+                    ).ToList();
+                foreach(var val in Roster)
+                {
+                    ResultRoster.Add(new RegistrationModel(val.Name,val.Email));
+                }
                 // Run SELECT Name, Email FROM[projectdb].[dbo].[Registrations]
                 // Iterate over the rows grabbing name and email
                 // return it as a list
-                return new RegistrationModel(nameRoster,emailRoster);
+                ViewBag.Rez = ResultRoster;
+                return new RegistrationModel();
             }
         }
 		public ActionResult Gomc()

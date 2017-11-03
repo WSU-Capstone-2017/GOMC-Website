@@ -13,16 +13,13 @@ namespace Project.Models
 		public string Email { get; set; }
 		public string Affiliation { get; set; }
 		public string Text { get; set; }
-        public object [] NameList;
-        public object []EmailList;
 
 		public RegistrationModel(){}
-        public RegistrationModel(object [] guestName, object []guestEmail)
-        {
-            NameList = guestName;
-            EmailList = guestEmail;
+        public RegistrationModel(string name, string email) {
+            Name = name;
+            Email = email;
         }
-	}
+    }
 
 	public enum RegistrationErrorType
 	{

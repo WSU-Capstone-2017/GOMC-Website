@@ -120,11 +120,11 @@
                                 <th>Email</th>
                             </tr>
                             @{
-                                for(var registeredUser =0; registeredUser < Model.NameList.Length; registeredUser++)
+                                foreach(var registeredUser in ViewBag.Rez)
                                 {
                                     <tr>
-                                        <td>@Model.NameList[registeredUser].Name</td>
-                                        <td>@Model.EmailList[registeredUser].Email</td>
+                                        <td>@registeredUser.Name</td>
+                                        <td>@registeredUser.Email</td>
                                     </tr>
                                 }
                             }
