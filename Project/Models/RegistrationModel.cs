@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
@@ -12,10 +13,15 @@ namespace Project.Models
 		public string Email { get; set; }
 		public string Affiliation { get; set; }
 		public string Text { get; set; }
+        public object [] NameList;
+        public object []EmailList;
 
-		public RegistrationModel()
-		{
-		}
+		public RegistrationModel(){}
+        public RegistrationModel(object [] guestName, object []guestEmail)
+        {
+            NameList = guestName;
+            EmailList = guestEmail;
+        }
 	}
 
 	public enum RegistrationErrorType

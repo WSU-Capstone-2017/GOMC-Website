@@ -71,7 +71,7 @@
             </div>
             <div class='row'>
                 <section>
-                    <div class='well well-sm custom-well col-md-12'>
+                    <div class='well well-sm custom-well col-md-4'>
                         <h3>Most Recent Version: @Model.DownloadName</h3>
                         <ul>
                             @foreach (var download in Model.Downloads)
@@ -80,6 +80,16 @@
                             }
                         </ul>
                         <a>@Html.ActionLink("Click here for other revisions", "MoreDownloads", "Home")</a>
+                    </div>
+                    <div class='well well-sm custom-well col-md-4 col-md-offset-2'>
+                        <h3>Examples set: @Model.ExampleName</h3>
+                        <ul>
+                            @foreach (var example in Model.Examples)
+                            {
+                                <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
+                            }
+                        </ul>
+                        <a>@Html.ActionLink("Click here for more examples", "MoreExamples", "Home")</a>
                     </div>
                 </section>
                 @*<aside>
@@ -108,21 +118,6 @@
                             </p>
                         </div>
                     </aside>*@
-            </div>
-            <hr class='grand-line' />
-            <div class='row'>
-                <section>
-                    <div class='well well-sm custom-well col-md-12'>
-                        <h3>Examples set: @Model.ExampleName</h3>
-                        <ul>
-                            @foreach (var example in Model.Examples)
-                            {
-                                <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
-                            }
-                        </ul>
-                        <a>@Html.ActionLink("Click here for more examples", "MoreExamples", "Home")</a>
-                    </div>
-                </section>
             </div>
         </div>
 </main>

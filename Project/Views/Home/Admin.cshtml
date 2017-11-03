@@ -1,6 +1,8 @@
-﻿@{
+﻿@model Project.Models.RegistrationModel
+@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
 }
+
 <head>
     <!--
         WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T BE
@@ -41,7 +43,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <table class="table table-striped table-bordered" id="userNamesAndEmails"> <!--Need JS here to get info from table-->
+                        <table class="table table-striped table-bordered" id="userNamesAndEmails">
                             <thead>Current Announcements</thead>
                             <tr>
                                 <th>Message</th>
@@ -117,18 +119,15 @@
                                 <th>Name</th>
                                 <th>Email</th>
                             </tr>
-                            <tr>
-                                <td>Test</td>
-                                <td>A@abc.com</td>
-                            </tr>
-                            <tr>
-                                <td>Test</td>
-                                <td>A@abc.com</td>
-                            </tr>
-                            <tr>
-                                <td>Test</td>
-                                <td>A@abc.com</td>
-                            </tr>
+                            @{
+                                for(var registeredUser =0; registeredUser < Model.NameList.Length; registeredUser++)
+                                {
+                                    <tr>
+                                        <td>@Model.NameList[registeredUser].Name</td>
+                                        <td>@Model.EmailList[registeredUser].Email</td>
+                                    </tr>
+                                }
+                            }
                         </table>
                     </div>
                     <div class="col-md-6">

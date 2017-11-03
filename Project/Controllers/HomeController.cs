@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.SqlClient;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Project.Core;
 using Project.Models;
+using Project.Data;
 
 namespace Project.Controllers
 {
@@ -43,6 +46,27 @@ namespace Project.Controllers
             }
             return new DownloadsModel(tag, items,releaseName,releaseItems); // needs 4 params
 		}
+        public RegistrationModel RegistrationData()
+        {
+            using (var serverConn = new ProjectDbContext())
+            {
+                var AllRegister = serverConn.Registrations.ToList();
+                var nameRoster = (
+                    from row in AllRegister
+                    select new { row.Name}
+                    ).ToArray();
+
+                var emailRoster = (
+                    from row in AllRegister
+                    select new { row.Email }
+                    ).ToArray();
+
+                // Run SELECT Name, Email FROM[projectdb].[dbo].[Registrations]
+                // Iterate over the rows grabbing name and email
+                // return it as a list
+                return new RegistrationModel(nameRoster,emailRoster);
+            }
+        }
 		public ActionResult Gomc()
 		{
 			return View();
@@ -90,7 +114,7 @@ namespace Project.Controllers
 
         public ActionResult Admin()
         {
-            return View();
+            return View(RegistrationData());
         }
 
         public ActionResult Login()
