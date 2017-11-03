@@ -46,12 +46,17 @@
                 <form method="post" id="Admin">
                     <div class='form-group'>
                         <label for='Email'>Login</label>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input class='form-control' type='email' name='uName' id='userName' placeholder="Email" required />
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon3"><i class="glyphicon glyphicon-user"></i></span><input class='form-control' type='email' name='uName' id='userName' placeholder="Email" required />
+                        </div>
                     </div>
                     <div class='form-group'>
                         <label for='passCode'>Password</label>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span><input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
+                       <div class="input-group">
+                           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span><input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
+                       </div>
                     </div>
+                    @Html.ActionLink("Go to Admin", "Admin", null, new { @class = "btn btn-primary", @id = "adminDirect", @style = "display: none;" })
                     <button class='btn btn-success' type='submit'><span class="glyphicon glyphicon-log-in"></span> Login</button>
                 </form>
             </div>
@@ -59,18 +64,15 @@
     </div>
 </main>
 <script>
-    document.onload = function () {
-        if (document.readyState === 'interactive') {
-            console.log("Admin page accessed");
-            if (sessionStorage.getItem('Admin')) {
-                window.prompt("You are already logged in");
-                // Disable inputs
-                // Allow user to get to admin page on a button click
-                // add warnings
-                // $('input')
+    document.onreadystatechange = function () {
+            if (sessionStorage.getItem('Admin') && document.readyState === 'interactive') {
+                window.confirm("You are already logged in");
+                $('input').prop('disabled', true);
+                $('.btn-success').prop('disabled', true);
+                $('.custom-well').addClass('alert alert-danger');
+                $('#adminDirect').css('display', 'inline-block').prepend("<span class='glyphicon glyphicon-log-out '></span> ")
             }
         }
-    }
 </script>
   
   

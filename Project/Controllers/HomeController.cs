@@ -93,7 +93,7 @@ namespace Project.Controllers
             return View();
         }
 
-        public ActionResult Temp()
+        public ActionResult Login()
         {
             return View();
         }
@@ -104,6 +104,16 @@ namespace Project.Controllers
         }
 
         public ActionResult Latex()
+        {
+            return View();
+        }
+
+        public ActionResult MoreDownloads()
+        {
+            return View();
+        }
+
+        public ActionResult MoreExamples()
         {
             return View();
         }

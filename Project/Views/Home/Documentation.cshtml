@@ -37,11 +37,12 @@
     <div class='container-fluid '>
         <section>
             <div class="row">
-                <div class='col-md-12 '> <!--Fix this up for the latex link-->
-                    <span id="fromLatexConversion">This is where the text from the LaTeX conversion will render</span>
+                <h4>We have an online version and a PDF version available</h4>
+                <div class='col-md-6'>
+                    <p>Click here to open the online version: @Html.ActionLink("here", "Latex", "Home", new {@class = "btn btn-primary"})</p>
                 </div>
-                <div class='col-md-12 '>
-                    <p>But a link will be provided here in case the user wants to see the PDF: <a href='~/Content/img/Manual.pdf' target="_blank">here</a> </p>
+                <div class='col-md-6'>
+                    <p>Click here to open the PDF: <a href='~/Content/img/Manual.pdf' target="_blank" class="btn btn-info">here</a></p>
                 </div>
             </div>
         </section>
@@ -63,7 +64,7 @@
                     <p class='center-p '>Tutorial C</p>
                 </div>
             </div>
-            <h3>For more info check us out on youtube<a href='# '> here</a></h3>
+            <h3>For more info check us out on youtube<a href='https://www.youtube.com' target="_blank"> here</a></h3>
         </section>
         <hr class='grand-line ' />
         <section>
@@ -72,7 +73,7 @@
                     <h2>XML Generator</h2>
                     <p class='center-p '>Click the button below to fill out a form for conversion into xml</p>
                     <div class='center-p '>
-                        <button class='btn btn-large btn-primary ' id='xmlTrigger'>Start</button> <!--Link to XML Page, remove legacy jQuery-->
+                        @Html.ActionLink("Here", "XMLConfigForm", "Home", new { @class= "btn btn-primary" })
                     </div>
                 </div>
             </div>

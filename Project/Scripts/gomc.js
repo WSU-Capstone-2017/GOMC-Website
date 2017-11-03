@@ -28,12 +28,12 @@ $('#btn').click(function(){
 	$('#btn').css('backgroundColor', '#2C3539');
 });
 
-$('#xmlTrigger').click(function(){
-   $('#xmlDataContainer').slideToggle(700,function(){
-	$('#xmlDataContainer').toggleClass('hidden-until');
-	$('#xmlTrigger').slideUp(500, 'linear', morphXmlTrigger);
-  });
-});
+//$('#xmlTrigger').click(function(){
+//   $('#xmlDataContainer').slideToggle(700,function(){
+//	$('#xmlDataContainer').toggleClass('hidden-until');
+//	$('#xmlTrigger').slideUp(500, 'linear', morphXmlTrigger);
+//  });
+//});
 
 $('#closeRegistration').click(function () {
     $(this).next().slideToggle(() => {
@@ -75,7 +75,7 @@ $('#Admin').submit(function (e) {
         .done(function (guidString) {
             // manipulate session storage
             sessionStorage.setItem('Admin', guidString);
-            window.location.href = "/Home/Temp";
+            window.location.href = "/Home/Admin";
         })
         .fail(function (data) {
             console.log(data.statusText);
@@ -87,7 +87,7 @@ $('#Admin').submit(function (e) {
 
 $('#adminLogout').click(function () {
     sessionStorage.clear();
-    window.location.href = "/Home/Admin";
+    window.location.href = "/Home/Login";
 });
 
 $('#adminAnnouncement').submit(function () {
@@ -95,21 +95,21 @@ $('#adminAnnouncement').submit(function () {
 });
 
 // Callback methods
-function morphXmlTrigger(){
-  if($('#xmlDataContainer').hasClass('hidden-until')){
-	$('#xmlTrigger').removeClass('btn-danger');
-	$('#xmlTrigger').addClass('btn-primary');
-	$('#xmlTrigger').html('Start');
-	removeButtons();
-  }
-  else{
-	$('#xmlTrigger').removeClass('btn-primary');
-	$('#xmlTrigger').addClass('btn-danger');
-	$('#xmlTrigger').html('<span class="glyphicon glyphicon-remove"></span>');
-	addButtons();
-  }
-  $(this).slideDown();
-}
+//function morphXmlTrigger(){
+//  if($('#xmlDataContainer').hasClass('hidden-until')){
+//	$('#xmlTrigger').removeClass('btn-danger');
+//	$('#xmlTrigger').addClass('btn-primary');
+//	$('#xmlTrigger').html('Start');
+//	removeButtons();
+//  }
+//  else{
+//	$('#xmlTrigger').removeClass('btn-primary');
+//	$('#xmlTrigger').addClass('btn-danger');
+//	$('#xmlTrigger').html('<span class="glyphicon glyphicon-remove"></span>');
+//	addButtons();
+//  }
+//  $(this).slideDown();
+//}
 
 function addButtons(){
 	$('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
@@ -131,43 +131,43 @@ function removeButtons(){
 	$('.panel-body').remove('form-right-nav');
 }
 
-function displayMenuChunks() {
-	$('.form-left-nav').click(function(e){
-		 e.preventDefault();
-		var currentCard = $('.in-focus');
-		currentCard.removeClass('in-focus');
-		currentCard.prev().addClass('in-focus');
-		currentCard.toggle();
-		currentCard.prev().toggle();
-		adjustBar(false);
-	});
+//function displayMenuChunks() {
+//	$('.form-left-nav').click(function(e){
+//		 e.preventDefault();
+//		var currentCard = $('.in-focus');
+//		currentCard.removeClass('in-focus');
+//		currentCard.prev().addClass('in-focus');
+//		currentCard.toggle();
+//		currentCard.prev().toggle();
+//		adjustBar(false);
+//	});
 
-	$('.form-right-nav').click(function(e){
-		e.preventDefault();
-		var currentCard = $('.in-focus');
-		currentCard.removeClass('in-focus');
-		currentCard.next().addClass('in-focus');
-		currentCard.toggle();
-		currentCard.next().toggle();
-		adjustBar(true);
-	});
-}
+//	$('.form-right-nav').click(function(e){
+//		e.preventDefault();
+//		var currentCard = $('.in-focus');
+//		currentCard.removeClass('in-focus');
+//		currentCard.next().addClass('in-focus');
+//		currentCard.toggle();
+//		currentCard.next().toggle();
+//		adjustBar(true);
+//	});
+//}
 // Maybe this should get adjusted on input as opposed to on panel rotation
-function adjustBar(operation) {
-	if(operation == true){ // increase
-		currentWidth = currentWidth + 12.5;
-	   var newWidth = currentWidth + '%';
-		$('#userProgress').css('width', newWidth);
-		$('#userProgress').html(parseInt(newWidth)+ '%');
+//function adjustBar(operation) {
+//	if(operation == true){ // increase
+//		currentWidth = currentWidth + 12.5;
+//	   var newWidth = currentWidth + '%';
+//		$('#userProgress').css('width', newWidth);
+//		$('#userProgress').html(parseInt(newWidth)+ '%');
 
-	}
-	else { // decrease
-		currentWidth = currentWidth - 12.5;
-	   var newWidth = currentWidth + '%';
-		$('#userProgress').css('width', newWidth);
-		$('#userProgress').html(parseInt(newWidth)+ '%');
-	}
-}
+//	}
+//	else { // decrease
+//		currentWidth = currentWidth - 12.5;
+//	   var newWidth = currentWidth + '%';
+//		$('#userProgress').css('width', newWidth);
+//		$('#userProgress').html(parseInt(newWidth)+ '%');
+//	}
+//}
 
 function captchaSelect(captchaResponse) {
     $('#submitRegistration').prop('disabled', false);

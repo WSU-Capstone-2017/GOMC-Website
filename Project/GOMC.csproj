@@ -319,6 +319,8 @@
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Home\XMLConfigForm.cshtml" />
     <Content Include="Views\Home\_Home_Layout.cshtml" />
+    <Content Include="Views\Home\MoreDownloads.cshtml" />
+    <Content Include="Views\Home\MoreExamples.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
