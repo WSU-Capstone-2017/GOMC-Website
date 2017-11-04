@@ -52,9 +52,9 @@
                     </div>
                     <div class='form-group'>
                         <label for='passCode'>Password</label>
-                       <div class="input-group">
-                           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span><input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
-                       </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span><input class='form-control' type='password' name='pCode' id='passCode' placeholder="Password" required />
+                        </div>
                     </div>
                     @Html.ActionLink("Go to Admin", "Admin", null, new { @class = "btn btn-primary", @id = "adminDirect", @style = "display: none;" })
                     <button class='btn btn-success' type='submit'><span class="glyphicon glyphicon-log-in"></span> Login</button>
@@ -63,17 +63,19 @@
         </div>
     </div>
 </main>
-<script>
-    document.onreadystatechange = function () {
-            if (sessionStorage.getItem('Admin') && document.readyState === 'interactive') {
+@section scripts
+{
+    <script>
+        document.onreadystatechange = function() {
+            if (checkAdminLoginSession() && document.readyState === 'interactive') {
                 window.confirm("You are already logged in");
                 $('input').prop('disabled', true);
                 $('.btn-success').prop('disabled', true);
                 $('.custom-well').addClass('alert alert-danger');
-                $('#adminDirect').css('display', 'inline-block').prepend("<span class='glyphicon glyphicon-log-out '></span> ")
+                $('#adminDirect').css('display', 'inline-block')
+                    .prepend("<span class='glyphicon glyphicon-log-out '></span> ")
             }
         }
-</script>
-  
-  
+    </script>
+}
 

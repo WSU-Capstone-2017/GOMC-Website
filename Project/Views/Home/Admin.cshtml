@@ -121,25 +121,25 @@
                     <div class="col-md-6">
                         <h4>Upload new Latex File</h4>
                         <form>
-                        <label>Attach Latex File: </label> 
+                            <label>Attach Latex File: </label> 
                             <input type="file" name="NewDoc" />
                         </form>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-  </div>
 </main>
-<script>
-    document.onreadystatechange = function (){
-        if (document.readyState === 'interactive') {
-            if (sessionStorage.getItem('Admin')) {
-
-            } 
-            else {
-                console.log("Redirected");
-                window.location.href = "/Home/Login";
+@section scripts
+{
+    <script>
+        document.onreadystatechange = function() {
+            if (document.readyState === 'interactive') {
+                if (!checkAdminLoginSession()) {
+                    console.log("Redirected");
+                    window.location.href = "/Home/Login";
+                }
             }
         }
-    }
-</script>
+    </script>
+}

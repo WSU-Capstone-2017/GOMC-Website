@@ -73,8 +73,8 @@ $('#Admin').submit(function (e) {
     $('.help-block').remove();
     $.post('/api/Login/ValidateLogin', $(this).serialize())
         .done(function (guidString) {
-            // manipulate session storage
-            sessionStorage.setItem('Admin', guidString);
+			// cookie for admin login session and expires in 3 days
+            Cookies.set('Admin_Session_Guid', guidString, { expires: 3 });
             window.location.href = "/Home/Admin";
         })
         .fail(function (data) {
@@ -86,13 +86,25 @@ $('#Admin').submit(function (e) {
 });
 
 $('#adminLogout').click(function () {
-    sessionStorage.clear();
+	// remove cookie for admin login session
+    Cookies.remove('Admin_Session_Guid');
     window.location.href = "/Home/Login";
 });
 
 $('#adminAnnouncement').submit(function () {
 
 });
+
+function checkAdminLoginSession() {
+	var loginSession = Cookies.get('Admin_Session_Guid');
+
+	if (typeof loginSession === "undefined") {
+	    return false;
+	} else {
+	    // TODO: call /api/Login/ValidateSession instead
+	    return true;
+	}
+}
 
 // Callback methods
 //function morphXmlTrigger(){
