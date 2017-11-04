@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.SqlClient;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Project.Core;
 using Project.Models;
+using Project.Data;
 
 namespace Project.Controllers
 {
@@ -21,7 +24,6 @@ namespace Project.Controllers
 
             dynamic jsn1 = releasesJSON[0];
             string releaseName = jsn1.tag_name;
-           // dynamic releasesData = jsn1.zipball_url; // need to make a list of zipball_url and tarball_url to resolve the information I need in the list
 
             var items = new List<DownloadsModel.DownloadItem>();
             foreach (dynamic i in assets)
@@ -41,8 +43,25 @@ namespace Project.Controllers
 
                 releaseItems.Add(new DownloadsModel.ExampleList(rName, rLink));
             }
-            return new DownloadsModel(tag, items,releaseName,releaseItems); // needs 4 params
+            return new DownloadsModel(tag, items,releaseName,releaseItems);
 		}
+        public RegistrationModel RegistrationData()
+        {
+            using (var serverConn = new ProjectDbContext())
+            {
+                var ResultRoster = new List<RegistrationModel>();
+                var Roster = (
+                    from row in serverConn.Registrations
+                    select new { row.Name, row.Email }
+                    ).ToList();
+                foreach(var val in Roster)
+                {
+                    ResultRoster.Add(new RegistrationModel(val.Name,val.Email));
+                }
+                ViewBag.Rez = ResultRoster;
+                return new RegistrationModel();
+            }
+        }
 		public ActionResult Gomc()
 		{
 			return View();
@@ -90,10 +109,10 @@ namespace Project.Controllers
 
         public ActionResult Admin()
         {
-            return View();
+            return View(RegistrationData());
         }
 
-        public ActionResult Temp()
+        public ActionResult Login()
         {
             return View();
         }
@@ -104,6 +123,16 @@ namespace Project.Controllers
         }
 
         public ActionResult Latex()
+        {
+            return View();
+        }
+
+        public ActionResult MoreDownloads()
+        {
+            return View();
+        }
+
+        public ActionResult MoreExamples()
         {
             return View();
         }

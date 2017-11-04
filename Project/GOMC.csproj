@@ -305,7 +305,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Documentation.cshtml" />
     <Content Include="Views\Home\Downloads.cshtml" />
     <Content Include="Views\Home\Faq.cshtml" />
@@ -315,10 +315,12 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\Publication.cshtml" />
     <Content Include="Views\Home\SiteMap.cshtml" />
-    <Content Include="Views\Home\Temp.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Home\XMLConfigForm.cshtml" />
     <Content Include="Views\Home\_Home_Layout.cshtml" />
+    <Content Include="Views\Home\MoreDownloads.cshtml" />
+    <Content Include="Views\Home\MoreExamples.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
