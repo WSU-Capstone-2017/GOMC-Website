@@ -58,9 +58,6 @@ namespace Project.Controllers
                 {
                     ResultRoster.Add(new RegistrationModel(val.Name,val.Email));
                 }
-                // Run SELECT Name, Email FROM[projectdb].[dbo].[Registrations]
-                // Iterate over the rows grabbing name and email
-                // return it as a list
                 ViewBag.Rez = ResultRoster;
                 return new RegistrationModel();
             }
