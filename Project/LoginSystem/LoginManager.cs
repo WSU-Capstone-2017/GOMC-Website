@@ -1,4 +1,5 @@
 ﻿using Project.Data;
+using Project.Models.LoginSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Project.LoginSystem
 {
@@ -30,14 +32,26 @@ namespace Project.LoginSystem
             {
                 return false;
             }
-            foreach (var i in dbContext.UserLogins)
+            using (var db = new ProjectDbContext())
             {
-                if (i.Email == email && i.PasswordHash == GetHash(password)) 
+                var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
+                if (b.Length == 0)
                 {
-                    return true;
+                    return false;
                 }
+                if (b.Length == 1)
+                {
+                    if (b[0].PasswordHash == GetHash(password))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }                   
+                }             
             }
-            return false;
+            return false;           
         }
         public int? GetLoginId(string email, string password)                //We put int? that way we are able to return null
         {
@@ -49,11 +63,23 @@ namespace Project.LoginSystem
             {
                 return null;
             }
-            foreach (var i in dbContext.UserLogins)
+            using (var db = new ProjectDbContext())
             {
-                if (i.Email == email && i.PasswordHash == GetHash(password))  //Password that is hashed needs to be the same as the hashed password
+                var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
+                if (b.Length == 0)
                 {
-                    return i.Id;                                          //If the email and password is correct, it will return the ID
+                    return null;
+                }
+                if (b.Length == 1)
+                {
+                    if (b[0].PasswordHash == GetHash(password))
+                    {
+                        return b[0].Id;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             return null;
