@@ -38,10 +38,12 @@ namespace Project.Controllers
 							AuthorId = s.LoginId,
 							Version = version,
 							HtmlZip = conv.HtmlZip,
-							Pdf = conv.Pdf
+							Pdf = conv.Pdf,
+							Created = DateTime.Now
 						};
 
 						db.LatexUploads.Add(model);
+						db.SaveChanges();
 
 						return LatexConvertResult.Success;
 					}
