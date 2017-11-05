@@ -23,7 +23,7 @@ namespace Project.Latex
 			var content = Regex.Replace(latexFileContent, "{images/(\\w+)}", "{images/$1.png}")
 				.Replace("{images/website.png}", "{images/website.jpg}");
 
-			File.WriteAllText(fileName, latexFileContent);
+			File.WriteAllText(fileName, content);
 
 			var proc = new Process
 			{
