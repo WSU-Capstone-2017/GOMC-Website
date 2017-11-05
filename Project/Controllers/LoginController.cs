@@ -39,16 +39,27 @@ namespace Project.Controllers
             loggedIn.LoginId = loginID.Value;                   //We use .value to get the loginID since it is nullable
             dbContext.AlreadyLoggedIns.Add(loggedIn);           //Lets you add stuff in the AlreadyLoggedIns 
 
-
-            //TODO:Save this to the alreadyloggedin table, create new entry of type alreadyloggedin model with the 3 different options database
             dbContext.SaveChanges();                //Saves changes automatically
             return session;
         }
+        public enum LoginResultType
+        {
+            Success,
+            InvalidEmail,
+            InvalidPassword
+        }
+        public class LoginResult
+        {
+            public LoginResultType Type { get; set; }   
+            public Guid Session { get; set; }
+        }
+        
+
         public Boolean ValidateSession(Guid session)       //Create function for validating session
         {
             foreach (var i in dbContext.AlreadyLoggedIns)                      //Var i gets table from AlreadyLoggedIns in the database
             {
-                if (i.Session == session && DateTime.Now < i.Expiration)      //checks to see if sessions math and input expiration is less than expiration in database
+                if (i.Session == session && DateTime.Now < i.Expiration)      //checks to see if sessions match and input expiration is less than expiration in database
                 {
                     return true;
                 }
