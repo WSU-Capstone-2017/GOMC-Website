@@ -37,7 +37,7 @@ namespace Project.Controllers
 						{
 							AuthorId = s.LoginId,
 							Version = version,
-							Html = conv.Html,
+							HtmlZip = conv.HtmlZip,
 							Pdf = conv.Pdf
 						};
 

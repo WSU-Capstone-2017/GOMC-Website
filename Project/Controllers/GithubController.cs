@@ -70,7 +70,7 @@ namespace Project.Controllers
 					{
 						AuthorId = s.Id,
 						Version = version,
-						Html = conv.Html,
+						HtmlZip =conv.HtmlZip,
 						Pdf = conv.Pdf
 					};
 
