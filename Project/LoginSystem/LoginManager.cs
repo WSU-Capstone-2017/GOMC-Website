@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
+using static Project.Controllers.LoginController;
 
 namespace Project.LoginSystem
 {
@@ -53,32 +54,32 @@ namespace Project.LoginSystem
             }
             return false;           
         }
-        public int? GetLoginId(string email, string password)                //We put int? that way we are able to return null
+        public GetLoginIdResult GetLoginId(string email, string password)                //We put int? that way we are able to return null
         {
-            if (IsValidEmail(email) == false)
+            if (LoginManager.IsValidEmail(email) == false)
             {
-                return null;
+                return new GetLoginIdResult(LoginResultType.InvalidEmail);
             }
             if (password.Length <= 7)
             {
-                return null;
+                return new GetLoginIdResult(LoginResultType.InvalidPassword);
             }
             using (var db = new ProjectDbContext())
             {
                 var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
                 if (b.Length == 0)
                 {
-                    return null;
+                    return new GetLoginIdResult(LoginResultType.InvalidEmail);
                 }
                 if (b.Length == 1)
                 {
-                    if (b[0].PasswordHash == GetHash(password))
+                    if (b[0].PasswordHash == LoginManager.GetHash(password))
                     {
-                        return b[0].Id;
+                        return new GetLoginIdResult(LoginResultType.Success, b[0].Id);
                     }
                     else
                     {
-                        return null;
+                        return new GetLoginIdResult(LoginResultType.InvalidPassword);
                     }
                 }
             }

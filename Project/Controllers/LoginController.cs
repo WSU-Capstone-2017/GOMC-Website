@@ -20,27 +20,35 @@ namespace Project.Controllers
             loginManager = new LoginManager(dbContext);
         }
 
-        public Guid ValidateLogin(FormDataCollection uiData)                       //Guid function for loginvalid 
+        public LoginResult ValidateLogin(FormDataCollection uiData)                       //Guid function for loginvalid 
         {
             var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
 	        string email = loginCredentials.GetValue("uName");
 	        string password = loginCredentials.GetValue("pCode");
 
-            var loginID = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
-            if (loginID == null)
+            var result = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
+            if (result.ResultType == LoginResultType.InvalidEmail )
             {
-                throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);   //Will throw an exception which says unathorized if the login is false
+                return new LoginResult(LoginResultType.InvalidEmail);
             }
-            Guid session = Guid.NewGuid();               //Create a GUID for id which has (email,password)
-            var expiredTime = DateTime.Now + TimeSpan.FromHours(3);     //From exact time at that moment, the login will expire 3 hrs from then
-            var loggedIn = new AlreadyLoggedModel();                //loggedin using the table created in AlreadyLoggedModel(4 options)
-            loggedIn.Expiration = expiredTime;
-            loggedIn.Session = session;                         //Getting into loggedin and then session which is given to each user, session is a Guid(unique identifier)
-            loggedIn.LoginId = loginID.Value;                   //We use .value to get the loginID since it is nullable
-            dbContext.AlreadyLoggedIns.Add(loggedIn);           //Lets you add stuff in the AlreadyLoggedIns 
+            if (result.ResultType == LoginResultType.InvalidPassword)
+            {
+                return new LoginResult(LoginResultType.InvalidPassword);
+            }
+            if (result.ResultType == LoginResultType.Success)
+            {
+                var session = Guid.NewGuid();               //Create a GUID for id which has (email,password)
+                var expiredTime = DateTime.Now + TimeSpan.FromHours(3);     //From exact time at that moment, the login will expire 3 hrs from then
+                var loggedIn = new AlreadyLoggedModel();                //loggedin using the table created in AlreadyLoggedModel(4 options)
+                loggedIn.Expiration = expiredTime;
+                loggedIn.Session = session;                         //Getting into loggedin and then session which is given to each user, session is a Guid(unique identifier)
+                loggedIn.LoginId = result.LoginId.Value;                   //We use .value to get the loginID since it is nullable
+                dbContext.AlreadyLoggedIns.Add(loggedIn);           //Lets you add stuff in the AlreadyLoggedIns            
 
-            dbContext.SaveChanges();                //Saves changes automatically
-            return session;
+                dbContext.SaveChanges();                //Saves changes automatically
+                return new LoginResult(LoginResultType.Success, session);
+            }
+            return null;
         }
         public enum LoginResultType
         {
@@ -48,12 +56,26 @@ namespace Project.Controllers
             InvalidEmail,
             InvalidPassword
         }
+        public class GetLoginIdResult
+        { 
+            public LoginResultType ResultType { get; set; }   
+            public int? LoginId { get; set; }
+            public GetLoginIdResult(LoginResultType type, int? loginId = null)
+            {
+                ResultType = type;
+                LoginId = loginId;
+            }
+        }
         public class LoginResult
         {
-            public LoginResultType Type { get; set; }   
-            public Guid Session { get; set; }
+            public LoginResultType ResultType { get; set; }   
+            public Guid? Session { get; set; }
+            public LoginResult(LoginResultType type, Guid? session = null)
+            {
+                ResultType = type;
+                Session = session;
+            }
         }
-        
 
         public Boolean ValidateSession(Guid session)       //Create function for validating session
         {
