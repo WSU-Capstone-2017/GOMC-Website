@@ -20,13 +20,13 @@ namespace Project.Controllers
             loginManager = new LoginManager(dbContext);
         }
 
-        public LoginResult ValidateLogin(FormDataCollection uiData)                       //Guid function for loginvalid 
+        public LoginResult ValidateLogin(FormDataCollection uiData)                       
         {
             var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
 	        string email = loginCredentials.GetValue("uName");
 	        string password = loginCredentials.GetValue("pCode");
 
-            var result = loginManager.GetLoginId(email, password);          //Gets the information from loginmanager.loginisvalid for email and password
+            var result = loginManager.GetLoginId(email, password);          
             if (result.ResultType == LoginResultType.InvalidEmail )
             {
                 return new LoginResult(LoginResultType.InvalidEmail);
@@ -76,7 +76,6 @@ namespace Project.Controllers
                 Session = session;
             }
         }
-
         public Boolean ValidateSession(Guid session)       //Create function for validating session
         {
             foreach (var i in dbContext.AlreadyLoggedIns)                      //Var i gets table from AlreadyLoggedIns in the database
@@ -87,7 +86,6 @@ namespace Project.Controllers
                 }
             }
             return false;
-        }
-            
+        }           
     }
 }

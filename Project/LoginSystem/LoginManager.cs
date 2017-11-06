@@ -54,7 +54,7 @@ namespace Project.LoginSystem
             }
             return false;           
         }
-        public GetLoginIdResult GetLoginId(string email, string password)                //We put int? that way we are able to return null
+        public GetLoginIdResult GetLoginId(string email, string password)                
         {
             if (LoginManager.IsValidEmail(email) == false)
             {
