@@ -313,7 +313,7 @@
     <Content Include="Views\Home\Gomc.cshtml" />
     <Content Include="Views\Home\Latex.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
-    <Content Include="Views\Home\Publication.cshtml" />
+    <Content Include="Views\Home\Publications.cshtml" />
     <Content Include="Views\Home\SiteMap.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />

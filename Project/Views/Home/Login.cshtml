@@ -1,38 +1,15 @@
 ﻿@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: Login";
 }
-<head>
-    <!--
-        Login Page will contain login form for admins.
-        WARNING: IF YOU ARE HERE AND NOT AN ADMIN YOU SHOULDN'T
-    -->
-    <title>Admin</title>
-    <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/core.less")
-    <link rel="icon" href="~/Content/img/gomc-ico.png" />
-</head>
-<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container-fluid'>
-        <div class='navbar-header' id='menu '>
-            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                <span class='glyphicon glyphicon-align-justify'></span>
-            </button>
-            <div class='collapse navbar-collapse' id='navCollapse'>
-                <ul class='nav nav-tabs nav-justified nav '>
-                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
-                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
-                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
-                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
 <header>
     <h1>Admininstator page</h1>
 </header>
