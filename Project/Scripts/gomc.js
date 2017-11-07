@@ -38,6 +38,9 @@ $('#closeRegistration').click(function () {
 
 $('#registrationForm').submit(function (e) {
     try {
+        console.log('process here');
+        // jQuery validate prompt
+
         $.post('/api/Registration/Input', $('#registrationForm').serialize())
             .done(function (data) {
                 $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');

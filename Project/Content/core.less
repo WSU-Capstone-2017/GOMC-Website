@@ -7,7 +7,27 @@
 /* Custom Fonts from google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 
-/*Variables*/
+/*Keyframe and loader animation*/
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
+    border-top: 1em solid #106A3A;
+    border-right: 1em solid #E58242;
+    border-bottom: 1em solid #91D3EF;
+    border-left: 1em solid #7F3E97;
+    border-radius: 50%;
+    width: 7.5em;
+    height: 7.5em;
+    animation: spin 2s linear infinite;
+}
 
 /* Selector styles - General for nav footer and consistent page scheme */
 body {

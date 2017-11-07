@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Project.Models.DownloadsModel
+@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Ex-Examples";
 }
@@ -10,9 +11,13 @@
     <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
-<header>
-    <h1>HTML Doc-Viewer</h1>
-</header>
 <main>
-    <p>You have reached here to read the html of the document</p>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Older Examples
+        </div>
+        <div class="panel-body">
+            <div class="loader"></div>
+        </div>
+    </div>
 </main>
