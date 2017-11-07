@@ -107,16 +107,3 @@
         </div>
     </div>
 </main>
-@section scripts
-{
-    <script>
-        document.onreadystatechange = function() {
-            if (document.readyState === 'interactive') {
-                if (!checkAdminLoginSession()) {
-                    console.log("Redirected");
-                    window.location.href = "/Home/Login";
-                }
-            }
-        }
-    </script>
-}

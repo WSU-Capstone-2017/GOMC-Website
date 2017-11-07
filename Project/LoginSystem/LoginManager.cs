@@ -1,13 +1,10 @@
 ﻿using Project.Data;
 using Project.Models.LoginSystem;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
-using System.Web.UI.WebControls;
 using static Project.Controllers.LoginController;
 
 namespace Project.LoginSystem
@@ -18,11 +15,6 @@ namespace Project.LoginSystem
 		    Encoding.UTF8.GetBytes(
 			    "IvgpV69JXsiEb3VdhXuijykfjvWWutgsthAiQs1bdfXf0kKRgdkBGC2MSdJ9Sp92YeWehTXF9tzCywbmJSdW2hTmoClpejFV");
 
-		private ProjectDbContext dbContext;
-        public LoginManager(ProjectDbContext databaseContext)
-        {
-            dbContext = databaseContext;                                
-        }
         public Boolean LoginIsValid(string email, string password)
         {
             if (IsValidEmail(email) == false) 
@@ -54,9 +46,30 @@ namespace Project.LoginSystem
             }
             return false;           
         }
-        public GetLoginIdResult GetLoginId(string email, string password)                
+
+	    public static ValidateSessionResultType ValidateSession(Guid session)
+	    {
+		    using(var db = new ProjectDbContext())
+		    {
+			    var b = db.Database.SqlQuery<AlreadyLoggedModel>($"select * from AlreadyLoggedModels where Session = '{session}'").FirstOrDefault();
+
+			    if(b == null)
+			    {
+				    return ValidateSessionResultType.SessionInvalid;
+			    }
+
+				if(b.Expiration < DateTime.Now)
+				{
+					return ValidateSessionResultType.SessionExpired;
+				}
+
+				return ValidateSessionResultType.SessionValid;
+		    }
+		}
+
+		public GetLoginIdResult GetLoginId(string email, string password)                
         {
-            if (LoginManager.IsValidEmail(email) == false)
+            if (IsValidEmail(email) == false)
             {
                 return new GetLoginIdResult(LoginResultType.InvalidEmail);
             }
@@ -73,7 +86,7 @@ namespace Project.LoginSystem
                 }
                 if (b.Length == 1)
                 {
-                    if (b[0].PasswordHash == LoginManager.GetHash(password))
+                    if (b[0].PasswordHash == GetHash(password))
                     {
                         return new GetLoginIdResult(LoginResultType.Success, b[0].Id);
                     }
@@ -116,4 +129,37 @@ namespace Project.LoginSystem
         }
     }
 
+	public class GetLoginIdResult
+	{
+		public LoginResultType ResultType { get; set; }
+		public int? LoginId { get; set; }
+		public GetLoginIdResult(LoginResultType type, int? loginId = null)
+		{
+			ResultType = type;
+			LoginId = loginId;
+		}
+	}
+	public class LoginResult
+	{
+		public LoginResultType ResultType { get; set; }
+		public Guid? Session { get; set; }
+		public LoginResult(LoginResultType type, Guid? session = null)
+		{
+			ResultType = type;
+			Session = session;
+		}
+	}
+	public enum ValidateSessionResultType
+	{
+		SessionValid,
+		SessionExpired,
+		SessionInvalid
+	}
+
+	public enum LoginResultType
+	{
+		Success,
+		InvalidEmail,
+		InvalidPassword
+	}
 }
