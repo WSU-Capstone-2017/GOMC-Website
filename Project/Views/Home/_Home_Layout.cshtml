@@ -1,10 +1,35 @@
 ﻿<!DOCTYPE html>
 <!-- Home template, contains resusable html which consists of the following:
+      - Header
+      - Nav-bar
       - Footer
       - Dependant Javascript files 
+      - Optional Script Render for other external JS files 
       - The analytics script 
 -->
 <html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/core.less")
+</head>
+<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+    <div class='container-fluid'>
+        <div class='navbar-header' id='menu '>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                <span class='glyphicon glyphicon-align-justify'></span>
+            </button>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' width="100"></a>
+        </div>
+        <div class='collapse navbar-collapse navbar-right' id='navCollapse'>
+            <ul class='nav nav-tabs'>
+                @RenderSection("NavSection", required: true)
+            </ul>
+        </div>
+    </div>
+</nav>
 <body>
     @RenderBody()
 <footer>
@@ -12,7 +37,6 @@
     <p class='footer-text'>@Html.ActionLink("Terms & Conditions", "Terms", "Home") |@Html.ActionLink("Site Map", "SiteMap", "Home") | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home") | @Html.ActionLink("FAQ", "Faq", "Home") <br/></p>
     <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
 </footer>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js.cookie")

@@ -28,13 +28,6 @@ $('#btn').click(function(){
 	$('#btn').css('backgroundColor', '#2C3539');
 });
 
-//$('#xmlTrigger').click(function(){
-//   $('#xmlDataContainer').slideToggle(700,function(){
-//	$('#xmlDataContainer').toggleClass('hidden-until');
-//	$('#xmlTrigger').slideUp(500, 'linear', morphXmlTrigger);
-//  });
-//});
-
 $('#closeRegistration').click(function () {
     $(this).next().slideToggle(() => {
         $(this).html((count, words)=>{
@@ -56,8 +49,7 @@ $('#registrationForm').submit(function (e) {
             })
 
             .fail(function (jqXhR) {
-                console.log("Error has been thrown");
-                // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
+                console.log("Error has been thrown"); // Needs better handling
             });
     }
     catch (ex) {
@@ -107,21 +99,6 @@ function checkAdminLoginSession() {
 }
 
 // Callback methods
-//function morphXmlTrigger(){
-//  if($('#xmlDataContainer').hasClass('hidden-until')){
-//	$('#xmlTrigger').removeClass('btn-danger');
-//	$('#xmlTrigger').addClass('btn-primary');
-//	$('#xmlTrigger').html('Start');
-//	removeButtons();
-//  }
-//  else{
-//	$('#xmlTrigger').removeClass('btn-primary');
-//	$('#xmlTrigger').addClass('btn-danger');
-//	$('#xmlTrigger').html('<span class="glyphicon glyphicon-remove"></span>');
-//	addButtons();
-//  }
-//  $(this).slideDown();
-//}
 
 function addButtons(){
 	$('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
@@ -142,44 +119,6 @@ function removeButtons(){
 	$('.panel-body').remove('form-left-nav');
 	$('.panel-body').remove('form-right-nav');
 }
-
-//function displayMenuChunks() {
-//	$('.form-left-nav').click(function(e){
-//		 e.preventDefault();
-//		var currentCard = $('.in-focus');
-//		currentCard.removeClass('in-focus');
-//		currentCard.prev().addClass('in-focus');
-//		currentCard.toggle();
-//		currentCard.prev().toggle();
-//		adjustBar(false);
-//	});
-
-//	$('.form-right-nav').click(function(e){
-//		e.preventDefault();
-//		var currentCard = $('.in-focus');
-//		currentCard.removeClass('in-focus');
-//		currentCard.next().addClass('in-focus');
-//		currentCard.toggle();
-//		currentCard.next().toggle();
-//		adjustBar(true);
-//	});
-//}
-// Maybe this should get adjusted on input as opposed to on panel rotation
-//function adjustBar(operation) {
-//	if(operation == true){ // increase
-//		currentWidth = currentWidth + 12.5;
-//	   var newWidth = currentWidth + '%';
-//		$('#userProgress').css('width', newWidth);
-//		$('#userProgress').html(parseInt(newWidth)+ '%');
-
-//	}
-//	else { // decrease
-//		currentWidth = currentWidth - 12.5;
-//	   var newWidth = currentWidth + '%';
-//		$('#userProgress').css('width', newWidth);
-//		$('#userProgress').html(parseInt(newWidth)+ '%');
-//	}
-//}
 
 function captchaSelect(captchaResponse) {
     $('#submitRegistration').prop('disabled', false);

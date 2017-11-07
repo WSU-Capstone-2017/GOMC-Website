@@ -78,7 +78,7 @@ namespace Project.Controllers
 		{
 			return View();
 		}
-		public ActionResult Publication()
+		public ActionResult Publications()
 		{
 			return View();
 		}

@@ -1,47 +1,25 @@
 ﻿@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC";
 }
-<head>
-    <title>GOMC</title>
-    <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/core.less")
-</head>
-<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container-fluid'>
-        <div class='navbar-header' id='menu '>
-            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                <span class='glyphicon glyphicon-align-justify'></span>
-            </button>
-            <div class='collapse navbar-collapse' id='navCollapse'>
-                <ul class='nav nav-tabs nav-justified nav '>
-                    <li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new {id="onGomcPage"})</li>
-                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
-                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
-                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
+@section NavSection {
+<li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
+<li>@Html.ActionLink("Features", "Features", "Home")</li>
+<li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+<li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+<li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+<li>@Html.ActionLink("About", "About", "Home")</li>
+}
 <header class='special-jumbotron' onload="applyJumbotron">
     <div class='jumbotron'>
         <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
-            <!-- Identify the number of slides in the carousel, what is a good design convention for this? -->
             <ol class='carousel-indicators'>
-                <!-- Can add content as needed -->
                 <li data-target='#gomcHome' data-slide-to='0' class='active'></li>
                 <li data-target='#gomcHome' data-slide-to='1'></li>
                 <li data-target='#gomcHome' data-slide-to='2'></li>
             </ol>
             <div class='carousel-inner' role='listbox'>
-                <!-- This part contains the slides -->
                 <div class='item active cardA'>
-                    <!-- What's in here needs to be relateable for the demo tommorow, from mockup 6 a different bg is used and no images are actually on display, we should go with that-->
                     <h1>GOMC</h1>
                     <p class="jumbo-description">GOMC is a gpu optimized monte-carlo molecular simulation engine developed for the simulation of vapor-liquid equilibria for systems containing tens of thousands of interaction sites. </p> 
                 </div>
@@ -54,7 +32,6 @@
                     <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file'></span> Our newest documentation is here to help you get up and running</a>
                 </div>
             </div>
-            <!-- This part contains the controls for the carousel -->
             <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev'>
                 <span class='glyphicon glyphicon-menu-left sit-down'></span>
             </a>
@@ -114,37 +91,38 @@
         </section>
     </div>
 </main>
+@section scripts{
 <script>
-    document.onreadystatechange = function () {
-        if (document.readyState === 'interactive') {
-            console.log('jumbotron, your\'re up!');
-            $('.jumbotron').css('background-color', '#91D3EF');
-            $('.jumbotron h1').css('background-color', '#91D3EF');
-            $('.carousel-control').css({
-                'background-color': '#91D3EF',
-                'background-image' : 'none'
-            });
+        document.onreadystatechange = function () {
+            if (document.readyState === 'interactive') {
+                console.log('jumbotron, your\'re up!');
+                $('.jumbotron').css('background-color', '#91D3EF');
+                $('.jumbotron h1').css('background-color', '#91D3EF');
+                $('.carousel-control').css({
+                    'background-color': '#91D3EF',
+                    'background-image': 'none'
+                });
 
 
-            $("#gomcHome").on('slid.bs.carousel', function () {
-                var focusedCard = $(this).find('div .active');
-                // console.log("Current card is: "+ focusedCard);
-                if (focusedCard.hasClass('cardA')) {
-                    $('.jumbotron').css('background-color', '#91D3EF');
-                    $('.jumbotron h1').css('background-color', '#91D3EF');
-                    $('.carousel-control').css('background-color', '#91D3EF');
+                $("#gomcHome").on('slid.bs.carousel', function () {
+                    var focusedCard = $(this).find('div .active');
+                    if (focusedCard.hasClass('cardA')) {
+                        $('.jumbotron').css('background-color', '#91D3EF');
+                        $('.jumbotron h1').css('background-color', '#91D3EF');
+                        $('.carousel-control').css('background-color', '#91D3EF');
 
-                } else if (focusedCard.hasClass('cardB')) {
-                    $('.jumbotron').css('background-color', '#9ACD32');
-                    $('.jumbotron h1').css('background-color', '#9ACD32');
-                    $('.carousel-control').css('background-color', '#9ACD32');
+                    } else if (focusedCard.hasClass('cardB')) {
+                        $('.jumbotron').css('background-color', '#9ACD32');
+                        $('.jumbotron h1').css('background-color', '#9ACD32');
+                        $('.carousel-control').css('background-color', '#9ACD32');
 
-                } else if (focusedCard.hasClass('cardC')) {
-                    $('.jumbotron').css('background-color', '#CFE7A7');
-                    $('.jumbotron h1').css('background-color', '#CFE7A7');
-                    $('.carousel-control').css('background-color', '#CFE7A7');
-                }
-            });
+                    } else if (focusedCard.hasClass('cardC')) {
+                        $('.jumbotron').css('background-color', '#CFE7A7');
+                        $('.jumbotron h1').css('background-color', '#CFE7A7');
+                        $('.carousel-control').css('background-color', '#CFE7A7');
+                    }
+                });
+            }
         }
-    }
 </script>  
+}
