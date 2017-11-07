@@ -97,13 +97,62 @@
                     </div>
                     <div class="col-md-6">
                         <h4>Upload new Latex File</h4>
-                        <form>
-                            <label>Attach Latex File: </label> 
-                            <input type="file" name="NewDoc" />
+                        <form id="adminLatexUpload">
+                            <label>Attach Latex File: 
+                                <input type="file" name="file" id="adminLatexUpload_File"/>
+                            </label> 
+                            <label>Version:
+                                <input type="text" name="version" id="adminLatexUpload_Version"/>
+                            </label>
                         </form>
+                        <button id="adminLatexUpload_Submit" disabled="disabled">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var adminLatexUploadForm = {};
+            function checkLatexUploadFormButtonDisabled() {
+                if ($("#adminLatexUpload_File").val().length === 0 || $("#adminLatexUpload_Version").val().length === 0) {
+                    console.log('disabled');
+                    $("#adminLatexUpload_Submit").prop('disabled', true);
+                } else {
+                    console.log('enabled');
+                    $("#adminLatexUpload_Submit").prop('disabled', false);
+                }
+            }
+            $("#adminLatexUpload_File").change(function (e) {
+                console.log('upload change');
+                var file = this.files[0];
+                adminLatexUploadForm = new FormData();
+                adminLatexUploadForm.append('file', file);
+                adminLatexUploadForm.append('version', 'asdf');
+                checkLatexUploadFormButtonDisabled();
+            });
+            $("#adminLatexUpload_Version").change(function () {
+                console.log('version changed');
+                checkLatexUploadFormButtonDisabled();
+            });
+            $("#adminLatexUpload_Submit").click(function () {
+                console.log(adminLatexUploadForm);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/api/Latex/Convert", true);
+                xhr.addEventListener("load", function (evt) {
+                    console.log('load');
+                    console.log(evt);
+                }, false);
+                xhr.addEventListener("error", function (evt) {
+                    console.log('error');
+                    console.log(evt);
+
+                }, false);
+                xhr.send(adminLatexUploadForm);
+            });
+        });
+    </script>
+}

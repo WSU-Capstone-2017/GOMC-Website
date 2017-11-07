@@ -1,10 +1,12 @@
 ﻿using Project.Data;
 using Project.Models.LoginSystem;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using Project.Controllers;
 using static Project.Controllers.LoginController;
 
 namespace Project.LoginSystem
@@ -67,6 +69,28 @@ namespace Project.LoginSystem
 		    }
 		}
 
+	    public static int? LoginIdFromSession(Guid session)
+	    {
+		    using(var db = new ProjectDbContext())
+		    {
+			    var sqlParameter = new SqlParameter("@SessionInput", session);
+
+			    var l = db.Database.SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
+				    .SingleOrDefault();
+
+			    if(l == null)
+			    {
+				    return null;
+			    }
+
+			    if(l.Expiration < DateTime.Now)
+			    {
+				    return null;
+			    }
+
+			    return l.Id;
+		    }
+	    }
 		public GetLoginIdResult GetLoginId(string email, string password)                
         {
             if (IsValidEmail(email) == false)

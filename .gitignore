@@ -288,6 +288,6 @@ __pycache__/
 *.xsd.cs
 
 # Custom rules for our team (GOMC 2017)
-
+Project/temp/*
 !/Project/App_Data/*.mdf
 !/Project/App_Data/*.ldf
