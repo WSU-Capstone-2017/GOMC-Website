@@ -4,25 +4,25 @@
 var currentWidth = 0;
 
 var registrationString = {
-    init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
-    fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
+	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
+	fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
 };
 // Global Object events
-$(function(){
+$(function () {
 	console.log('READY');
 });
 
 // Event Listeners
-$('#btn').click(function(){
-	if($('#btn').children().hasClass('glyphicon-align-justify')){
-	  $('#btn').children().removeClass('glyphicon-align-justify');
-	  $('#btn').children().addClass('glyphicon-remove');
-	  $('header').css('margin-top', '22.5em');
+$('#btn').click(function () {
+	if ($('#btn').children().hasClass('glyphicon-align-justify')) {
+		$('#btn').children().removeClass('glyphicon-align-justify');
+		$('#btn').children().addClass('glyphicon-remove');
+		$('header').css('margin-top', '22.5em');
 	}
 	else {
-	   $('#btn').children().removeClass('glyphicon-remove');
-	   $('#btn').children().addClass('glyphicon-align-justify');
-	   $('header').css('margin-top', '6.5em');
+		$('#btn').children().removeClass('glyphicon-remove');
+		$('#btn').children().addClass('glyphicon-align-justify');
+		$('header').css('margin-top', '6.5em');
 	}
 	$('#btn').css('color', '#FFFFFF');
 	$('#btn').css('backgroundColor', '#2C3539');
@@ -36,59 +36,72 @@ $('#btn').click(function(){
 //});
 
 $('#closeRegistration').click(function () {
-    $(this).next().slideToggle(() => {
-        $(this).html((count, words)=>{
-            return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download' ? registrationString.fin : registrationString.init;
-        });
-    });
+	$(this).next().slideToggle(() => {
+		$(this).html((count, words) => {
+			return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download' ? registrationString.fin : registrationString.init;
+		});
+	});
 });
 
 $('#registrationForm').submit(function (e) {
-    try {
-        $.post('/api/Registration/Input', $('#registrationForm').serialize())
-            .done(function (data) {
-                $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
-                $('#closeRegistration').addClass('btn-success');
-                $('#closeRegistration').removeClass('btn-warning');
-                $('#closeRegistration').next().slideToggle(() => {
-                $('#closeRegistration').prop('disabled', true);
-                });
-            })
+	try {
+		$.post('/api/Registration/Input', $('#registrationForm').serialize())
+			.done(function (data) {
+				$('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
+				$('#closeRegistration').addClass('btn-success');
+				$('#closeRegistration').removeClass('btn-warning');
+				$('#closeRegistration').next().slideToggle(() => {
+					$('#closeRegistration').prop('disabled', true);
+				});
+			})
 
-            .fail(function (jqXhR) {
-                console.log("Error has been thrown");
-                // $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
-            });
-    }
-    catch (ex) {
-        alert("The following error occured: " + ex.message + " in " + ex.fileName + " at " + ex.lineNumber);
-    }
-    finally {
-        e.preventDefault();
-    }
+			.fail(function (jqXhR) {
+				console.log("Error has been thrown");
+				// $("#gomc_config_input_error").html(JSON.parse(jqXhR.responseText)["Message"]); // implementing error handling later
+			});
+	}
+	catch (ex) {
+		alert("The following error occured: " + ex.message + " in " + ex.fileName + " at " + ex.lineNumber);
+	}
+	finally {
+		e.preventDefault();
+	}
 });
 
+var loginResultType = {
+    Success: 0,
+    InvalidEmail: 1,
+    InvalidPassword: 2
+};
+
 $('#Admin').submit(function (e) {
-    $('.form-group').removeClass('has-error');
-    $('.help-block').remove();
-    $.post('/api/Login/ValidateLogin', $(this).serialize())
-        .done(function (guidString) {
-			// cookie for admin login session and expires in 3 days
-            Cookies.set('Admin_Session_Guid', guidString, { expires: 3 });
-            window.location.href = "/Home/Admin";
-        })
-        .fail(function (data) {
-            console.log(data.statusText);
-            $('.form-group').addClass('has-error');
-            $('.form-group').append('<span class="help-block">Invalid credentials</span>');
-        });
-    e.preventDefault();
+	$('.form-group').removeClass('has-error');
+	$('.help-block').remove();
+	$.post('/api/Login/ValidateLogin', $(this).serialize())
+		.done(function (data) {
+			if (data.ResultType === loginResultType.Success) {
+
+			    // cookie for admin login session and expires in 3 days
+			    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
+			    window.location.href = "/Home/Admin";
+			} else {
+				console.log('data.ResultType = ' + data.ResultType);
+			    $('.form-group').addClass('has-error');
+			    $('.form-group').append('<span class="help-block">Invalid credentials</span>');
+			}
+		})
+		.fail(function (data) {
+			console.log(data.statusText);
+			$('.form-group').addClass('has-error');
+			$('.form-group').append('<span class="help-block">Invalid credentials</span>');
+		});
+	e.preventDefault();
 });
 
 $('#adminLogout').click(function () {
 	// remove cookie for admin login session
-    Cookies.remove('Admin_Session_Guid');
-    window.location.href = "/Home/Login";
+	Cookies.remove('Admin_Session_Guid');
+	window.location.href = "/Home/Login";
 });
 
 $('#adminAnnouncement').submit(function () {
@@ -99,10 +112,10 @@ function checkAdminLoginSession() {
 	var loginSession = Cookies.get('Admin_Session_Guid');
 
 	if (typeof loginSession === "undefined") {
-	    return false;
+		return false;
 	} else {
-	    // TODO: call /api/Login/ValidateSession instead
-	    return true;
+		// TODO: call /api/Login/ValidateSession instead
+		return true;
 	}
 }
 
@@ -123,13 +136,13 @@ function checkAdminLoginSession() {
 //  $(this).slideDown();
 //}
 
-function addButtons(){
+function addButtons() {
 	$('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
 	$('.panel-body').append('<button class=" btn btn-success form-right-nav"><span class="glyphicon glyphicon-menu-right"></span></button>');
 	$('.panel-first').addClass('in-focus');
 	$('.panel-first').find('.form-left-nav').prop('disabled', true);
 	$('.panel-eigth').find('.form-right-nav').css('display', 'none');
-	currentWidth+=12.5;
+	currentWidth += 12.5;
 	var temp = currentWidth + '%'
 	$('#userProgress').html(parseInt(currentWidth) + '%');
 	$('#userProgress').css('width', temp);
@@ -138,7 +151,7 @@ function addButtons(){
 	displayMenuChunks();
 }
 
-function removeButtons(){
+function removeButtons() {
 	$('.panel-body').remove('form-left-nav');
 	$('.panel-body').remove('form-right-nav');
 }
@@ -182,17 +195,17 @@ function removeButtons(){
 //}
 
 function captchaSelect(captchaResponse) {
-    $('#submitRegistration').prop('disabled', false);
+	$('#submitRegistration').prop('disabled', false);
 }
 
 function refreshLatex() {
-    console.log("Refresh Latex Clicked!");
+	console.log("Refresh Latex Clicked!");
 }
 
 function refreshDownloads() {
-    console.log("Refresh Downloads Clicked!");
+	console.log("Refresh Downloads Clicked!");
 }
 
 function refreshExamples() {
-    console.log("Refresh Examples Clicked!");
+	console.log("Refresh Examples Clicked!");
 }
