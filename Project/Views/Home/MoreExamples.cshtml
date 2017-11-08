@@ -17,7 +17,13 @@
             Older Examples
         </div>
         <div class="panel-body">
-            <div class="loader"></div>
+            @foreach (var item in ViewBag.ExamplesList)
+            {
+                <h3>Most Recent Version: </h3> <!--Need to better isolate data at the controller level-->
+                    <ul>
+                        <li class="model-link">@item.Name <a href="@item.Link">Download</a></li>
+                    </ul>
+            }
         </div>
     </div>
 </main>

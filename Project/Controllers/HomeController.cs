@@ -152,13 +152,35 @@ namespace Project.Controllers
 		}
 
 		public ActionResult MoreDownloads()
-		{
-			return View();
+		{ // Needs more work, gotta debug ~Caleb
+            var downloadsResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(downloadsResponse);
+            var oldDownloadsList = new List<DownloadsModel.DownloadItem>();
+            foreach (dynamic i in jsn)
+            {
+                string name = i.name;
+                name = name.Replace("_64", "");
+                string iurl = i.browser_download_url;
+                oldDownloadsList.Add(new DownloadsModel.DownloadItem(name, iurl));
+            }
+            ViewBag.Downloadslist = oldDownloadsList; 
+            return View();
 		}
 
 		public ActionResult MoreExamples()
-		{
-			return View();
+        { // Needs more work, gotta debug ~Caleb
+            var examplesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(examplesResponse);
+            var examplesList = new List<DownloadsModel.DownloadItem>();
+            foreach (dynamic i in jsn)
+            {
+                string name = i.name;
+                name = name.Replace("_64", "");
+                string iurl = i.browser_download_url;
+                examplesList.Add(new DownloadsModel.DownloadItem(name, iurl));
+            }
+            ViewBag.Downloadslist = examplesList;
+            return View();
 		}
 	}
 }
