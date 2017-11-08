@@ -145,7 +145,7 @@ $('#xmlConfig').submit(function () {
            // Perhaps add a thank you message?
        })
        .fail(function(jqXhR) {
-            var errMessage = JSON.parse(jqXhR.responseText)["Message"]);
+            var errMessage = JSON.parse(jqXhR.responseText)["Message"];
             window.confirm(errMessage);
        });
 });
