@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: Ex-Downloads";
+}
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home", htmlAttributes: new { id = "onDownloadsPage" })</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
+<main>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Older Downloads
+        </div>
+        <div class="panel-body">
+                @foreach (var item in ViewBag.DownloadsList)
+                {
+                    <h3>Most Recent Version: @Model.DownloadName</h3>
+                    <ul>
+                        <li class="model-link">@item.Name <a href="@item.Link">Download</a></li>
+                   </ul>
+                }
+        </div>
+    </div>
+</main>
+
+
+

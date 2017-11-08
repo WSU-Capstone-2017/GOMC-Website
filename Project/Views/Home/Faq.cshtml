@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: FAQ";
+}
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
+<header>
+    <h1>FAQ</h1>
+</header>
+<main>
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#section6">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Question 1
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse" id="section6">
+                    <div class="panel-body">
+                        <dl>
+                            <dd>How do I ....</dd>
+                            <dt>Answer:</dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <hr class="grand-line" />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#section7">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Question 2
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse" id="section7">
+                    <div class="panel-body">
+                        <dl>
+                            <dd>How do I ....</dd>
+                            <dt>Answer:</dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <hr class="grand-line" />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#section8">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Question 3
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse" id="section8">
+                    <div class="panel-body">
+                        <dl>
+                            <dd>How do I ....</dd>
+                            <dt>Answer:</dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <hr class="grand-line" /><div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#section9">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Question 4
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse" id="section9">
+                    <div class="panel-body">
+                        <dl>
+                            <dd>How do I ....</dd>
+                            <dt>Answer:</dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <hr class="grand-line" />
+        </div>
+    </div>
+
+</main>							

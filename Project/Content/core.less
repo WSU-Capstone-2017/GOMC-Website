@@ -1,0 +1,336 @@
+/*==========================================================
+ Title: GOMC core.less
+ Description:
+   This is the standalone .LESS for the GOMC app. It is core to every page in tandem with bootstrap and jQuery, the dotless package and CSS tools package have been installed with this solution to help ease implementation
+==========================================================*/
+
+/* Custom Fonts from google*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+/*Keyframe and loader animation*/
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
+    border-top: 1em solid #106A3A;
+    border-right: 1em solid #E58242;
+    border-bottom: 1em solid #91D3EF;
+    border-left: 1em solid #7F3E97;
+    border-radius: 50%;
+    width: 7.5em;
+    height: 7.5em;
+    animation: spin 2s linear infinite;
+}
+
+/* Selector styles - General for nav footer and consistent page scheme */
+body {
+  color: #020816;
+  background-color: #ffffff;
+  padding-top: 4.9em;
+  font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
+}
+
+header {
+    margin-top: 1.93em;
+}
+
+main {
+  margin: 1.25em;
+  padding: .625em;
+}
+
+footer {
+    text-align: center;
+    background-color: #eeeeee;
+    color: #020816;
+    padding-bottom: .625em; /*Just to fluff out the bottom*/
+}
+
+tr {
+    background-color: #eeeeee;
+}
+
+header, h1, h2, h3 {
+  text-align: center;
+  background-color: #9acd32;
+  color: #4c4c4c;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+nav a {
+    color: #FFF;
+}
+
+nav {
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+footer {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.main-menu {
+    color: #FFF;
+    background-color: #9acd32;
+    padding-bottom: 0.375em;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.not-render {
+    display: none;
+}
+
+.render {
+    display: block;
+}
+
+.navbar-default {
+    border: none;
+}
+
+/*.special-jumbotron { 
+    margin-top: 5.5em;
+}*/
+
+::selection {
+  background-color: #E58242;
+}
+
+.navbar-toggle {
+    color: #FFF;
+    background-color: #9acd32;
+}
+
+.jumbo-description {
+    text-align: center;
+    margin: .5em;
+    padding: 1em;
+}
+
+/*About.cshtml specific */
+.new-head {
+    padding: .625em;
+}
+
+.formatted-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 3em 0 3em;
+}
+
+.person-card {
+  margin-top: .625em;
+  padding-left: .3125em;
+}
+
+.person-picture {
+  float: left;
+  margin-right: .3125em;
+}
+
+@media only screen and (max-width: 64em) {
+    .top-card {
+        margin-bottom: 1.5625em; /*Stops bunching of the grants*/
+    }
+
+    .person-picture {
+        float: none;
+    }
+}
+
+/*Documentation.cshtml specific*/
+.center-p {
+    text-align: center;
+}
+/*.form-left-nav {
+    float: left;
+    background-color: #9ACD32;
+    color: #FDFFFC;
+}
+
+.form-right-nav {
+    float: right;
+    background-color: #9ACD32;
+    color: #FDFFFC;
+}*/
+
+/*.xml-submission {
+    float: right;
+}*/
+
+.bar-style {
+    color: #020816;
+    background-color: #CFE7A7;
+}
+
+/*Downloads.cshtml specific*/
+/*.hidden-until {
+  display: none;
+}*/
+
+.model-link {
+    padding: .1875em;
+    list-style-type: none;
+}
+
+.custom-well {
+    background-color: #CFE7A7;
+    padding-top: 0;
+}
+
+.btn-push-down {
+    margin-bottom: .3125em;
+}
+
+/*Features.cshtml specific*/
+.different-main {
+    background-color: #ffffff;
+    color: #222222;
+}
+
+/*Publication.cshtml specific*/
+td {
+  padding: .625em;
+}
+
+.publication-header {
+    margin-top: 10.5em;
+}
+
+/*Gomc.cshtml specific*/
+.gomcHome {
+    min-height: 15.625em;
+}
+
+.gomcHome h1 {
+  background-color: none;
+}
+
+.sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
+    margin-top: 5em;
+}
+
+.grand-line {
+    margin: 1.25em;
+}
+
+.footer-text {
+    font-weight: 600;
+}
+
+.mid-card {
+    background-color: #2C3539;
+    color: #FFF;
+}
+
+/*Admin.cshtml  specific*/
+.adminPage {
+  background-color: #FDFFFC;
+  color: #020816;
+  padding: .625em;
+  margin: 1.25em;
+}
+
+.adminLabel {
+  padding: .625em;
+}
+
+/*Site-Map.cshtml specific*/
+.panel-gomc {
+    background-color: #E58242;
+}
+
+.panel-features {
+    background-color: #106A3A;
+    color: #FFF;
+}
+
+.panel-downloads {
+    background-color: #91D3EF;
+}
+
+.panel-documentation {
+    background-color: #7F3E97;
+    color: #FFF;
+}
+
+.panel-publication {
+    background-color: #CFE7A7;
+}
+
+.panel-about {
+    background-color: #7F7FFF;
+    color: #FFF;
+}
+
+.panel-footer {
+    background-color: #FF3232;
+}
+
+/*Classes for the footer pages & General classes*/
+.minimal-panel-page {
+    text-align: center;
+}
+
+.logout-button {
+    padding: .625em;
+}
+
+.admin-view-panel {
+    margin-top: 6.5em;
+}
+
+.panel-success > .panel-heading {
+    background-color: #9acd32;
+    color: #FFFFFF;
+}
+
+/*Ids for menu items, attach ids only on the page focus*/
+#onFontPage {
+    border-bottom: .5em #106A3A solid;
+}
+
+#onGomcPage{
+    border-bottom: .5em #E58242 solid;
+}
+
+#onDownloadsPage{
+    border-bottom: .5em #91D3EF solid;
+}
+
+#onAboutPage{
+    border-bottom: .5em #7F3E97 solid;
+}
+
+#onDocumentationPage{
+    border-bottom: .5em #FFFF00 solid;
+}
+
+#onFeaturesPage {
+     border-bottom: .5em #FF3232 solid;
+}
+
+#onPublicationPage {
+     border-bottom: .5em #7F7FFF solid;
+}
+
+/*faq.cshtml specific*/
+.accordion-toggle:hover {
+    background-color: #d3d3d3;
+}
+

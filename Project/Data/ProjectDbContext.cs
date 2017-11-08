@@ -9,6 +9,8 @@ namespace Project.Data
         public DbSet<UserLoginModel> UserLogins { get; set; }
         public DbSet<AlreadyLoggedModel> AlreadyLoggedIns { get; set; }
         public DbSet<RegistrationModel> Registrations{ get; set; }
+		public DbSet<LatexUploadModel> LatexUploads { get; set; }
+		public DbSet<AnnouncementModel> Announcements { get; set; }
 
 		public ProjectDbContext() : base("name=ProjectDbConnectionString")
 		{

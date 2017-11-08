@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: Latex";
+}
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home", htmlAttributes: new { id = "onDocumentationPage" })</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
+<header>
+    <h1>HTML Doc-viewer</h1>
+</header>
+<main>
+    <p>You have reached here to read the html of the document</p>
+</main>

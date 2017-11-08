@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: Documentation";
+}
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home", htmlAttributes: new { id = "onDocumentationPage" })</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
+
+<header>
+    <h1>Documentation</h1>
+</header>
+<main>  
+        <section>
+            <div class="row">
+                <h4>We have an online version and a PDF version available below</h4>
+                <div class='col-md-12'>
+                    <p>Click here to open the online version: @Html.ActionLink("Here", "Latex", "Home", new {@class = "btn btn-primary"})</p>
+                </div>
+                <div class='col-md-12'>
+                    <p>Click here to open the PDF: <a href='~/Content/img/Manual.pdf' target="_blank" class="btn btn-info">Here</a></p>
+                </div>
+            </div>
+        </section>
+    
+        <hr class='grand-line' />
+        <section>
+            <div class="row">
+                <div class='col-md-12 '>
+                    <h2>Tutorials</h2>
+                <hr class='grand-line' />
+                <h4>For more info check us out on YouTube:<a href='https://www.youtube.com' target="_blank" class="btn btn-info">Click Here</a></h4>                       
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded ' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial A</p>
+                </div>
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial B</p>
+                </div>
+                <div class='col-md-4 '>
+                    <img class='img-responsive img-rounded' src='~/Content/img/placeholder.jpg' />
+                    <p class='center-p '>Tutorial C</p>
+                </div>
+            </div> 
+              </div>
+        </section>
+        <hr class='grand-line ' />
+        <section>
+            <div class="row">
+                <div class='col-md-12 '>
+                    <h2>XML Generator</h2>                   
+                    <h4>Click the button to fill out a form for conversion into XML:
+                        @Html.ActionLink("Here", "XMLConfigForm", "Home", new { @class= "btn btn-primary" })</h4>
+                </div>
+            </div>
+       </section>
+</main>
+
