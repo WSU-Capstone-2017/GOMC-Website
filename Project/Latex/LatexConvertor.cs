@@ -75,6 +75,80 @@ namespace Project.Latex
 
 			return ConversionResult.Success;
 		}
+
+
+		public ConversionResult Convert2(string fileDir)
+		{
+			Debug.Assert(fileDir != null);
+			var fileName = Path.Combine(fileDir, "Manual.tex");
+			var latexFileContent = File.ReadAllText(fileName);
+			// the current version of the latex file has images referenced with out specifying the extension
+			// htlatex is sensitive about that and so we must provide the extension. all the extensions are
+			// .png except images/website which is .jpg
+
+			var content = Regex.Replace(latexFileContent, "{images/(\\w+)}", "{images/$1.png}")
+				.Replace("{images/website.png}", "{images/website.jpg}");
+
+			File.WriteAllText(fileName, content, Encoding.UTF8);
+
+
+			try
+			{
+				var proc = new Process
+				{
+					StartInfo = new ProcessStartInfo("htlatex", fileName)
+					{
+						WorkingDirectory =  fileDir,
+						//WindowStyle = ProcessWindowStyle.Hidden
+					}
+				};
+
+				proc.Start();
+				proc.OutputDataReceived += (o, e) =>
+				{
+					//proc.StandardInput.WriteLine();
+				};
+				proc.WaitForExit();
+
+				using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
+				{
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.css"), "Manual.css");
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
+					foreach (var p in new DirectoryInfo(fileDir).GetFiles("Manual.*.png"))
+					{
+						zip.CreateEntryFromFile(p.FullName, p.Name);
+					}
+				}
+
+				HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
+
+				var proc2 = new Process
+				{
+					StartInfo = new ProcessStartInfo("pdflatex", fileName)
+					{
+						WorkingDirectory = fileDir,
+						//WindowStyle = ProcessWindowStyle.Hidden
+					}
+				};
+
+				proc2.Start();
+				proc2.OutputDataReceived += (o, e) =>
+				{
+					proc2.StandardInput.WriteLine();
+				};
+				proc2.WaitForExit();
+
+				Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
+			}
+			catch (Exception ex)
+			{
+				// ideally we would log the exception, but as of now, this is not part of the requirements
+				return ConversionResult.Invalid;
+			}
+
+			return ConversionResult.Success;
+		}
 	}
 
 	public enum ConversionResult
