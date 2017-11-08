@@ -5,6 +5,8 @@
 		Success,
 		SessionExpired,
 		InvalidFormat,
-		BadSession
+		BadSession,
+		MissingVersion,
+		MissingFile
 	}
 }

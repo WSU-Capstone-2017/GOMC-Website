@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Models
 {
@@ -8,7 +9,8 @@ namespace Project.Models
 		public int Id { get; set; }
 		public int AuthorId { get; set; }
 		public string Version { get; set; }
-		public string Html { get; set; }
-		public string Pdf { get; set; }
+		public byte[] HtmlZip{ get; set; }
+		public byte[] Pdf { get; set; }
+		public DateTime Created { get; set; }
 	}
 }

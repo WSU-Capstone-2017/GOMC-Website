@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace Project.Core
@@ -19,7 +21,11 @@ namespace Project.Core
 				return response.Content.ReadAsStringAsync().Result;
 			}
 		}
-
+		public static string GetCookie(this HttpRequestMessage request, string cookieName)
+		{
+			var cookie = request.Headers.GetCookies(cookieName).FirstOrDefault();
+			return cookie?[cookieName].Value;
+		}
 		public static HttpClient NewClient(string url = null)
 		{
 			var ret = new HttpClient(

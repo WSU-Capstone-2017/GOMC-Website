@@ -1,42 +1,23 @@
 ﻿@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: Downloads";
 }
-<head>
-    <title>Downloads</title>
-    <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/core.less")
-</head>
-<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container-fluid'>
-        <div class='navbar-header' id='menu '>
-            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' class='img-responsive'></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                <span class='glyphicon glyphicon-align-justify'></span>
-            </button>
-            <div class='collapse navbar-collapse' id='navCollapse'>
-                <ul class='nav nav-tabs nav-justified nav '>
-                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
-                    <li>@Html.ActionLink("Features", "Features", "Home")</li>
-                    <li>@Html.ActionLink("Downloads", "Downloads", "Home", htmlAttributes: new { id = "onDownloadsPage" })</li>
-                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-                    <li>@Html.ActionLink("Publication", "Publication", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
- 
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home", htmlAttributes: new { id = "onDownloadsPage" })</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
 <header>
     <h1>Downloads</h1>
 </header>
-<hr class='grand-line' />
 <main>
         <section class='contact'>
-            <p>Keep up with us on github: <a href="https://github.com/GOMC-WSU/GOMC"> Click here</a></p>
+            <h4>Keep up with us on GitHub:<a href="https://github.com/GOMC-WSU/GOMC" target="_blank" class="btn btn-info">Click Here</a></h4>
         </section>
+    <hr class='grand-line' />
         <div class="container-fluid">
             <div class="row">
                 <h3>Optional</h3>
@@ -64,11 +45,12 @@
                             </div>
                             <div class="g-recaptcha"
                                  data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" data-callback="captchaSelect"></div> <!--Implemented for captcha-->
-                            <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save"></span> Register</button>
+                            <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save"></span>Register</button>
                         </form>
                     </div>
                 </div>
             </div>
+            <hr class='grand-line' />
             <div class='row'>
                 <section>
                     <div class='well well-sm custom-well col-md-4'>

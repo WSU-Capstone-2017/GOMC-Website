@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
@@ -70,11 +71,14 @@ namespace Project.Controllers
 					{
 						AuthorId = s.Id,
 						Version = version,
-						Html = conv.Html,
-						Pdf = conv.Pdf
+						HtmlZip =conv.HtmlZip,
+						Pdf = conv.Pdf,
+						Created = DateTime.Now
 					};
 
 					db.LatexUploads.Add(model);
+					db.SaveChanges();
+
 					return true;
 				}
 			}
