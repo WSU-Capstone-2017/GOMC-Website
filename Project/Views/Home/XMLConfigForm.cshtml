@@ -129,22 +129,22 @@
                             <div class="panel-body">
                                 <h4>Enter the following System Data</h4>
                                 <div class="form-group">
-                                    <label>Pressure</label> <!--Left off with panel 2, start here with the tool-tip-->
+                                    <label data-toggle="tooltip" title="NPT must be selected, Pressure is in Bar">Pressure</label> 
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_Pressure" id="gomc_config_input_Pressure"><span>Bar</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Temperature</label>
+                                    <label data-toggle="tooltip" title="Sets temperature for system">Temperature</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_Temperature" id="gomc_config_input_Temperature"><span>Kelvin</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Rcut</label>
+                                    <label data-toggle="tooltip" title="Specific radius of non-bonded interaction energy, calculate by potential function">Rcut</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_Rcut" id="gomc_config_input_Rcut"><span>Angstrom</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>RcutLow</label>
+                                    <label data-toggle="tooltip" title="Sets minimal possible distance in angstrom, rejects any move greater than that distance">RcutLow</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_RcutLow" id="gomc_config_input_RcutLow"><span>Angstrom</span>
                                 </div>
-                                <label>Long Range Correction</label>
+                                <label data-toggle="tooltip" title="Defines whether or not long range corrections are used">Long Range Correction</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Lrc" id="gomc_config_input_Lrc_true" value="true">
