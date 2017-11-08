@@ -216,11 +216,16 @@
     <Content Include="Content\img\absorption.jpg" />
     <Content Include="Content\img\blank.png" />
     <Content Include="Content\img\brock.jpg" />
+    <Content Include="Content\img\canonical-ensemble.png" />
+    <Content Include="Content\img\cell-list.png" />
     <Content Include="Content\img\eyad.jpg" />
+    <Content Include="Content\img\gibbs-ensemble.png" />
     <Content Include="Content\img\journ1.png" />
     <Content Include="Content\img\journ2.png" />
     <Content Include="Content\img\journ3.PNG" />
     <Content Include="Content\img\journ5.PNG" />
+    <Content Include="Content\img\lennard-jones.png" />
+    <Content Include="Content\img\linear-alkanes.png" />
     <Content Include="Content\img\post1.PNG" />
     <Content Include="Content\img\post2.PNG" />
     <Content Include="Content\img\post3.PNG" />
