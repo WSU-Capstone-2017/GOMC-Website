@@ -48,23 +48,7 @@ namespace Project.Controllers
 			}
 			return new DownloadsModel(tag, items, releaseName, releaseItems);
 		}
-		public RegistrationModel RegistrationData()
-		{
-			using (var serverConn = new ProjectDbContext())
-			{
-				var ResultRoster = new List<RegistrationModel>();
-				var Roster = (
-					from row in serverConn.Registrations
-					select new { row.Name, row.Email }
-					).ToList();
-				foreach (var val in Roster)
-				{
-					ResultRoster.Add(new RegistrationModel(val.Name, val.Email));
-				}
-				ViewBag.Rez = ResultRoster;
-				return new RegistrationModel();
-			}
-		}
+	
 		public ActionResult Gomc()
 		{
 			return View();
@@ -130,7 +114,20 @@ namespace Project.Controllers
 
 			if (r == ValidateSessionResultType.SessionValid)
 			{
-				return View(RegistrationData());
+               using (var serverConn = new ProjectDbContext())
+               {
+                   var ResultRoster = new List<RegistrationModel>();
+                   var Roster = (
+                       from row in serverConn.Registrations
+                       select new { row.Name, row.Email }
+                       ).ToList();
+                   foreach (var val in Roster)
+                   {
+                       ResultRoster.Add(new RegistrationModel(val.Name, val.Email));
+                   }
+                   ViewBag.Rez = ResultRoster;
+               }
+                return View();
 			}
 
 			return View("Login");

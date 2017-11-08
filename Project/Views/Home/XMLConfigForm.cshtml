@@ -27,39 +27,39 @@
                         <div class="panel panel-success panel-first working-panel">
                             <div class="panel-heading">Initial Structure Setup</div> <!--Maybe include pop-overs on the headers?-->
                             <div class="panel-body">
-                                <h4 data-toggle="tooltip" title="Shhh">Please select an Ensemble</h4><!--Needs to be on the labels with  a description of the parameter-->
+                                <h4>Please select an Ensemble</h4><!--Needs to be on the labels with  a description of the parameter-->
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Canonical Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Nvt" value="Nvt">
                                         Nvt
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Isobaric-isothermal Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Npt" value="Npt">
                                         Npt
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Grand Canonical Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Gcmc" value="Gcmc">
                                         Gcmc
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Constant Volume Gibbs Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNvt" value="GibbsNvt">
                                         GibbsNvt
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Constant Pressure Gibbs Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNpt" value="GibbsNpt">
                                         GibbsNpt
                                     </label>
                                 </div>
                                 <h4>Please enter the following input data</h4>
-                                <label>Restart</label>
+                                <label data-toggle="tooltip" title="Determines whether to restart the simulation">Restart</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Restart" id="gomc_config_input_Restart_true" value="true">
@@ -72,7 +72,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>Prng</label>
+                                <label data-toggle="tooltip" title="Dictates how to start the pseudo-random number generator (random string or random numbers)">Prng</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Prng" id="gomc_config_input_Prng_Random" value="Random">RANDOM
@@ -84,10 +84,10 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>RandomSeed</label>
+                                    <label data-toggle="tooltip" title="Selectable if PRNG is Intseed, otherwise this value is null">RandomSeed</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_RandomSeed" id="gomc_config_input_RandomSeed">
                                 </div>
-                                <label>ParaType</label>
+                                <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_ParaType" id="gomc_config_input_ParaType_Charmm" value="Charmm">
@@ -108,16 +108,16 @@
                                 </div>
                             <h4>Please enter the input configuration data</h4>
                             <div class="form-group">
-                                <label>ParametersFileName</label>
+                                <label data-toggle="tooltip" title="Provides the name and location of the parameter file to use for the simulation">ParametersFileName</label>
                                 <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_ParametersFileName" id="gomc_config_input_ParametersFileName">
                             </div>
                             <div class="form-group">
-                                <label>Coordinate File (<i>.pdb</i>)</label>
+                                <label data-toggle="tooltip" title="Define filenames for each box in the system">Coordinate File (<i>.pdb</i>)</label>
                                 <input class="form-control" type="number" step="any" min="0" pattern="[\s-]" name="gomc_config_input_Coordinates_1" id="gomc_config_input_Coordinates_1">
                                 <input class="form-control" type="number" step="any" min="0" pattern="[\s-]" name="gomc_config_input_Coordinates_2" id="gomc_config_input_Coordinates_2">
                             </div>
                             <div class="form-group">
-                                <label>Structure File (<i>.psf</i>)</label>
+                                <label data-toggle="tooltip" title="Define the PSF filenames for each box in the system">Structure File (<i>.psf</i>)</label>
                                 <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_1" id="gomc_config_input_Structures_1">
                                 <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_2" id="gomc_config_input_Structures_2">
                             </div>
@@ -129,7 +129,7 @@
                             <div class="panel-body">
                                 <h4>Enter the following System Data</h4>
                                 <div class="form-group">
-                                    <label>Pressure</label>
+                                    <label>Pressure</label> <!--Left off with panel 2, start here with the tool-tip-->
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_Pressure" id="gomc_config_input_Pressure"><span>Bar</span>
                                 </div>
                                 <div class="form-group">
