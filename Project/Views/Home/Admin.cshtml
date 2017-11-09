@@ -31,15 +31,15 @@
                     <div class="col-md-6">
                         <h4>Update Announcements</h4>
                         <p>To update the announcements on the main page fill out the form below: </p>
-                        <form class="form-inline" id="adminAnnouncement" method="get" action="http://www.tipjar.com/cgi-bin/test">
+                        <form class="form-inline" id="adminAnnouncement">
                             <form-group>
                                 <label>New Announcement: </label>
-                                <textarea type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
+                                <textarea id ="adminAnnouncement_Text" type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
                             </form-group>
                             <form-group>
                                 <div class="btn-group-vertical">
                                     <button class="btn btn-danger" type="reset">Clear</button>
-                                    <button class="btn btn-success" type="submit">Post</button>
+                                    <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit">Post</button>
                                 </div>
                             </form-group>
                         </form>
@@ -115,10 +115,11 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var adminLatexUploadForm = {};
             function checkLatexUploadFormButtonDisabled() {
-                if ($("#adminLatexUpload_File").val().length === 0 || $("#adminLatexUpload_Version").val().length === 0) {
+                if ($("#adminLatexUpload_File").val().length === 0 ||
+                    $("#adminLatexUpload_Version").val().length === 0) {
                     console.log('disabled');
                     $("#adminLatexUpload_Submit").prop('disabled', true);
                 } else {
@@ -126,7 +127,8 @@
                     $("#adminLatexUpload_Submit").prop('disabled', false);
                 }
             }
-            $("#adminLatexUpload_File").change(function (e) {
+
+            $("#adminLatexUpload_File").change(function(e) {
                 console.log('upload change');
                 var file = this.files[0];
                 adminLatexUploadForm = new FormData();
@@ -134,23 +136,27 @@
                 adminLatexUploadForm.append('version', 'asdf');
                 checkLatexUploadFormButtonDisabled();
             });
-            $("#adminLatexUpload_Version").change(function () {
+            $("#adminLatexUpload_Version").change(function() {
                 console.log('version changed');
                 checkLatexUploadFormButtonDisabled();
             });
-            $("#adminLatexUpload_Submit").click(function () {
+            $("#adminLatexUpload_Submit").click(function() {
                 console.log(adminLatexUploadForm);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/api/Latex/Convert", true);
-                xhr.addEventListener("load", function (evt) {
-                    console.log('load');
-                    console.log(evt);
-                }, false);
-                xhr.addEventListener("error", function (evt) {
-                    console.log('error');
-                    console.log(evt);
+                xhr.addEventListener("load",
+                    function(evt) {
+                        console.log('load');
+                        console.log(evt);
+                    },
+                    false);
+                xhr.addEventListener("error",
+                    function(evt) {
+                        console.log('error');
+                        console.log(evt);
 
-                }, false);
+                    },
+                    false);
                 xhr.send(adminLatexUploadForm);
             });
         });
