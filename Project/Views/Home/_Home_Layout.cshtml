@@ -31,7 +31,9 @@
     </div>
 </nav>
 <body>
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
 <footer>
     <hr />
     <p class='footer-text'>@Html.ActionLink("Terms & Conditions", "Terms", "Home") |@Html.ActionLink("Site Map", "SiteMap", "Home") | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home") | @Html.ActionLink("FAQ", "Faq", "Home") <br/></p>
