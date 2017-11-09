@@ -14,10 +14,6 @@ namespace Project.Controllers
 {
     public class AdminController : ApiController
     {
-        public class NewAnnouncementModel
-        {
-            public string Content { get; set; }
-        }
         [HttpPost]
         public AnnouncementResult NewAnnouncement(NewAnnouncementModel model)
         {
@@ -59,6 +55,103 @@ namespace Project.Controllers
                 return AnnouncementResult.Success;
 
             }
+        }
+
+	    [HttpPost]
+	    public FetchAnnouncementsOutput GetAnnouncementsCount()
+	    {
+			var authentication = Authenticate();
+
+		    if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+		    {
+			    Debug.Assert(authentication.Result != AnnouncementResult.Success);
+			    return new FetchAnnouncementsOutput { Result = authentication.Result };
+		    }
+		    using (var db = new ProjectDbContext())
+		    {
+			    var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+
+			    return new FetchAnnouncementsOutput
+			    {
+				    Result = AnnouncementResult.Success,
+				    TotalLength = totalLength
+			    };
+		    }
+		}
+
+		[HttpPost]
+        public FetchAnnouncementsOutput FetchAnnouncements(FetchAnnouncementsInput input)
+        {
+            var authentication = Authenticate();
+
+            if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+            {
+                Debug.Assert(authentication.Result != AnnouncementResult.Success);
+                return new FetchAnnouncementsOutput {Result = authentication.Result};
+            }
+
+            using (var db = new ProjectDbContext())
+            {
+	            var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+                var skip = input.PageLength * input.PageIndex;
+                var take = input.PageLength;
+
+                var sqlQuery = "SELECT * FROM Announcments " +
+                          "ORDER BY Id " +
+                          $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+                var announcementResults = db.Announcements.SqlQuery(
+                    sqlQuery).ToArray();
+
+	            return new FetchAnnouncementsOutput
+	            {
+		            Result = AnnouncementResult.Success,
+		            Announcements = announcementResults,
+		            TotalLength = totalLength
+	            };
+            }
+        }
+
+	    [HttpPost]
+	    public DeleteAnnouncementOutput DeleteAnnouncement(DeleteAnnouncementInput input)
+		{
+			var authentication = Authenticate();
+
+			if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+			{
+				Debug.Assert(authentication.Result != AnnouncementResult.Success);
+				return new DeleteAnnouncementOutput {Result = authentication.Result};
+			}
+
+			using(var db = new ProjectDbContext())
+			{
+				const string query = "DELETE FROM dbo.Announcments " +
+				            "WHERE Id = @inputAnnouncementId";
+
+				var parm = new SqlParameter("@inputAnnouncementId", input.AnnouncementId);
+
+				var affectedRows = db.Database.ExecuteSqlCommand(query, parm);
+
+				return new DeleteAnnouncementOutput
+				{
+					Result = AnnouncementResult.Success,
+					Deleted = affectedRows == 1
+				};
+			}
+		}
+
+	    public class DeleteAnnouncementOutput
+	    {
+		    public AnnouncementResult Result { get; set; }
+			public bool Deleted { get; set; }
+	    }
+	    public class DeleteAnnouncementInput
+	    {
+		    public int AnnouncementId { get; set; }
+	    }
+
+        public class NewAnnouncementModel
+        {
+            public string Content { get; set; }
         }
 
         private class AuthenticateOutput
@@ -111,38 +204,9 @@ namespace Project.Controllers
         public class FetchAnnouncementsOutput
         {
             public AnnouncementResult Result { get; set; }
-            public int Length => Announcements.Length;
+            public int Length => Announcements?.Length ?? 0;
             public AnnouncementModel[] Announcements { get; set; }
-        }
-
-        [HttpPost]
-        public FetchAnnouncementsOutput FetchAnnouncements(FetchAnnouncementsInput input)
-        {
-            var authentication = Authenticate();
-
-            if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
-            {
-                Debug.Assert(authentication.Result != AnnouncementResult.Success);
-                return new FetchAnnouncementsOutput {Result = authentication.Result};
-            }
-
-            using (var db = new ProjectDbContext())
-            {
-                var skip = input.PageLength * input.PageIndex;
-                var take = input.PageLength;
-
-                var sqlQuery = "SELECT * FROM Announcments " +
-                          "ORDER BY Id " +
-                          $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
-                var announcementResults = db.Announcements.SqlQuery(
-                    sqlQuery).ToArray();
-                
-                return new FetchAnnouncementsOutput
-                {
-                    Result = AnnouncementResult.Success,
-                    Announcements = announcementResults
-                };
-            }
+			public int TotalLength { get; set; }
         }
 
         public enum AnnouncementResult
