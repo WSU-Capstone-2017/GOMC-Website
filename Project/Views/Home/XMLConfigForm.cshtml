@@ -10,9 +10,6 @@
     <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
-<header>
-    <h1>XMLConfigForm</h1>
-</header>
 <main>
     <!--Feed me tool-tips and validation stuff-->
     <div class="container-fluid">
@@ -27,29 +24,29 @@
                         <div class="panel panel-success panel-first working-panel">
                             <div class="panel-heading">Initial Structure Setup</div> <!--Maybe include pop-overs on the headers?-->
                             <div class="panel-body">
-                                <h4>Please select an Ensemble</h4><!--Needs to be on the labels with  a description of the parameter-->
+                                <h4>Please select an Ensemble</h4>
                                 <div class="radio">
                                     <label data-toggle="tooltip" title="Canonical Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Nvt" value="Nvt">
-                                        Nvt
+                                        NVT
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label data-toggle="tooltip" title="Isobaric-isothermal Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Npt" value="Npt">
-                                        Npt
+                                        NPT
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label data-toggle="tooltip" title="Grand Canonical Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_Gcmc" value="Gcmc">
-                                        Gcmc
+                                        GCMC
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label data-toggle="tooltip" title="Constant Volume Gibbs Ensemble">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ensemble" id="gomc_config_input_Ensemble_GibbsNvt" value="GibbsNvt">
-                                        GibbsNvt
+                                        GibbsNVT
                                     </label>
                                 </div>
                                 <div class="radio">
@@ -157,7 +154,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>Exclude Intraction</label>
+                                <label data-toggle="tooltip" title="Define which pairs of bonded atoms should be excluded from non-bonded interactions">Exclude Interactions</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Exclude" id="gomc_config_input_Exclude_OneTwo" value="OneTwo">
@@ -176,31 +173,31 @@
                                         1-4
                                     </label>
                                 </div>
-                                <label>Lennard-Jones</label>
+                                <label data-toggle="tooltip" title="Define potential function type to calculate non-bonded energy between atoms">Lennard-Jones</label>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Nonbonded interaction energy and force based on the Lennard Johns n-6 equation">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Vdw" value="Vdw">
                                         Truncated
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Option forces the energy to be zero at Rcut distance">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Shift" value="Shift">
                                         SHIFT
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label>
+                                    <label data-toggle="tooltip" title="Option forces potential energy to be zero at Rcut distance. Starts modification at RSwitch distance">
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Potential" id="gomc_config_input_Potential_Switch" value="Switch">
                                         SWITCH
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>Rswitch</label>
+                                    <label data-toggle="tooltip" title="Switch must be the potential function. A distance is non-bonded and interaction energy is truncated smoothly">Rswitch</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_Rswitch" id="gomc_config_input_Rswitch">
                                 </div>
                                 <h4>Enter metadata</h4>
-                                <label>ElectroStatic</label>
+                                <label data-toggle="tooltip" title="Consider Coulomb interaction or not">ElectroStatic</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_ElectroStatic" id="gomc_config_input_ElectroStatic_true" value="true">
@@ -213,7 +210,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>Ewald</label>
+                                <label data-toggle="tooltip" title="Considers summation for electrostatic calculation">Ewald</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_Ewald" id="gomc_config_input_Ewald_true" value="true">
@@ -226,7 +223,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>CachedFourier</label>
+                                <label data-toggle="tooltip" title="Considers storing the reciprocal for Ewald summation">CachedFourier</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_CachedFourier" id="gomc_config_input_CachedFourier_true" value="true">
@@ -240,61 +237,61 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>Tolerance</label>
+                                    <label data-toggle="tooltip" title="Specifies accuracy of the Ewald summation calculation">Tolerance</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_Tolerance" id="gomc_config_input_Tolerance">
                                 </div>
                                 <div class="form-group">
-                                    <label>Dielectric</label>
+                                    <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI force field">Dielectric</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_Dielectric" id="gomc_config_input_Dielectric">
                                 </div>
                                 <div class="form-group">
-                                    <label>PressureCalc</label>
+                                    <label data-toggle="tooltip" title="Considers pressure calculation or not">PressureCalc</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_PressureCalc" id="gomc_config_input_PressureCalc"><span>Bar</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>1-4scaling</label>
+                                    <label data-toggle="tooltip" title="Defines constant factor to modify 1-4 intra-molecule coulomb interaction">1-4scaling</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_OneFourScaling" id="gomc_config_input_OneFourScaling">
                                 </div>
                                 <div class="form-group">
-                                    <label>RunSteps</label>
+                                    <label data-toggle="tooltip" title="Sets the total number of steps to run">RunSteps</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_RunSteps" id="gomc_config_input_RunSteps">
                                 </div>
                                 <div class="form-group">
-                                    <label>EqSteps</label>
+                                    <label data-toggle="tooltip" title="Sets the number of steps necessary to equilibrate the system">EqSteps</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_EqSteps" id="gomc_config_input_EqSteps">
                                 </div>
                                 <div class="form-group">
-                                    <label>AdjSteps</label>
+                                    <label data-toggle="tooltip" title="Sets the number of steps per adjustment to the maximum constants for each move">AdjSteps</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_AdjSteps" id="gomc_config_input_AdjSteps">
                                 </div>
-                                <label>ChemPot</label>
+                                <label data-toggle="tooltip" title="For GCMC chemical potential at which simulation is run">ChemPot</label>
                                 <div class="form-group">
                                     <label>ResName<input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_ChemPot_ResName" id="gomc_config_input_ChemPot_ResName"></label>
                                     <label>Value<input class="form-control" type="number" min="0" name="gomc_config_input_ChemPot_Value" id="gomc_config_input_ChemPot_Value"></label>
                                 </div>
-                                <label>Fugacity</label>
+                                <label data-toggle="tooltip" title="For GCMC Fugacity at which the simulation is run">Fugacity</label>
                                 <div class="form-group">
                                     <label>ResName<input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_Fugacity_ResName" id="gomc_config_input_Fugacity_ResName"></label>
                                     <label>Value<input class="form-control" type="number" min="0" name="gomc_config_input_Fugacity_Value" id="gomc_config_input_Fugacity_Value"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label>DisFreq</label>
+                                    <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_DisFreq" id="gomc_config_input_DisFreq">
                                 </div>
                                 <div class="form-group">
-                                    <label>RotFreq</label>
+                                    <label data-toggle="tooltip" title="Fractional % for rigid rotation">RotFreq</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_RotFreq" id="gomc_config_input_RotFreq">
                                 </div>
                                 <div class="form-group">
-                                    <label>IntraSwapFreq</label>
+                                    <label data-toggle="tooltip" title="Fractional % at which the particle will be removed from and inserted to the same box">IntraSwapFreq</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_IntraSwapFreq" id="gomc_config_input_IntraSwapFreq">
                                 </div>
                                 <div class="form-group">
-                                    <label>VolFreq</label>
+                                    <label data-toggle="tooltip" title=" For Gibbs and GCMC, Fractional % at which volume displacement move will occur">VolFreq</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_VolFreq" id="gomc_config_input_VolFreq">
                                 </div>
                                 <div class="form-group">
-                                    <label>SwapFreq</label>
+                                    <label data-toggle="tooltip" title="For Gibbs and GCMC fractional percentage at which the particle swap move will occur">SwapFreq</label>
                                     <input class="form-control" type="number" min="0" name="gomc_config_input_SwapFreq" id="gomc_config_input_SwapFreq">
                                 </div>
                                 <button class="btn btn-success btn-sm pull-left prev-btn">Previous</button>
@@ -305,7 +302,7 @@
                             <div class='panel-heading'>Output Header Configuration</div>
                             <div class='panel-body '>
                                 <h4>Enter Metadata Configuration Data</h4>
-                                <label>UseConstantArea</label>
+                                <label data-toggle="tooltip" title="For Gibbs, consider change to the volume of the simulation box">Use Constant Area</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="gomc_config_input_UseConstantArea_true" value="true">
@@ -318,7 +315,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>FixVolBox0</label>
+                                <label data-toggle="tooltip" title="For absorption in GibbsNPT changing the volume of the fluid phase box to maintain imposed pressure and temperature">FixVolBox0</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="gomc_config_input_FixVolBox0_true" value="true">
@@ -332,39 +329,39 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>BoxDim 0</label>
+                                    <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">BoxDim 0</label>
                                     <label>XAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="gomc_config_input_BoxDim_1_XAxis"></label>
                                     <label>YAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="gomc_config_input_BoxDim_1_YAxis"></label>
                                     <label>ZAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="gomc_config_input_BoxDim_1_ZAxis"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label>BoxDim 1</label>
+                                    <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">BoxDim 1</label>
                                     <label>XAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="gomc_config_input_BoxDim_2_XAxis"></label>
                                     <label>YAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="gomc_config_input_BoxDim_2_YAxis"></label>
                                     <label>ZAxis<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="gomc_config_input_BoxDim_2_ZAxis"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label>CBMC_First</label>
+                                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcFirst" id="gomc_config_input_CbmcFirst">
                                 </div>
                                 <div class="form-group">
-                                    <label>CBMC_Nth</label>
+                                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
                                     <input class="form-control" type="number" step="any" min="0"  name="gomc_config_input_CbmcNth" id="gomc_config_input_CbmcNth">
                                 </div>
                                 <div class="form-group">
-                                    <label>CBMC_Ang</label>
+                                    <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcAng" id="gomc_config_input_CbmcAng">
                                 </div>
                                 <div class="form-group">
-                                    <label>CBMC_Dih</label>
+                                    <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
                                     <input class="form-control" type="number"  step="any" min="0" name="gomc_config_input_CbmcDih" id="gomc_config_input_CbmcDih">
                                 </div>
                             <h4>Please Enter Output Header Format</h4>
                                 <div class="form-group">
-                                    <label>OutputName</label>
+                                    <label data-toggle="tooltip" title="Unique name for the simulation used to name the block average">OutputName</label>
                                     <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_OutputName" id="gomc_config_input_OutputName">
                                 </div>
-                                <label>CoordinatesFreq</label>
+                                <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_CoordinatesFreq_Enabled" id="gomc_config_input_CoordinatesFreq_Enabled_true" value="true">
@@ -380,7 +377,7 @@
                                 <div class="form-group">
                                     <label>Value<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_CoordinatesFreq_Value" id="gomc_config_input_CoordinatesFreq_Value"></label>
                                 </div>
-                                <label>RestartFreq</label>
+                                <label data-toggle="tooltip" title="Controls the output of the last state of the simulation">RestartFreq</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="gomc_config_input_RestartFreq_Enabled_true" value="true">
@@ -396,7 +393,7 @@
                                 <div class="form-group">
                                     <label>Value<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_RestartFreq_Value" id="gomc_config_input_RestartFreq_Value"></label>
                                 </div>
-                                <label>ConsoleFreq</label>
+                                <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_ConsoleFreq_Enabled" id="gomc_config_input_ConsoleFreq_Enabled_true" value="true">
@@ -412,7 +409,7 @@
                                 <div class="form-group">
                                     <label>Value<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_ConsoleFreq_Value" id="gomc_config_input_ConsoleFreq_Value"></label>
                                 </div>
-                                <label>BlockAverageFreq</label>
+                                <label data-toggle="tooltip" title="Controls the block averages output for thermodynamic properties">BlockAverageFreq</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="gomc_config_input_BlockAverageFreq_Enabled_true" value="true">True
@@ -427,7 +424,7 @@
                                 <div class="form-group">
                                     <label>Value<input class="form-control" type="number" step="any" min="0" name="gomc_config_input_BlockAverageFreq_Value" id="gomc_config_input_BlockAverageFreq_Value"></label>
                                 </div>
-                                <label>HistogramFreq</label>
+                                <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
                                 <div class="radio">
                                     <label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="gomc_config_input_HistogramFreq_Enabled_true" value="true">True</label>
                                 </div>
@@ -446,26 +443,26 @@
                             <div class='panel-body '>
                                 <h4>Please Enter the Output Body Format</h4>
                                 <div class="form-group">
-                                    <label>DistName</label>
+                                    <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
                                     <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_DistName" id="gomc_config_input_DistName">
                                 </div>
                                 <div class="form-group">
-                                    <label>HistName</label>
+                                    <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
                                     <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_HistName" id="gomc_config_input_HistName">
                                 </div>
                                 <div class="form-group">
-                                    <label>RunNumber</label>
+                                    <label data-toggle="tooltip" title="Sets a number which is a part of the file name">RunNumber</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_RunNumber" id="gomc_config_input_RunNumber">
                                 </div>
                                 <div class="form-group">
-                                    <label>RunLetter</label>
+                                    <label data-toggle="tooltip" title="Sets a letter which is part of the file name">RunLetter</label>
                                     <input class="form-control" type="text" pattern="[\s-]" name="gomc_config_input_RunLetter" id="gomc_config_input_RunLetter">
                                 </div>
                                 <div class="form-group">
-                                    <label>SampleFreq</label>
+                                    <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
                                     <input class="form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="gomc_config_input_SampleFreq">
                                 </div>
-                                <label>OutEnergy 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutEnergy 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="gomc_config_input_OutEnergy_1_true" value="true">
@@ -478,7 +475,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutEnergy 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutEnergy 2</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="gomc_config_input_OutEnergy_2_true" value="true">
@@ -491,7 +488,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutPressure 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutPressure 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="gomc_config_input_OutPressure_1_true" value="true">
@@ -504,7 +501,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutPressure 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutPressure 2</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="gomc_config_input_OutPressure_2_true" value="true">
@@ -517,7 +514,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutMolNum 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutMolNum 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="gomc_config_input_OutMolNumber_1_true" value="true">
@@ -530,7 +527,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutMolNum 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutMolNum 2</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="gomc_config_input_OutMolNumber_2_true" value="true">
@@ -543,7 +540,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutDensity 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutDensity 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="gomc_config_input_OutDensity_1_true" value="true">
@@ -556,14 +553,14 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutDensity 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutDensity 2</label>
                                 <div class="radio">
                                     <label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="gomc_config_input_OutDensity_2_true" value="true">True</label>
                                 </div>
                                 <div class="radio">
                                     <label class="form-check-label"><input class="form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="gomc_config_input_OutDensity_2_false" value="false">False</label>
                                 </div>
-                                <label>OutVolume 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutVolume 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="gomc_config_input_OutVolume_1_true" value="true">
@@ -576,7 +573,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutVolume 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutVolume 2</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="gomc_config_input_OutVolume_2_true" value="true">
@@ -589,7 +586,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutSurfaceTension 1</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutSurfaceTension 1</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="gomc_config_input_OutSurfaceTension_1_true" value="true">
@@ -602,7 +599,7 @@
                                         False
                                     </label>
                                 </div>
-                                <label>OutSurfaceTension 2</label>
+                                <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutSurfaceTension 2</label>
                                 <div class="radio">
                                     <label>
                                         <input class="form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="gomc_config_input_OutSurfaceTension_2_true" value="true">

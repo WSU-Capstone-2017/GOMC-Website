@@ -81,21 +81,29 @@ $('#registrationForm').submit(function (e) {
 // Login from admin page
 $('#Admin').submit(function (e) {
 	$('.form-group').removeClass('has-error');
-	$('.help-block').remove();
-	$.post('/api/Login/ValidateLogin', $(this).serialize())
+    $('.help-block').remove();
+    $('#Admin').toggle();
+    $('.loader').remove();
+    $('.login-container').append('<div class="loader center-block"></div>');
+    $.post('/api/Login/ValidateLogin', $(this).serialize())
 		.done(function (data) {
 			if (data.ResultType === loginResultType.Success) {
-
+                $('#Admin').toggle();
+                $('.loader').toggle();
 			    // cookie for admin login session and expires in 3 days
 			    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
 			    window.location.href = "/Home/Admin";
-			} else {
+            } else {
+                $('#Admin').toggle();
+                $('.loader').toggle();
 				console.log('data.ResultType = ' + data.ResultType);
 			    $('.form-group').addClass('has-error');
 			    $('.form-group').append('<span class="help-block">Invalid credentials</span>');
 			}
 		})
-		.fail(function (data) {
+        .fail(function (data) {
+            $('#Admin').toggle();
+            $('.loader').toggle();
 			console.log(data.statusText);
 			$('.form-group').addClass('has-error');
 			$('.form-group').append('<span class="help-block">Invalid credentials</span>');
