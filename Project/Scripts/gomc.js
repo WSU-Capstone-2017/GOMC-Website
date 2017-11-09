@@ -109,13 +109,45 @@ $('#adminLogout').click(function () {
 	window.location.href = "/Home/Login";
 });
 
+var newAnnouncementResult = {
+    Success: 0,
+    SessionExpired: 1,
+    InvalidSession: 2
+};
+
+// The admin announcemets table will be filled with fetched data based on input
+// a specifies the index at which we are fetching and b is the count of items per fetch
+function doFetchAnnouncements(a,b) {
+    $.ajax({
+        url: '/api/Admin/FetchAnnouncements',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            pageIndex: a,
+            pageLength: b
+        })
+    }).done(function (data) {
+        console.log(data);
+        if (data.Result === newAnnouncementResult.Success) {
+            for (var i = 0; i < data.Length; i++) {
+                $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
+                $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
+                $("#fetchAnnouncements_Action_" + i).html(
+                    "<a href='/api/Admin/RemoveAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
+            }
+        } else if (data === newAnnouncementResult.InvalidSession) {
+            window.alert('Could not fetch announcements, bad session');
+        } else if (data === newAnnouncementResult.SessionExpired) {
+            window.alert('Could not fetch announcements, session expired');
+        }
+    });
+}
+function doRemoveAnnouncement(a) {
+    window.alert('removing ' + a);
+    return false;
+}
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
-    var newAnnouncementResult = {
-        Success: 0,
-        SessionExpired: 1,
-        InvalidSession: 2
-    };
 
     $("#adminAnnouncement_Text").text("");
 

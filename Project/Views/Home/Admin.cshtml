@@ -20,13 +20,17 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <table class="table table-striped table-bordered" id="userNamesAndEmails">
+                        <table class="table table-striped table-bordered" id="fetchAnnouncements">
                             <thead>Current Announcements</thead>
                             <tr>
                                 <th>Message</th>
+                                <th>Created</th>
+                                <th>Action</th>
                             </tr>
-
+                            <tr><td id='fetchAnnouncements_Message_0'></td><td id='fetchAnnouncements_Created_0'></td><td id='fetchAnnouncements_Action_0'></td></tr><tr><td id='fetchAnnouncements_Message_1'></td><td id='fetchAnnouncements_Created_1'></td><td id='fetchAnnouncements_Action_1'></td></tr><tr><td id='fetchAnnouncements_Message_2'></td><td id='fetchAnnouncements_Created_2'></td><td id='fetchAnnouncements_Action_2'></td></tr><tr><td id='fetchAnnouncements_Message_3'></td><td id='fetchAnnouncements_Created_3'></td><td id='fetchAnnouncements_Action_3'></td></tr><tr><td id='fetchAnnouncements_Message_4'></td><td id='fetchAnnouncements_Created_4'></td><td id='fetchAnnouncements_Action_4'></td></tr><tr><td id='fetchAnnouncements_Message_5'></td><td id='fetchAnnouncements_Created_5'></td><td id='fetchAnnouncements_Action_5'></td></tr><tr><td id='fetchAnnouncements_Message_6'></td><td id='fetchAnnouncements_Created_6'></td><td id='fetchAnnouncements_Action_6'></td></tr><tr><td id='fetchAnnouncements_Message_7'></td><td id='fetchAnnouncements_Created_7'></td><td id='fetchAnnouncements_Action_7'></td></tr><tr><td id='fetchAnnouncements_Message_8'></td><td id='fetchAnnouncements_Created_8'></td><td id='fetchAnnouncements_Action_8'></td></tr><tr><td id='fetchAnnouncements_Message_9'></td><td id='fetchAnnouncements_Created_9'></td><td id='fetchAnnouncements_Action_9'></td></tr>
                         </table>
+                        <a class="col-md-1">Back</a>
+                        <a class="col-md-2">Next</a>
                     </div>
                     <div class="col-md-6">
                         <h4>Update Announcements</h4>
@@ -115,7 +119,8 @@
 @section scripts
 {
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+            doFetchAnnouncements(0, 10);
             var adminLatexUploadForm = {};
             function checkLatexUploadFormButtonDisabled() {
                 if ($("#adminLatexUpload_File").val().length === 0 ||

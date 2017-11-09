@@ -131,10 +131,11 @@ namespace Project.Controllers
                 var skip = input.PageLength * input.PageIndex;
                 var take = input.PageLength;
 
+                var sqlQuery = "SELECT * FROM Announcments " +
+                          "ORDER BY Id " +
+                          $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
                 var announcementResults = db.Announcements.SqlQuery(
-                    "SELECT * FROM Announcements" +
-                    "ORDER BY Id" +
-                    $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY").ToArray();
+                    sqlQuery).ToArray();
                 
                 return new FetchAnnouncementsOutput
                 {
