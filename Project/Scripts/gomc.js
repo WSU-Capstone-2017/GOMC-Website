@@ -119,7 +119,32 @@ $('#adminLogout').click(function () {
 
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
+    var newAnnouncementResult = {
+        Success: 0,
+        SessionExpired: 1,
+        InvalidSession: 2
+    };
 
+    $("#adminAnnouncement_Text").text("");
+
+    $.ajax({
+        url: '/api/Admin/NewAnnouncement',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+                content: $("#adminAnnouncement_Text").val()
+            })
+        })
+        .done(function(data) {
+            if (data === newAnnouncementResult.Success) {
+                window.alert('New announcement submitted');
+            } else if (data === newAnnouncementResult.InvalidSession) {
+                window.alert('New announcement failed to submit, bad session');
+            } else if (data === newAnnouncementResult.SessionExpired) {
+                window.alert('New announcement failed to submit, session expired');
+            }
+        });
+    return false;
 });
 
 // Change the XML config page by displaying the previous card
