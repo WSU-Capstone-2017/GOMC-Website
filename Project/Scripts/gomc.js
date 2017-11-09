@@ -120,7 +120,8 @@ $('#adminLogout').click(function () {
 var newAnnouncementResult = {
     Success: 0,
     SessionExpired: 1,
-    InvalidSession: 2
+	InvalidSession: 2,
+    MissingContent: 3
 };
 
 var announcementsNavState = {
@@ -244,6 +245,7 @@ function doRemoveAnnouncement(a) {
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
 
+	var msgContent = $("#adminAnnouncement_Text").val();
     $("#adminAnnouncement_Text").text("");
 
     $.ajax({
@@ -251,16 +253,24 @@ $('#adminAnnouncement').submit(function () {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-                content: $("#adminAnnouncement_Text").val()
+			Content: msgContent
             })
         })
         .done(function(data) {
             if (data === newAnnouncementResult.Success) {
-                window.alert('New announcement submitted');
+				console.log('New announcement submitted');
+	            announcementsNavState.pageIndex =
+		            Math.ceil(((announcementsNavState.totalLength + 1) / announcementsNavState.pageLength) - 1);
+	            doFetchAnnouncements();
+            } else if (data === newAnnouncementResult.MissingContent) {
+	            window.alert('Message content cannot be empty.');
+
             } else if (data === newAnnouncementResult.InvalidSession) {
-                window.alert('New announcement failed to submit, bad session');
+				console.log('New announcement failed to submit, bad session');
+	            window.location.href = "/Home/Login";
             } else if (data === newAnnouncementResult.SessionExpired) {
-                window.alert('New announcement failed to submit, session expired');
+				console.log('New announcement failed to submit, session expired');
+	            window.location.href = "/Home/Login";
             }
         });
     return false;

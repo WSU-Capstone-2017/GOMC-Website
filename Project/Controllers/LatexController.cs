@@ -56,7 +56,7 @@ namespace Project.Controllers
 
 			var version = provider.FormData["version"];
 
-			if (version == null)
+			if (string.IsNullOrEmpty(version))
 			{
 				return LatexConvertResult.MissingVersion;
 			}

@@ -28,6 +28,7 @@ namespace Project.Controllers
             using (var db = new ProjectDbContext())
             {
                 var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
+
                 var l = db.Database
                     .SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
                     .SingleOrDefault();
@@ -41,6 +42,11 @@ namespace Project.Controllers
                 {
                     return AnnouncementResult.SessionExpired;
                 }
+
+	            if(string.IsNullOrEmpty(model?.Content))
+	            {
+		            return AnnouncementResult.MissingContent;
+	            }
 
                 var announcement = new AnnouncementModel
                 {
@@ -213,7 +219,8 @@ namespace Project.Controllers
         {
             Success,
             SessionExpired,
-            InvalidSession
+            InvalidSession,
+			MissingContent
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -23,19 +24,20 @@ namespace Project.Controllers
 		[HttpPost]
 		public IHttpActionResult Callback([FromBody] PushModel push)
 		{
-			foreach(var c in push.Commits)
+			foreach (var c in push.Commits)
 			{
-				if(c.Modified.Contains("Manual.tex"))
+				if (c.Modified.Contains("Manual.tex"))
 				{
-					var rsp = Utils.SimpleGet("https://api.github.com/repos/ataher1992/GOMC_Manual/contents/Manual.tex");
+					var rsp = Utils.SimpleGet(
+						"https://api.github.com/repos/ataher1992/GOMC_Manual/contents/Manual.tex");
 					var jsn = JObject.Parse(rsp);
 					var durl = jsn["download_url"];
 					string file;
-					using(var wc = new WebClient())
+					using (var wc = new WebClient())
 					{
 						file = wc.DownloadString(durl.ToString());
 					}
-					if(UploadLatex(file, push.HeadCommit.Id, push.Pusher.Email))
+					if (UploadLatex(file, push.HeadCommit.Id, push.Pusher.Email))
 					{
 						return Ok("Manual updated.");
 					}
@@ -52,37 +54,40 @@ namespace Project.Controllers
 		{
 			using (var db = new ProjectDbContext())
 			{
-				foreach (var s in db.UserLogins)
+				var prm = new SqlParameter("@inputEmail", email);
+
+				var s = db.UserLogins.SqlQuery(
+					"SELECT * FROM dbo.UserLoginModels WHERE Email = @inputEmail", prm)
+					.SingleOrDefault();
+
+				if(s == null)
 				{
-					if (email != s.Email)
-					{
-						continue;
-					}
-					var conv = new LatexConvertor();
-
-					var convRes = conv.Convert(file);
-
-					if (convRes != ConversionResult.Success)
-					{
-						return false;
-					}
-
-					var model = new LatexUploadModel
-					{
-						AuthorId = s.Id,
-						Version = version,
-						HtmlZip =conv.HtmlZip,
-						Pdf = conv.Pdf,
-						Created = DateTime.Now
-					};
-
-					db.LatexUploads.Add(model);
-					db.SaveChanges();
-
-					return true;
+					return false;
 				}
+
+				var conv = new LatexConvertor();
+
+				var convRes = conv.Convert(file);
+
+				if (convRes != ConversionResult.Success)
+				{
+					return false;
+				}
+
+				var model = new LatexUploadModel
+				{
+					AuthorId = s.Id,
+					Version = version,
+					HtmlZip = conv.HtmlZip,
+					Pdf = conv.Pdf,
+					Created = DateTime.Now
+				};
+
+				db.LatexUploads.Add(model);
+				db.SaveChanges();
+
+				return true;
 			}
-			return false;
 		}
 	}
 }

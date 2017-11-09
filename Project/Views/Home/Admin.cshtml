@@ -59,16 +59,16 @@
                         <h4>Update Announcements</h4>
                         <p>To update the announcements on the main page fill out the form below: </p>
                         <form class="form-inline" id="adminAnnouncement">
-                            <form-group>
+                            <div class="form-group">
                                 <label>New Announcement: </label>
                                 <textarea id ="adminAnnouncement_Text" type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
-                            </form-group>
-                            <form-group>
+                            </div>
+                            <div class="form-group">
                                 <div class="btn-group-vertical">
                                     <button class="btn btn-danger" type="reset">Clear</button>
                                     <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit">Post</button>
                                 </div>
-                            </form-group>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-6">
@@ -194,7 +194,7 @@
 
                 console.log(adminLatexUploadForm);
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/api/Latex/Convert2", true);
+                xhr.open("POST", "/api/Latex/Convert", true);
                 xhr.addEventListener("load",
                     function(evt) {
                         console.log('load');
