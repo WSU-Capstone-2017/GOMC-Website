@@ -265,8 +265,27 @@
             </li>
         </ul>
     </nav>
+<div id="resize-nav">
+    <div id="toggle-nav" style="left: 210px;"></div>
 </div>
+<div id="contents-container">
 <article id="contents">
+    <p class="noindent">
+        <div class="maketitle">
+            <center><img height="250" width="250" src="~/Content/img/logo.png" alt="PIC"></center><br />
+            <h2 class="titleHead">
+                User Manual<br />
+                Version 2.10
+            </h2>
+            <div class="author">
+                <br /><br /><br />
+                <br /> <span class="cmr-12">Distributed by the Potoff and Schwiebert Groups</span>
+                <br />            <span class="tcrm-1200">©</span><span class="cmr-12">Wayne State University</span>
+            </div><br />
+            <div class="date">
+                <span class="cmr-12">November 4, 2017</span>
+            </div>
+        </div>
     <h3 class="sectionHead">
         <span class="titlemark">1   </span> <a id="x1-20001"></a>Tutorial Overview
     </h3>
@@ -328,11 +347,9 @@
         <hr class="figure"><div class="figure">
 
 
-
-
             <!--l. 90-->
     <p class="noindent">
-        <img src="images/website.jpg" alt="PIC">
+        <center><img height="600" width="800" src="~/Content/img/website.jpg" alt="PIC"></center>
 
 
         <!--l. 91-->
@@ -353,13 +370,9 @@
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 99-->
     <p class="noindent">
-        <img src="images/github.png" alt="PIC">
-
+        <center><img src="~/Content/img/github.png" alt="PIC"></center>
 
         <!--l. 100-->
     <p class="noindent">
@@ -376,12 +389,9 @@
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 107-->
     <p class="noindent">
-        <img src="images/clone.png" alt="PIC">
+        <center><img src="~/Content/img/clone.png" alt="PIC"></center>
 
 
         <!--l. 108-->
@@ -416,13 +426,9 @@
     <p class="noindent">
         <span class="tcrm-1000">§§</span>Windows <span class="tcrm-1000">§§§</span>Visual Studio<br class="newline" />Microsoft&#8217;s Visual Studio 2010 or later is recommended.<br class="newline" />To check the version:<br class="newline" /><span class="cmti-10">Help</span>(top tab) <span class="cmsy-10">&#x2192;</span><span class="cmti-10">About Microsoft Visual Studio</span><hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 139-->
     <p class="noindent">
-        <img src="images/vshelp.png" alt="PIC">
-
+        <center><img src="~/Content/img/vshelp.png" alt="PIC"></center>
 
         <!--l. 140-->
     <p class="noindent">
@@ -431,13 +437,9 @@
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 143-->
     <p class="noindent">
-        <img src="images/vsabout.png" alt="PIC">
-
+        <center><img src="~/Content/img/vsabout.png" alt="PIC"></center>        
 
         <!--l. 144-->
     <p class="noindent">
@@ -452,14 +454,10 @@
             <span class="cmtt-10">https://developer.nvidia.com/cuda-downloads</span>
         </a> <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 163-->
     <p class="noindent">
-        <img src="images/cuda.png" alt="PIC">
-
-
+        <center><img src="~/Content/img/cuda.png" alt="PIC"></center>
+       
         <!--l. 164-->
     <p class="noindent">
         </div><hr class="endfigure">
@@ -492,12 +490,11 @@
 
             <a id="x1-9001r1"></a>
 
-
             <!--l. 179-->
     <p class="noindent">
-        <img src="images/vmd.png" alt="PIC">
+        <center><img src="~/Content/img/vmd.png" alt="PIC"></center>
         <br /> <div class="caption">
-            <span class="id">Figure&#x00A0;1: </span><span class="content">A system of united atom isobutane molecules</span>
+                   <center><span class="id">Figure&#x00A0;1: </span><span class="content">A system of united atom isobutane molecules</span></center>
         </div><!--tex4ht:label?: x1-9001r1 -->
         <!--l. 181-->
     <p class="noindent">
@@ -514,9 +511,9 @@
 
             <!--l. 185-->
     <p class="noindent">
-        <img src="images/psfgen.png" alt="PIC">
+        <center><img src="~/Content/img/psfgen.png" alt="PIC"></center>
         <br /> <div class="caption">
-            <span class="id">Figure&#x00A0;2: </span><span class="content">An overview of the PSFGen file generation process and its relationship to VMD/NAMD</span>
+            <center><span class="id">Figure&#x00A0;2: </span><span class="content">An overview of the PSFGen file generation process and its relationship to VMD/NAMD</span></center>
         </div><!--tex4ht:label?: x1-9002r2 -->
         <!--l. 187-->
     <p class="noindent">
@@ -550,7 +547,6 @@
         <span class="cmti-10">boundary.</span>
         <!--l. 203-->
     <p class="noindent">
-
 
         <h3 class="sectionHead">
             <span class="titlemark">6   </span> <a id="x1-110006"></a>Compiling GOMC
@@ -769,8 +765,6 @@
             </li>
             <li class="itemize">
                 <span class="cmtt-10">ATOM</span>
-
-
             </li>
             <li class="itemize">
                 <span class="cmtt-10">END</span>
@@ -849,7 +843,7 @@
         <br class="newline" /><br class="newline" />at the top of the file. Note that this is another example of an inconsistency with the spec. As of the PDB
         v3.30 specification the <span class="cmtt-10">REMARK</span>entry contains an identifying integer, which is supposed to occupy lines
         8-10.<br class="newline" /><hr class="figure"><div class="figure">
-            <img src="images/remark.png" alt="PIC">
+            <center><img src="~/Content/img/remark.png" alt="PIC"></center>
         </div><hr class="endfigure">
         <!--l. 315-->
     <p class="noindent">
@@ -860,13 +854,11 @@
         </a><br class="newline" /><hr class="figure"><div class="figure">
 
 
-
-
             <!--l. 321-->
     <p class="noindent">
-        <img src="images/pdb.png" alt="PIC">
+        <center><img src="~/Content/img/pdb.png" alt="PIC"></center>
 
-
+        
         <!--l. 322-->
     <p class="noindent">
         </div><hr class="endfigure">
@@ -878,14 +870,10 @@
         <span class="cmtt-10">ATOM|</span>entries. The keyword &#8220;<span class="cmtt-10">ATOM</span>&#8221; is always followed by two spaces. An entry has a number of fields.
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 330-->
     <p class="noindent">
-        <img src="images/atom.png" alt="PIC">
-
-
+        <center><img src="~/Content/img/atom.png" alt="PIC"></center>
+    
         <!--l. 331-->
     <p class="noindent">
         </div><hr class="endfigure">
@@ -2756,9 +2744,9 @@
                         <span class="cmtt-10">nonbonded</span>
                     </sub><span class="cmmi-10">&#x03F5;</span><sub>
                         <span class="cmmi-7">ij</span>
-                    </sub><img src="Manual.20x.png" alt="[(      )      (       ) ]
+                    </sub><img src="~/Content/img/Manual.20x.png" alt="[(      )      (       ) ]
    Rminij- 12     Rminij 6
-    rij     - 2   rij" class="left" align="middle"> + <img src="Manual.21x.png" alt="      qiqj
+    rij     - 2   rij" class="left" align="middle"> + <img src="~/Content/img/Manual.21x.png" alt="      qiqj
        &#x03F5;rij" class="frac" align="middle">
                 </td>
                 <td class="align-label"></td>
@@ -2797,7 +2785,7 @@
                 <!--l. 579-->
     <p class="noindent">
         GOMC does not sample bond stretch. <hr class="figure"><div class="figure">
-            <a id="x1-20001r3"></a> <img src="images/bonds.png" alt="PIC">
+            <a id="x1-20001r3"></a> <img src="~/Content/img/bonds.png" alt="PIC">
             <br /> <div class="caption">
                 <span class="id">Figure&#x00A0;3: </span><span class="content">Oscillations about the equilibrium bond length</span>
             </div><!--tex4ht:label?: x1-20001r3 -->
@@ -2814,7 +2802,7 @@
                     very large value i.e. &#8220;999999999999&#8221; for <span class="cmmi-10">K</span><sub>
                         <span class="cmmi-7">&#x03B8;</span>
                     </sub>. <hr class="figure"><div class="figure">
-                        <a id="x1-20002r4"></a> <img src="images/angle.png" alt="PIC">
+                        <a id="x1-20002r4"></a> <img src="~/Content/img/angle.png" alt="PIC">
                         <br /> <div class="caption">
                             <span class="id">Figure&#x00A0;4: </span><span class="content">Oscillations of 3 atoms about an equilibrium bond angle</span>
                         </div><!--tex4ht:label?: x1-20002r4 -->
@@ -2834,7 +2822,7 @@
             <!--l. 598-->
     <p class="noindent">
         <hr class="figure"><div class="figure">
-            <a id="x1-20003r5"></a> <img src="images/dihedrals.png" alt="PIC">
+            <a id="x1-20003r5"></a> <img src="~/Content/img/dihedrals.png" alt="PIC">
             <br /> <div class="caption">
                 <span class="id">Figure&#x00A0;5: </span><span class="content">Torsional rotation of 4 atoms about a central bond</span>
             </div><!--tex4ht:label?: x1-20003r5 -->
@@ -2844,7 +2832,6 @@
         </li>
         <li class="itemize">
             <span class="cmtt-10">NONBONDED</span>
-
 
             <ul class="itemize2">
                 <li class="itemize">
@@ -2858,10 +2845,10 @@
             </ul>
             <!--l. 607-->
     <p class="noindent">
-        <hr class="figure"><div class="figure">
-            <a id="x1-20004r6"></a> <img src="images/nonbonded.png" alt="PIC">
+        <hr class="figure"><div class="figure">                               
+            <a id="x1-20004r6"></a> <center><img heigh="600" width="800" src="~/Content/img/nonbonded.png" alt="PIC"></center>
             <br /> <div class="caption">
-                <span class="id">Figure&#x00A0;6: </span><span class="content">Non-bonded energy terms (electrostatics and Lenard-Jones)</span>
+                <center><span class="id">Figure&#x00A0;6: </span><span class="content">Non-bonded energy terms (electrostatics and Lenard-Jones)</span></center>
             </div><!--tex4ht:label?: x1-20004r6 -->
             <!--l. 611-->
     <p class="noindent">
@@ -3409,7 +3396,7 @@
                     <tr style="vertical-align:baseline;" id="TBL-17-3-">
                         <td style="white-space:nowrap; text-align:left;" id="TBL-17-3-1"
                             class="td11">
-                            <span class="cmtt-10">!V(mie) = 4*eps*((sig</span><span class="cmtt-10">_ij/r</span><span class="cmtt-10">_ij)</span><img src="Manual.22x.png" alt="^n  " class="circ"><span class="cmtt-10">-(sig</span><span class="cmtt-10">_ij/r</span><span class="cmtt-10">_ij)</span><img src="Manual.23x.png" alt="^6  " class="circ"><span class="cmtt-10">)</span>
+                            <span class="cmtt-10">!V(mie) = 4*eps*((sig</span><span class="cmtt-10">_ij/r</span><span class="cmtt-10">_ij)</span><img src="~/Content/img/Manual.22x.png" alt="^n  " class="circ"><span class="cmtt-10">-(sig</span><span class="cmtt-10">_ij/r</span><span class="cmtt-10">_ij)</span><img src="~/Content/img/Manual.23x.png" alt="^6  " class="circ"><span class="cmtt-10">)</span>
                         </td>
                     </tr>
                     <tr style="vertical-align:baseline;" id="TBL-17-4-">
@@ -5924,8 +5911,6 @@
                     </li>
                     <li class="itemize">
                         Electrostatic self
-
-
                     </li>
                     <li class="itemize">
                         Electrostatic correction
@@ -5989,7 +5974,7 @@
                 <td>
                     <a id="x1-30001r1"></a>
                     <center class="math-display">
-                        <img src="Manual.24x.png" alt="        &#x222B; L
+                        <img src="~/Content/img/Manual.24x.png" alt="        &#x222B; L
 &#x03B3; = -1---   (Pzz - Pxx +-Pyy-)dz
     2Axy 0            2
 " class="math-display">
@@ -6012,13 +5997,9 @@
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 1356-->
     <p class="noindent">
-        <img src="images/out1.png" alt="PIC">
-
+        <img src="~/Content/img/out1.png" alt="PIC">
 
         <!--l. 1357-->
     <p class="noindent">
@@ -6027,13 +6008,9 @@
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 1359-->
     <p class="noindent">
-        <img src="images/out2.png" alt="PIC">
-
+        <img src="~/Content/img/out2.png" alt="PIC">
 
         <!--l. 1360-->
     <p class="noindent">
@@ -6041,19 +6018,14 @@
         <!--l. 1361-->
     <p class="noindent">
 
-
         <!--l. 1362-->
     <p class="noindent">
         Next, the energy and statistic title, initial energy and statistic of the system&#8217;s starting configuration will
         print:<br class="newline" /><hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 1364-->
     <p class="noindent">
-        <img src="images/out3.png" alt="PIC">
-
+        <img src="~/Content/img/out3.png" alt="PIC">
 
         <!--l. 1365-->
     <p class="noindent">
@@ -6063,13 +6035,9 @@
         After the simulation starts, move, energy, and statistical title, followed by their values for each simulation box, will
         print: <hr class="figure"><div class="figure">
 
-
-
-
             <!--l. 1368-->
     <p class="noindent">
-        <img src="images/out4.png" alt="PIC">
-
+        <img src="~/Content/img/out4.png" alt="PIC">
 
         <!--l. 1369-->
     <p class="noindent">
@@ -6785,12 +6753,12 @@
             <span class="cmtt-10">Congratulations!</span>
         </span> You have examined a single-phase coexistence point on the saturated vapor-liquid
         curve using GOMC operating in the Gibbs ensemble. <hr class="figure"><div class="figure">
-            <a id="x1-33013r7"></a> <img src="images/isobutane_result.png" alt="PIC">
+            <a id="x1-33013r7"></a> <center><img heigh="600" width="800" src="~/Content/img/isobutane_result.png" alt="PIC"></center>
             <br /> <div class="caption">
-                <span class="id">Figure&#x00A0;7: </span><span class="content">Repeating this process for multiple temperatures will allow you to obtain the following results.</span>
+                <center><span class="id">Figure&#x00A0;7: </span><span class="content">Repeating this process for multiple temperatures will allow you to obtain the following results.</span></center>
             </div><!--tex4ht:label?: x1-33013r7 -->
             <!--l. 1584-->
-    <p class="noindent">
+    <p class="noindent">        
         </div><hr class="endfigure">
         <!--l. 1585-->
     <p class="noindent">
@@ -6819,7 +6787,7 @@
                         <td>
                             <a id="x1-35001r2"></a>
                             <center class="math-display">
-                                <img src="Manual.25x.png" alt="E  = C   &#x03F5; [(&#x03C3;ij)nij - (&#x03C3;ij)6]
+                                <img src="~/Content/img/Manual.25x.png" alt="E  = C   &#x03F5; [(&#x03C3;ij)nij - (&#x03C3;ij)6]
   ij    nij ij  rij       rij
      " class="math-display">
                             </center>
@@ -6854,7 +6822,7 @@
                 <td>
                     <a id="x1-35002r3"></a>
                     <center class="math-display">
-                        <img src="Manual.26x.png" alt="       -nij--  nij-6&#x2215;(nij-6)
+                        <img src="~/Content/img/Manual.26x.png" alt="       -nij--  nij-6&#x2215;(nij-6)
 Cnij = (nij - 6)(6 )
      " class="math-display">
                     </center>
@@ -6864,8 +6832,6 @@ Cnij = (nij - 6)(6 )
         </table>
         <!--l. 1599-->
     <p class="nopar">
-
-
         </li>
         <li class="itemize">
             Virial Calculation: Virial is basically the negative derivative of energy with respect to distance, multiplied by
@@ -6875,7 +6841,7 @@ Cnij = (nij - 6)(6 )
                     <td>
                         <a id="x1-35003r4"></a>
                         <center class="math-display">
-                            <img src="Manual.27x.png" alt="       dEij   &#x21C0;-rij
+                            <img src="~/Content/img/Manual.27x.png" alt="       dEij   &#x21C0;-rij
 Wij = - dr  &#x00D7;  rij
      " class="math-display">
                         </center>
@@ -6891,7 +6857,7 @@ Wij = - dr  &#x00D7;  rij
                 <td>
                     <a id="x1-35004r5"></a>
                     <center class="math-display">
-                        <img src="Manual.28x.png" alt="             n     &#x03C3;        &#x03C3;       -&#x2192;r
+                        <img src="~/Content/img/Manual.28x.png" alt="             n     &#x03C3;        &#x03C3;       -&#x2192;r
 Wij = 6Cnij&#x03F5;ij[-ij&#x00D7; (-ij)nij - (-ij)6]&#x00D7;--ij2
               6    rij      rij    rij
      " class="math-display">
@@ -6924,7 +6890,7 @@ Wij = 6Cnij&#x03F5;ij[-ij&#x00D7; (-ij)nij - (-ij)6]&#x00D7;--ij2
                             <center class="math-display">
 
 
-                                <img src="Manual.29x.png" alt="                   &#x03C3;ij nij    &#x03C3;ij 6          &#x03C3;ij nij    &#x03C3;ij  6
+                                <img src="~/Content/img/Manual.29x.png" alt="                   &#x03C3;ij nij    &#x03C3;ij 6          &#x03C3;ij nij    &#x03C3;ij  6
 Eij(shift) = Cnij&#x03F5;ij[(r-)  - (r-) ]- Cnij&#x03F5;ij[(r--)   - (r--)]
                     ij        ij             cut       cut
      " class="math-display">
@@ -6964,7 +6930,7 @@ Eij(shift) = Cnij&#x03F5;ij[(r-)  - (r-) ]- Cnij&#x03F5;ij[(r--)   - (r--)]
                     <td>
                         <a id="x1-36002r7"></a>
                         <center class="math-display">
-                            <img src="Manual.210x.png" alt="                   nij   &#x03C3;ij nij   &#x03C3;ij 6   -&#x2192;rij--
+                            <img src="~/Content/img/Manual.210x.png" alt="                   nij   &#x03C3;ij nij   &#x03C3;ij 6   -&#x2192;rij--
 Wij(shift) = 6Cnij&#x03F5;ij[6 &#x00D7; (rij ) - (rij ) ]&#x00D7; rij2
      " class="math-display">
                         </center>
@@ -6978,13 +6944,13 @@ Wij(shift) = 6Cnij&#x03F5;ij[6 &#x00D7; (rij ) - (rij ) ]&#x00D7; rij2
         <!--l. 1627-->
     <p class="noindent">
         <hr class="figure"><div class="figure">
-            <a id="x1-36003r8"></a> <img src="images/VDW_SHIFT.png" alt="PIC">
+            <a id="x1-36003r8"></a> <center><img src="~/Content/img/VDW_SHIFT.png" alt="PIC"></center>
             <br /> <div class="caption">
-                <span class="id">Figure&#x00A0;8: </span><span class="content">
+                <center><span class="id">Figure&#x00A0;8: </span><span class="content">
                     Graph of Van der Waals potential with and without the application of the <span class="cmtt-10">SHIFT</span>function. With
                     the <span class="cmtt-10">SHIFT</span>function active, the potential by force was reduced to 0.0 at the <span class="cmtt-10">Rcut</span>distance. With the <span class="cmtt-10">SHIFT</span>
                     function, there is a discontinuity where the potential is truncated.
-                </span>
+                </span></center>
             </div><!--tex4ht:label?: x1-36003r8 -->
             <!--l. 1631-->
     <p class="noindent">
@@ -7007,8 +6973,7 @@ Wij(shift) = 6Cnij&#x03F5;ij[6 &#x00D7; (rij ) - (rij ) ]&#x00D7; rij2
                             <a id="x1-37001r8"></a>
                             <center class="math-display">
 
-
-                                <img src="Manual.211x.png" alt="                    &#x03C3;ijnij   &#x03C3;ij6
+                                <img src="~/Content/img/Manual.211x.png" alt="                    &#x03C3;ijnij   &#x03C3;ij6
 Eij(switch) = Cnij&#x03F5;ij[(r--)  - (r--)]&#x00D7; FE
                      ij       ij
      " class="math-display">
@@ -7040,7 +7005,7 @@ Eij(switch) = Cnij&#x03F5;ij[(r--)  - (r--)]&#x00D7; FE
             <span class="cmmi-7">E</span>
         </sub> is defined as:
         <center class="math-display">
-            <img src="Manual.212x.png" alt="     (
+            <img src="~/Content/img/Manual.212x.png" alt="     (
      ||1                              rij &#x2264; rswitch
      { (rcut2-rij2)2&#x00D7;(rcut2-3rswitch2+2rij2)
 FE = ||        (rcut2-rswitch2)3          rswitch &#x003C; rij &#x003C; rcut
@@ -7054,7 +7019,7 @@ FE = ||        (rcut2-rswitch2)3          rswitch &#x003C; rij &#x003C; rcut
                 <td>
                     <a id="x1-37002r9"></a>
                     <center class="math-display">
-                        <img src="Manual.213x.png" alt="
+                        <img src="~/Content/img/Manual.213x.png" alt="
      " class="math-display">
                     </center>
                 </td>
@@ -7072,7 +7037,7 @@ FE = ||        (rcut2-rswitch2)3          rswitch &#x003C; rij &#x003C; rcut
                     <td>
                         <a id="x1-37003r10"></a>
                         <center class="math-display">
-                            <img src="Manual.214x.png" alt="                     nij   &#x03C3;ij nij   &#x03C3;ij 6   FE--        &#x03C3;ij nij   &#x03C3;ij 6        -&#x2192;
+                            <img src="~/Content/img/Manual.214x.png" alt="                     nij   &#x03C3;ij nij   &#x03C3;ij 6   FE--        &#x03C3;ij nij   &#x03C3;ij 6        -&#x2192;
 Wij(switch) = [6Cnij&#x03F5;ij[ 6 &#x00D7; (rij ) - (rij )]&#x00D7; rij2 - Cnij&#x03F5;ij[(rij ) - (rij ) ]&#x00D7;FW ]&#x00D7; rij
 
 
@@ -7088,7 +7053,7 @@ Wij(switch) = [6Cnij&#x03F5;ij[ 6 &#x00D7; (rij ) - (rij )]&#x00D7; rij2 - Cnij&
             <span class="cmmi-7">W</span>
         </sub> is defined as:
         <center class="math-display">
-            <img src="Manual.215x.png" alt="      (|1                        r  &#x2264; r
+            <img src="~/Content/img/Manual.215x.png" alt="      (|1                        r  &#x2264; r
       |{ 12(rcut2- rij2)&#x00D7;(rswitch2-rij2)   ij   switch
 FW  = | -----(rcut2-rswitch2)3------ rswitch &#x003C; rij &#x003C; rcut
       |(0                        r  &#x2265; r
@@ -7102,7 +7067,7 @@ FW  = | -----(rcut2-rswitch2)3------ rswitch &#x003C; rij &#x003C; rcut
                 <td>
                     <a id="x1-37004r11"></a>
                     <center class="math-display">
-                        <img src="Manual.216x.png" alt="
+                        <img src="~/Content/img/Manual.216x.png" alt="
      " class="math-display">
                     </center>
                 </td>
@@ -7115,15 +7080,15 @@ FW  = | -----(rcut2-rswitch2)3------ rswitch &#x003C; rij &#x003C; rcut
         <!--l. 1670-->
     <p class="noindent">
         <hr class="figure"><div class="figure">
-            <a id="x1-37005r9"></a> <img src="images/SWITCH.png" alt="PIC">
+            <a id="x1-37005r9"></a> <center><img src="~/Content/img/SWITCH.png" alt="PIC"></center>
             <br /> <div class="caption">
-                <span class="id">Figure&#x00A0;9: </span><span class="content">
+                <center><span class="id">Figure&#x00A0;9: </span><span class="content">
                     Graph of Van der Waals potential with and without the application of the <span class="cmtt-10">SWITCH</span>function. With
                     the <span class="cmtt-10">SWITCH</span>function active, the potential is smoothly reduced to 0.0 at the <span class="cmtt-10">Rcut</span>distance.
-                </span>
+                </span></center>
             </div><!--tex4ht:label?: x1-37005r9 -->
             <!--l. 1674-->
-    <p class="noindent">
+    <p class="noindent">        
         </div><hr class="endfigure">
         <!--l. 1677-->
     <p class="noindent">
@@ -7143,7 +7108,7 @@ FW  = | -----(rcut2-rswitch2)3------ rswitch &#x003C; rij &#x003C; rcut
                         <td>
                             <a id="x1-38001r12"></a>
                             <center class="math-display">
-                                <img src="Manual.217x.png" alt="                        1                  1
+                                <img src="~/Content/img/Manual.217x.png" alt="                        1                  1
 Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+ &#x03C6;6(rij))]
                        rij                rij
      " class="math-display">
@@ -7180,7 +7145,7 @@ Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+
             <span class="cmmi-7">&#x03B1;</span>
         </sub> and constants are defined as:
         <center class="par-math-display">
-            <img src="Manual.218x.png" alt="        (
+            <img src="~/Content/img/Manual.218x.png" alt="        (
         |{ - C&#x03B1;                                     rij &#x2264; rswitch
 &#x03C6;&#x03B1;(rij) =  - A&#x03B1;(rij - rswitch)3 - B&#x03B1;(rij - rswitch)4 - C &#x03B1; rswitch &#x003C; rij &#x003C; rcut
         |( 0  3                4                    r &#x2265; r
@@ -7194,7 +7159,7 @@ Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+
                 <td>
                     <a id="x1-38002r13"></a>
                     <center class="math-display">
-                        <img src="Manual.219x.png" alt="
+                        <img src="~/Content/img/Manual.219x.png" alt="
      " class="math-display">
                     </center>
                 </td>
@@ -7208,7 +7173,7 @@ Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+
                 <td>
                     <a id="x1-38003r14"></a>
                     <center class="math-display">
-                        <img src="Manual.220x.png" alt="A  =  &#x03B1;(&#x03B1;+-1)rswitch---(&#x03B1;+-4)rcut
+                        <img src="~/Content/img/Manual.220x.png" alt="A  =  &#x03B1;(&#x03B1;+-1)rswitch---(&#x03B1;+-4)rcut
   &#x03B1;     rcut(&#x03B1;+2)(rcut - rswitch)2
      " class="math-display">
                     </center>
@@ -7223,7 +7188,7 @@ Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+
                 <td>
                     <a id="x1-38004r15"></a>
                     <center class="math-display">
-                        <img src="Manual.221x.png" alt="B   = &#x03B1;(&#x03B1;+-1)rswitch---(&#x03B1;+-3)rcut
+                        <img src="~/Content/img/Manual.221x.png" alt="B   = &#x03B1;(&#x03B1;+-1)rswitch---(&#x03B1;+-3)rcut
   &#x03B1;     rcut(&#x03B1;+2)(rcut - rswitch)3
 
 
@@ -7240,7 +7205,7 @@ Eij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-n-+ &#x03C6;n(rij))- &#x03C3;ij6(--6-+
                 <td>
                     <a id="x1-38005r16"></a>
                     <center class="math-display">
-                        <img src="Manual.222x.png" alt="       1    A                  B
+                        <img src="~/Content/img/Manual.222x.png" alt="       1    A                  B
 C&#x03B1; = ---&#x03B1;-- --&#x03B1;(rcut - rswitch)3 --&#x03B1;(rcut - rswitch)4
      rcut    3                 4
      " class="math-display">
@@ -7260,7 +7225,7 @@ C&#x03B1; = ---&#x03B1;-- --&#x03B1;(rcut - rswitch)3 --&#x03B1;(rcut - rswitch)
                     <td>
                         <a id="x1-38006r17"></a>
                         <center class="math-display">
-                            <img src="Manual.223x.png" alt="                          n                       6               -r&#x2192;
+                            <img src="~/Content/img/Manual.223x.png" alt="                          n                       6               -r&#x2192;
 Wij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-(n+1)-+ d&#x03C6;n(rij))- &#x03C3;ij6(--(6+1)-+ d&#x03C6;6(rij))]&#x00D7; -ij
                         rij                     rij                 rij
      " class="math-display">
@@ -7275,7 +7240,7 @@ Wij(switch) = Cnij&#x03F5;ij[&#x03C3;ijn(-(n+1)-+ d&#x03C6;n(rij))- &#x03C3;ij6(
             <span class="cmmi-7">&#x03B1;</span>
         </sub> defined as:
         <center class="math-display">
-            <img src="Manual.224x.png" alt="         (
+            <img src="~/Content/img/Manual.224x.png" alt="         (
          |{ 0                                 rij &#x2264; rswitch
 d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; r
   &#x03B1;  ij   |(  &#x03B1;  ij   switch     &#x03B1;  ij   switch     switch    ij   cut
@@ -7289,9 +7254,8 @@ d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; 
                 <td>
                     <a id="x1-38007r18"></a>
 
-
                     <center class="math-display">
-                        <img src="Manual.225x.png" alt="
+                        <img src="~/Content/img/Manual.225x.png" alt="
      " class="math-display">
                     </center>
                 </td>
@@ -7305,19 +7269,17 @@ d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; 
     <p class="noindent">
         <hr class="figure"><div class="figure">
 
-
             <a id="x1-38008r10"></a>
-
 
             <!--l. 1728-->
     <p class="noindent">
-        <img src="images/MARTINI.png" alt="PIC">
+        <center><img src="~/Content/img/MARTINI.png" alt="PIC"></center>
         <br /> <div class="caption">
-            <span class="id">Figure&#x00A0;10: </span><span class="content">
+            <center><span class="id">Figure&#x00A0;10: </span><span class="content">
                 Graph of Van der Waals potential with and without the application of the <span class="cmtt-10">SWITCH</span>function in
                 <span class="cmtt-10">MARTINI</span>force field. With the <span class="cmtt-10">SWITCH</span>function active, the potential is smoothly reduced to 0.0 at the <span class="cmtt-10">Rcut</span>
                 distance.
-            </span>
+            </span></center>
         </div><!--tex4ht:label?: x1-38008r10 -->
         <!--l. 1730-->
     <p class="noindent">
@@ -7352,7 +7314,7 @@ d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; 
                         <td>
                             <a id="x1-40001r19"></a>
                             <center class="math-display">
-                                <img src="Manual.226x.png" alt="E(Ewald) = E   + E        + E   + E
+                                <img src="~/Content/img/Manual.226x.png" alt="E(Ewald) = E   + E        + E   + E
             real   reciprocal   self    correction
      " class="math-display">
                             </center>
@@ -7370,7 +7332,7 @@ d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; 
                 <td>
                     <a id="x1-40002r20"></a>
                     <center class="math-display">
-                        <img src="Manual.227x.png" alt="         1 1 &#x2211;N &#x2211;N    erfc(&#x03B1;rij)
+                        <img src="~/Content/img/Manual.227x.png" alt="         1 1 &#x2211;N &#x2211;N    erfc(&#x03B1;rij)
 Ereal = 4&#x03C0;&#x03F5;-2      qiqj---r----
           0  i=1j=1       ij
      " class="math-display">
@@ -7389,7 +7351,7 @@ Ereal = 4&#x03C0;&#x03F5;-2      qiqj---r----
 
 
                     <center class="math-display">
-                        <img src="Manual.228x.png" alt="    &#x2218; ---------------
+                        <img src="~/Content/img/Manual.228x.png" alt="    &#x2218; ---------------
 &#x03B1; = ----log(Tolerance)
            rcut
      " class="math-display">
@@ -7411,7 +7373,7 @@ Ereal = 4&#x03C0;&#x03F5;-2      qiqj---r----
                 <td>
                     <a id="x1-40004r22"></a>
                     <center class="math-display">
-                        <img src="Manual.229x.png" alt="            1  1 &#x2211;   1      - -&#x2192;k2
+                        <img src="~/Content/img/Manual.229x.png" alt="            1  1 &#x2211;   1      - -&#x2192;k2
 Ereciprocal =-----    -&#x2192;-- exp (---2 )[|Rsum |2 + |Isum |2]
            &#x03F5;0V 2-&#x2192;k&#x2044;=0 k2     4&#x03B1;
      " class="math-display">
@@ -7422,7 +7384,7 @@ Ereciprocal =-----    -&#x2192;-- exp (---2 )[|Rsum |2 + |Isum |2]
         </table>
         <!--l. 1758-->
     <p class="nopar">
-        , where <img src="Manual.230x.png" alt="-&#x2192;
+        , where <img src="~/Content/img/Manual.230x.png" alt="-&#x2192;
 k" class="mathpalette"> is reciprocal vector, <span class="cmmi-10">R</span><sub>
             <span class="cmmi-7">sum</span>
         </sub> and <span class="cmmi-10">I</span><sub>
@@ -7433,7 +7395,7 @@ k" class="mathpalette"> is reciprocal vector, <span class="cmmi-10">R</span><sub
                 <td>
                     <a id="x1-40005r23"></a>
                     <center class="math-display">
-                        <img src="Manual.231x.png" alt="       &#x2211;N
+                        <img src="~/Content/img/Manual.231x.png" alt="       &#x2211;N
 Rsum =    qicos(-&#x2192;k.-&#x2192;xi)
        i=1
      " class="math-display">
@@ -7451,7 +7413,7 @@ Rsum =    qicos(-&#x2192;k.-&#x2192;xi)
 
 
                     <center class="math-display">
-                        <img src="Manual.232x.png" alt="       &#x2211;N
+                        <img src="~/Content/img/Manual.232x.png" alt="       &#x2211;N
 Isum =    qisin(-&#x2192;k.-&#x2192;xi)
        i=1
      " class="math-display">
@@ -7470,7 +7432,7 @@ Isum =    qisin(-&#x2192;k.-&#x2192;xi)
                 <td>
                     <a id="x1-40007r25"></a>
                     <center class="math-display">
-                        <img src="Manual.233x.png" alt="           &#x03B1;   &#x2211;N
+                        <img src="~/Content/img/Manual.233x.png" alt="           &#x03B1;   &#x2211;N
 Eself = -----&#x221A;---  qi2
         4&#x03C0;&#x03F5;0  &#x03C0; i=1
      " class="math-display">
@@ -7491,7 +7453,7 @@ Eself = -----&#x221A;---  qi2
                 <td>
                     <a id="x1-40008r26"></a>
                     <center class="math-display">
-                        <img src="Manual.234x.png" alt="              1  1&#x2211;N  N&#x2211;j N&#x2211;j      erf(&#x03B1;rj j )
+                        <img src="~/Content/img/Manual.234x.png" alt="              1  1&#x2211;N  N&#x2211;j N&#x2211;j      erf(&#x03B1;rj j )
 Ecorrection = - 4&#x03C0;&#x03F5;-2          qjlqjm---r--lm--
                 0  j=1 l=1 m=1         jljm
      " class="math-display">
@@ -7511,9 +7473,8 @@ Ecorrection = - 4&#x03C0;&#x03F5;-2          qjlqjm---r--lm--
                     <td>
                         <a id="x1-40009r27"></a>
 
-
                         <center class="math-display">
-                            <img src="Manual.235x.png" alt="W (Ewald) = Wreal + Wreciprocal
+                            <img src="~/Content/img/Manual.235x.png" alt="W (Ewald) = Wreal + Wreciprocal
      " class="math-display">
                         </center>
                     </td>
@@ -7532,7 +7493,7 @@ Ecorrection = - 4&#x03C0;&#x03F5;-2          qjlqjm---r--lm--
                 <td>
                     <a id="x1-40010r28"></a>
                     <center class="math-display">
-                        <img src="Manual.236x.png" alt="         1  1&#x2211;N &#x2211;N     erfc(&#x03B1;r )   2&#x03B1;                -&#x2192;r
+                        <img src="~/Content/img/Manual.236x.png" alt="         1  1&#x2211;N &#x2211;N     erfc(&#x03B1;r )   2&#x03B1;                -&#x2192;r
 Wreal =---- -      qiqj[------ij + &#x221A;--exp(- &#x03B1;2rij2)]&#x00D7;--ij2-
        4&#x03C0; &#x03F5;0 2i=1j=1       rij       &#x03C0;               rij
      " class="math-display">
@@ -7553,7 +7514,7 @@ Wreal =---- -      qiqj[------ij + &#x221A;--exp(- &#x03B1;2rij2)]&#x00D7;--ij2-
                 <td>
                     <a id="x1-40011r29"></a>
                     <center class="math-display">
-                        <img src="Manual.237x.png" alt="                                    -&#x2192;                       -&#x2192;
+                        <img src="~/Content/img/Manual.237x.png" alt="                                    -&#x2192;                       -&#x2192;
                   -1-1 &#x2211;   -1-     --k2-      2       2     -k2-
       Wreciprocal = &#x03F5;0V 2     [-&#x2192; 2 exp (4&#x03B1;2 )(|Rsum | + |Isum|)(1- 2&#x03B1;2 )]+
                        -&#x2192;k&#x2044;=0  k
@@ -7569,7 +7530,7 @@ i=1 &#x03F5;0V -&#x2192;    -&#x2192;k 2     4&#x03B1;2
         </table>
         <!--l. 1794-->
     <p class="nopar">
-        , where <img src="Manual.238x.png" alt="-&#x2192;
+        , where <img src="~/Content/img/Manual.238x.png" alt="-&#x2192;
 ric" class="mathpalette"> is the vector between atom and the center of the mass of the molecule.</li></ul>
 
 
@@ -7589,7 +7550,7 @@ ric" class="mathpalette"> is the vector between atom and the center of the mass 
                         <td>
                             <a id="x1-41001r30"></a>
                             <center class="math-display">
-                                <img src="Manual.239x.png" alt="E(SHIFT) = qiqj-( 1-- -1-)
+                                <img src="~/Content/img/Manual.239x.png" alt="E(SHIFT) = qiqj-( 1-- -1-)
            4&#x03C0;&#x03F5;0 rij   rcut
      " class="math-display">
                             </center>
@@ -7608,7 +7569,7 @@ ric" class="mathpalette"> is the vector between atom and the center of the mass 
                     <td>
                         <a id="x1-41002r31"></a>
                         <center class="math-display">
-                            <img src="Manual.240x.png" alt="                     -&#x2192;
+                            <img src="~/Content/img/Manual.240x.png" alt="                     -&#x2192;
 W (SHIFT) = qiqj(-1-&#x00D7; rij)
            4&#x03C0;&#x03F5;0 rij   rij2
      " class="math-display">
@@ -7638,7 +7599,7 @@ W (SHIFT) = qiqj(-1-&#x00D7; rij)
 
 
                             <center class="math-display">
-                                <img src="Manual.241x.png" alt="            qiqj  rij 2     2 1
+                                <img src="~/Content/img/Manual.241x.png" alt="            qiqj  rij 2     2 1
 E(SWITCH) = 4&#x03C0;&#x03F5;-((r-) - 1.0) r--
               0   cut         ij
      " class="math-display">
@@ -7658,7 +7619,7 @@ E(SWITCH) = 4&#x03C0;&#x03F5;-((r-) - 1.0) r--
                     <td>
                         <a id="x1-42002r33"></a>
                         <center class="math-display">
-                            <img src="Manual.242x.png" alt="            qiqj   rij 2      2 1      4    rij 2        -r&#x2192;ij
+                            <img src="~/Content/img/Manual.242x.png" alt="            qiqj   rij 2      2 1      4    rij 2        -r&#x2192;ij
 W (SWITCH) = 4&#x03C0;&#x03F5;0[((rcut) - 1.0) rij2 - (rcut2)((rcut) - 1.0)]&#x00D7; rij
      " class="math-display">
                         </center>
@@ -7686,7 +7647,7 @@ W (SWITCH) = 4&#x03C0;&#x03F5;0[((rcut) - 1.0) rij2 - (rcut2)((rcut) - 1.0)]&#x0
                         <td>
                             <a id="x1-43001r34"></a>
                             <center class="math-display">
-                                <img src="Manual.243x.png" alt="             q q   1
+                                <img src="~/Content/img/Manual.243x.png" alt="             q q   1
 E (SWITCH) =--i-j-(---+ &#x03C6;1(rij))
             4&#x03C0;&#x03F5;0&#x03F5;1 rij
      " class="math-display">
@@ -7714,7 +7675,7 @@ E (SWITCH) =--i-j-(---+ &#x03C6;1(rij))
                     <td>
                         <a id="x1-43002r35"></a>
                         <center class="math-display">
-                            <img src="Manual.244x.png" alt="             q q    1             -r&#x2192;
+                            <img src="~/Content/img/Manual.244x.png" alt="             q q    1             -r&#x2192;
 W (SWITCH) =--i-j-(--2 + d&#x03C6;1(rij))&#x00D7;-ij
             4&#x03C0;&#x03F5;0&#x03F5;1 rij             rij
      " class="math-display">
@@ -7732,7 +7693,6 @@ W (SWITCH) =--i-j-(--2 + d&#x03C6;1(rij))&#x00D7;-ij
         </sub>) is defined in Eq. 18.</li></ul>
         <!--l. 1840-->
     <p class="noindent">
-
 
         <h3 class="sectionHead">
             <span class="titlemark">12   </span> <a id="x1-4400012"></a>Get Help or Technical Support
