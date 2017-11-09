@@ -16,6 +16,8 @@ namespace Project.Latex
 		public ConversionResult Convert(string latexFileContent)
 		{
 			var fileDir = HttpContext.Current.Server.MapPath($"~/temp/upload_{Guid.NewGuid()}/");
+			Directory.CreateDirectory(fileDir);
+
 			var fileName = Path.Combine(fileDir, "Manual.tex");
 			File.WriteAllText(fileName, latexFileContent);
 			var result = ConvertAtDir(fileDir);

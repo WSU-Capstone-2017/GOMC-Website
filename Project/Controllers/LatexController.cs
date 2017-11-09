@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Project.Core;
@@ -13,25 +14,26 @@ namespace Project.Controllers
 {
 	public class LatexController : ApiController
 	{
-		[HttpPost]
-		public LatexConvertResult Convert()
-		{
-			var g = Request.GetCookie("Admin_Session_Guid");
 
-			if (g == null)
+		[HttpPost]
+		public async Task<LatexConvertResult> Convert()
+		{
+			var sessionCookie = Request.GetCookie("Admin_Session_Guid");
+
+			if (sessionCookie == null)
 			{
 				return LatexConvertResult.BadSession;
 			}
 			Guid session;
 
-			if (!Guid.TryParse(g, out session))
+			if (!Guid.TryParse(sessionCookie, out session))
 			{
 				return LatexConvertResult.BadSession;
 			}
 
-			var r = LoginManager.ValidateSession(session);
+			var sessionValidateResult = LoginManager.ValidateSession(session);
 
-			switch(r)
+			switch (sessionValidateResult)
 			{
 				case ValidateSessionResultType.SessionExpired:
 					return LatexConvertResult.SessionExpired;
@@ -42,7 +44,7 @@ namespace Project.Controllers
 
 			var loginId = LoginManager.LoginIdFromSession(session);
 
-			if(loginId == null)
+			if (loginId == null)
 			{
 				return LatexConvertResult.BadSession;
 			}
@@ -50,17 +52,16 @@ namespace Project.Controllers
 			var root = HttpContext.Current.Server.MapPath("~/temp/uploads");
 			Directory.CreateDirectory(root);
 			var provider = new MultipartFormDataStreamProvider(root);
-			var tsk = Request.Content.ReadAsMultipartAsync(provider);
-			tsk.Wait();
+			await Request.Content.ReadAsMultipartAsync(provider);
 
 			var version = provider.FormData["version"];
 
-			if(version == null)
+			if (version == null)
 			{
 				return LatexConvertResult.MissingVersion;
 			}
 
-			if(provider.FileData.Count == 0 || !File.Exists(provider.FileData[0].LocalFileName))
+			if (provider.FileData.Count == 0 || !File.Exists(provider.FileData[0].LocalFileName))
 			{
 				return LatexConvertResult.MissingFile;
 			}
