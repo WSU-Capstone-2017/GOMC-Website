@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Project.Core;
 using Project.Data;
-using Project.Latex;
 using Project.LoginSystem;
 using Project.Models;
 using Project.Models.LoginSystem;
@@ -14,15 +17,124 @@ namespace Project.Controllers
 {
     public class AdminController : ApiController
     {
-        [HttpPost]
+	    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+		private const string ApplicationOctetStream = "application/octet-stream";
+
+	    public class DownloadLatexFileInput
+	    {
+		    public enum FileRequestKind
+		    {
+			    Pdf,
+				HtmlZip
+		    }
+
+		    public int LatexUploadId { get; set; }
+			public FileRequestKind Kind { get; set; }
+	    }
+
+	    public class FetchLatexUploadsOutput
+	    {
+			public ValidateSessionResultType AuthResult { get; set; }
+		    public int Length => Uploads?.Length ?? 0;
+			public LatexUploadItem[] Uploads { get; set; }
+	    }
+
+	    public class LatexUploadItem
+	    {
+		    public int Id { get; set; }
+			public string Version { get; set; }
+		    public DateTime Created { get; set; }
+	    }
+
+	    [HttpGet]
+	    public FetchLatexUploadsOutput FetchLatexUploads()
+	    {
+			var authentication = Authenticate();
+
+		    if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+		    {
+			    Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+			    return new FetchLatexUploadsOutput {AuthResult = authentication.Result};
+		    }
+
+		    using(var db = new ProjectDbContext())
+		    {
+			    var uploads = db.LatexUploads.Select(j=>new LatexUploadItem
+			    {
+				    Id = j.Id,
+					Version = j.Version,
+					Created =j.Created
+			    }).ToArray();
+
+			    return new FetchLatexUploadsOutput
+			    {
+				    AuthResult = ValidateSessionResultType.SessionValid,
+				    Uploads = uploads
+			    };
+		    }
+		}
+
+		[HttpPost]
+		public HttpResponseMessage DownloadLatexFile(DownloadLatexFileInput input)
+		{
+			var authentication = Authenticate();
+
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			{
+				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+				return Request.CreateResponse(HttpStatusCode.Unauthorized);
+			}
+
+			byte[] fileBytes = null;
+
+			using(var db = new ProjectDbContext())
+			{
+				var sqprm = new SqlParameter("@inputId", input.LatexUploadId);
+				var up = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads WHERE Id = @inputId", sqprm).SingleOrDefault();
+				if(up == null)
+				{
+					log.Error($"LatexUpload with id '{input.LatexUploadId}' was not found in db");
+					return Request.CreateResponse(HttpStatusCode.Unauthorized);
+				}
+				switch(input.Kind)
+				{
+					case DownloadLatexFileInput.FileRequestKind.Pdf:
+						fileBytes = up.Pdf;
+						break;
+					case DownloadLatexFileInput.FileRequestKind.HtmlZip:
+						fileBytes = up.HtmlZip;
+						break;
+				}
+			}
+
+			var result = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new ByteArrayContent(fileBytes)
+			};
+
+			result.Content.Headers.ContentDisposition =
+				new ContentDispositionHeaderValue("attachment")
+				{
+					FileName = "input.xml"
+				};
+
+			result.Content.Headers.ContentType =
+				new MediaTypeHeaderValue(ApplicationOctetStream);
+
+			return result;
+		}
+
+		[HttpPost]
         public AnnouncementResult NewAnnouncement(NewAnnouncementModel model)
         {
             var authentication = Authenticate();
 
-            if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+            if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
             {
-                Debug.Assert(authentication.Result != AnnouncementResult.Success);
-                return authentication.Result;
+                Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+                return SessionToAnnouncementResult(authentication.Result);
             }
 
             using (var db = new ProjectDbContext())
@@ -68,10 +180,10 @@ namespace Project.Controllers
 	    {
 			var authentication = Authenticate();
 
-		    if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+		    if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 		    {
-			    Debug.Assert(authentication.Result != AnnouncementResult.Success);
-			    return new FetchAnnouncementsOutput { Result = authentication.Result };
+			    Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+			    return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 		    }
 		    using (var db = new ProjectDbContext())
 		    {
@@ -90,10 +202,10 @@ namespace Project.Controllers
         {
             var authentication = Authenticate();
 
-            if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+            if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
             {
-                Debug.Assert(authentication.Result != AnnouncementResult.Success);
-                return new FetchAnnouncementsOutput {Result = authentication.Result};
+                Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+                return new FetchAnnouncementsOutput {Result = SessionToAnnouncementResult(authentication.Result)};
             }
 
             using (var db = new ProjectDbContext())
@@ -122,10 +234,10 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if (authentication.Result != AnnouncementResult.Success || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
-				Debug.Assert(authentication.Result != AnnouncementResult.Success);
-				return new DeleteAnnouncementOutput {Result = authentication.Result};
+				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+				return new DeleteAnnouncementOutput {Result = SessionToAnnouncementResult(authentication.Result)};
 			}
 
 			using(var db = new ProjectDbContext())
@@ -162,7 +274,7 @@ namespace Project.Controllers
 
         private class AuthenticateOutput
         {
-            public AnnouncementResult Result { get; set; }
+            public ValidateSessionResultType Result { get; set; }
             public Guid? Session { get; set; }
         }
         private AuthenticateOutput Authenticate()
@@ -171,13 +283,13 @@ namespace Project.Controllers
 
             if (sessionCookie == null)
             {
-                return new AuthenticateOutput{ Result = AnnouncementResult.InvalidSession, Session = null };
+                return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionInvalid, Session = null };
             }
             Guid session;
 
             if (!Guid.TryParse(sessionCookie, out session))
             {
-                return new AuthenticateOutput{ Result = AnnouncementResult.InvalidSession, Session = session };
+                return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionInvalid, Session = session };
             }
 
             var validateSessionResultType = LoginManager.ValidateSession(session);
@@ -185,20 +297,20 @@ namespace Project.Controllers
             switch (validateSessionResultType)
             {
                 case ValidateSessionResultType.SessionExpired:
-                    return new AuthenticateOutput{ Result = AnnouncementResult.SessionExpired, Session = session };
+                    return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionExpired, Session = session };
 
                 case ValidateSessionResultType.SessionInvalid:
-                    return new AuthenticateOutput{ Result = AnnouncementResult.InvalidSession, Session = session };
+                    return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionInvalid, Session = session };
             }
 
             var loginId = LoginManager.LoginIdFromSession(session);
 
             if (loginId == null)
             {
-                return new AuthenticateOutput{ Result = AnnouncementResult.InvalidSession, Session = session };
+                return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionInvalid, Session = session };
             }
 
-            return new AuthenticateOutput{ Result = AnnouncementResult.Success, Session = session };
+            return new AuthenticateOutput{ Result = ValidateSessionResultType.SessionValid, Session = session };
         }
 
         public class FetchAnnouncementsInput
@@ -214,6 +326,24 @@ namespace Project.Controllers
             public AnnouncementModel[] Announcements { get; set; }
 			public int TotalLength { get; set; }
         }
+
+	    private AnnouncementResult SessionToAnnouncementResult(ValidateSessionResultType result)
+	    {
+		    switch(result)
+		    {
+				case ValidateSessionResultType.SessionValid:
+					return AnnouncementResult.Success;
+
+				case ValidateSessionResultType.SessionExpired:
+					return AnnouncementResult.SessionExpired;
+
+				case ValidateSessionResultType.SessionInvalid:
+					return AnnouncementResult.InvalidSession;
+
+			    default:
+				    throw new ArgumentOutOfRangeException(nameof(result), result, null);
+		    }
+	    }
 
         public enum AnnouncementResult
         {
