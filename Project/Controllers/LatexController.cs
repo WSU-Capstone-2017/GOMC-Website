@@ -14,10 +14,14 @@ namespace Project.Controllers
 {
 	public class LatexController : ApiController
 	{
+		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
 		[HttpPost]
 		public async Task<LatexConvertResult> Convert()
 		{
+			log.Info("/api/Latex/Convert");
+
 			var sessionCookie = Request.GetCookie("Admin_Session_Guid");
 
 			if (sessionCookie == null)

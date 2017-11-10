@@ -10,6 +10,8 @@ namespace Project.Latex
 {
 	public class LatexConvertor
 	{
+		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		public byte[] HtmlZip { get; set; }
 		public byte[] Pdf { get; set; }
 
@@ -31,6 +33,9 @@ namespace Project.Latex
 		public ConversionResult ConvertAtDir(string fileDir)
 		{
 			Debug.Assert(fileDir != null);
+
+			log.Info($"fileDir = {fileDir}");
+
 			var fileName = Path.Combine(fileDir, "Manual.tex").Replace("\\", "/");
 			var latexFileContent = File.ReadAllText(fileName);
 			// the current version of the latex file has images referenced with out specifying the extension
@@ -54,8 +59,12 @@ namespace Project.Latex
 					}
 				};
 
+				log.Info("running pandoc...");
+
 				htmlProc.Start();
 				htmlProc.WaitForExit();
+
+				log.Info("pandoc done");
 
 				using(var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
 				{
@@ -74,17 +83,25 @@ namespace Project.Latex
 					}
 				};
 
-				pdfProc.Start();
-				pdfProc.WaitForExit();
+				log.Info("running pdflatex...");
 
 				pdfProc.Start();
 				pdfProc.WaitForExit();
+
+				log.Info("pdflatex done");
+
+				log.Info("running pdflatex again...");
+
+				pdfProc.Start();
+				pdfProc.WaitForExit();
+
+				log.Info("pdflatex done");
 
 				Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
 			}
 			catch(Exception ex)
 			{
-				// ideally we would log the exception, but as of now, this is not part of the requirements
+				log.Error(ex.ToString(), ex);
 				return ConversionResult.Invalid;
 			}
 

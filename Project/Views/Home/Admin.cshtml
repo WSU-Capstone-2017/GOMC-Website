@@ -160,11 +160,12 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             doFetchAnnouncements();
-            var adminLatexUploadForm = {};
+            var adminLatexUploadFile = {};
+
             function checkLatexUploadFormButtonDisabled() {
-                if ($("#adminLatexUpload_Version").val().length === 0 ||
+                if ($("#adminLatexUpload_Version").get(0).length === 0 ||
                     $("#adminLatexUpload_File").val().length === 0) {
                     console.log('disabled');
                     $("#adminLatexUpload_Submit").prop('disabled', true);
@@ -174,24 +175,22 @@
                 }
             }
 
-            $("#adminLatexUpload_File").change(function (e) {
-                var inputVersion = $("#adminLatexUpload_Version").val();
-                console.log(inputVersion);
+            $("#adminLatexUpload_File").change(function(e) {
                 console.log('upload change');
-                var file = this.files[0];
-                adminLatexUploadForm = new FormData();
-                adminLatexUploadForm.append('file', file);
-                adminLatexUploadForm.append('version', inputVersion);
+                adminLatexUploadFile = this.files[0];
                 checkLatexUploadFormButtonDisabled();
             });
             $("#adminLatexUpload_Version").change(function() {
                 console.log('version changed');
                 checkLatexUploadFormButtonDisabled();
             });
-            $("#adminLatexUpload_Submit").click(function () {
-                
+            $("#adminLatexUpload_Submit").click(function() {
+
                 $("#adminLatexUpload_Submit").prop('disabled', true);
 
+                var adminLatexUploadForm = new FormData();
+                adminLatexUploadForm.append('file', adminLatexUploadFile);
+                adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
                 console.log(adminLatexUploadForm);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/api/Latex/Convert", true);
