@@ -221,6 +221,7 @@
     <Content Include="Content\img\brock.jpg" />
     <Content Include="Content\img\canonical-ensemble.png" />
     <Content Include="Content\img\cell-list.png" />
+    <Content Include="Content\img\cell.png" />
     <Content Include="Content\img\clone.png" />
     <Content Include="Content\img\cuda.png" />
     <Content Include="Content\img\dihedrals.png" />

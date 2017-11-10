@@ -37,6 +37,15 @@ body {
   font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
 }
 
+td {
+	vertical-align: top;
+}
+
+th {
+	font-size: 18px;
+	padding-bottom: .4em;
+}
+
 header {
     margin-top: 1.93em;
 }
@@ -55,12 +64,23 @@ footer {
 
 tr {
     background-color: #eeeeee;
+	
 }
 
 header, h1, h2, h3 {
   text-align: center;
   background-color: #9acd32;
   color: #FFF;
+}
+
+h5 {
+	text-align: center;
+	background-color: yellowgreen;
+	color: white;
+	font-size: 30px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
 }
 
 p {
@@ -120,6 +140,20 @@ footer {
     text-align: center;
     margin: .5em;
     padding: 1em;
+}
+
+.carousel-indicators {
+	bottom: 0px;
+}
+
+.carousel-control.left {
+	background-image: none !important;
+	background: transparent !important;
+}
+
+.carousel-control.right {
+	background-image: none !important;
+	background: transparent !important;
 }
 
 /*About.cshtml specific */
