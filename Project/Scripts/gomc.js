@@ -140,7 +140,7 @@ $('#Admin').submit(function (e) {
                 $('.loader').toggle();
 			    // cookie for admin login session and expires in 3 days
 			    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
-			    window.location.href = "/Home/Admin";
+				window.location.href = "/home/admin";
             } else {
                 $('#Admin').toggle();
                 $('.loader').toggle();
@@ -162,49 +162,138 @@ $('#Admin').submit(function (e) {
 $('#adminLogout').click(function () {
 	// remove cookie for admin login session
 	Cookies.remove('Admin_Session_Guid');
-	window.location.href = "/Home/Login";
+	window.location.href = "/home/login";
 });
 
 var newAnnouncementResult = {
     Success: 0,
     SessionExpired: 1,
-    InvalidSession: 2
+	InvalidSession: 2,
+    MissingContent: 3
 };
 
-// The admin announcemets table will be filled with fetched data based on input
-// a specifies the index at which we are fetching and b is the count of items per fetch
-function doFetchAnnouncements(a,b) {
+var announcementsNavState = {
+	pageIndex: 0,
+	pageLength: 25,
+	totalLength: 0
+};
+
+function doFetchAnnouncements() {
+	announcementsNavState.totalLength = 0;
     $.ajax({
         url: '/api/Admin/FetchAnnouncements',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            pageIndex: a,
-            pageLength: b
+			pageIndex: announcementsNavState.pageIndex,
+			pageLength: announcementsNavState.pageLength
         })
     }).done(function (data) {
-        console.log(data);
-        if (data.Result === newAnnouncementResult.Success) {
-            for (var i = 0; i < data.Length; i++) {
+		console.log(data);
+	    updateNavAnnouncements(data.TotalLength);
+		if (data.Result === newAnnouncementResult.Success) {
+			var i = 0;
+			for (i = 0; i < announcementsNavState.pageLength; i++) {
+				$("#fetchAnnouncements_Message_" + i).text('');
+				$("#fetchAnnouncements_Created_" + i).text('');
+				$("#fetchAnnouncements_Action_" + i).text('');
+
+				$("#fetchAnnouncements_tr_" + i).hide();
+			}
+			for (i = 0; i < data.Length; i++) {
+
+				$("#fetchAnnouncements_tr_" + i).show();
                 $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
                 $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
                 $("#fetchAnnouncements_Action_" + i).html(
-                    "<a href='/api/Admin/RemoveAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
+                    "<a href='/api/Admin/DeleteAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
             }
         } else if (data === newAnnouncementResult.InvalidSession) {
-            window.alert('Could not fetch announcements, bad session');
+	        console.log('Could not fetch announcements, bad session');
+			window.location.href = "/home/login";
         } else if (data === newAnnouncementResult.SessionExpired) {
-            window.alert('Could not fetch announcements, session expired');
+	        console.log('Could not fetch announcements, session expired');
+			window.location.href = "/home/login";
         }
     });
 }
+
+function updateNavAnnouncements(totalLength) {
+	$("#fetchAnnouncements_Next").addClass("btn disabled");
+	$("#fetchAnnouncements_Back").addClass("btn disabled");
+
+	announcementsNavState.totalLength = totalLength;
+
+	var maxPages = Math.ceil(announcementsNavState.totalLength / announcementsNavState.pageLength);
+	if ((announcementsNavState.pageIndex + 1) < maxPages) {
+		$("#fetchAnnouncements_Next").removeClass("btn disabled");
+	} else {
+		announcementsNavState.pageIndex = maxPages - 1;
+	}
+	if (announcementsNavState.pageIndex > 0) {
+		$("#fetchAnnouncements_Back").removeClass("btn disabled");
+	} else if (announcementsNavState.pageIndex < 0) {
+		announcementsNavState.pageIndex = 0;
+	}
+}
+
+function updateAnnouncementsNavStateTotalLength() {
+	announcementsNavState.totalLength = 0;
+	$.ajax({
+		url: '/api/Admin/GetAnnouncementsCount',
+		type: 'POST',
+		contentType: 'application/json'
+	}).done(function (data) {
+		if (data.Result === newAnnouncementResult.Success) {
+			updateNavAnnouncements(data.TotalLength);
+		} else if (data === newAnnouncementResult.InvalidSession) {
+			console.log('Could not fetch announcements count, bad session');
+			window.location.href = "/home/login";
+		} else if (data === newAnnouncementResult.SessionExpired) {
+			console.log('Could not fetch announcements count, session expired');
+			window.location.href = "/home/login";
+		}
+	});
+}
+
+function doNavAnnouncements(a) {
+	if (a) {
+		announcementsNavState.pageIndex--;
+	} else {
+		announcementsNavState.pageIndex++;
+	}
+	doFetchAnnouncements();
+
+	return false;
+}
+
 function doRemoveAnnouncement(a) {
-    window.alert('removing ' + a);
+	$.ajax({
+			url: '/api/Admin/DeleteAnnouncement',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				AnnouncementId: a
+			})
+		})
+		.done(function(data) {
+			console.log(data);
+			if (data.Result === newAnnouncementResult.Success) {
+				doFetchAnnouncements();
+			} else if (data === newAnnouncementResult.InvalidSession) {
+				console.log('Could not remove announcement, bad session');
+				window.location.href = "/Home/Login";
+			} else if (data === newAnnouncementResult.SessionExpired) {
+				console.log('Could not remove announcement, session expired');
+				window.location.href = "/Home/Login";
+			}
+		});
     return false;
 }
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
 
+	var msgContent = $("#adminAnnouncement_Text").val();
     $("#adminAnnouncement_Text").text("");
 
     $.ajax({
@@ -212,16 +301,24 @@ $('#adminAnnouncement').submit(function () {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-                content: $("#adminAnnouncement_Text").val()
+			Content: msgContent
             })
         })
         .done(function(data) {
             if (data === newAnnouncementResult.Success) {
-                window.alert('New announcement submitted');
+				console.log('New announcement submitted');
+	            announcementsNavState.pageIndex =
+		            Math.ceil(((announcementsNavState.totalLength + 1) / announcementsNavState.pageLength) - 1);
+	            doFetchAnnouncements();
+            } else if (data === newAnnouncementResult.MissingContent) {
+	            window.alert('Message content cannot be empty.');
+
             } else if (data === newAnnouncementResult.InvalidSession) {
-                window.alert('New announcement failed to submit, bad session');
+				console.log('New announcement failed to submit, bad session');
+	            window.location.href = "/Home/Login";
             } else if (data === newAnnouncementResult.SessionExpired) {
-                window.alert('New announcement failed to submit, session expired');
+				console.log('New announcement failed to submit, session expired');
+	            window.location.href = "/Home/Login";
             }
         });
     return false;
