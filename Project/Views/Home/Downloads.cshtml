@@ -24,23 +24,24 @@
                     <div class="well well-sm custom-well">
                         <form method="post" id="registrationForm">
                             <div class="form-group">
-                                <label>Name *</label>
-                                <input type="text" class="form-control" name="userName" required pattern="[A-Za-z]+" title="Enter a valid name, no special characters" placeholder="Name" />
+                                <label class="control-label"> Name *</label>
+                                <input type="text" class="form-control" name="userName" required title="Enter a valid name, no special characters or numbers" placeholder="Name" />
                             </div>
                             <div class="form-group">
-                                <label>Email *</label>
-                                <input type="email" class="form-control" name="userEmail" required placeholder="Email" />
+                                <label class="control-label"> Email *</label>
+                                <input type="email" class="form-control" name="userEmail" required placeholder="Email" title="Enter a valid email" />
                             </div>
                             <div class="form-group">
-                                <label>Affliation *</label>
-                                <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" />
+                                <label class="control-label"> Affliation *</label>
+                                <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" title="Enter your group or school" />
                             </div>
                             <div class="form-group">
-                                <label>Please take a moment to tell us why you are interested in GOMC *</label>
-                                <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments"></textarea>
+                                <label class="control-label"> Please take a moment to tell us why you are interested in GOMC *</label>
+                                <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments" title="Details"></textarea>
                             </div>
-                            <div class="g-recaptcha"
-                                 data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" data-callback="captchaSelect"></div> <!--Implemented for captcha-->
+                            <div class="g-recaptcha scale-captcha"
+                                    data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" 
+                                    data-callback="captchaSelect"></div> <!--Implemented for captcha-->
                             <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save"></span>Register</button>
                         </form>
                     </div>

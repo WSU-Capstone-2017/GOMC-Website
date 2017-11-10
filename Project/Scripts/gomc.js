@@ -48,15 +48,59 @@ $('#closeRegistration').click(function () {
 });
 
 // Registration form on the downloads.cshtml
+$('#registrationForm').validate({
+    rules: {
+        userName: {
+            minlength: 2,
+            required: true,
+            pattern: "^[a-zA-Z_]*$"
+        },
+        userEmail: {
+            required: true,
+            email: true
+        },
+        userAffliation: "required",
+        extraComment: "required"
+    }, 
+    errorElement: "span",
+    errorPlacement: function (error, element) {
+        // add error glyph in input field
+        error.addClass('help-block');
+        error.appendTo(element.parent());
+        element.parent().addClass('has-error');
+    },
+    // need styling for on-valid messages
+    success: function (errSpan, inputValidated) {
+        // Add checkmark glyph
+        // add success look
+        // remove errors
+    },
+    messages: {
+        userName: {
+            required: "Please tell us who you are so we can email you!",
+            minlength: "Your name should at least have 2 characters",
+            pattern: "No numbers or special characters please!"
+        },
+        userEmail: {
+            required: "We need a way to contact you, please tell us your email",
+            email: "That doesn't seem quite right... Please try again"
+        },
+        userAffliation: "Tell us your company name or unverisity",
+        extraComment: "Provide us with a brief reason as to why you want to hear from us"
+    },
+
+});
 $('#registrationForm').submit(function (e) {
     try {
         console.log('process here');
+
         // jQuery validate prompt
         // Validate name
         // Validate email
         // Validate affliation
         // Validate Comments
         // Perhaps make below code a callback on validation success? Otherwise it should stop here
+        // Code provided above, let's see if it worked'
         $.post('/api/Registration/Input', $('#registrationForm').serialize())
             .done(function (data) {
                 $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
@@ -68,7 +112,11 @@ $('#registrationForm').submit(function (e) {
             })
 
             .fail(function (jqXhR) {
-                console.log("Error has been thrown"); // Needs better handling
+                console.log("Error has been thrown in registration submission:"
+                    + "\nError Code: " + jqXhR.status
+                    + "\nError Status: " + jqXhR.statusText
+                    + "\nError Details: " + jqXhR.responseJSON.ExceptionMessage
+                ); // Adding detailed exception telemetry 
             });
     }
     catch (ex) {
