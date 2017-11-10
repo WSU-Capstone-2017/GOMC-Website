@@ -11,7 +11,7 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <div id="site-content">
-    <nav id="site-nav" style="width: 210px;">
+    <nav id="site-nav">
         <ul>
             <li>
                 <div class="section-link">
@@ -287,7 +287,7 @@
             </div>
         </div>
     <h3 class="sectionHead">
-        <span class="titlemark">1   </span> <a id="x1-20001"></a>Tutorial Overview
+        <span class="titlemark">1.   </span> <a id="x1-20001"></a>Tutorial Overview
     </h3>
     <!--l. 64--><p class="noindent">
         This document will instruct a new user how to download, compile, and run the GOMC molecular simulation code. A
@@ -301,7 +301,7 @@
         <!--l. 69-->
     <p class="noindent">
         <h3 class="sectionHead">
-            <span class="titlemark">2   </span> <a id="x1-30002"></a>Introduction
+            <span class="titlemark">2.   </span> <a id="x1-30002"></a>Introduction
         </h3>
         <!--l. 70-->
     <p class="noindent">
@@ -334,7 +334,7 @@
         <!--l. 83-->
     <p class="noindent">
         <h3 class="sectionHead">
-            <span class="titlemark">3   </span> <a id="x1-40003"></a>How to get the software
+            <span class="titlemark">3.   </span> <a id="x1-40003"></a>How to get the software
         </h3>
         <!--l. 85-->
     <p class="noindent">
@@ -398,7 +398,7 @@
     <p class="noindent">
         </div><hr class="endfigure">
         <h3 class="sectionHead">
-            <span class="titlemark">4   </span> <a id="x1-50004"></a>Platform and Software Requirements
+            <span class="titlemark">4.   </span> <a id="x1-50004"></a>Platform and Software Requirements
         </h3>
         <!--l. 112-->
     <p class="noindent">
@@ -467,7 +467,7 @@
         webpages to select an appropriate version for the desired platform.<br class="newline" />To install CUDA in Linux root/sudo, privileges are generally required. In Windows, administrative access is
         required.
         <h3 class="sectionHead">
-            <span class="titlemark">5   </span> <a id="x1-80005"></a>Highly Recommended Software Tools
+            <span class="titlemark">5.   </span> <a id="x1-80005"></a>Highly Recommended Software Tools
         </h3>
         <!--l. 170-->
     <p class="noindent">
@@ -549,7 +549,7 @@
     <p class="noindent">
 
         <h3 class="sectionHead">
-            <span class="titlemark">6   </span> <a id="x1-110006"></a>Compiling GOMC
+            <span class="titlemark">6.   </span> <a id="x1-110006"></a>Compiling GOMC
         </h3>
         <!--l. 206-->
     <p class="noindent">
@@ -652,9 +652,9 @@
         </dl>
         <!--l. 239-->
     <p class="noindent">
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">6.2.1   </span> <a id="x1-140006.2.1"></a>GPU Code
-        </h5>
+        </h4>
         <!--l. 240-->
     <p class="noindent">
         <span class="underline">
@@ -677,9 +677,9 @@
 
         <!--l. 254-->
     <p class="noindent">
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">6.2.2   </span> <a id="x1-150006.2.2"></a>CPU Code
-        </h5>
+        </h4>
         <!--l. 255-->
     <p class="noindent">
         <span class="underline">
@@ -704,7 +704,7 @@
 
 
         <h3 class="sectionHead">
-            <span class="titlemark">7   </span> <a id="x1-160007"></a>Input File Formats
+            <span class="titlemark">7.   </span> <a id="x1-160007"></a>Input File Formats
         </h3>
         <!--l. 276-->
     <p class="noindent">
@@ -2874,9 +2874,9 @@
         <span class="cmtt-10">NBFIX</span>. Other sections such as <span class="cmtt-10">CMAP</span>are not currently read or supported.<br class="newline" /></li></ul>
         <!--l. 620-->
     <p class="noindent">
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.4.1   </span> <a id="x1-210007.4.1"></a>BONDS
-        </h5>
+        </h4>
         <!--l. 621-->
     <p class="noindent">
         (&#8220;bond stretching&#8221;) is one key section of the <span class="cmtt-10">CHARMM</span>-compliant file. Units for the <span class="cmmi-10">K</span><sub>
@@ -2967,9 +2967,9 @@
             <span class="cmmi-7">b</span>
         </sub> is set to a large value - 9999999999.
         Sampling bond stretch is not supported in GOMC.<br class="newline" /><br class="newline" />
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.4.2   </span> <a id="x1-220007.4.2"></a>ANGLES
-        </h5>
+        </h4>
         <!--l. 637-->
     <p class="noindent">
         (&#8220;bond bending&#8221;), where <span class="cmmi-10">&#x03B8;</span>and <span class="cmmi-10">&#x03B8;</span><sub>
@@ -3198,9 +3198,9 @@
         </span> The code allows the use of &#8216;X&#8217; to indicate ambiguous positions on the ends. This is useful because this
         kind is often determined solely by the two middle atoms in the middle of the dihedral, according to
         literature.
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.4.3   </span> <a id="x1-230007.4.3"></a>IMPROPERS
-        </h5>
+        </h4>
         <!--l. 679-->
     <p class="noindent">
         Energy parameters used to describe out-of-plane rocking are currently read, but unused. The section
@@ -3466,9 +3466,9 @@
         <!--l. 734-->
     <p class="noindent">
         The control file is designed to recognize logic values, such as &#8220;yes/true/on&#8221; or &#8220;no/false/off&#8221;.<br class="newline" />
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.6.1   </span> <a id="x1-260007.6.1"></a>Input/Simulation Setup
-        </h5>
+        </h4>
         <!--l. 736-->
     <p class="noindent">
         In this section, input file names are listed. In addition, if you want to restart your simulation or use integer seed for
@@ -4134,9 +4134,9 @@
         </dd></dl>
         <!--l. 894-->
     <p class="noindent">
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.6.2   </span> <a id="x1-270007.6.2"></a>System Settings for During Run Setup
-        </h5>
+        </h4>
         <!--l. 895-->
     <p class="noindent">
         This section contains all the variables not involved in the output of data during the simulation, or in the reading of
@@ -5272,9 +5272,9 @@
         </dd></dl>
         <!--l. 1183-->
     <p class="noindent">
-        <h5 class="subsubsectionHead">
+        <h4 class="subsubsectionHead">
             <span class="titlemark">7.6.3   </span> <a id="x1-280007.6.3"></a>Output Controls
-        </h5>
+        </h4>
         <!--l. 1184-->
     <p class="noindent">
         This section contains all the values that control output in the control file. For example, certain variables control the
@@ -5747,7 +5747,7 @@
 
 
         <h3 class="sectionHead">
-            <span class="titlemark">8   </span> <a id="x1-290008"></a>GOMC&#8217;s Output Files, Terminal Output
+            <span class="titlemark">8.   </span> <a id="x1-290008"></a>GOMC&#8217;s Output Files, Terminal Output
         </h3>
         <!--l. 1294-->
     <p class="noindent">
@@ -6174,7 +6174,7 @@
 
 
         <h3 class="sectionHead">
-            <span class="titlemark">9   </span> <a id="x1-330009"></a>Putting it all together: Running a GOMC Simulation
+            <span class="titlemark">9.   </span> <a id="x1-330009"></a>Putting it all together: Running a GOMC Simulation
         </h3>
         <!--l. 1433-->
     <p class="noindent">
@@ -6765,7 +6765,7 @@
 
 
         <h3 class="sectionHead">
-            <span class="titlemark">10   </span> <a id="x1-3400010"></a>Intermolecular Energy and Virial function (Van der Waals)
+            <span class="titlemark">10.   </span> <a id="x1-3400010"></a>Intermolecular Energy and Virial function (Van der Waals)
         </h3>
         <!--l. 1587-->
     <p class="noindent">
@@ -7289,7 +7289,7 @@ d&#x03C6; (r ) =  A (r  - r    )2 + B (r  - r    )3  r     &#x003C; r  &#x003C; 
 
 
         <h3 class="sectionHead">
-            <span class="titlemark">11   </span> <a id="x1-3900011"></a>Intermolecular Energy and Virial function (Electrostatic)
+            <span class="titlemark">11.   </span> <a id="x1-3900011"></a>Intermolecular Energy and Virial function (Electrostatic)
         </h3>
         <!--l. 1735-->
     <p class="noindent">
@@ -7695,7 +7695,7 @@ W (SWITCH) =--i-j-(--2 + d&#x03C6;1(rij))&#x00D7;-ij
     <p class="noindent">
 
         <h3 class="sectionHead">
-            <span class="titlemark">12   </span> <a id="x1-4400012"></a>Get Help or Technical Support
+            <span class="titlemark">12.   </span> <a id="x1-4400012"></a>Get Help or Technical Support
         </h3>
         <!--l. 1845-->
     <p class="noindent">
