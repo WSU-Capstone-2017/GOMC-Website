@@ -21,23 +21,27 @@
                 <p>Otherwise click the orange button below: </p>
                 <div class="col-md-4">
                     <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
-                    <div class="well well-sm custom-well">
+                    <div class="well well-sm custom-well registration-container">
                         <form method="post" id="registrationForm">
-                            <div class="form-group">
+                            <div class="form-group has-feedback">
                                 <label class="control-label"> Name *</label>
                                 <input type="text" class="form-control" name="userName" required title="Enter a valid name, no special characters or numbers" placeholder="Name" />
+                                <span class="form-control-feedback"></span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group has-feedback">
                                 <label class="control-label"> Email *</label>
                                 <input type="email" class="form-control" name="userEmail" required placeholder="Email" title="Enter a valid email" />
+                                <span class="form-control-feedback"></span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group has-feedback">
                                 <label class="control-label"> Affliation *</label>
                                 <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" title="Enter your group or school" />
+                                <span class="form-control-feedback"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"> Please take a moment to tell us why you are interested in GOMC *</label>
+                            <div class="form-group has-feedback">
+                                <label class="control-label"> Please tell us why you are interested in GOMC *</label>
                                 <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments" title="Details"></textarea>
+                                <span class="form-control-feedback"></span>
                             </div>
                             <div class="g-recaptcha scale-captcha"
                                     data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" 

@@ -19,6 +19,15 @@ var registrationString = {
 $(function () {
     console.log('READY');
     $('[data-toggle="tooltip"]').tooltip();  // Extend jQuery with bootstrap.js for tooltip functionality
+    $.validator.addMethod("pattern", function (value, element, param) { // Extension for regex on names from additonal.js for jquery validate
+        if (this.optional(element)) {
+            return true;
+        }
+        if (typeof param === "string") {
+            param = new RegExp("^(?:" + param + ")$");
+        }
+        return param.test(value);
+    }, "Invalid format.");
 });
 
 // Event Listeners
@@ -48,12 +57,12 @@ $('#closeRegistration').click(function () {
 });
 
 // Registration form on the downloads.cshtml
-$('#registrationForm').validate({
-    rules: {
+$('#registrationForm').validate({ // jQuery Validate
+    rules: { // rules of parameters to validate against
         userName: {
             minlength: 2,
             required: true,
-            pattern: "^[a-zA-Z_]*$"
+            pattern: /^[a-zA-Z_]*$/
         },
         userEmail: {
             required: true,
@@ -62,20 +71,29 @@ $('#registrationForm').validate({
         userAffliation: "required",
         extraComment: "required"
     }, 
-    errorElement: "span",
-    errorPlacement: function (error, element) {
-        // add error glyph in input field
+    errorElement: "span", // error tag name
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Add error glyph
+        element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        element.parent().addClass('has-error');
         error.addClass('help-block');
         error.appendTo(element.parent());
-        element.parent().addClass('has-error');
+        // Remove success
+        element.next().removeClass('glyphicon-ok');
+        element.parent().removeClass('has-success');
     },
-    // need styling for on-valid messages
-    success: function (errSpan, inputValidated) {
+    success: function (error, element) { // rules for placement of success tag
         // Add checkmark glyph
+        error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
+        error.parent().addClass('has-success');
         // remove errors
+        error.prev().removeClass('glyphicon-remove');
+        error.parent().removeClass('has-error');
+        error.remove();
     },
-    messages: {
+    messages: { // Different error messages for each error type
         userName: {
             required: "Please tell us who you are so we can email you!",
             minlength: "Your name should at least have 2 characters",
@@ -88,44 +106,51 @@ $('#registrationForm').validate({
         userAffliation: "Tell us your company name or unverisity",
         extraComment: "Provide us with a brief reason as to why you want to hear from us"
     },
+    submitHandler: function (form,e) { // callback triggered on successful validation
+        try {
+            console.log('process here');
+            $('.registration-container').children().remove();
+            $('.registration-container').append('<div class="loader"></div>');
+            $.post('/api/Registration/Input', $(form).serialize())
+                .done(function (data) {
+                    $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
+                    $('#closeRegistration').addClass('btn-success');
+                    $('#closeRegistration').removeClass('btn-warning');
+                    $('#closeRegistration').next().slideToggle(() => {
+                        $('#closeRegistration').prop('disabled', true);
+                        $('.loader').remove();
+                    });
+                })
 
-});
-$('#registrationForm').submit(function (e) {
-    try {
-        console.log('process here');
+                .fail(function (jqXhR) {
+                    console.log("Error has been thrown in registration submission:"
+                        + "\nError Code: " + jqXhR.status
+                        + "\nError Status: " + jqXhR.statusText
+                        + "\nError Details: " + jqXhR.responseJSON.ExceptionMessage
+                    ); // Adding detailed exception telemetry 
+                    $('.loader').remove();
 
-        // jQuery validate prompt
-        // Validate name
-        // Validate email
-        // Validate affliation
-        // Validate Comments
-        // Perhaps make below code a callback on validation success? Otherwise it should stop here
-        // Code provided above, let's see if it worked'
-        $.post('/api/Registration/Input', $('#registrationForm').serialize())
-            .done(function (data) {
-                $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
-                $('#closeRegistration').addClass('btn-success');
-                $('#closeRegistration').removeClass('btn-warning');
-                $('#closeRegistration').next().slideToggle(() => {
-                $('#closeRegistration').prop('disabled', true);
                 });
-            })
+        }
+        catch (ex) {
+            alert("The following error occured: " + ex.message + " in " + ex.fileName + " at " + ex.lineNumber);
+            $('.loader').remove();
 
-            .fail(function (jqXhR) {
-                console.log("Error has been thrown in registration submission:"
-                    + "\nError Code: " + jqXhR.status
-                    + "\nError Status: " + jqXhR.statusText
-                    + "\nError Details: " + jqXhR.responseJSON.ExceptionMessage
-                ); // Adding detailed exception telemetry 
-            });
+        }
+        finally {
+            e.preventDefault();
+        }
+    },
+    invalidHandler: function (e, validator) { // callback triggered on failed validation
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount ===1? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
     }
-    catch (ex) {
-        alert("The following error occured: " + ex.message + " in " + ex.fileName + " at " + ex.lineNumber);
-    }
-    finally {
-        e.preventDefault();
-    }
+
 });
+
 // Login from admin page
 $('#Admin').submit(function (e) {
 	$('.form-group').removeClass('has-error');
