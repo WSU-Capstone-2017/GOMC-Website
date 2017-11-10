@@ -37,15 +37,6 @@ body {
   font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
 }
 
-td {
-	vertical-align: top;
-}
-
-th {
-	font-size: 18px;
-	padding-bottom: .4em;
-}
-
 header {
     margin-top: 1.93em;
 }
@@ -67,20 +58,37 @@ tr {
 	
 }
 
-header, h1, h2, h3 {
+header {
   text-align: center;
   background-color: #9acd32;
-  color: #FFF;
+  color: #FFF; 
+}
+
+h1, h2, h3 {
+	text-align: center;
+	background-color: #9acd32;
+	color: #FFF; 
+	padding-bottom: .1875em;
+	padding-top: .1875em;
+}
+
+h4 {
+	font-size: 18px;
+	text-decoration: underline;
+	color: yellowgreen;
+	font-weight: bold;
 }
 
 h5 {
 	text-align: center;
 	background-color: yellowgreen;
 	color: white;
-	font-size: 30px;
-	margin-top: 0px;
-	margin-bottom: 10px;
-	margin-left: 0px;
+	font-size: 2.2em;
+	margin-top: 0em;
+	margin-bottom: .31em;
+	margin-left: 0em;
+	padding-bottom: .1em;
+	padding-top: .1em;
 }
 
 p {
@@ -143,7 +151,7 @@ footer {
 }
 
 .carousel-indicators {
-	bottom: 0px;
+	bottom: 0em;
 }
 
 .carousel-control.left {
@@ -240,6 +248,12 @@ footer {
 /*Publication.cshtml specific*/
 td {
   padding: .625em;
+  vertical-align: top;
+}
+
+th {
+	font-size: 1.3em;
+	padding-bottom: .4em;
 }
 
 .publication-header {
@@ -384,7 +398,7 @@ td {
 #site-nav {
 	height: 100%;
 	float: left;
-	width: 210px;
+	width: 15.1em;
 	background-color: #d1d2d4;
 	overflow: auto;
 }
@@ -393,7 +407,7 @@ td {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	font-size: 12px;
+	font-size: .96em;
 }
 
 #site-nav li {
@@ -420,10 +434,10 @@ td {
 }
 
 #site-content {
-	position: fixed; top: 71px; bottom: 0; left: 0; right: 0;
-	border-left: 5px solid #303030;
-	border-bottom: 5px solid #303030;
-	border-right: 5px solid #303030;
+	position: fixed; top: 4.9em; bottom: 0; left: 0; right: 0;
+	border-left: .125em solid #303030;
+	border-bottom: .125em solid #303030;
+	border-right: .125em solid #303030;
 	border-top: thick solid #d3d3d3;
 }
 
@@ -438,14 +452,14 @@ td {
 }
 
 #site-nav li {
-	border-top: 1px solid #c2c3c5;
+	border-top: 1px solid #000000;
 	border-top: 1px solid rgba(0,0,0,0.07);
 }
 
 #resize-nav {
 	float: left;
 	height: 100%;
-	width: 5px;
+	width: .3125em;
 	cursor: e-resize; cursor: ew-resize; cursor: col-resize;
 	background-color: #d3d3d3;
 	z-index: 9900;
@@ -458,12 +472,12 @@ td {
 
 #contents {
 	padding: 1em 1.5em;
-	font-size: 14px;
+	font-size: 1em;
 }
 
 #site-nav .current {
 	font-weight: bold;
-	text-shadow: 1px 1px rgba(0,0,0,0.2);
+	text-shadow: .0625em .0625em rgba(0,0,0,0.2);
 	position: relative;
 }
 
