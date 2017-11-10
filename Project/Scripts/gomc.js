@@ -1,14 +1,32 @@
 // gomc.js is the main javascript file for the web application
 
 // Global Vars
+
 // Width of the progress bar in XML.cshtml
 var currentWidth = 0;
+
 // Object of the login Result from cookie
 var loginResultType = {
     Success: 0,
     InvalidEmail: 1,
     InvalidPassword: 2
 };
+
+// 
+var newAnnouncementResult = {
+    Success: 0,
+    SessionExpired: 1,
+    InvalidSession: 2,
+    MissingContent: 3
+};
+
+//
+var announcementsNavState = {
+    pageIndex: 0,
+    pageLength: 25,
+    totalLength: 0
+};
+
 // Object to appear and validate against in the orange button of Registration.cshtml
 var registrationString = {
 	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
@@ -183,6 +201,7 @@ $('#Admin').submit(function (e) {
 		});
 	e.preventDefault();
 });
+
 // Logout from admin
 $('#adminLogout').click(function () {
 	// remove cookie for admin login session
@@ -190,131 +209,6 @@ $('#adminLogout').click(function () {
 	window.location.href = "/home/login";
 });
 
-var newAnnouncementResult = {
-    Success: 0,
-    SessionExpired: 1,
-	InvalidSession: 2,
-    MissingContent: 3
-};
-
-var announcementsNavState = {
-	pageIndex: 0,
-	pageLength: 25,
-	totalLength: 0
-};
-
-function doFetchAnnouncements() {
-	announcementsNavState.totalLength = 0;
-    $.ajax({
-        url: '/api/Admin/FetchAnnouncements',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-			pageIndex: announcementsNavState.pageIndex,
-			pageLength: announcementsNavState.pageLength
-        })
-    }).done(function (data) {
-		console.log(data);
-	    updateNavAnnouncements(data.TotalLength);
-		if (data.Result === newAnnouncementResult.Success) {
-			var i = 0;
-			for (i = 0; i < announcementsNavState.pageLength; i++) {
-				$("#fetchAnnouncements_Message_" + i).text('');
-				$("#fetchAnnouncements_Created_" + i).text('');
-				$("#fetchAnnouncements_Action_" + i).text('');
-
-				$("#fetchAnnouncements_tr_" + i).hide();
-			}
-			for (i = 0; i < data.Length; i++) {
-
-				$("#fetchAnnouncements_tr_" + i).show();
-                $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
-                $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
-                $("#fetchAnnouncements_Action_" + i).html(
-                    "<a href='/api/Admin/DeleteAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
-            }
-        } else if (data === newAnnouncementResult.InvalidSession) {
-	        console.log('Could not fetch announcements, bad session');
-			window.location.href = "/home/login";
-        } else if (data === newAnnouncementResult.SessionExpired) {
-	        console.log('Could not fetch announcements, session expired');
-			window.location.href = "/home/login";
-        }
-    });
-}
-
-function updateNavAnnouncements(totalLength) {
-	$("#fetchAnnouncements_Next").addClass("btn disabled");
-	$("#fetchAnnouncements_Back").addClass("btn disabled");
-
-	announcementsNavState.totalLength = totalLength;
-
-	var maxPages = Math.ceil(announcementsNavState.totalLength / announcementsNavState.pageLength);
-	if ((announcementsNavState.pageIndex + 1) < maxPages) {
-		$("#fetchAnnouncements_Next").removeClass("btn disabled");
-	} else {
-		announcementsNavState.pageIndex = maxPages - 1;
-	}
-	if (announcementsNavState.pageIndex > 0) {
-		$("#fetchAnnouncements_Back").removeClass("btn disabled");
-	} else if (announcementsNavState.pageIndex < 0) {
-		announcementsNavState.pageIndex = 0;
-	}
-}
-
-function updateAnnouncementsNavStateTotalLength() {
-	announcementsNavState.totalLength = 0;
-	$.ajax({
-		url: '/api/Admin/GetAnnouncementsCount',
-		type: 'POST',
-		contentType: 'application/json'
-	}).done(function (data) {
-		if (data.Result === newAnnouncementResult.Success) {
-			updateNavAnnouncements(data.TotalLength);
-		} else if (data === newAnnouncementResult.InvalidSession) {
-			console.log('Could not fetch announcements count, bad session');
-			window.location.href = "/home/login";
-		} else if (data === newAnnouncementResult.SessionExpired) {
-			console.log('Could not fetch announcements count, session expired');
-			window.location.href = "/home/login";
-		}
-	});
-}
-
-function doNavAnnouncements(a) {
-	if (a) {
-		announcementsNavState.pageIndex--;
-	} else {
-		announcementsNavState.pageIndex++;
-	}
-	doFetchAnnouncements();
-
-	return false;
-}
-
-function doRemoveAnnouncement(a) {
-	$.ajax({
-			url: '/api/Admin/DeleteAnnouncement',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				AnnouncementId: a
-			})
-		})
-		.done(function(data) {
-			console.log(data);
-			if (data.Result === newAnnouncementResult.Success) {
-				doFetchAnnouncements();
-			} else if (data === newAnnouncementResult.InvalidSession) {
-				console.log('Could not remove announcement, bad session');
-				window.location.href = "/Home/Login";
-			} else if (data === newAnnouncementResult.SessionExpired) {
-				console.log('Could not remove announcement, session expired');
-				window.location.href = "/Home/Login";
-			}
-		});
-    return false;
-}
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
 
@@ -351,23 +245,27 @@ $('#adminAnnouncement').submit(function () {
 
 // Change the XML config page by displaying the previous card
 $('.prev-btn').click(function (e) {
+    // Some sort of panel validation? Mini-forms? Sub-categories?
     var currentWorkingPanel = $('.working-panel');
     currentWorkingPanel.removeClass('working-panel');
     currentWorkingPanel.prev().addClass('working-panel');
-    // Perhaps wrap the following in a timeout or something? Slow the animation to be less visually jarring as per feedback from Dr.Sam
-    currentWorkingPanel.toggle();
-    currentWorkingPanel.prev().toggle();
+      window.scrollTo(0, 0);
+    currentWorkingPanel.slideUp('slow', () => {
+        currentWorkingPanel.prev().slideDown('slow');
+    });
     e.preventDefault();
 });
 
 // Change the XML config page by displaying the next card on validation success
 $('.next-btn').click(function (e) {
+     // Some sort of panel validation? Mini-forms? Sub-categories?
     var currentWorkingPanel = $('.working-panel');
     currentWorkingPanel.removeClass('working-panel');
     currentWorkingPanel.next().addClass('working-panel');
-    // Perhaps wrap the following in a timeout or something? Slow the animation to be less visually jarring as per feedback from Dr.Sam
-    currentWorkingPanel.toggle();
-    currentWorkingPanel.next().toggle();
+    window.scrollTo(0, 0);
+    currentWorkingPanel.slideUp('slow', () => {
+        currentWorkingPanel.next().slideDown('slow');
+    });
     e.preventDefault();
 });
 
@@ -386,6 +284,7 @@ $('#xmlConfig').submit(function () {
 });
 
 // Callback methods: Support Event Listeners and provide further UI behaviors
+
 // Call-back from any admin interation, validates logged in status
 function checkAdminLoginSession() {
     var loginSession = Cookies.get('Admin_Session_Guid');
@@ -437,4 +336,117 @@ function refreshDownloads() {
 // Callback for the Refresh page webhook
 function refreshExamples() {
 	console.log("Refresh Examples Clicked!");
+}
+
+function doFetchAnnouncements() {
+    announcementsNavState.totalLength = 0;
+    $.ajax({
+        url: '/api/Admin/FetchAnnouncements',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            pageIndex: announcementsNavState.pageIndex,
+            pageLength: announcementsNavState.pageLength
+        })
+    }).done(function (data) {
+        console.log(data);
+        updateNavAnnouncements(data.TotalLength);
+        if (data.Result === newAnnouncementResult.Success) {
+            var i = 0;
+            for (i = 0; i < announcementsNavState.pageLength; i++) {
+                $("#fetchAnnouncements_Message_" + i).text('');
+                $("#fetchAnnouncements_Created_" + i).text('');
+                $("#fetchAnnouncements_Action_" + i).text('');
+
+                $("#fetchAnnouncements_tr_" + i).hide();
+            }
+            for (i = 0; i < data.Length; i++) {
+
+                $("#fetchAnnouncements_tr_" + i).show();
+                $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
+                $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
+                $("#fetchAnnouncements_Action_" + i).html(
+                    "<a href='/api/Admin/DeleteAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
+            }
+        } else if (data === newAnnouncementResult.InvalidSession) {
+            console.log('Could not fetch announcements, bad session');
+            window.location.href = "/home/login";
+        } else if (data === newAnnouncementResult.SessionExpired) {
+            console.log('Could not fetch announcements, session expired');
+            window.location.href = "/home/login";
+        }
+    });
+}
+
+function updateNavAnnouncements(totalLength) {
+    $("#fetchAnnouncements_Next").addClass("btn disabled");
+    $("#fetchAnnouncements_Back").addClass("btn disabled");
+
+    announcementsNavState.totalLength = totalLength;
+
+    var maxPages = Math.ceil(announcementsNavState.totalLength / announcementsNavState.pageLength);
+    if ((announcementsNavState.pageIndex + 1) < maxPages) {
+        $("#fetchAnnouncements_Next").removeClass("btn disabled");
+    } else {
+        announcementsNavState.pageIndex = maxPages - 1;
+    }
+    if (announcementsNavState.pageIndex > 0) {
+        $("#fetchAnnouncements_Back").removeClass("btn disabled");
+    } else if (announcementsNavState.pageIndex < 0) {
+        announcementsNavState.pageIndex = 0;
+    }
+}
+
+function updateAnnouncementsNavStateTotalLength() {
+    announcementsNavState.totalLength = 0;
+    $.ajax({
+        url: '/api/Admin/GetAnnouncementsCount',
+        type: 'POST',
+        contentType: 'application/json'
+    }).done(function (data) {
+        if (data.Result === newAnnouncementResult.Success) {
+            updateNavAnnouncements(data.TotalLength);
+        } else if (data === newAnnouncementResult.InvalidSession) {
+            console.log('Could not fetch announcements count, bad session');
+            window.location.href = "/home/login";
+        } else if (data === newAnnouncementResult.SessionExpired) {
+            console.log('Could not fetch announcements count, session expired');
+            window.location.href = "/home/login";
+        }
+    });
+}
+
+function doNavAnnouncements(a) {
+    if (a) {
+        announcementsNavState.pageIndex--;
+    } else {
+        announcementsNavState.pageIndex++;
+    }
+    doFetchAnnouncements();
+
+    return false;
+}
+
+function doRemoveAnnouncement(a) {
+    $.ajax({
+        url: '/api/Admin/DeleteAnnouncement',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            AnnouncementId: a
+        })
+    })
+        .done(function (data) {
+            console.log(data);
+            if (data.Result === newAnnouncementResult.Success) {
+                doFetchAnnouncements();
+            } else if (data === newAnnouncementResult.InvalidSession) {
+                console.log('Could not remove announcement, bad session');
+                window.location.href = "/Home/Login";
+            } else if (data === newAnnouncementResult.SessionExpired) {
+                console.log('Could not remove announcement, session expired');
+                window.location.href = "/Home/Login";
+            }
+        });
+    return false;
 }
