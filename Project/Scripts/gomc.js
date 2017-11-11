@@ -23,7 +23,8 @@ var newAnnouncementResult = {
 //
 var announcementsNavState = {
     pageIndex: 0,
-    pageLength: 25,
+    pageLength: 5,
+	uiMaxPageLength: 25,
     totalLength: 0
 };
 
@@ -285,17 +286,7 @@ $('#xmlConfig').submit(function () {
 
 // Callback methods: Support Event Listeners and provide further UI behaviors
 
-// Call-back from any admin interation, validates logged in status
-function checkAdminLoginSession() {
-    var loginSession = Cookies.get('Admin_Session_Guid');
 
-    if (typeof loginSession === "undefined") {
-        return false;
-    } else {
-        // TODO: call /api/Login/ValidateSession instead
-        return true;
-    }
-}
 //// Call-back to add buttons to XML page on slide down
 //function addButtons() {
 //	$('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
@@ -353,7 +344,7 @@ function doFetchAnnouncements() {
         updateNavAnnouncements(data.TotalLength);
         if (data.Result === newAnnouncementResult.Success) {
             var i = 0;
-            for (i = 0; i < announcementsNavState.pageLength; i++) {
+            for (i = 0; i < announcementsNavState.uiMaxPageLength; i++) {
                 $("#fetchAnnouncements_Message_" + i).text('');
                 $("#fetchAnnouncements_Created_" + i).text('');
                 $("#fetchAnnouncements_Action_" + i).text('');
@@ -377,7 +368,24 @@ function doFetchAnnouncements() {
         }
     });
 }
-
+function doFetchGomcAnnouncements() {
+	$.ajax({
+		url: '/api/HomeApi/FetchAnnouncements',
+		type: 'POST',
+		contentType: 'application/json'
+	}).done(function (data) {
+		console.log(data);
+		var i = 0;
+		for (i = 0; i < 5; i++) {
+			if (data.length < i) {
+				$("#GomcAnnouncement_" + i).hide();
+			} else {
+				console.log(data[i].Content);
+				$("#GomcAnnouncement_" + i).html(data[i].Content);
+			}
+		}
+	});
+}
 function updateNavAnnouncements(totalLength) {
     $("#fetchAnnouncements_Next").addClass("btn disabled");
     $("#fetchAnnouncements_Back").addClass("btn disabled");
