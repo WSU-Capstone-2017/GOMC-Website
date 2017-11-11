@@ -28,6 +28,11 @@ var announcementsNavState = {
     totalLength: 0
 };
 
+var announcementsEdit = {
+	isEdit: false,
+	id: 0,
+	text: ""
+};
 // Object to appear and validate against in the orange button of Registration.cshtml
 var registrationString = {
 	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
@@ -328,6 +333,7 @@ function refreshExamples() {
 	console.log("Refresh Examples Clicked!");
 }
 
+var announcementIdMap = [];
 function doFetchAnnouncements() {
     announcementsNavState.totalLength = 0;
     $.ajax({
@@ -350,13 +356,12 @@ function doFetchAnnouncements() {
 
                 $("#fetchAnnouncements_tr_" + i).hide();
             }
-            for (i = 0; i < data.Length; i++) {
-
+			for (i = 0; i < data.Length; i++) {
+				announcementIdMap[i] = data.Announcements[i].Id;
                 $("#fetchAnnouncements_tr_" + i).show();
+	            buildAnnouncementActions(i);
                 $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
-                $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
-                $("#fetchAnnouncements_Action_" + i).html(
-                    "<a href='/api/Admin/DeleteAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
+				$("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
             }
         } else if (data === newAnnouncementResult.InvalidSession) {
             console.log('Could not fetch announcements, bad session');
@@ -366,6 +371,78 @@ function doFetchAnnouncements() {
             window.location.href = "/home/login";
         }
     });
+}
+
+var buildAnnouncementActionType = {
+	normal: 0,
+	edit: 1
+};
+
+function buildAnnouncementActions(a) {
+	function atag(val, i, fn, hf) {
+		hf = (typeof hf !== 'undefined') ? hf : '/api/admin';
+		return "<a id='" + i + "' href='" + hf + "' onclick='return " + fn + "'>" + val + "</a>";
+	}
+
+	var spc = "  ";
+	if (announcementsEdit.isEdit === false) {
+		$("#fetchAnnouncements_Action_" + a).html(
+			atag('Edit', 'AnnouncementEdit_' + a, 'doEditAnnouncement(' + a + ')') + spc +
+			atag('Remove', 'AnnouncementRemove_' + a, 'doRemoveAnnouncement(' + a + ')')
+		);
+	} else {
+		$("#fetchAnnouncements_Action_" + a).html(
+			atag('Save', 'AnnouncementSave_' + a, 'doSaveAnnouncement(' + a + ')') + spc +
+			atag('Cancel', 'AnnouncementCancel_' + a, 'doCancelAnnouncement(' + a + ')') + spc +
+			atag('Remove', 'AnnouncementRemove_' + a, 'doRemoveAnnouncement(' + a + ')')
+		);
+	}
+
+}
+function doCancelAnnouncement(a) {
+	$("#fetchAnnouncements_Message_" + a).text(announcementsEdit.text);
+	announcementsEdit.isEdit = false;
+	announcementsEdit.text = "";
+	announcementsEdit.id = 0;
+	buildAnnouncementActions(a);
+	return false;
+}
+function doSaveAnnouncement(a) {
+	var newContent = $("#EditAnnouncementText").text();
+	$.ajax({
+			url: '/api/admin/editannouncement',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				AnnouncementId: announcementIdMap[a],
+				NewContent: newContent
+			})
+		})
+		.done(function(data) {
+			if (data === newAnnouncementResult.Success) {
+				console.log('save announcement success');
+				announcementsEdit.text = newContent;
+				doCancelAnnouncement(a);
+			} else {
+				console.log('save announcement fail');
+				doCancelAnnouncement(a);
+			}
+		});
+	return false;
+}
+function doEditAnnouncement(a) {
+	if (announcementsEdit.isEdit === false) {
+		announcementsEdit.isEdit = true;
+		announcementsEdit.id = a;
+		announcementsEdit.text = $("#fetchAnnouncements_Message_" + a).text();
+		$("#fetchAnnouncements_Message_" + a).html("<textarea id='EditAnnouncementText'></textarea>");
+		$("#EditAnnouncementText").text(announcementsEdit.text);
+		buildAnnouncementActions(a);
+	} else {
+		doCancelAnnouncement(announcementsEdit.id);
+		doEditAnnouncement(a);
+	}
+	return false;
 }
 function doFetchGomcAnnouncements() {
 	$.ajax({
@@ -440,7 +517,7 @@ function doRemoveAnnouncement(a) {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            AnnouncementId: a
+			AnnouncementId: announcementIdMap[a]
         })
     })
         .done(function (data) {
