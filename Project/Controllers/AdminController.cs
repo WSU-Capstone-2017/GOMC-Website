@@ -215,7 +215,7 @@ namespace Project.Controllers
                 var take = input.PageLength;
 
                 var sqlQuery = "SELECT * FROM Announcments " +
-                          "ORDER BY Id " +
+						  "ORDER BY Created DESC " +
                           $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
                 var announcementResults = db.Announcements.SqlQuery(
                     sqlQuery).ToArray();

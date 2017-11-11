@@ -24,7 +24,7 @@ var newAnnouncementResult = {
 var announcementsNavState = {
     pageIndex: 0,
     pageLength: 5,
-	uiMaxPageLength: 25,
+	uiMaxPageLength: 5,
     totalLength: 0
 };
 
@@ -227,8 +227,7 @@ $('#adminAnnouncement').submit(function () {
         .done(function(data) {
             if (data === newAnnouncementResult.Success) {
 				console.log('New announcement submitted');
-	            announcementsNavState.pageIndex =
-		            Math.ceil(((announcementsNavState.totalLength + 1) / announcementsNavState.pageLength) - 1);
+	            announcementsNavState.pageIndex = 0;
 	            doFetchAnnouncements();
             } else if (data === newAnnouncementResult.MissingContent) {
 	            window.alert('Message content cannot be empty.');
