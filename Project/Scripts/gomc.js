@@ -23,10 +23,16 @@ var newAnnouncementResult = {
 //
 var announcementsNavState = {
     pageIndex: 0,
-    pageLength: 25,
+    pageLength: 5,
+	uiMaxPageLength: 5,
     totalLength: 0
 };
 
+var announcementsEdit = {
+	isEdit: false,
+	id: 0,
+	text: ""
+};
 // Object to appear and validate against in the orange button of Registration.cshtml
 var registrationString = {
 	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
@@ -288,8 +294,7 @@ $('#adminAnnouncement').submit(function () {
             $('.loader').remove();
             if (data === newAnnouncementResult.Success) {
 				console.log('New announcement submitted');
-	            announcementsNavState.pageIndex =
-		            Math.ceil(((announcementsNavState.totalLength + 1) / announcementsNavState.pageLength) - 1);
+	            announcementsNavState.pageIndex = 0;
 	            doFetchAnnouncements();
             } else if (data === newAnnouncementResult.MissingContent) {
 	            window.alert('Message content cannot be empty.');
@@ -525,17 +530,7 @@ $('#xmlConfig').submit(function () {
 
 // Callback methods: Support Event Listeners and provide further UI behaviors
 
-// Call-back from any admin interation, validates logged in status
-function checkAdminLoginSession() {
-    var loginSession = Cookies.get('Admin_Session_Guid');
 
-    if (typeof loginSession === "undefined") {
-        return false;
-    } else {
-        // TODO: call /api/Login/ValidateSession instead
-        return true;
-    }
-}
 //// Call-back to add buttons to XML page on slide down
 //function addButtons() {
 //	$('.panel-body').append('<button class=" btn btn-success form-left-nav"><span class="glyphicon glyphicon-menu-left"></span></button>');
@@ -578,6 +573,7 @@ function refreshExamples() {
 	console.log("Refresh Examples Clicked!");
 }
 
+var announcementIdMap = [];
 function doFetchAnnouncements() {
     announcementsNavState.totalLength = 0;
     $.ajax({
@@ -593,20 +589,19 @@ function doFetchAnnouncements() {
         updateNavAnnouncements(data.TotalLength);
         if (data.Result === newAnnouncementResult.Success) {
             var i = 0;
-            for (i = 0; i < announcementsNavState.pageLength; i++) {
+            for (i = 0; i < announcementsNavState.uiMaxPageLength; i++) {
                 $("#fetchAnnouncements_Message_" + i).text('');
                 $("#fetchAnnouncements_Created_" + i).text('');
                 $("#fetchAnnouncements_Action_" + i).text('');
 
                 $("#fetchAnnouncements_tr_" + i).hide();
             }
-            for (i = 0; i < data.Length; i++) {
-
+			for (i = 0; i < data.Length; i++) {
+				announcementIdMap[i] = data.Announcements[i].Id;
                 $("#fetchAnnouncements_tr_" + i).show();
+	            buildAnnouncementActions(i);
                 $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
-                $("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
-                $("#fetchAnnouncements_Action_" + i).html(
-                    "<a href='/api/Admin/DeleteAnnouncement' onclick='return doRemoveAnnouncement(" + data.Announcements[i].Id + ")'>Remove</a>");
+				$("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
             }
         } else if (data === newAnnouncementResult.InvalidSession) {
             console.log('Could not fetch announcements, bad session');
@@ -618,6 +613,95 @@ function doFetchAnnouncements() {
     });
 }
 
+var buildAnnouncementActionType = {
+	normal: 0,
+	edit: 1
+};
+
+function buildAnnouncementActions(a) {
+	function atag(val, i, fn, hf) {
+		hf = (typeof hf !== 'undefined') ? hf : '/api/admin';
+		return "<a id='" + i + "' href='" + hf + "' onclick='return " + fn + "'>" + val + "</a>";
+	}
+
+	var spc = "  ";
+	if (announcementsEdit.isEdit === false) {
+		$("#fetchAnnouncements_Action_" + a).html(
+			atag('Edit', 'AnnouncementEdit_' + a, 'doEditAnnouncement(' + a + ')') + spc +
+			atag('Remove', 'AnnouncementRemove_' + a, 'doRemoveAnnouncement(' + a + ')')
+		);
+	} else {
+		$("#fetchAnnouncements_Action_" + a).html(
+			atag('Save', 'AnnouncementSave_' + a, 'doSaveAnnouncement(' + a + ')') + spc +
+			atag('Cancel', 'AnnouncementCancel_' + a, 'doCancelAnnouncement(' + a + ')') + spc +
+			atag('Remove', 'AnnouncementRemove_' + a, 'doRemoveAnnouncement(' + a + ')')
+		);
+	}
+
+}
+function doCancelAnnouncement(a) {
+	$("#fetchAnnouncements_Message_" + a).text(announcementsEdit.text);
+	announcementsEdit.isEdit = false;
+	announcementsEdit.text = "";
+	announcementsEdit.id = 0;
+	buildAnnouncementActions(a);
+	return false;
+}
+function doSaveAnnouncement(a) {
+	var newContent = $("#EditAnnouncementText").text();
+	$.ajax({
+			url: '/api/admin/editannouncement',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				AnnouncementId: announcementIdMap[a],
+				NewContent: newContent
+			})
+		})
+		.done(function(data) {
+			if (data === newAnnouncementResult.Success) {
+				console.log('save announcement success');
+				announcementsEdit.text = newContent;
+				doCancelAnnouncement(a);
+			} else {
+				console.log('save announcement fail');
+				doCancelAnnouncement(a);
+			}
+		});
+	return false;
+}
+function doEditAnnouncement(a) {
+	if (announcementsEdit.isEdit === false) {
+		announcementsEdit.isEdit = true;
+		announcementsEdit.id = a;
+		announcementsEdit.text = $("#fetchAnnouncements_Message_" + a).text();
+		$("#fetchAnnouncements_Message_" + a).html("<textarea id='EditAnnouncementText'></textarea>");
+		$("#EditAnnouncementText").text(announcementsEdit.text);
+		buildAnnouncementActions(a);
+	} else {
+		doCancelAnnouncement(announcementsEdit.id);
+		doEditAnnouncement(a);
+	}
+	return false;
+}
+function doFetchGomcAnnouncements() {
+	$.ajax({
+		url: '/api/HomeApi/FetchAnnouncements',
+		type: 'POST',
+		contentType: 'application/json'
+	}).done(function (data) {
+		console.log(data);
+		var i = 0;
+		for (i = 0; i < 5; i++) {
+			if (data.length < i) {
+				$("#GomcAnnouncement_" + i).hide();
+			} else {
+				console.log(data[i].Content);
+				$("#GomcAnnouncement_" + i).html(data[i].Content);
+			}
+		}
+	});
+}
 function updateNavAnnouncements(totalLength) {
     $("#fetchAnnouncements_Next").addClass("btn disabled");
     $("#fetchAnnouncements_Back").addClass("btn disabled");
@@ -673,7 +757,7 @@ function doRemoveAnnouncement(a) {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            AnnouncementId: a
+			AnnouncementId: announcementIdMap[a]
         })
     })
         .done(function (data) {
