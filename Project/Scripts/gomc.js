@@ -46,6 +46,10 @@ $(function () {
         }
         return param.test(value);
     }, "Invalid format.");
+    // Extension methods for each panel in XML-Config
+    $.validator.addMethod("nowhitespace", function (val, item) { // Extension to remove whitespace from xml input forms, from additional.js for jQuery validate
+        return this.optional(element) || /^\S+$/i.test(val);
+    }, "Input cannot have whitespace");
 });
 
 // Event Listeners
@@ -170,51 +174,107 @@ $('#registrationForm').validate({ // jQuery Validate
 });
 
 // Login from admin page
-$('#Admin').submit(function (e) {
-	$('.form-group').removeClass('has-error');
-    $('.help-block').remove();
-    $('#Admin').toggle();
-    $('.loader').remove();
-    $('.login-container').append('<div class="loader center-block"></div>');
-    $.post('/api/Login/ValidateLogin', $(this).serialize())
-		.done(function (data) {
-			if (data.ResultType === loginResultType.Success) {
+$('#Admin').validate({
+    rules: {
+        uName: {
+            required: true,
+            email: true
+        },
+        pCode: "required"
+    },
+    messages: {
+        uName: {
+            required: "Please enter your email",
+            email: "Please enter a valid email"
+        },
+        pCode: "Please enter your password"
+    },
+    errorElement: "span",
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Add error glyph
+        element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        element.parents('.form-group').addClass('has-error');
+        error.addClass('help-block');
+        error.appendTo(element.parents('.form-group'));
+        // Remove success
+        element.next().removeClass('glyphicon-ok');
+        element.parents('.form-group').removeClass('has-success');
+    },
+    success: function (error, element) { // rules for placement of success tag
+        // Add checkmark glyph
+        var inputGroupParent = element.parentNode;
+        var glyphError = inputGroupParent.children[2];
+        $(glyphError).addClass('glyphicon glyphicon-ok');
+        // add success look
+        error.parents('.form-group').addClass('has-success');
+        // remove errors
+        $(glyphError).removeClass('glyphicon-remove');
+        error.parents('.form-group').removeClass('has-error');
+        error.remove();
+    },
+    submitHandler: function (form, e) { // callback triggered on successful validation
+        $('#Admin').toggle();
+        $('.loader').remove();
+        $('.login-container').append('<div class="loader center-block"></div>');
+        $.post('/api/Login/ValidateLogin', $(form).serialize())
+            .done(function (data) {
+                if (data.ResultType === loginResultType.Success) {
+                    $('#Admin').toggle();
+                    $('.loader').toggle();
+                    // cookie for admin login session and expires in 3 days
+                    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
+                    window.location.href = "/home/admin";
+                } else {
+                    var failMms = data.ResultType;
+                    switch (failMms) {
+                        case 1:
+                            window.confirm("Invalid email");
+                            break;
+                        case 2:
+                            window.confirm("Invalid password");
+                            break;
+                        default:
+                            window.confirm('An error has occured please try again');
+                            break;
+                    }
+                    location.reload();
+                }
+            })
+            .fail(function (data) {
                 $('#Admin').toggle();
                 $('.loader').toggle();
-			    // cookie for admin login session and expires in 3 days
-			    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
-				window.location.href = "/home/admin";
-            } else {
-                $('#Admin').toggle();
-                $('.loader').toggle();
-				console.log('data.ResultType = ' + data.ResultType);
-			    $('.form-group').addClass('has-error');
-			    $('.form-group').append('<span class="help-block">Invalid credentials</span>');
-			}
-		})
-        .fail(function (data) {
-            $('#Admin').toggle();
-            $('.loader').toggle();
-			console.log(data.statusText);
-			$('.form-group').addClass('has-error');
-			$('.form-group').append('<span class="help-block">Invalid credentials</span>');
-		});
-	e.preventDefault();
+                console.log("Error has been thrown in login processing:"
+                    + "\nError Code: " + data.status
+                    + "\nError Status: " + data.statusText
+                    + "\nError Details: " + data.responseJSON.ExceptionMessage
+                ); // Adding detailed exception telemetry 
+                $('.loader').remove();
+                window.confirm("Error " + data.status + " " + data.statusText);
+            });
+        e.preventDefault();
+    },
+    invalidHandler: function (e, validator) { 
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
+    }
 });
 
 // Logout from admin
 $('#adminLogout').click(function () {
-	// remove cookie for admin login session
 	Cookies.remove('Admin_Session_Guid');
 	window.location.href = "/home/login";
 });
 
 // Post new announcement from admin page
 $('#adminAnnouncement').submit(function () {
-
+    $('#adminAnnouncement').toggle();
+    $('.announcement-container').append('<div class="loader center-block"></div>');
 	var msgContent = $("#adminAnnouncement_Text").val();
     $("#adminAnnouncement_Text").text("");
-
     $.ajax({
         url: '/api/Admin/NewAnnouncement',
         type: 'POST',
@@ -223,7 +283,9 @@ $('#adminAnnouncement').submit(function () {
 			Content: msgContent
             })
         })
-        .done(function(data) {
+        .done(function (data) {
+            $('#adminAnnouncement').toggle();
+            $('.loader').remove();
             if (data === newAnnouncementResult.Success) {
 				console.log('New announcement submitted');
 	            announcementsNavState.pageIndex =
@@ -253,7 +315,7 @@ $('.prev-btn').click(function (e) {
     currentWorkingPanel.slideUp('slow', () => {
         currentWorkingPanel.prev().slideDown('slow');
     });
-    e.preventDefault();
+    // e.preventDefault();
 });
 
 // Change the XML config page by displaying the next card on validation success
@@ -266,7 +328,185 @@ $('.next-btn').click(function (e) {
     currentWorkingPanel.slideUp('slow', () => {
         currentWorkingPanel.next().slideDown('slow');
     });
-    e.preventDefault();
+    // e.preventDefault();
+});
+$('#xmlForm1Save').click(function () {
+    $('#xmlForm1').validate();
+    if ($('#xmlForm1').valid()) {
+        var currentWorkingPanel = $('.working-panel');
+        currentWorkingPanel.removeClass('working-panel');
+        currentWorkingPanel.next().addClass('working-panel');
+        window.scrollTo(0, 0);
+        currentWorkingPanel.slideUp('slow', () => {
+        currentWorkingPanel.next().slideDown('slow');
+        });
+    }
+});
+$('#xmlForm1').validate({
+    rules: {
+        gomc_config_input_Ensemble: "required",
+        gomc_config_input_Restart: "required",
+        gomc_config_input_Prng: "required",
+        gomc_config_input_RandomSeed: {
+            min: 1
+        },
+        gomc_config_input_ParaType: "required",
+        gomc_config_input_ParametersFileName: {
+            required: true,
+            nowhitespace: true,
+        },
+        gomc_config_input_Coordinates_1: {
+            required: true,
+            min: 1
+        },
+        gomc_config_input_Coordinates_2: {
+            required: true,
+            nowhitespace: true
+        },
+        gomc_config_input_Structures_1: {
+            required: true,
+            min: 1
+        },
+        gomc_config_input_Structures_2: {
+            required: true,
+            nowhitespace: true
+        }
+
+    },
+    messages: {
+        gomc_config_input_RandomSeed: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Coordinates_1: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Structures_1: {
+            min: "Please input a positive number"
+        }
+
+    },
+    errorElement: "span", // error tag name
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Needs custom work for those stupid radio buttons
+        // Add error glyph
+        // element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        if (element.is(':radio')) {
+            error.addClass('help-block');
+            error.css('color', '#a94442');
+            error.prependTo(element.parent().parent());
+        }
+        else {
+            element.parent().addClass('has-error');
+            error.addClass('help-block');
+            error.appendTo(element.parent());
+            // Remove success
+            // element.next().removeClass('glyphicon-ok');
+            element.parent().removeClass('has-success');
+        }
+    },
+    success: function (error, element) { // rules for placement of success tag
+        // Add checkmark glyph
+        // error.prev().addClass('glyphicon glyphicon-ok');
+        // add success look
+        error.parent().addClass('has-success');
+        // remove errors
+       // error.prev().removeClass('glyphicon-remove');
+        error.parent().removeClass('has-error');
+        error.remove();
+    },
+    submitHandler: function (form, e) { // callback triggered on successful validation
+        //$('#Admin').toggle();
+        //$('.loader').remove();
+        //$('.login-container').append('<div class="loader center-block"></div>');
+        //$.post('/api/Login/ValidateLogin', $(form).serialize())
+        //    .done(function (data) {
+        //        if (data.ResultType === loginResultType.Success) {
+        //            $('#Admin').toggle();
+        //            $('.loader').toggle();
+        //            // cookie for admin login session and expires in 3 days
+        //            Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
+        //            window.location.href = "/home/admin";
+        //        } else {
+        //            var failMms = data.ResultType;
+        //            switch (failMms) {
+        //                case 1:
+        //                    window.confirm("Invalid email");
+        //                    break;
+        //                case 2:
+        //                    window.confirm("Invalid password");
+        //                    break;
+        //                default:
+        //                    window.confirm('An error has occured please try again');
+        //                    break;
+        //            }
+        //            location.reload();
+        //        }
+        //    })
+        //    .fail(function (data) {
+        //        $('#Admin').toggle();
+        //        $('.loader').toggle();
+        //        console.log("Error has been thrown in login processing:"
+        //            + "\nError Code: " + data.status
+        //            + "\nError Status: " + data.statusText
+        //            + "\nError Details: " + data.responseJSON.ExceptionMessage
+        //        ); // Adding detailed exception telemetry 
+        //        $('.loader').remove();
+        //        window.confirm("Error " + data.status + " " + data.statusText);
+        //    });
+        //e.preventDefault();
+    },
+    invalidHandler: function (e, validator) {
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
+    }
+});
+
+$('#xmlForm2').validate({
+    rules: {
+      
+    },
+    messages: {
+        
+    },
+    errorElement: "span",
+    errorPlacement: function (error, element) { 
+
+    },
+    success: function (error, element) { 
+
+    },
+    submitHandler: function (form, e) { 
+       
+    },
+    invalidHandler: function (e, validator) {
+       
+    }
+});
+
+$('#xmlForm3').validate({
+    rules: {
+
+    },
+    messages: {
+
+    },
+    errorElement: "span",
+    errorPlacement: function (error, element) {
+
+    },
+    success: function (error, element) {
+
+    },
+    submitHandler: function (form, e) {
+
+    },
+    invalidHandler: function (e, validator) {
+
+    }
 });
 
 // Submit the XML config form with all data
