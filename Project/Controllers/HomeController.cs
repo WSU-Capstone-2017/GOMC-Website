@@ -2,11 +2,14 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Project.Core;
 using Project.Models;
 using Project.Data;
+using Project.Latex;
 using Project.LoginSystem;
 
 namespace Project.Controllers
@@ -220,6 +223,61 @@ namespace Project.Controllers
 
 		public ActionResult Latex()
 		{
+			var dir = HttpContext.Request.MapPath("~/temp/set/");
+			var st = System.IO.Path.Combine(dir, "latex_html.site_item");
+
+			if (System.IO.File.Exists(st))
+			{
+				var latexId = System.IO.File.ReadAllText(st).AsInt();
+				if(latexId == null)
+				{
+					return View();
+				}
+				using(var db = new ProjectDbContext())
+				{
+					var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
+					                                  "WHERE Id = @inputId",
+						new SqlParameter("@inputId", latexId)).SingleOrDefault();
+
+					if(lm == null || lm.LatexFile == null)
+					{
+						return View();
+					}
+
+					var outManualHtmlPath = System.IO.Path.Combine(
+						dir, "latex_output_Manual.html");
+
+					if(!System.IO.File.Exists(outManualHtmlPath))
+					{
+						if(lm.LatexFile == null)
+						{
+							return View();
+						}
+						var conv = new LatexConvertor();
+
+						if(conv.Convert(lm.LatexFile, true, false) != ConversionResult.Success)
+						{
+							return View();
+						}
+
+						var htmlContent = conv.HtmlMap["Manual.html"];
+						System.IO.File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
+
+						lm.HtmlZip = conv.HtmlZip;
+						db.LatexUploads.AddOrUpdate(lm);
+						db.SaveChanges();
+
+						ViewBag.HtmlContent = htmlContent;
+
+						return View("LatexHtml");
+					}
+					else
+					{
+						ViewBag.HtmlContent = System.IO.File.ReadAllText(outManualHtmlPath);
+						return View("LatexHtml");
+					}
+				}
+			}
 			return View();
 		}
 

@@ -107,7 +107,7 @@ namespace Project.Controllers
 
 				var conv = new LatexConvertor();
 
-				var convRes = conv.Convert(file, true);
+				var convRes = conv.Convert(file, false);
 
 				if (convRes != ConversionResult.Success)
 				{
@@ -120,7 +120,8 @@ namespace Project.Controllers
 					Version = version,
 					HtmlZip = conv.HtmlZip,
 					Pdf = conv.Pdf,
-					Created = DateTime.Now
+					Created = DateTime.Now,
+					LatexFile = conv.LatexFile
 				};
 
 				db.LatexUploads.Add(model);

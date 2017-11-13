@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -6,9 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Web;
 using System.Web.Http;
 using Project.Core;
 using Project.Data;
+using Project.Latex;
 using Project.LoginSystem;
 using Project.Models;
 using Project.Models.LoginSystem;
@@ -54,13 +58,13 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
-				return new FetchLatexUploadsOutput {AuthResult = authentication.Result};
+				return new FetchLatexUploadsOutput { AuthResult = authentication.Result };
 			}
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				var uploads = db.LatexUploads
 					.OrderByDescending(j => j.Created)
@@ -89,7 +93,7 @@ namespace Project.Controllers
 			};
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
 				return Request.CreateResponse(HttpStatusCode.Unauthorized);
@@ -97,16 +101,16 @@ namespace Project.Controllers
 
 			byte[] fileBytes = null;
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				var sqprm = new SqlParameter("@inputId", input.LatexUploadId);
 				var up = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads WHERE Id = @inputId", sqprm).SingleOrDefault();
-				if(up == null)
+				if (up == null)
 				{
 					log.Error($"LatexUpload with id '{input.LatexUploadId}' was not found in db");
 					return Request.CreateResponse(HttpStatusCode.Unauthorized);
 				}
-				switch(input.Kind)
+				switch (input.Kind)
 				{
 					case DownloadLatexFileInput.FileRequestKind.Pdf:
 						fileBytes = up.Pdf;
@@ -134,18 +138,89 @@ namespace Project.Controllers
 			return result;
 		}
 
+		public class PublishLatexUploadOutput
+		{
+			public ValidateSessionResultType AuthResult { get; set; }
+
+			public bool Success { get; set; }
+		}
+		[HttpGet]
+		public PublishLatexUploadOutput PublishLatexUpload(int latexId)
+		{
+			var authentication = Authenticate();
+
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			{
+				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+				return new PublishLatexUploadOutput
+				{
+					AuthResult = authentication.Result,
+					Success = false
+				};
+			}
+
+			using(var db = new ProjectDbContext())
+			{
+				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
+				                                  "WHERE Id = @inputId",
+					new SqlParameter("@inputId", latexId)).SingleOrDefault();
+
+				if(lm == null || lm.LatexFile == null)
+				{
+					return new PublishLatexUploadOutput
+					{
+						AuthResult = authentication.Result,
+						Success = false
+					};
+				}
+
+				var dir = HttpContext.Current.Server.MapPath("~/temp/set");
+				var st = Path.Combine(dir, "latex_html.site_item");
+
+				var conv = new LatexConvertor();
+
+				if(conv.Convert(lm.LatexFile, true, false) != ConversionResult.Success)
+				{
+					return new PublishLatexUploadOutput
+					{
+						AuthResult = authentication.Result,
+						Success = false
+					};
+				}
+
+				var outManualHtmlPath = Path.Combine(
+					dir, "latex_output_Manual.html");
+
+				var htmlContent = conv.HtmlMap["Manual.html"];
+				Directory.CreateDirectory(dir);
+				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
+
+				lm.HtmlZip = conv.HtmlZip;
+				db.LatexUploads.AddOrUpdate(lm);
+				db.SaveChanges();
+
+				File.WriteAllText(st, latexId.ToString());
+
+				return new PublishLatexUploadOutput
+				{
+					AuthResult = authentication.Result,
+					Success = true
+				};
+			}
+		}
+
 		[HttpPost]
 		public AnnouncementResult NewAnnouncement(NewAnnouncementModel model)
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
 
@@ -153,17 +228,17 @@ namespace Project.Controllers
 					.SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
 					.SingleOrDefault();
 
-				if(l == null)
+				if (l == null)
 				{
 					return AnnouncementResult.InvalidSession;
 				}
 
-				if(l.Expiration < DateTime.Now)
+				if (l.Expiration < DateTime.Now)
 				{
 					return AnnouncementResult.SessionExpired;
 				}
 
-				if(string.IsNullOrEmpty(model?.Content))
+				if (string.IsNullOrEmpty(model?.Content))
 				{
 					return AnnouncementResult.MissingContent;
 				}
@@ -188,12 +263,12 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
-				return new FetchAnnouncementsOutput {Result = SessionToAnnouncementResult(authentication.Result)};
+				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 
@@ -210,21 +285,21 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
-				return new FetchAnnouncementsOutput {Result = SessionToAnnouncementResult(authentication.Result)};
+				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
 				var sqlQuery = "SELECT * FROM Announcments " +
-				               "ORDER BY Created DESC " +
-				               $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+							   "ORDER BY Created DESC " +
+							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 
 				var announcementResults = db.Announcements.SqlQuery(
 					sqlQuery).ToArray();
@@ -243,16 +318,16 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
-				return new DeleteAnnouncementOutput {Result = SessionToAnnouncementResult(authentication.Result)};
+				return new DeleteAnnouncementOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				const string query = "DELETE FROM dbo.Announcments " +
-				                     "WHERE Id = @inputAnnouncementId";
+									 "WHERE Id = @inputAnnouncementId";
 
 				var parm = new SqlParameter("@inputAnnouncementId", input.AnnouncementId);
 
@@ -271,17 +346,17 @@ namespace Project.Controllers
 		{
 			var authentication = Authenticate();
 
-			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
 			{
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using(var db = new ProjectDbContext())
+			using (var db = new ProjectDbContext())
 			{
 				const string query = "UPDATE dbo.Announcments " +
-				                     "SET Content = @inputContent " +
-				                     "WHERE Id = @inputAnnouncementId;";
+									 "SET Content = @inputContent " +
+									 "WHERE Id = @inputAnnouncementId;";
 
 				var parm1 = new SqlParameter("@inputAnnouncementId", input.AnnouncementId);
 				var parm2 = new SqlParameter("@inputContent", input.NewContent);
@@ -324,36 +399,36 @@ namespace Project.Controllers
 		{
 			var sessionCookie = Request.GetCookie("Admin_Session_Guid");
 
-			if(sessionCookie == null)
+			if (sessionCookie == null)
 			{
-				return new AuthenticateOutput {Result = ValidateSessionResultType.SessionInvalid, Session = null};
+				return new AuthenticateOutput { Result = ValidateSessionResultType.SessionInvalid, Session = null };
 			}
 			Guid session;
 
-			if(!Guid.TryParse(sessionCookie, out session))
+			if (!Guid.TryParse(sessionCookie, out session))
 			{
-				return new AuthenticateOutput {Result = ValidateSessionResultType.SessionInvalid, Session = session};
+				return new AuthenticateOutput { Result = ValidateSessionResultType.SessionInvalid, Session = session };
 			}
 
 			var validateSessionResultType = LoginManager.ValidateSession(session);
 
-			switch(validateSessionResultType)
+			switch (validateSessionResultType)
 			{
 				case ValidateSessionResultType.SessionExpired:
-					return new AuthenticateOutput {Result = ValidateSessionResultType.SessionExpired, Session = session};
+					return new AuthenticateOutput { Result = ValidateSessionResultType.SessionExpired, Session = session };
 
 				case ValidateSessionResultType.SessionInvalid:
-					return new AuthenticateOutput {Result = ValidateSessionResultType.SessionInvalid, Session = session};
+					return new AuthenticateOutput { Result = ValidateSessionResultType.SessionInvalid, Session = session };
 			}
 
 			var loginId = LoginManager.LoginIdFromSession(session);
 
-			if(loginId == null)
+			if (loginId == null)
 			{
-				return new AuthenticateOutput {Result = ValidateSessionResultType.SessionInvalid, Session = session};
+				return new AuthenticateOutput { Result = ValidateSessionResultType.SessionInvalid, Session = session };
 			}
 
-			return new AuthenticateOutput {Result = ValidateSessionResultType.SessionValid, Session = session};
+			return new AuthenticateOutput { Result = ValidateSessionResultType.SessionValid, Session = session };
 		}
 
 		public class FetchAnnouncementsInput
@@ -372,7 +447,7 @@ namespace Project.Controllers
 
 		private AnnouncementResult SessionToAnnouncementResult(ValidateSessionResultType result)
 		{
-			switch(result)
+			switch (result)
 			{
 				case ValidateSessionResultType.SessionValid:
 					return AnnouncementResult.Success;

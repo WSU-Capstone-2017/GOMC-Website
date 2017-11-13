@@ -1032,8 +1032,10 @@ function doFetchAnnouncements() {
 				announcementIdMap[i] = data.Announcements[i].Id;
                 $("#fetchAnnouncements_tr_" + i).show();
 	            buildAnnouncementActions(i);
-                $("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
-				$("#fetchAnnouncements_Created_" + i).text(data.Announcements[i].Created);
+				$("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
+
+				var dt = new Date(data.Announcements[i].Created);
+				$("#fetchAnnouncements_Created_" + i).text(dt.toLocaleDateString("en-US") + " " + dt.toLocaleTimeString("en-US"));
             }
         } else if (data === newAnnouncementResult.InvalidSession) {
             console.log('Could not fetch announcements, bad session');
@@ -1058,6 +1060,12 @@ function doLatexPdf(i) {
 	return false;
 }
 function doLatexUse(i) {
+	$.ajax({
+		url: '/api/admin/publishlatexupload?latexId=' + latexIdMap[i],
+		type: 'GET'
+	}).done(function(data) {
+		console.log(data);
+	});
 	return false;
 }
 
@@ -1100,7 +1108,8 @@ function doFetchLatexUploads() {
 					latexIdMap[i] = data.Uploads[i].Id;
 					$("#LatexUpload_" + i).show();
 					$("#LatexUpload_Version_" + i).text(data.Uploads[i].Version);
-					$("#LatexUpload_Created_" + i).text(data.Uploads[i].Created);
+					var dt = new Date(data.Uploads[i].Created);
+					$("#LatexUpload_Created_" + i).text(dt.toLocaleDateString("en-US") + " " + dt.toLocaleTimeString("en-US"));
 					$("#LatexUpload_Action_" + i).html(latexUploadActions(i));
 					console.log($("#LatexUpload_Action_" + i).html());
 				}

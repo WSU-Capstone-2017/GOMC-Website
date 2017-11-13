@@ -90,7 +90,8 @@ namespace Project.Controllers
 					Version = version,
 					HtmlZip = conv.HtmlZip,
 					Pdf = conv.Pdf,
-					Created = DateTime.Now
+					Created = DateTime.Now,
+					LatexFile = conv.LatexFile
 				};
 
 				db.LatexUploads.Add(model);
