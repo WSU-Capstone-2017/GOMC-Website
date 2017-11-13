@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using HtmlAgilityPack;
 using Project.Core;
 using Project.Data;
 using Project.Latex;
@@ -138,6 +139,24 @@ namespace Project.Controllers
 			}
 		}
 
+		private static string HtmlFix(string inputHtml)
+		{
+			var hdoc = new HtmlDocument();
+			hdoc.LoadHtml(inputHtml);
+
+			var htmElem = hdoc.DocumentNode.Element("html");
+			var body = htmElem.Element("body");
+
+			var imgs = body.SelectNodes("//img").ToArray();
+			foreach(var i in imgs)
+			{
+				var attr = i.Attributes["src"].Value;
+				var dir = ("~/Content/Latex/images/");
+				i.Attributes["src"].Value = attr.Replace("images/", dir);
+			}
+			return body.InnerHtml;
+		}
+
 		public static PublishLatexResult PublishLatex(int latexId, bool forceIfThere = false)
 		{
 			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
@@ -145,6 +164,11 @@ namespace Project.Controllers
 
 			var outManualHtmlPath = Path.Combine(
 				dir, "latex_output_Manual.html");
+
+			if(!Directory.Exists(dir))
+			{
+				Directory.CreateDirectory(dir);
+			}
 
 			using (var db = new ProjectDbContext())
 			{
@@ -179,7 +203,7 @@ namespace Project.Controllers
 								ret = new PublishLatexResult
 								{
 									Kind = PublishLatexResultType.Success,
-									HtmlContent = sr.ReadToEnd()
+									HtmlContent = HtmlFix(sr.ReadToEnd())
 								};
 								File.WriteAllText(outManualHtmlPath, ret.HtmlContent);
 							}
@@ -195,11 +219,15 @@ namespace Project.Controllers
 
 				if (!forceIfThere && File.Exists(st) && File.Exists(outManualHtmlPath))
 				{
-					return new PublishLatexResult
+					var setLatexId = File.ReadAllText(st).AsInt();
+					if(setLatexId.HasValue && setLatexId.Value == latexId)
 					{
-						Kind = PublishLatexResultType.Success,
-						HtmlContent = File.ReadAllText(outManualHtmlPath, Encoding.UTF8)
-					};
+						return new PublishLatexResult
+						{
+							Kind = PublishLatexResultType.Success,
+							HtmlContent = HtmlFix(File.ReadAllText(outManualHtmlPath, Encoding.UTF8))
+						};
+					}
 				}
 
 				var conv = new LatexConvertor();
@@ -216,6 +244,8 @@ namespace Project.Controllers
 				{
 					Directory.CreateDirectory(dir);
 				}
+
+				htmlContent = HtmlFix(htmlContent);
 
 				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
 

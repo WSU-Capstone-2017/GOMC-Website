@@ -55,6 +55,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.6.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -303,6 +306,31 @@
     <Content Include="Content\img\vshelp.png" />
     <Content Include="Content\img\website.jpg" />
     <Content Include="Content\img\xml.jpg" />
+    <Content Include="Content\Latex\images\angle.png" />
+    <Content Include="Content\Latex\images\atom.png" />
+    <Content Include="Content\Latex\images\bonds.png" />
+    <Content Include="Content\Latex\images\clone.png" />
+    <Content Include="Content\Latex\images\cuda.png" />
+    <Content Include="Content\Latex\images\dihedrals.png" />
+    <Content Include="Content\Latex\images\github.png" />
+    <Content Include="Content\Latex\images\grace.png" />
+    <Content Include="Content\Latex\images\isobutane_result.png" />
+    <Content Include="Content\Latex\images\logo.png" />
+    <Content Include="Content\Latex\images\MARTINI.png" />
+    <Content Include="Content\Latex\images\nonbonded.png" />
+    <Content Include="Content\Latex\images\out1.png" />
+    <Content Include="Content\Latex\images\out2.png" />
+    <Content Include="Content\Latex\images\out3.png" />
+    <Content Include="Content\Latex\images\out4.png" />
+    <Content Include="Content\Latex\images\pdb.png" />
+    <Content Include="Content\Latex\images\psfgen.png" />
+    <Content Include="Content\Latex\images\remark.png" />
+    <Content Include="Content\Latex\images\SWITCH.png" />
+    <Content Include="Content\Latex\images\VDW_SHIFT.png" />
+    <Content Include="Content\Latex\images\vmd.png" />
+    <Content Include="Content\Latex\images\vsabout.png" />
+    <Content Include="Content\Latex\images\vshelp.png" />
+    <Content Include="Content\Latex\images\website.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Content\img\gomc.png" />
     <Content Include="Content\img\gpu.png" />
