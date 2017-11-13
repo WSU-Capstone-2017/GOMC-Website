@@ -18,7 +18,18 @@
                     <p>To open the online version: @Html.ActionLink("Click Here", "Latex", "Home")</p>
                 </div>
                 <div class='col-md-6'>
-                    <p>To open the PDF: <a href='~/Content/img/Manual.pdf' target="_blank"> Click Here</a></p>
+                    @if(ViewBag.UseSetPdf)
+                    {
+                        <p>To open the PDF: <a href='~/temp/set/Manual.pdf' target="_blank"> Click Here</a>
+                        </p>
+}
+                    else
+                    {
+                        <p>
+                            To open the PDF: <a href='~/Content/img/Manual.pdf' target="_blank"> Click Here</a>
+                        </p>
+                        
+                    }
                 </div>
             </div>
         </section>

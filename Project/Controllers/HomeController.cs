@@ -141,6 +141,15 @@ namespace Project.Controllers
 		}
 		public ActionResult Documentation()
 		{
+			var setPdfPath = "~/Content/gen/Manual.pdf";
+			if (System.IO.File.Exists(HttpContext.Server.MapPath(setPdfPath)))
+			{
+				ViewBag.UseSetPdf = true;
+			}
+			else
+			{
+				ViewBag.UseSetPdf = false;
+			}
 			return View();
 		}
 		public ActionResult Publications()
@@ -236,7 +245,7 @@ namespace Project.Controllers
 			else
 			{
 				ViewBag.HtmlContent = r.HtmlContent;
-				return View("LatexHtml");
+				return View("~/temp/set/LatexHtml.cshtml");
 			}
 		}
 

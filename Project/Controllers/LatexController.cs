@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -148,24 +149,68 @@ namespace Project.Controllers
 			var body = htmElem.Element("body");
 
 			var imgs = body.SelectNodes("//img").ToArray();
-			foreach(var i in imgs)
+			foreach (var i in imgs)
 			{
+				var dir = ("~/content/latex/images/");
 				var attr = i.Attributes["src"].Value;
-				var dir = ("~/Content/Latex/images/");
-				i.Attributes["src"].Value = attr.Replace("images/", dir);
+				if (attr.StartsWith("Manual") && attr.EndsWith(".png"))
+				{
+					attr = attr.Replace("Manual", "~/temp/set/images/Manual");
+				}
+				else
+				{
+					attr = attr.Replace("images/", dir);
+				}
+				i.Attributes["src"].Value = attr;
 			}
-			return body.InnerHtml;
+			var bodyHtml = body.InnerHtml;
+
+			var imgDir = HttpContext.Current.Server.MapPath("~/Latex/images");
+			var newImgDir = HttpContext.Current.Server.MapPath("~/temp/set/images");
+
+			if (!Directory.Exists(newImgDir))
+			{
+				Directory.CreateDirectory(newImgDir);
+			}
+
+			foreach (var p in Directory.GetFiles(imgDir, "*.*", SearchOption.AllDirectories))
+			{
+				var p2 = p.Replace(imgDir, newImgDir);
+
+				var p2Dir = Path.GetDirectoryName(p2);
+
+				Debug.Assert(p2Dir != null);
+
+				if (!Directory.Exists(p2Dir))
+				{
+					Directory.CreateDirectory(p2Dir);
+				}
+
+				File.Copy(p, p2, true);
+			}
+			var csview = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"));
+
+			const string repStr = "@Html.Raw(ViewBag.HtmlContent)";
+
+			csview = csview.Replace(repStr, bodyHtml);
+			csview = csview.Replace("Plugin homepage @", "Plugin homepage @@");
+			File.WriteAllText(HttpContext.Current.Server.MapPath("~/temp/set/LatexHtml.cshtml"), csview);
+
+			File.Copy(HttpContext.Current.Server.MapPath("~/views/web.config"),
+				HttpContext.Current.Server.MapPath("~/temp/set/web.config"), true);
+
+			return bodyHtml;
 		}
 
 		public static PublishLatexResult PublishLatex(int latexId, bool forceIfThere = false)
 		{
 			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
 			var st = Path.Combine(dir, "latex_html.site_item");
-
+			var pdfPath = Path.Combine(dir, "Manual.pdf");
 			var outManualHtmlPath = Path.Combine(
 				dir, "latex_output_Manual.html");
 
-			if(!Directory.Exists(dir))
+			if (!Directory.Exists(dir))
 			{
 				Directory.CreateDirectory(dir);
 			}
@@ -206,6 +251,16 @@ namespace Project.Controllers
 									HtmlContent = HtmlFix(sr.ReadToEnd())
 								};
 								File.WriteAllText(outManualHtmlPath, ret.HtmlContent);
+								File.WriteAllBytes(pdfPath, lm.Pdf);
+							}
+						}
+						foreach (var i in zip.Entries.Where(j => j.Name.StartsWith("Manual") && j.Name.EndsWith(".png")))
+						{
+							using (var ist = i.Open())
+							{
+								var byts = ist.ReadToEnd();
+								File.WriteAllBytes(HttpContext.Current.Server.MapPath(
+									$"~/temp/set/images/{i.Name}"), byts);
 							}
 						}
 					}
@@ -220,7 +275,7 @@ namespace Project.Controllers
 				if (!forceIfThere && File.Exists(st) && File.Exists(outManualHtmlPath))
 				{
 					var setLatexId = File.ReadAllText(st).AsInt();
-					if(setLatexId.HasValue && setLatexId.Value == latexId)
+					if (setLatexId.HasValue && setLatexId.Value == latexId)
 					{
 						return new PublishLatexResult
 						{
@@ -248,6 +303,7 @@ namespace Project.Controllers
 				htmlContent = HtmlFix(htmlContent);
 
 				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
+				File.WriteAllBytes(pdfPath, lm.Pdf);
 
 				lm.HtmlZip = conv.HtmlZip;
 				db.LatexUploads.AddOrUpdate(lm);
