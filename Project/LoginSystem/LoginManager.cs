@@ -88,7 +88,7 @@ namespace Project.LoginSystem
 				    return null;
 			    }
 
-			    return l.Id;
+			    return l.LoginId;
 		    }
 	    }
 		public GetLoginIdResult GetLoginId(string email, string password)                
