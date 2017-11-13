@@ -159,54 +159,13 @@ namespace Project.Controllers
 				};
 			}
 
-			using(var db = new ProjectDbContext())
+			var r = LatexController.PublishLatex(latexId);
+
+			return new PublishLatexUploadOutput
 			{
-				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
-				                                  "WHERE Id = @inputId",
-					new SqlParameter("@inputId", latexId)).SingleOrDefault();
-
-				if(lm == null || lm.LatexFile == null)
-				{
-					return new PublishLatexUploadOutput
-					{
-						AuthResult = authentication.Result,
-						Success = false
-					};
-				}
-
-				var dir = HttpContext.Current.Server.MapPath("~/temp/set");
-				var st = Path.Combine(dir, "latex_html.site_item");
-
-				var conv = new LatexConvertor();
-
-				if(conv.Convert(lm.LatexFile, true, false) != ConversionResult.Success)
-				{
-					return new PublishLatexUploadOutput
-					{
-						AuthResult = authentication.Result,
-						Success = false
-					};
-				}
-
-				var outManualHtmlPath = Path.Combine(
-					dir, "latex_output_Manual.html");
-
-				var htmlContent = conv.HtmlMap["Manual.html"];
-				Directory.CreateDirectory(dir);
-				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
-
-				lm.HtmlZip = conv.HtmlZip;
-				db.LatexUploads.AddOrUpdate(lm);
-				db.SaveChanges();
-
-				File.WriteAllText(st, latexId.ToString());
-
-				return new PublishLatexUploadOutput
-				{
-					AuthResult = authentication.Result,
-					Success = true
-				};
-			}
+				AuthResult = authentication.Result,
+				Success= r.Kind == LatexController.PublishLatexResultType.Success
+			};
 		}
 
 		[HttpPost]
