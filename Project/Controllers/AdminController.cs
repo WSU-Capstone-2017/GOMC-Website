@@ -49,7 +49,7 @@ namespace Project.Controllers
 			public DateTime Created { get; set; }
 		}
 
-		[HttpGet]
+		[HttpPost]
 		public FetchLatexUploadsOutput FetchLatexUploads()
 		{
 			var authentication = Authenticate();
@@ -62,12 +62,14 @@ namespace Project.Controllers
 
 			using(var db = new ProjectDbContext())
 			{
-				var uploads = db.LatexUploads.Select(j => new LatexUploadItem
-				{
-					Id = j.Id,
-					Version = j.Version,
-					Created = j.Created
-				}).ToArray();
+				var uploads = db.LatexUploads
+					.OrderByDescending(j => j.Created)
+					.Select(j => new LatexUploadItem
+					{
+						Id = j.Id,
+						Version = j.Version,
+						Created = j.Created
+					}).ToArray();
 
 				return new FetchLatexUploadsOutput
 				{
@@ -77,9 +79,14 @@ namespace Project.Controllers
 			}
 		}
 
-		[HttpPost]
-		public HttpResponseMessage DownloadLatexFile(DownloadLatexFileInput input)
+		[HttpGet]
+		public HttpResponseMessage DownloadLatexFile(int latexId, string kind)
 		{
+			var input = new DownloadLatexFileInput
+			{
+				Kind = Utils.EnumParse<DownloadLatexFileInput.FileRequestKind>(kind),
+				LatexUploadId = latexId
+			};
 			var authentication = Authenticate();
 
 			if(authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
@@ -118,7 +125,7 @@ namespace Project.Controllers
 			result.Content.Headers.ContentDisposition =
 				new ContentDispositionHeaderValue("attachment")
 				{
-					FileName = "input.xml"
+					FileName = "output.pdf"
 				};
 
 			result.Content.Headers.ContentType =

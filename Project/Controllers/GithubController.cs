@@ -40,7 +40,6 @@ namespace Project.Controllers
 				}
 				var push = input.ToObject<PushModel>();
 
-
 				log.Info("Push Event");
 				log.Info(push.Ref);
 
@@ -51,7 +50,7 @@ namespace Project.Controllers
 						log.Info("Manual.tex was changed");
 
 						var rsp = Utils.SimpleGet(
-							"https://api.github.com/repos/ataher1992/GOMC_Manual/contents/Manual.tex");
+							"https://api.github.com/repos/ataher1992/GOMC_Manual/contents/Manual.tex?ref=test");
 
 						log.Info("Getting Manual.tex from repo");
 
@@ -108,7 +107,7 @@ namespace Project.Controllers
 
 				var conv = new LatexConvertor();
 
-				var convRes = conv.Convert(file);
+				var convRes = conv.Convert(file, true);
 
 				if (convRes != ConversionResult.Success)
 				{

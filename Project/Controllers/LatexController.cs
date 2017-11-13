@@ -71,6 +71,7 @@ namespace Project.Controllers
 			}
 
 			var file = File.ReadAllText(provider.FileData[0].LocalFileName);
+			File.Delete(provider.FileData[0].LocalFileName);
 
 			using (var db = new ProjectDbContext())
 			{

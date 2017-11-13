@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -20,14 +21,34 @@ namespace Project.Latex
 		public byte[] HtmlZip { get; set; }
 		public byte[] Pdf { get; set; }
 
-		public ConversionResult Convert(string latexFileContent)
+		public ConversionResult Convert(string latexFileContent, bool isFromGithub = false)
 		{
 			var fileDir = HttpContext.Current.Server.MapPath($"~/temp/upload_{Guid.NewGuid()}/");
 			Directory.CreateDirectory(fileDir);
 
+			var imgDir = HttpContext.Current.Server.MapPath("~/Latex/images");
+
+			foreach (var p in Directory.GetFiles(imgDir, "*.*", SearchOption.AllDirectories))
+			{
+				var p2 = p.Replace(imgDir, Path.Combine(fileDir, "images"));
+
+				var p2Dir = Path.GetDirectoryName(p2);
+
+				Debug.Assert(p2Dir != null);
+
+				if (!Directory.Exists(p2Dir))
+				{
+					Directory.CreateDirectory(p2Dir);
+				}
+
+				File.Copy(p, p2, true);
+			}
+
 			var fileName = Path.Combine(fileDir, "Manual.tex");
+
 			File.WriteAllText(fileName, latexFileContent);
-			var result = ConvertAtDir(fileDir);
+
+			var result = ConvertAtDir(fileDir, isFromGithub);
 
 			Directory.Delete(fileDir, true);
 
@@ -35,7 +56,7 @@ namespace Project.Latex
 		}
 
 
-		public ConversionResult ConvertAtDir(string fileDir)
+		public ConversionResult ConvertAtDir(string fileDir, bool isFromGithub = false)
 		{
 			Debug.Assert(fileDir != null);
 
@@ -55,41 +76,53 @@ namespace Project.Latex
 
 			try
 			{
-				log.Info("running htlatex...");
-
-				var htmlProc = new Process
+				if (!isFromGithub)
 				{
-					StartInfo = new ProcessStartInfo("htlatex", "Manual.tex")
+					log.Info("running htlatex...");
+
+					var htmlProc = new Process
 					{
-						WorkingDirectory = fileDir
-					}
-				};
+						StartInfo = new ProcessStartInfo("htlatex", "Manual.tex")
+						{
+							WorkingDirectory = fileDir,
+						}
+					};
 
 
-				htmlProc.Start();
-
-				while (!htmlProc.HasExited)
-				{
-					// htlatex will request user input when there is latex errors,
-					// we will press enter each second to simulate user input
-					// TODO: find an alternative way to run htlatex without using the PostMessage hack
+					htmlProc.Start();
 					Thread.Sleep(1000);
-					PostMessage(htmlProc.MainWindowHandle, 0x100, 0x0D, 0);
-				}
 
-				log.Info("htlatex done");
-
-				using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
-				{
-					zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
-					zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.css"), "Manual.html");
-					foreach (var i in new DirectoryInfo(fileDir).GetFiles("Manual*x.png"))
+					var hndl = htmlProc.MainWindowHandle;
+					if (hndl == IntPtr.Zero)
 					{
-						zip.CreateEntryFromFile(i.FullName, i.Name);
+						throw new ApplicationException($"{nameof(htmlProc)}.{nameof(htmlProc.MainWindowHandle)} == 0");
 					}
-				}
 
-				HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
+					while (!htmlProc.HasExited)
+					{
+						// htlatex will request user input when there is latex errors,
+						// we will press enter each second to simulate user input
+						// TODO: find an alternative way to run htlatex without using the PostMessage hack
+						if (!PostMessage(htmlProc.MainWindowHandle, 0x100, 0x0D, 0))
+						{
+							throw new Win32Exception(Marshal.GetLastWin32Error());
+						}
+						Thread.Sleep(1000);
+					}
+
+					log.Info("htlatex done");
+					using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
+					{
+						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
+						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.css"), "Manual.html");
+						foreach (var i in new DirectoryInfo(fileDir).GetFiles("Manual*x.png"))
+						{
+							zip.CreateEntryFromFile(i.FullName, i.Name);
+						}
+					}
+
+					HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
+				}
 
 				var pdfProc = new Process
 				{

@@ -12,6 +12,7 @@ var currentWidth = 0;
 
 // 
 var announcementIdMap = [];
+var latexIdMap = [];
 
 //
 var buildAnnouncementActionType = {
@@ -1043,7 +1044,76 @@ function doFetchAnnouncements() {
         }
     });
 }
+function doLatexPdf(i) {
+	window.location.href = '/api/admin/downloadlatexfile?latexId=' + latexIdMap[i] + '&Kind=Pdf';
+	//$.ajax({
+	//	url: '/api/admin/downloadlatexfile',
+	//	type: 'POST',
+	//	contentType: 'application/json',
+	//	data: JSON.stringify({
+	//		Kind: "Pdf",
+	//		LatexUploadId: latexIdMap[i]
+	//	})
+	//});
+	return false;
+}
+function doLatexUse(i) {
+	return false;
+}
 
+function doFetchLatexUploads() {
+
+	var validateSessionResultType = {
+		SessionValid: 0,
+		SessionExpired: 1,
+		SessionInvalid: 2
+	};
+
+	function latexUploadActions(a) {
+		function atag(val, i, fn, hf) {
+			hf = (typeof hf !== 'undefined') ? hf : '/api/admin';
+			return "<a id='" + i + "' href='" + hf + "' onclick='return " + fn + "'>" + val + "</a>";
+		}
+
+		return "" +
+			atag("Publish", 'LatexUpload_Use_' + a, 'doLatexUse(' + a + ')') +
+			" " +
+			atag("Get Pdf", 'LatexUpload_Pdf_' + a, 'doLatexPdf(' + a + ')');
+	}
+
+	$.ajax({
+		url: '/api/Admin/FetchLatexUploads',
+		type: 'POST',
+		contentType: 'application/json'
+	}).done(function (data) {
+		console.log(data);
+		if (data.AuthResult === validateSessionResultType.SessionValid) {
+			var i = 0;
+			for (i = 0; i < 5; i++) {
+				$("#LatexUpload_Version_" + i).text('');
+				$("#LatexUpload_Created_" + i).text('');
+				$("#LatexUpload_Action_" + i).text('');
+
+				if (i >= data.Length) {
+					$("#LatexUpload_" + i).hide();
+				} else {
+					latexIdMap[i] = data.Uploads[i].Id;
+					$("#LatexUpload_" + i).show();
+					$("#LatexUpload_Version_" + i).text(data.Uploads[i].Version);
+					$("#LatexUpload_Created_" + i).text(data.Uploads[i].Created);
+					$("#LatexUpload_Action_" + i).html(latexUploadActions(i));
+					console.log($("#LatexUpload_Action_" + i).html());
+				}
+			}
+		} else if (data.AuthResult === validateSessionResultType.SessionInvalid) {
+			console.log('Could not fetch latex uploads, bad session');
+			window.location.href = "/home/login";
+		} else if (data.AuthResult === validateSessionResultType.SessionExpired) {
+			console.log('Could not fetch latex uploads, session expired');
+			window.location.href = "/home/login";
+		}
+	});
+}
 function buildAnnouncementActions(a) {
 	function atag(val, i, fn, hf) {
 		hf = (typeof hf !== 'undefined') ? hf : '/api/admin';
