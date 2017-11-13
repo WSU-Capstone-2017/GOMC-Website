@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -13,9 +12,6 @@ namespace Project
 
 		protected void Application_Start()
 		{
-			var log4File = Server.MapPath("~/bin/log4net.config");
-			log4net.Config.XmlConfigurator.Configure(new FileInfo(log4File));
-
 			System.Web.Optimization.PreApplicationStartCode.Start();
 
 			AreaRegistration.RegisterAllAreas();
@@ -24,6 +20,5 @@ namespace Project
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
-
 	}
 }

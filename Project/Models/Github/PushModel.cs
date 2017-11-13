@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Project.Models.Github
+﻿namespace Project.Models.Github
 {
 	public class PushModel : EventBaseModel
 	{
@@ -16,8 +14,6 @@ namespace Project.Models.Github
 		public int Size{ get; set; }
 		public int DistinctSize{ get; set; }
 		public CommitModel[] Commits { get; set; }
-
-		[JsonProperty("head_commit")]
 		public CommitModel HeadCommit { get; set; }
 		public AuthorModel Pusher { get; set; }
 		public class CommitModel
