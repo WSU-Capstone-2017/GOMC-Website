@@ -623,7 +623,16 @@
                             </div>
                         </div>
                         <div class="panel panel-default panel-fifth not-render">
-                            <p>You made it to the end</p>
+                            <div class="panel-heading">Thank You!  <span class="glyphicon glyphicon-ok-circle"></span></div>
+                            <div class="panel-body">
+                                <p>Thank you for using our XML converter! </p>
+                                <p>Please check your downloads folder and run the simulation engine with the resulting file</p>
+                                <p>If you cannot find your download, please check your pop up blocker or other browser add-ons</p>
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-primary btn-lg" id="backToMain"><span class="glyphicon glyphicon-log-out"></span>  Back to main page</button>
+                                    <button class="btn btn-default btn-lg" id="newForm"><span class="glyphicon glyphicon-open"></span>  Start a new form</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
             </div>
@@ -632,6 +641,8 @@
 @section scripts
 {
     <script>
+        $('#backToMain').click(() => window.location.replace('gomc'));
+        $('#newForm').click(() => window.location.replace( 'xmlconfigform'));
         $("#GibbsNpt, #GibbsNvt, #Npt, #Nvt, #Gcmc").change(function() {
             console.debug($("#GibbsNpt").val());
             console.debug($("#Npt").val());

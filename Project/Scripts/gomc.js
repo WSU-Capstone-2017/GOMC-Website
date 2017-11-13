@@ -51,7 +51,7 @@ var announcementsEdit = {
 };
 // Object to appear and validate against in the orange button of Registration.cshtml
 var registrationString = {
-	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
+    init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering',
 	fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
 };
 
@@ -97,7 +97,7 @@ $('#btn').click(function () {
 $('#closeRegistration').click(function () {
 	$(this).next().slideToggle(() => {
 		$(this).html((count, words) => {
-			return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download' ? registrationString.fin : registrationString.init;
+            return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
 		});
 	});
 });
@@ -197,7 +197,7 @@ $('#registrationForm').validate({ // jQuery Validate
 
 });
 
-// Login from admin page
+// Login to admin page from login page
 $('#Admin').validate({
     rules: {
         uName: {
