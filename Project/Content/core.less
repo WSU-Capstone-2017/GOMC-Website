@@ -18,6 +18,11 @@
     }
 }
 
+/*This may have un-foreseen side effects, please test and let me know of any visual issues !Caleb*/
+img {
+    width: 18.75em; //300 px converted
+}
+
 .loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
     border-top: 1em solid #106A3A;
     border-right: 1em solid #E58242;
@@ -221,6 +226,18 @@ footer {
 .person-picture {
   float: left;
   margin-right: .3125em;
+}
+
+.about-team {
+    img {
+        width: 8.5em;
+    }
+}
+
+.about-grants {
+    img {
+        width: 5em;
+    }
 }
 
 @media only screen and (max-width: 64em) {
