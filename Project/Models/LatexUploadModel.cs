@@ -12,6 +12,5 @@ namespace Project.Models
 		public byte[] HtmlZip{ get; set; }
 		public byte[] Pdf { get; set; }
 		public DateTime Created { get; set; }
-		public string LatexFile { get; set; }
 	}
 }

@@ -16,12 +16,12 @@
     @Styles.Render("~/Content/core.less")
 </head>
 <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container'>
+    <div class='container-fluid'>
         <div class='navbar-header' id='menu '>
             <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
                 <span class='glyphicon glyphicon-align-justify'></span>
             </button>
-            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' id="teamLogo" style="width:4.375em;"></a>
+            <a href='#'><img src='~/Content/img/gomc.png' alt='team logo' width="100" style="padding-top:0.313em"></a>
         </div>
         <div class='collapse navbar-collapse navbar-right' id='navCollapse'>
             <ul class='nav nav-tabs'>
@@ -31,9 +31,7 @@
     </div>
 </nav>
 <body>
-    <div class="container">
-        @RenderBody()
-    </div>
+    @RenderBody()
 <footer>
     <hr />
     <p class='footer-text'>@Html.ActionLink("Terms & Conditions", "Terms", "Home") |@Html.ActionLink("Site Map", "SiteMap", "Home") | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home") | @Html.ActionLink("FAQ", "Faq", "Home") <br/></p>
@@ -42,7 +40,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js.cookie")
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/gomc")
 <!--The script below is for the google-analytics, as demanded by client, code is pulled from present website-->
 <script async src="https://www.google-analytics.com/analytics.js"></script>

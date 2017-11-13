@@ -155,10 +155,10 @@ namespace Project.ConfigInput
 				}
 				return b;
 			}
-			b = !input.Rswitch.HasValue || input.Rswitch == 0;
+			b = !input.Rswitch.HasValue;
 			if (!b)
 			{
-				fieldErrors.Add(InputModelFieldType.Rswitch, "Field cannot have a value if Potential is not set to 'Shift'.");
+				fieldErrors.Add(InputModelFieldType.Rswitch, "Field cannot hvae a value if Potential is not set to 'Shift'.");
 			}
 			return b;
 		}
@@ -241,7 +241,7 @@ namespace Project.ConfigInput
 		private bool ValidCachedFourierEwald()
 		{
 			bool b;
-			if (input.CachedFourier == true)
+			if (input.CachedFourier.HasValue)
 			{
 				b = input.Ewald == true;
 				if (!b)

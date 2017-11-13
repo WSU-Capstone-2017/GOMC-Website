@@ -1,5 +1,4 @@
-﻿@model Project.Controllers.HomeController.DownloadModelV2
-@{
+﻿@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Downloads";
 }
@@ -11,88 +10,70 @@
     <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
+<header>
+    <h1>Downloads</h1>
+</header>
 <main>
         <section class='contact'>
-            <h6>Keep up with us on GitHub:<a href="https://github.com/GOMC-WSU/GOMC"> Click Here</a></h6>
-            <a class="github-button" aria-label="Star WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website" data-size="large" data-icon="octicon-star">Star</a> 
-            <a class="github-button" aria-label="Fork WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website/fork" data-size="large" data-icon="octicon-repo-forked">Fork</a>
+            <h4>Keep up with us on GitHub:<a href="https://github.com/GOMC-WSU/GOMC" target="_blank" class="btn btn-info">Click Here</a></h4>
         </section>
     <hr class='grand-line' />
+        <div class="container-fluid">
             <div class="row">
                 <h3>Optional</h3>
                 <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form</p>
                 <p>Otherwise click the orange button below: </p>
-                <div class="col-md-4">
+                <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
-                    <div class="well well-sm custom-well registration-container">
+                    <div class="well well-sm custom-well">
                         <form method="post" id="registrationForm">
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Name *</label>
-                                <input type="text" class="form-control" name="userName" required title="Enter a valid name, no special characters or numbers" placeholder="Name" />
-                                <span class="form-control-feedback"></span>
+                            <div class="form-group">
+                                <label>Name *</label>
+                                <input type="text" class="form-control" name="userName" required pattern="[A-Za-z]+" title="Enter a valid name, no special characters" placeholder="Name" />
                             </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Email *</label>
-                                <input type="email" class="form-control" name="userEmail" required placeholder="Email" title="Enter a valid email" />
-                                <span class="form-control-feedback"></span>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" class="form-control" name="userEmail" required placeholder="Email" />
                             </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Affliation *</label>
-                                <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" title="Enter your group or school" />
-                                <span class="form-control-feedback"></span>
+                            <div class="form-group">
+                                <label>Affliation *</label>
+                                <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" />
                             </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Please tell us why you are interested in GOMC *</label>
-                                <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments" title="Details"></textarea>
-                                <span class="form-control-feedback"></span>
+                            <div class="form-group">
+                                <label>Please take a moment to tell us why you are interested in GOMC *</label>
+                                <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments"></textarea>
                             </div>
-                            <div class="g-recaptcha scale-captcha"
-                                    data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" 
-                                    data-callback="captchaSelect"></div> <!--Implemented for captcha-->
+                            <div class="g-recaptcha"
+                                 data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" data-callback="captchaSelect"></div> <!--Implemented for captcha-->
                             <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save"></span>Register</button>
                         </form>
                     </div>
                 </div>
             </div>
             <hr class='grand-line' />
-            <div class='row'>     
+            <div class='row'>
                 <section>
                     <div class='well well-sm custom-well col-md-4'>
-                        <h3>Most Recent Windows Version: @Model.TagName</h3>
+                        <h3>Most Recent Version: @Model.DownloadName</h3>
                         <ul>
-                            @foreach (var a in Model.Windows.GPU)
+                            @foreach (var download in Model.Downloads)
                             {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                            }
-                        </ul>
-                        <ul>
-                            @foreach (var a in Model.Windows.CPU)
-                            {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                                <li class="model-link">@download.Name <a href="@download.Link">Download</a></li>
                             }
                         </ul>
                         <a>@Html.ActionLink("Click here for other revisions", "MoreDownloads", "Home")</a>
                     </div>
-
-                    <div class='well well-sm custom-well col-md-4'>
-                        <h3>Most Recent Linux Version: @Model.TagName</h3>
+                    <div class='well well-sm custom-well col-md-4 col-md-offset-2'>
+                        <h3>Examples set: @Model.ExampleName</h3>
                         <ul>
-                            @foreach (var a in Model.Linux.GPU)
+                            @foreach (var example in Model.Examples)
                             {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                                <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
                             }
                         </ul>
-                        <ul>
-                            @foreach (var a in Model.Linux.CPU)
-                            {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                            }
-                        </ul>
-                        <br />
+                        <a>@Html.ActionLink("Click here for more examples", "MoreExamples", "Home")</a>
                     </div>
                 </section>
-            
-           
                 @*<aside>
                         <div class='col-md-8'>
                             <h3>GOMC</h3>
@@ -120,19 +101,6 @@
                         </div>
                     </aside>*@
             </div>
-            <div class="row">
-                <div class='well well-sm custom-well col-md-4'>
-                    <h3>Examples set: @Model.ExamplesTagName</h3>
-                    <ul>
-                        @foreach (var example in Model.Examples)
-                        {
-                            <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
-                        }
-                    </ul>
-                    <a>@Html.ActionLink("Click here for more examples", "MoreExamples", "Home")</a>
-                </div>
-            </div>          
+        </div>
 </main>
 <script src='https://www.google.com/recaptcha/api.js'></script> <!--Captcha script implementation-->
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>

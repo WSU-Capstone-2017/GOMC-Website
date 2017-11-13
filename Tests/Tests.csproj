@@ -79,7 +79,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Latex\TestInput\Manual.tex" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,33 +86,6 @@
       <Project>{c5284526-469d-425d-8ba1-467ac47d7ff9}</Project>
       <Name>GOMC</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Latex\TestInput\images\angle.png" />
-    <Content Include="Latex\TestInput\images\atom.png" />
-    <Content Include="Latex\TestInput\images\bonds.png" />
-    <Content Include="Latex\TestInput\images\clone.png" />
-    <Content Include="Latex\TestInput\images\cuda.png" />
-    <Content Include="Latex\TestInput\images\dihedrals.png" />
-    <Content Include="Latex\TestInput\images\github.png" />
-    <Content Include="Latex\TestInput\images\grace.png" />
-    <Content Include="Latex\TestInput\images\isobutane_result.png" />
-    <Content Include="Latex\TestInput\images\logo.png" />
-    <Content Include="Latex\TestInput\images\MARTINI.png" />
-    <Content Include="Latex\TestInput\images\nonbonded.png" />
-    <Content Include="Latex\TestInput\images\out1.png" />
-    <Content Include="Latex\TestInput\images\out2.png" />
-    <Content Include="Latex\TestInput\images\out3.png" />
-    <Content Include="Latex\TestInput\images\out4.png" />
-    <Content Include="Latex\TestInput\images\pdb.png" />
-    <Content Include="Latex\TestInput\images\psfgen.png" />
-    <Content Include="Latex\TestInput\images\remark.png" />
-    <Content Include="Latex\TestInput\images\SWITCH.png" />
-    <Content Include="Latex\TestInput\images\VDW_SHIFT.png" />
-    <Content Include="Latex\TestInput\images\vmd.png" />
-    <Content Include="Latex\TestInput\images\vsabout.png" />
-    <Content Include="Latex\TestInput\images\vshelp.png" />
-    <Content Include="Latex\TestInput\images\website.jpg" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
