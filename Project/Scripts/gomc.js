@@ -1065,6 +1065,7 @@ function doLatexUse(i) {
 		type: 'GET'
 	}).done(function(data) {
 		console.log(data);
+		window.alert('Publish is done!');
 	});
 	return false;
 }

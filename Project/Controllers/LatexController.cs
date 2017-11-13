@@ -1,6 +1,13 @@
 ﻿using System;
+using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -98,6 +105,146 @@ namespace Project.Controllers
 				db.SaveChanges();
 				return LatexConvertResult.Success;
 			}
+		}
+
+		public static int? GetSetLatexId()
+		{
+			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
+			var st = Path.Combine(dir, "latex_html.site_item");
+			if (!File.Exists(st))
+			{
+				return null;
+			}
+
+			var latexId = File.ReadAllText(st).AsInt();
+
+			if (!latexId.HasValue)
+			{
+				return null;
+			}
+
+			using (var db = new ProjectDbContext())
+			{
+				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
+												  "WHERE Id = @inputId",
+					new SqlParameter("@inputId", latexId.Value)).SingleOrDefault();
+
+				if (lm == null)
+				{
+					return null;
+				}
+
+				return latexId.Value;
+			}
+		}
+
+		public static PublishLatexResult PublishLatex(int latexId, bool forceIfThere = false)
+		{
+			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
+			var st = Path.Combine(dir, "latex_html.site_item");
+
+			var outManualHtmlPath = Path.Combine(
+				dir, "latex_output_Manual.html");
+
+			using (var db = new ProjectDbContext())
+			{
+				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
+												  "WHERE Id = @inputId",
+					new SqlParameter("@inputId", latexId)).SingleOrDefault();
+
+				if (lm == null)
+				{
+					return new PublishLatexResult { Kind = PublishLatexResultType.InputLatexIdInvalid };
+				}
+
+				if (lm.LatexFile == null)
+				{
+					return new PublishLatexResult { Kind = PublishLatexResultType.MissingLatexFile };
+				}
+
+				if (lm.HtmlZip != null && !forceIfThere)
+				{
+					var newDir = HttpContext.Current.Server.MapPath($"~/temp/auto_delete_{Guid.NewGuid()}");
+					Directory.CreateDirectory(newDir);
+					var zp = Path.Combine(newDir, "Manual.zip");
+					File.WriteAllBytes(zp, lm.HtmlZip);
+					PublishLatexResult ret = null;
+					using (var zip = ZipFile.OpenRead(zp))
+					{
+						var entry = zip.GetEntry("Manual.html");
+						if (entry != null)
+						{
+							using (var sr = new StreamReader(entry.Open()))
+							{
+								ret = new PublishLatexResult
+								{
+									Kind = PublishLatexResultType.Success,
+									HtmlContent = sr.ReadToEnd()
+								};
+								File.WriteAllText(outManualHtmlPath, ret.HtmlContent);
+							}
+						}
+					}
+					Directory.Delete(newDir, true);
+					if (ret != null)
+					{
+						File.WriteAllText(st, latexId.ToString());
+						return ret;
+					}
+				}
+
+				if (!forceIfThere && File.Exists(st) && File.Exists(outManualHtmlPath))
+				{
+					return new PublishLatexResult
+					{
+						Kind = PublishLatexResultType.Success,
+						HtmlContent = File.ReadAllText(outManualHtmlPath, Encoding.UTF8)
+					};
+				}
+
+				var conv = new LatexConvertor();
+
+				string htmlContent;
+
+				if (conv.Convert(lm.LatexFile, true, false) != ConversionResult.Success ||
+				   !conv.HtmlMap.TryGetValue("Manual.html", out htmlContent))
+				{
+					return new PublishLatexResult { Kind = PublishLatexResultType.ConvertFail };
+				}
+
+				if (!Directory.Exists(dir))
+				{
+					Directory.CreateDirectory(dir);
+				}
+
+				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
+
+				lm.HtmlZip = conv.HtmlZip;
+				db.LatexUploads.AddOrUpdate(lm);
+				db.SaveChanges();
+
+				File.WriteAllText(st, latexId.ToString());
+
+				return new PublishLatexResult
+				{
+					Kind = PublishLatexResultType.Success,
+					HtmlContent = htmlContent
+				};
+			}
+		}
+
+		public enum PublishLatexResultType
+		{
+			Success,
+			InputLatexIdInvalid,
+			SetLatexIdInvalid,
+			MissingLatexFile,
+			ConvertFail
+		}
+		public class PublishLatexResult
+		{
+			public PublishLatexResultType Kind { get; set; }
+			public string HtmlContent { get; set; }
 		}
 	}
 }
