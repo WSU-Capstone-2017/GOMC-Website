@@ -1,9 +1,23 @@
-// gomc.js is the main javascript file for the web application
+/*
+gomc.js is the main javascript file for the GOMC website
+    Some of the pages in this website have their own embedded javascript rendered in each section
+    At the top we have our global variables and objects, followed by event handlers, followed by callbacks
+    This javascript was made to be compatible with jQuery 3.2.1 with jQuery-Validate v1.16.0
+*/
 
 // Global Vars
 
 // Width of the progress bar in XML.cshtml
 var currentWidth = 0;
+
+// 
+var announcementIdMap = [];
+
+//
+var buildAnnouncementActionType = {
+    normal: 0,
+    edit: 1
+};
 
 // Object of the login Result from cookie
 var loginResultType = {
@@ -12,7 +26,7 @@ var loginResultType = {
     InvalidPassword: 2
 };
 
-// 
+// Object of the announcement Result
 var newAnnouncementResult = {
     Success: 0,
     SessionExpired: 1,
@@ -20,7 +34,7 @@ var newAnnouncementResult = {
     MissingContent: 3
 };
 
-//
+// Object of the announcement table length
 var announcementsNavState = {
     pageIndex: 0,
     pageLength: 5,
@@ -28,6 +42,7 @@ var announcementsNavState = {
     totalLength: 0
 };
 
+// Object of announcement state
 var announcementsEdit = {
 	isEdit: false,
 	id: 0,
@@ -43,6 +58,7 @@ var registrationString = {
 $(function () {
     console.log('READY');
     $('[data-toggle="tooltip"]').tooltip();  // Extend jQuery with bootstrap.js for tooltip functionality
+
     $.validator.addMethod("pattern", function (value, element, param) { // Extension for regex on names from additonal.js for jquery validate
         if (this.optional(element)) {
             return true;
@@ -51,11 +67,12 @@ $(function () {
             param = new RegExp("^(?:" + param + ")$");
         }
         return param.test(value);
-    }, "Invalid format.");
+    }, "Invalid pattern");
+
     // Extension methods for each panel in XML-Config
-    $.validator.addMethod("nowhitespace", function (val, item) { // Extension to remove whitespace from xml input forms, from additional.js for jQuery validate
-        return this.optional(element) || /^\S+$/i.test(val);
-    }, "Input cannot have whitespace");
+    //$.validator.addMethod("nowhitespace", function (val, item) { // Extension to remove whitespace from xml input forms, from additional.js for jQuery validate
+    //    return this.optional(element) || /^\S+$/i.test(val);
+    //}, "Input cannot have whitespace");
 });
 
 // Event Listeners
@@ -312,13 +329,14 @@ $('#adminAnnouncement').submit(function () {
 
 // Change the XML config page by displaying the previous card
 $('.prev-btn').click(function (e) {
-    // Some sort of panel validation? Mini-forms? Sub-categories?
     var currentWorkingPanel = $('.working-panel');
     currentWorkingPanel.removeClass('working-panel');
     currentWorkingPanel.prev().addClass('working-panel');
       window.scrollTo(0, 0);
     currentWorkingPanel.slideUp('slow', () => {
         currentWorkingPanel.prev().slideDown('slow');
+        currentWidth -= 25;
+        updateBar(currentWidth);
     });
     // e.preventDefault();
 });
@@ -335,6 +353,7 @@ $('.next-btn').click(function (e) {
     });
     // e.preventDefault();
 });
+
 $('#xmlForm1Save').click(function () {
     $('#xmlForm1').validate();
     if ($('#xmlForm1').valid()) {
@@ -343,10 +362,13 @@ $('#xmlForm1Save').click(function () {
         currentWorkingPanel.next().addClass('working-panel');
         window.scrollTo(0, 0);
         currentWorkingPanel.slideUp('slow', () => {
-        currentWorkingPanel.next().slideDown('slow');
+            currentWorkingPanel.next().slideDown('slow');
+            currentWidth += 25;
+            updateBar(currentWidth);
         });
     }
 });
+
 $('#xmlForm1').validate({
     rules: {
         gomc_config_input_Ensemble: "required",
@@ -358,7 +380,7 @@ $('#xmlForm1').validate({
         gomc_config_input_ParaType: "required",
         gomc_config_input_ParametersFileName: {
             required: true,
-            nowhitespace: true,
+            pattern: /^[a-zA-Z_]*$/
         },
         gomc_config_input_Coordinates_1: {
             required: true,
@@ -366,7 +388,8 @@ $('#xmlForm1').validate({
         },
         gomc_config_input_Coordinates_2: {
             required: true,
-            nowhitespace: true
+            //nowhitespace: true
+            pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Structures_1: {
             required: true,
@@ -374,7 +397,8 @@ $('#xmlForm1').validate({
         },
         gomc_config_input_Structures_2: {
             required: true,
-            nowhitespace: true
+            //nowhitespace: true
+            pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
         }
 
     },
@@ -382,13 +406,26 @@ $('#xmlForm1').validate({
         gomc_config_input_RandomSeed: {
             min: "Please input a positive number"
         },
+        gomc_config_input_ParametersFileName: {
+            required: "File-name required",
+            pattern: "No numbers or special characters please!"
+        },
         gomc_config_input_Coordinates_1: {
             min: "Please input a positive number"
         },
+        gomc_config_input_Coordinates_2: {
+            required: "File-name required",
+            //whitespace: "Please enter the characters without any white space"
+            pattern: "No numbers or special characters please!"
+        },
         gomc_config_input_Structures_1: {
             min: "Please input a positive number"
+        },
+        gomc_config_input_Structures_2: {
+            required: "File-name required",
+            //whitespace: "Please enter the characters without any white space"
+            pattern: "No numbers or special characters please!"
         }
-
     },
     errorElement: "span", // error tag name
     errorPlacement: function (error, element) { // rules for placement of error tag
@@ -421,45 +458,7 @@ $('#xmlForm1').validate({
         error.remove();
     },
     submitHandler: function (form, e) { // callback triggered on successful validation
-        //$('#Admin').toggle();
-        //$('.loader').remove();
-        //$('.login-container').append('<div class="loader center-block"></div>');
-        //$.post('/api/Login/ValidateLogin', $(form).serialize())
-        //    .done(function (data) {
-        //        if (data.ResultType === loginResultType.Success) {
-        //            $('#Admin').toggle();
-        //            $('.loader').toggle();
-        //            // cookie for admin login session and expires in 3 days
-        //            Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
-        //            window.location.href = "/home/admin";
-        //        } else {
-        //            var failMms = data.ResultType;
-        //            switch (failMms) {
-        //                case 1:
-        //                    window.confirm("Invalid email");
-        //                    break;
-        //                case 2:
-        //                    window.confirm("Invalid password");
-        //                    break;
-        //                default:
-        //                    window.confirm('An error has occured please try again');
-        //                    break;
-        //            }
-        //            location.reload();
-        //        }
-        //    })
-        //    .fail(function (data) {
-        //        $('#Admin').toggle();
-        //        $('.loader').toggle();
-        //        console.log("Error has been thrown in login processing:"
-        //            + "\nError Code: " + data.status
-        //            + "\nError Status: " + data.statusText
-        //            + "\nError Details: " + data.responseJSON.ExceptionMessage
-        //        ); // Adding detailed exception telemetry 
-        //        $('.loader').remove();
-        //        window.confirm("Error " + data.status + " " + data.statusText);
-        //    });
-        //e.preventDefault();
+      
     },
     invalidHandler: function (e, validator) {
         var errorCount = validator.numberOfInvalids();
@@ -470,62 +469,495 @@ $('#xmlForm1').validate({
     }
 });
 
+$('#xmlForm2Save').click(function () {
+    $('#xmlForm2').validate();
+    if ($('#xmlForm2').valid()) {
+        var currentWorkingPanel = $('.working-panel');
+        currentWorkingPanel.removeClass('working-panel');
+        currentWorkingPanel.next().addClass('working-panel');
+        window.scrollTo(0, 0);
+        currentWorkingPanel.slideUp('slow', () => {
+            currentWorkingPanel.next().slideDown('slow');
+            currentWidth += 25;
+            updateBar(currentWidth);
+        });
+    }
+});
+
 $('#xmlForm2').validate({
     rules: {
-      
+        gomc_config_input_Temperature: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_Rcut: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_RcutLow: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_Lrc: "required",
+        gomc_config_input_Exclude: "required",
+        gomc_config_input_Potential: "required",
+        gomc_config_input_Rswitch: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_ElectroStatic: "required",
+        gomc_config_input_Ewald: "required",
+        gomc_config_input_CachedFourier: "required",
+        gomc_config_input_Tolerance: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_Dielectric: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_OneFourScaling: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_RunSteps: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_EqSteps: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_AdjSteps: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_ChemPot_ResName: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_ChemPot_Value: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_Fugacity_ResName: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_Fugacity_Value: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_DisFreq: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_RotFreq: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_IntraSwapFreq: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_VolFreq: {
+            min: 0,
+            required: true
+        },
+        gomc_config_input_SwapFreq: {
+            min: 0,
+            required: true
+        }
     },
     messages: {
-        
+        gomc_config_input_Temperature: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Rcut: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_RcutLow: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Rswitch: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Tolerance: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Dielectric: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_OneFourScaling: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_RunSteps: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_EqSteps: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_AdjSteps: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_ChemPot_ResName: {
+            pattern: "No numbers or special characters please!"
+        },
+        gomc_config_input_ChemPot_Value: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_Fugacity_ResName: {
+            pattern: "No numbers or special characters please!"
+        },
+        gomc_config_input_Fugacity_Value: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_DisFreq: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_RotFreq: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_IntraSwapFreq: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_VolFreq: {
+            min: "Please input a positive number"
+        },
+        gomc_config_input_SwapFreq: {
+            min: "Please input a positive number"
+        }
     },
-    errorElement: "span",
-    errorPlacement: function (error, element) { 
+    errorElement: "span", // error tag name
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Needs custom work for those stupid radio buttons
+        // Add error glyph
+        // element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        if (element.is(':radio')) {
+            error.addClass('help-block');
+            error.css('color', '#a94442');
+            error.prependTo(element.parent().parent());
+        }
+        else {
+            element.parent().addClass('has-error');
+            error.addClass('help-block');
+            error.appendTo(element.parent());
+            // Remove success
+            // element.next().removeClass('glyphicon-ok');
+            element.parent().removeClass('has-success');
+        }
+    },
+    success: function (error, element) { // rules for placement of success tag
+        // Add checkmark glyph
+        // error.prev().addClass('glyphicon glyphicon-ok');
+        // add success look
+        error.parent().addClass('has-success');
+        // remove errors
+        // error.prev().removeClass('glyphicon-remove');
+        error.parent().removeClass('has-error');
+        error.remove();
+    },
+    submitHandler: function (form, e) { // callback triggered on successful validation
 
-    },
-    success: function (error, element) { 
-
-    },
-    submitHandler: function (form, e) { 
-       
     },
     invalidHandler: function (e, validator) {
-       
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
+    }
+});
+
+$('#xmlForm3Save').click(function () {
+    $('#xmlForm3').validate();
+    if ($('#xmlForm3').valid()) {
+        var currentWorkingPanel = $('.working-panel');
+        currentWorkingPanel.removeClass('working-panel');
+        currentWorkingPanel.next().addClass('working-panel');
+        window.scrollTo(0, 0);
+        currentWorkingPanel.slideUp('slow', () => {
+            currentWorkingPanel.next().slideDown('slow');
+            currentWidth += 25;
+            updateBar(currentWidth);
+        });
     }
 });
 
 $('#xmlForm3').validate({
     rules: {
-
+        gomc_config_input_UseConstantArea: "required",
+        gomc_config_input_FixVolBox0: "required",
+        gomc_config_input_BoxDim_1_XAxis: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_BoxDim_1_YAxis: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_BoxDim_1_ZAxis: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_CbmcFirst: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_CbmcNth: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_CbmcAng: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_CbmcDih: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_OutputName: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_CoordinatesFreqValue: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_RestartFreq_Enabled: "required",
+        gomc_config_input_RestartFreq_Value: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_ConsoleFreq_Enabled: "required",
+        gomc_config_input_ConsoleFreq_Value: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_BlockAverageFreq_Enabled: "required",
+        gomc_config_input_BlockAverageFreq_Value: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_HistogramFreq_Enabled: "required",
+        gomc_config_input_HistogramFreq_Value: {
+            required: true,
+            min: 0
+        }
     },
     messages: {
-
+        gomc_config_input_BoxDim_1_XAxis: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_BoxDim_1_YAxis: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_BoxDim_1_ZAxis: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_CbmcFirst: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_CbmcNth: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_CbmcAng: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_CbmcDih: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_OutputName: {
+            pattern: "No whitespace, numbers or special characters"
+        },
+        gomc_config_input_CoordinatesFreqValue: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_RestartFreq_Value: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_ConsoleFreq_Value: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_BlockAverageFreq_Value: {
+            min: "Please input a postive number"
+        },
+        gomc_config_input_HistogramFreq_Value: {
+            min: "Please input a postive number"
+        }
     },
-    errorElement: "span",
-    errorPlacement: function (error, element) {
-
+    errorElement: "span", // error tag name
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Needs custom work for those stupid radio buttons
+        // Add error glyph
+        // element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        if (element.is(':radio')) {
+            error.addClass('help-block');
+            error.css('color', '#a94442');
+            error.prependTo(element.parent().parent());
+        }
+        else {
+            element.parent().addClass('has-error');
+            error.addClass('help-block');
+            error.appendTo(element.parent());
+            // Remove success
+            // element.next().removeClass('glyphicon-ok');
+            element.parent().removeClass('has-success');
+        }
     },
-    success: function (error, element) {
-
+    success: function (error, element) { // rules for placement of success tag
+        // Add checkmark glyph
+        // error.prev().addClass('glyphicon glyphicon-ok');
+        // add success look
+        error.parent().addClass('has-success');
+        // remove errors
+        // error.prev().removeClass('glyphicon-remove');
+        error.parent().removeClass('has-error');
+        error.remove();
     },
-    submitHandler: function (form, e) {
+    submitHandler: function (form, e) { // callback triggered on successful validation
 
     },
     invalidHandler: function (e, validator) {
-
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
     }
 });
 
 // Submit the XML config form with all data
-$('#xmlConfig').submit(function () {
-   $.post('/api/configinput/FormPost', frm.serialize())
-       .done(function(data) {
-           var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
-           window.location.replace(newUrl); // Purpose of this?
-           // Perhaps add a thank you message?
-       })
-       .fail(function(jqXhR) {
-            var errMessage = JSON.parse(jqXhR.responseText)["Message"];
+//$('#xmlConfig').click(function () {
+//    $('#xmlConfig').validate();
+//    if ($('#xmlConfig').valid()) {
+//        var currentWorkingPanel = $('.working-panel');
+//        window.scrollTo(0, 0);
+//        currentWorkingPanel.slideUp('slow', () => {
+//            currentWorkingPanel.next().slideDown('slow');
+//        });
+//    }
+//});
+
+$('#xmlConfig').validate({
+    rules: {
+        gomc_config_input_DistName: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_HistName: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_RunNumber: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_RunLetter: {
+            required: true,
+            pattern: /^[a-zA-Z_]*$/
+        },
+        gomc_config_input_SampleFreq: {
+            required: true,
+            min: 0
+        },
+        gomc_config_input_OutEnergy_1: "required",
+        gomc_config_input_OutEnergy_2: "required",
+        gomc_config_input_OutPressure_1: "required",
+        gomc_config_input_OutPressure_2: "required",
+        gomc_config_input_OutMolNumber_1: "required",
+        gomc_config_input_OutMolNumber_2: "required",
+        gomc_config_input_OutDensity_1: "required",
+        gomc_config_input_OutDensity_2: "required",
+        gomc_config_input_OutVolume_1: "required",
+        gomc_config_input_OutVolume_2: "required",
+        gomc_config_input_OutSurfaceTension_1: "required",
+        gomc_config_input_OutSurfaceTension_2: "required"
+    },
+    messages: {
+        gomc_config_input_DistName: {
+            pattern: "No whitespace, numbers or special characters"
+        },
+        gomc_config_input_HistName: {
+            pattern: "No whitespace, numbers or special characters"
+        },
+        gomc_config_input_RunNumber: {
+            min: "Input a positive number"
+        },
+        gomc_config_input_RunLetter: {
+            pattern: "No whitespace, numbers or special characters"
+        },
+        gomc_config_input_SampleFreq: {
+            min: "Input a positive number"
+        },
+    },
+    errorElement: "span", // error tag name
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        // Needs custom work for those stupid radio buttons
+        // Add error glyph
+        // element.next().addClass('glyphicon glyphicon-remove');
+        // Add error look
+        if (element.is(':radio')) {
+            error.addClass('help-block');
+            error.css('color', '#a94442');
+            error.prependTo(element.parent().parent());
+        }
+        else {
+            element.parent().addClass('has-error');
+            error.addClass('help-block');
+            error.appendTo(element.parent());
+            // Remove success
+            // element.next().removeClass('glyphicon-ok');
+            element.parent().removeClass('has-success');
+        }
+    },
+    success: function (error, element) { // rules for placement of success tag
+        // Add checkmark glyph
+        // error.prev().addClass('glyphicon glyphicon-ok');
+        // add success look
+        error.parent().addClass('has-success');
+        // remove errors
+        // error.prev().removeClass('glyphicon-remove');
+        error.parent().removeClass('has-error');
+        error.remove();
+    },
+    submitHandler: function (form, e) {
+        var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + $('#xmlConfig').serialize();
+        $.post('/api/configinput/FormPost', xmlData) 
+            .done(function (data) {
+                var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
+                window.location.replace(newUrl); // Purpose of this?
+                // Perhaps add a thank you message?
+                var currentWorkingPanel = $('.working-panel');
+                currentWorkingPanel.removeClass('working-panel');
+                currentWorkingPanel.next().addClass('working-panel');
+                window.scrollTo(0, 0);
+                currentWorkingPanel.slideUp('slow', () => {
+                    currentWorkingPanel.next().slideDown('slow');
+                    currentWidth += 25;
+                    updateBar(currentWidth);
+                });
+            })
+            .fail(function (err) {
+                window.confirm(err.statusText + " Please try again");
+                var messageExplained = JSON.parse(err.responseJSON.Message);
+                console.log(
+                    "Status: " + err.status
+                    + "\n Status Text: " + err.statusText
+                    + "\n Full Response: " + messageExplained.general[0]
+                    + "\n Check the network tab in browser debugger for more details"
+                );
+            });
+    },
+    invalidHandler: function (e, validator) {
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
             window.confirm(errMessage);
-       });
+        }
+    }
 });
 
 // Callback methods: Support Event Listeners and provide further UI behaviors
@@ -573,7 +1005,6 @@ function refreshExamples() {
 	console.log("Refresh Examples Clicked!");
 }
 
-var announcementIdMap = [];
 function doFetchAnnouncements() {
     announcementsNavState.totalLength = 0;
     $.ajax({
@@ -613,11 +1044,6 @@ function doFetchAnnouncements() {
     });
 }
 
-var buildAnnouncementActionType = {
-	normal: 0,
-	edit: 1
-};
-
 function buildAnnouncementActions(a) {
 	function atag(val, i, fn, hf) {
 		hf = (typeof hf !== 'undefined') ? hf : '/api/admin';
@@ -639,6 +1065,7 @@ function buildAnnouncementActions(a) {
 	}
 
 }
+
 function doCancelAnnouncement(a) {
 	$("#fetchAnnouncements_Message_" + a).text(announcementsEdit.text);
 	announcementsEdit.isEdit = false;
@@ -647,6 +1074,7 @@ function doCancelAnnouncement(a) {
 	buildAnnouncementActions(a);
 	return false;
 }
+
 function doSaveAnnouncement(a) {
 	var newContent = $("#EditAnnouncementText").text();
 	$.ajax({
@@ -670,6 +1098,7 @@ function doSaveAnnouncement(a) {
 		});
 	return false;
 }
+
 function doEditAnnouncement(a) {
 	if (announcementsEdit.isEdit === false) {
 		announcementsEdit.isEdit = true;
@@ -684,6 +1113,7 @@ function doEditAnnouncement(a) {
 	}
 	return false;
 }
+
 function doFetchGomcAnnouncements() {
 	$.ajax({
 		url: '/api/HomeApi/FetchAnnouncements',
@@ -702,6 +1132,7 @@ function doFetchGomcAnnouncements() {
 		}
 	});
 }
+
 function updateNavAnnouncements(totalLength) {
     $("#fetchAnnouncements_Next").addClass("btn disabled");
     $("#fetchAnnouncements_Back").addClass("btn disabled");
@@ -773,4 +1204,10 @@ function doRemoveAnnouncement(a) {
             }
         });
     return false;
+}
+
+// Callback to update the progress bar in the xml config form
+function updateBar(currentWidth) {
+    var newWidth = currentWidth + '%';
+    $('#userProgress').css('width', newWidth);
 }
