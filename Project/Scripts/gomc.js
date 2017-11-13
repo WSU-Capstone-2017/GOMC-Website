@@ -384,8 +384,8 @@ $('#xmlForm1').validate({
             pattern: /^[a-zA-Z_]*$/
         },
         gomc_config_input_Coordinates_1: {
-            required: true,
-            min: 1
+			required: true,
+			pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Coordinates_2: {
             required: true,
@@ -393,8 +393,8 @@ $('#xmlForm1').validate({
             pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Structures_1: {
-            required: true,
-            min: 1
+			required: true,
+			pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Structures_2: {
             required: true,
@@ -411,16 +411,20 @@ $('#xmlForm1').validate({
             required: "File-name required",
             pattern: "No numbers or special characters please!"
         },
-        gomc_config_input_Coordinates_1: {
-            min: "Please input a positive number"
+		gomc_config_input_Coordinates_1: {
+			required: "File-name required",
+			//whitespace: "Please enter the characters without any white space"
+			pattern: "No numbers or special characters please!"
         },
         gomc_config_input_Coordinates_2: {
             required: "File-name required",
             //whitespace: "Please enter the characters without any white space"
             pattern: "No numbers or special characters please!"
         },
-        gomc_config_input_Structures_1: {
-            min: "Please input a positive number"
+		gomc_config_input_Structures_1: {
+			required: "File-name required",
+			//whitespace: "Please enter the characters without any white space"
+			pattern: "No numbers or special characters please!"
         },
         gomc_config_input_Structures_2: {
             required: "File-name required",
@@ -924,8 +928,16 @@ $('#xmlConfig').validate({
         error.parent().removeClass('has-error');
         error.remove();
     },
-    submitHandler: function (form, e) {
-        var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + $('#xmlConfig').serialize();
+	submitHandler: function (form, e) {
+		console.log($('#xmlForm1').serialize());
+		console.log($('#xmlForm2').serialize());
+		console.log($('#xmlForm3').serialize());
+		console.log($('#xmlFonfig').serialize());
+
+		var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
+
+		console.log(xmlData);
+
         $.post('/api/configinput/FormPost', xmlData) 
             .done(function (data) {
                 var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
