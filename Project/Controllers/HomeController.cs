@@ -35,7 +35,7 @@ namespace Project.Controllers
 				name = name.Replace("_64", "");
 				string iurl = i.browser_download_url;
 
-				items.Add(new DownloadsModel.DownloadItem(name, iurl));
+				items.Add(new DownloadsModel.DownloadItem(name, iurl));              
 			}
 
 			var releaseItems = new List<DownloadsModel.ExampleList>();
@@ -48,23 +48,82 @@ namespace Project.Controllers
 			}
 			return new DownloadsModel(tag, items, releaseName, releaseItems);
 		}
-		public RegistrationModel RegistrationData()
-		{
-			using (var serverConn = new ProjectDbContext())
-			{
-				var ResultRoster = new List<RegistrationModel>();
-				var Roster = (
-					from row in serverConn.Registrations
-					select new { row.Name, row.Email }
-					).ToList();
-				foreach (var val in Roster)
-				{
-					ResultRoster.Add(new RegistrationModel(val.Name, val.Email));
-				}
-				ViewBag.Rez = ResultRoster;
-				return new RegistrationModel();
-			}
-		}
+
+        public DownloadModelV2 NewDownloadsModel()
+        {
+            var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
+            var rspExamples = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
+
+            dynamic jsn0 = jsn[0];
+            dynamic jsn0Examples = jsn[0];
+            string tag = jsn0.tag_name;
+            string tagExamples = jsn0Examples.tag_name;
+            dynamic assets = jsn0.assets;
+
+            var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(rspExamples);
+            var exampleItems = new List<DownloadsModel.DownloadItem>();
+
+            foreach (dynamic set in releasesJSON)
+            {
+                string rName = set.name;
+                string rLink = set.zipball_url;
+
+                exampleItems.Add(new DownloadsModel.DownloadItem(rName, rLink));
+            }
+
+            var model = new DownloadModelV2()
+            {
+                ExamplesTagName = tagExamples,
+                TagName = tag,
+                Examples = exampleItems.ToArray(),
+                Linux = new DownloadModelV2.DownloadSection(),
+                Windows = new DownloadModelV2.DownloadSection(),
+            };
+
+            var items = new List<DownloadsModel.DownloadItem>();
+            foreach (dynamic i in assets)
+            {
+                string name = i.name;
+                name = name.Replace("_64", "");
+                string iurl = i.browser_download_url;               
+                items.Add(new DownloadsModel.DownloadItem(name, iurl));
+            }
+            model.Linux.GPU = items.Where(j =>
+            j.Name.Split('_')[3].Contains("Linux") && 
+            j.Name.Split('_')[1].Contains("GPU")).ToArray();
+
+            model.Linux.CPU = items.Where(j =>
+            j.Name.Split('_')[3].Contains("Linux") &&
+            j.Name.Split('_')[1].Contains("CPU")).ToArray();
+
+            model.Windows.CPU = items.Where(j =>
+            j.Name.Split('_')[3].Contains("Windows") &&
+            j.Name.Split('_')[1].Contains("CPU")).ToArray();
+
+            model.Windows.GPU = items.Where(j =>
+            j.Name.Split('_')[3].Contains("Windows") &&
+            j.Name.Split('_')[1].Contains("GPU")).ToArray();
+
+            return model;
+        }
+
+        public class DownloadModelV2
+        {
+            public string TagName { get; set; }
+            public string ExamplesTagName { get; set; }
+            public DownloadsModel.DownloadItem[] Examples { get; set; }
+            public DownloadSection Linux { get; set; }
+            public DownloadSection Windows { get; set; }
+
+            public class DownloadSection
+            {
+                public DownloadsModel.DownloadItem[] CPU { get; set; }
+                public DownloadsModel.DownloadItem[] GPU { get; set; }
+            }
+        }
+        	
 		public ActionResult Gomc()
 		{
 			return View();
@@ -75,7 +134,7 @@ namespace Project.Controllers
 		}
 		public ActionResult Downloads()
 		{
-			return View(GetDownloadModel());
+			return View(NewDownloadsModel());
 		}
 		public ActionResult Documentation()
 		{
@@ -130,7 +189,20 @@ namespace Project.Controllers
 
 			if (r == ValidateSessionResultType.SessionValid)
 			{
-				return View(RegistrationData());
+               using (var serverConn = new ProjectDbContext())
+               {
+                   var ResultRoster = new List<RegistrationModel>();
+                   var Roster = (
+                       from row in serverConn.Registrations
+                       select new { row.Name, row.Email }
+                       ).ToList();
+                   foreach (var val in Roster)
+                   {
+                       ResultRoster.Add(new RegistrationModel(val.Name, val.Email));
+                   }
+                   ViewBag.Rez = ResultRoster;
+               }
+                return View();
 			}
 
 			return View("Login");

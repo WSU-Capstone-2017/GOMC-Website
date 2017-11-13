@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Models
 {
-	[Table("Announcements")]
+	[Table("Announcments")]
 	public class AnnouncementModel
 	{
 		public int Id { get; set; }

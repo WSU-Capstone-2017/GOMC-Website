@@ -42,12 +42,20 @@
     </div>
 </header>
 <main>
-    <hr class='grand-line' />
-    <div class='container-fluid'>
         <section>
             <div class="row">
-                <h3>Announcements</h3>
-                <ul id="announcementsList"></ul> <!--Razor or JS?-->
+                <div class="panel panel-primary announcement-panel">
+                    <div class="panel-heading announcement-panel announcement-header"><h4>Announcements</h4></div>
+                    <div class="panel-body">
+                        <ul>
+                            <li id="GomcAnnouncement_0"></li>
+                            <li id="GomcAnnouncement_1"></li>
+                            <li id="GomcAnnouncement_2"></li>
+                            <li id="GomcAnnouncement_3"></li>
+                            <li id="GomcAnnouncement_4"></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <hr class='grand-line' />
             <div class='row'>
@@ -57,7 +65,7 @@
                             <h2>Simulate</h2>
                         </div>
                         <div class="panel-body">
-                            <img src='~/Content/img/simulate.png' class='center-block img-rounded' alt='Simulate Image' width="250" />
+                            <img src='~/Content/img/simulate.png' class='center-block img-rounded' alt='Simulate Image' width="230" />
                             <p>The software provides the capability to simulate live ensembles of molecules and return meaningful data that be extracted into further tests</p>
                             <p>This data can help fine tune and accelerate the design, implementation and analysis of a wide range of chemical structures</p>
                     </div>
@@ -69,7 +77,7 @@
                             <h2>Absorb</h2>
                         </div>
                         <div class="panel-body">
-                            <img src='~/Content/img/absorption.jpg' class='center-block img-rounded' alt='Absorbption Image' width="250"  />
+                            <img src='~/Content/img/absorption.jpg' class='center-block img-rounded' alt='Absorbption Image' width="300"  />
                             <p>Our software does produce the percentage of absorption in solutions</p>
                             <p>Absorption rates are a very valuable metric for handling the data corresponding to different reactions, having this would be limit the physical work needed for full implementation of a mixture or compound</p>
                         </div>
@@ -81,7 +89,7 @@
                             <h2>XML Input</h2>
                         </div>
                         <div class="panel-body">
-                            <img src='~/Content/img/xml.jpg' class='center-block img-rounded' alt='XML Image' width="250" />
+                            <img src='~/Content/img/xml.jpg' class='center-block img-rounded' alt='XML Image' width="115" />
                             <p>We also allow for various forms of input files such as .psf .pdb and topology files</p>
                             <p>In addition to these, we now have support for XML input</p>
                         </div>
@@ -89,7 +97,6 @@
                 </div>
             </div>
         </section>
-    </div>
 </main>
 @section scripts{
 <script>
@@ -103,23 +110,23 @@
                     'background-image': 'none'
                 });
 
-
+                doFetchGomcAnnouncements();
                 $("#gomcHome").on('slid.bs.carousel', function () {
                     var focusedCard = $(this).find('div .active');
                     if (focusedCard.hasClass('cardA')) {
                         $('.jumbotron').css('background-color', '#91D3EF');
                         $('.jumbotron h1').css('background-color', '#91D3EF');
-                        $('.carousel-control').css('background-color', '#91D3EF');
+                        $('.carousel-control').css('background-color', '#91D3EF');                       
 
                     } else if (focusedCard.hasClass('cardB')) {
-                        $('.jumbotron').css('background-color', '#9ACD32');
-                        $('.jumbotron h1').css('background-color', '#9ACD32');
-                        $('.carousel-control').css('background-color', '#9ACD32');
+                        $('.jumbotron').css('background-color', '#91D3EF');
+                        $('.jumbotron h1').css('background-color', '#91D3EF');
+                        $('.carousel-control').css('background-color', '#91D3EF');
 
                     } else if (focusedCard.hasClass('cardC')) {
-                        $('.jumbotron').css('background-color', '#CFE7A7');
-                        $('.jumbotron h1').css('background-color', '#CFE7A7');
-                        $('.carousel-control').css('background-color', '#CFE7A7');
+                        $('.jumbotron').css('background-color', '#91D3EF');
+                        $('.jumbotron h1').css('background-color', '#91D3EF');
+                        $('.carousel-control').css('background-color', '#91D3EF');
                     }
                 });
             }

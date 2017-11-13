@@ -189,10 +189,12 @@ namespace Project.ConfigInput
 					currentFieldType = Utils.EnumParse<InputModelFieldType>(prop.Name);
 
 					prop.SetValue(model, prop.GetValue(model) ?? new FreqInput());
-
+                    // The second property of the freqInput is missing from here, it only gets the boolean value
 					var prop2 = typeof(FreqInput).GetProperty(sp[1]);
-
-					SetProp(prop.GetValue(model), prop2, i.Value);
+                    // Maybe we need something like the below for a fix? I feel like this is something that Ahmed would know most on, so I'd like to talk to you before I start trying my own thing !Caleb
+                    // var prop3 = typeof(FreqInput).GetProperty(sp[1]); 
+                    // SetProp(prop.GetValue(model), prop2, i.Value);
+                    SetProp(prop.GetValue(model), prop2, i.Value);
 				}
 				else if (sp.Length == 2 && sp[0].StartsWith("Out") && sp[1].IsOneOf("1", "2") &&
 					(prop = propMap.GetValue(sp[0])) != null && prop.PropertyType == typeof(OutBoolean))
