@@ -108,7 +108,7 @@ $('#registrationForm').validate({ // jQuery Validate
         userName: {
             minlength: 2,
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         userEmail: {
             required: true,
@@ -381,25 +381,25 @@ $('#xmlForm1').validate({
         gomc_config_input_ParaType: "required",
         gomc_config_input_ParametersFileName: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+			pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_Coordinates_1: {
 			required: true,
-			pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
+			pattern: /^[a-zA-Z0-9_.\/]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Coordinates_2: {
             required: true,
             //nowhitespace: true
-            pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
+			pattern: /^[a-zA-Z0-9_.\/]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Structures_1: {
 			required: true,
-			pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
+			pattern: /^[a-zA-Z0-9_.\/]*$/ // pattern to cover the issue of no whitespace 
         },
         gomc_config_input_Structures_2: {
             required: true,
             //nowhitespace: true
-            pattern: /^[a-zA-Z_]*$/ // pattern to cover the issue of no whitespace 
+            pattern: /^[a-zA-Z0-9_.\/]*$/ // pattern to cover the issue of no whitespace 
         }
 
     },
@@ -539,19 +539,19 @@ $('#xmlForm2').validate({
         },
         gomc_config_input_ChemPot_ResName: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_ChemPot_Value: {
-            min: 0,
+            min: -99999,
             required: true
         },
         gomc_config_input_Fugacity_ResName: {
-            required: true,
-            pattern: /^[a-zA-Z_]*$/
+            required: false,
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
-        gomc_config_input_Fugacity_Value: {
-            min: 0,
-            required: true
+		gomc_config_input_Fugacity_Value: {
+			min: -99999,
+            required: false
         },
         gomc_config_input_DisFreq: {
             min: 0,
@@ -724,7 +724,7 @@ $('#xmlForm3').validate({
         },
         gomc_config_input_OutputName: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_CoordinatesFreqValue: {
             required: true,
@@ -850,11 +850,11 @@ $('#xmlConfig').validate({
     rules: {
         gomc_config_input_DistName: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_HistName: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_RunNumber: {
             required: true,
@@ -862,7 +862,7 @@ $('#xmlConfig').validate({
         },
         gomc_config_input_RunLetter: {
             required: true,
-            pattern: /^[a-zA-Z_]*$/
+            pattern: /^[a-zA-Z0-9_.\/]*$/
         },
         gomc_config_input_SampleFreq: {
             required: true,
