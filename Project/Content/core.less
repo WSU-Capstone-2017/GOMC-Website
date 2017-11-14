@@ -457,12 +457,30 @@ th {
 }
 
 /*Latex.cshtml specific*/
+.tableofcontents {
+	height: 100%;
+	float: left;
+	width: 15.1em;
+	background-color: #d1d2d4;
+	overflow: auto;
+	position: fixed;
+	top: 0;
+}
+
+
 #site-nav {
 	height: 100%;
 	float: left;
 	width: 15.1em;
 	background-color: #d1d2d4;
 	overflow: auto;
+}
+
+.tableofcontents sectionToc {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: .96em;
 }
 
 #site-nav ul, #site-nav li {
@@ -472,6 +490,12 @@ th {
 	font-size: .96em;
 }
 
+.tableofcontents sectionToc {
+	padding: 0.3em;
+	line-height: 105%;
+	
+}
+
 #site-nav li {
 	padding: 0.3em;
 	line-height: 105%;
@@ -479,6 +503,12 @@ th {
 
 #site-nav ul ul {
 	margin-top: 0.3em;
+}
+
+.tableofcontents sectionToc a {
+	padding-left: 1.8em;
+	padding-right: 0.6em;
+	display: block;
 }
 
 #site-nav li a {
@@ -494,6 +524,7 @@ th {
 #site-nav li li li a {
 	padding-left: 3.8em;
 }
+
 
 #site-content {
 	position: fixed; top: 4.9em; bottom: 0; left: 0; right: 0;
