@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC";
 }
@@ -46,16 +47,14 @@
 <main>
         <section>
             <div class="row">
-                <!--Razor implementation needed here-->
                 <div class="panel panel-primary announcement-panel">
                     <div class="panel-heading announcement-panel announcement-header"><h4>Announcements</h4></div>
                     <div class="panel-body">
                         <ul>
-                            <li id="GomcAnnouncement_0"></li>
-                            <li id="GomcAnnouncement_1"></li>
-                            <li id="GomcAnnouncement_2"></li>
-                            <li id="GomcAnnouncement_3"></li>
-                            <li id="GomcAnnouncement_4"></li>
+                            @foreach (var announcement in ViewBag.AnnouncementList )
+                            {
+                                <li class="model-link">@Html.Raw(@announcement.Content)</li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -105,7 +104,7 @@
 <script>
         document.onreadystatechange = function () {
             if (document.readyState === 'interactive') {
-                console.log('jumbotron, your\'re up!');
+               // console.log('jumbotron, your\'re up!');
                 $('.jumbotron').css('background-color', '#91D3EF');
                 $('.jumbotron h1').css('background-color', '#91D3EF');
                 $('.carousel-control').css({

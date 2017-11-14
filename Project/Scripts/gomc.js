@@ -1,8 +1,8 @@
 /*
 gomc.js is the main javascript file for the GOMC website
-    Some of the pages in this website have their own embedded javascript rendered in each section
-    At the top we have our global variables and objects, followed by event handlers, followed by callbacks
-    This javascript was made to be compatible with jQuery 3.2.1 with jQuery-Validate v1.16.0
+        Some of the pages in this website have their own embedded javascript rendered in each section
+        At the top we have our global variables and objects, followed by event handlers, followed by callbacks
+        This javascript was made to be compatible with jQuery 3.2.1 with jQuery-Validate v1.16.0
 */
 
 // Global Vars
