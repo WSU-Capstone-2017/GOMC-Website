@@ -55,6 +55,9 @@ var registrationString = {
 	fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
 };
 
+// Latex file object
+var latexFileData = {};
+
 // Global Object events & telemetry
 $(function () {
     console.log('READY');
@@ -891,6 +894,13 @@ $('#xmlForm3').validate({
 //    }
 //});
 
+// Listener for new tex file upload
+$("#adminLatexUpload_File").change(function (e) {
+    //console.log('upload change');
+    latexFileData = this.files[0];
+    // checkLatexUploadFormButtonDisabled();
+});
+
 $('#xmlConfig').validate({
     rules: {
         gomc_config_input_DistName: {
@@ -1063,7 +1073,7 @@ $('#adminLatexUpload').validate({
         console.log(adminLatexUpload);
         // $("#adminLatexUpload_Submit").prop('disabled', true);
         var adminLatexUploadForm = new FormData();
-        adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
+        adminLatexUploadForm.append('file', latexFileData);
         adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/Latex/Convert", true);
@@ -1075,20 +1085,25 @@ $('#adminLatexUpload').validate({
                 if (xhr.status >= 200 && xhr.status < 400) {
                     $('#adminLatexUpload').toggle();
                     $('.loader').remove();
-                    console.log("Processed");
+                    // console.log("Processed");
                 }
             }, false);
         xhr.addEventListener("error",
-            function (evt) {
-                alert("Boom, roasted");
-                console.log('error');
-                console.log(evt);
-                $("#adminLatexUpload_Submit").prop('disabled', false);
+            function (err) {
                 $('#adminLatexUpload').toggle();
                 $('.loader').remove();
+                window.confirm(err.statusText + " Please try again");
+                var messageExplained = JSON.parse(err.responseJSON.Message);
+                console.log(
+                    "Status: " + err.status
+                    + "\n Status Text: " + err.statusText
+                    + "\n Full Response: " + messageExplained.general[0]
+                    + "\n Check the network tab in browser debugger for more details"
+                );
             },
             false);
         xhr.send(adminLatexUploadForm);
+        // Below JQuery method is busted AF, I gotta figure out a better way of doing it
         //var adminLatexUploadForm = new FormData();
         //adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
         //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
