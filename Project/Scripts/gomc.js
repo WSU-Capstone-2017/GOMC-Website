@@ -974,14 +974,12 @@ $('#xmlConfig').validate({
         error.remove();
     },
 	submitHandler: function (form, e) {
-		console.log($('#xmlForm1').serialize());
-		console.log($('#xmlForm2').serialize());
-		console.log($('#xmlForm3').serialize());
-		console.log($('#xmlFonfig').serialize());
-
+		//console.log($('#xmlForm1').serialize());
+		//console.log($('#xmlForm2').serialize());
+		//console.log($('#xmlForm3').serialize());
+		//console.log($('#xmlFonfig').serialize()); // Fonfig? Really bro?
 		var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
-
-		console.log(xmlData);
+		//console.log(xmlData);
 
         $.post('/api/configinput/FormPost', xmlData) 
             .done(function (data) {
@@ -1036,7 +1034,7 @@ $('#adminLatexUpload').validate({
     messages: {
         file: {
             extension: "Unsupported file type, you must upload a latex file",
-            // accept: "Improper file format, please check the file and try again"
+            // accept: "Improper file format, please check the file and try again" // Same as issue above
         },
         version: {
             pattern: "Invalid naming convention, no whitespaces or special characters"
@@ -1058,17 +1056,15 @@ $('#adminLatexUpload').validate({
     },
 
     submitHandler: function (form, e) {
-        document.write('Good');
+        // document.write('Good');
         e.preventDefault();
-        //$('#adminLatexUpload').toggle();
-        //$('.latex-container').append('<div class="loader center-block"></div>');
-        //// $("#adminLatexUpload_Submit").prop('disabled', true);
+        $('#adminLatexUpload').toggle();
+        $('.latex-container').append('<div class="loader center-block"></div>');
+        console.log(adminLatexUpload);
+        // $("#adminLatexUpload_Submit").prop('disabled', true);
         //var adminLatexUploadForm = new FormData();
         //adminLatexUploadForm.append('file', adminLatexUploadFile);
         //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
-
-        //console.log(adminLatexUploadForm);
-
         //var xhr = new XMLHttpRequest();
         //xhr.open("POST", "/api/Latex/Convert", true);
         //xhr.addEventListener("load",
@@ -1093,6 +1089,25 @@ $('#adminLatexUpload').validate({
         //    },
         //    false);
         //xhr.send(adminLatexUploadForm);
+
+        $.post('/api/Latex/Convert', $(form))
+            .done(function (data) {
+                $('#adminLatexUpload').toggle();
+                $('.loader').remove();
+                // Prompt a link to do something?  On success-bar?
+            })
+            .fail(function (err) {
+                $('#adminLatexUpload').toggle();
+                $('.loader').remove();
+                window.confirm(err.statusText + " Please try again");
+                var messageExplained = JSON.parse(err.responseJSON.Message);
+                console.log(
+                    "Status: " + err.status
+                    + "\n Status Text: " + err.statusText
+                    + "\n Full Response: " + messageExplained.general[0]
+                    + "\n Check the network tab in browser debugger for more details"
+                );
+            });
     },
 
     invalidHandler: function (e, validator) {
