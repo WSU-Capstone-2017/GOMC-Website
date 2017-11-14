@@ -70,6 +70,51 @@ $(function () {
         return param.test(value);
     }, "Invalid pattern");
 
+    $.validator.addMethod("accept", function (value, element, param) {
+
+        // Split mime on commas in case we have multiple types we can accept
+        var typeParam = typeof param === "string" ? param.replace(/\s/g, "") : "image/*",
+            optionalValue = this.optional(element),
+            i, file, regex;
+
+        // Element is optional
+        if (optionalValue) {
+            return optionalValue;
+        }
+
+        if ($(element).attr("type") === "file") {
+            // Escape string to be used in the regex
+            // see: https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+            // Escape also "/*" as "/.*" as a wildcard
+            typeParam = typeParam
+                .replace(/[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, "\\$&")
+                .replace(/,/g, "|")
+                .replace(/\/\*/g, "/.*");
+
+            // Check if the element has a FileList before checking each file
+            if (element.files && element.files.length) {
+                regex = new RegExp(".?(" + typeParam + ")$", "i");
+                for (i = 0; i < element.files.length; i++) {
+                    file = element.files[i];
+
+                    // Grab the mimetype from the loaded file, verify it matches
+                    if (!file.type.match(regex)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        // Either return true because we've validated each file, or because the
+        // browser does not support element.files and the FileList feature
+        return true;
+    }, $.validator.format("Please enter a value with a valid mimetype."));
+
+    // Older "accept" file extension method. Old docs: http://docs.jquery.com/Plugins/Validation/Methods/accept
+    $.validator.addMethod("extension", function (value, element, param) {
+        param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpe?g|gif";
+        return this.optional(element) || value.match(new RegExp("\\.(" + param + ")$", "i"));
+    }, $.validator.format("Please enter a value with a valid extension."));
+
     // Extension methods for each panel in XML-Config
     //$.validator.addMethod("nowhitespace", function (val, item) { // Extension to remove whitespace from xml input forms, from additional.js for jQuery validate
     //    return this.optional(element) || /^\S+$/i.test(val);
@@ -964,6 +1009,92 @@ $('#xmlConfig').validate({
                 );
             });
     },
+    invalidHandler: function (e, validator) {
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
+    }
+});
+
+// Validation for Latex-upload
+$('#adminLatexUpload').validate({
+    debug: true,
+    rules: {
+        file: {
+            required: true,
+            extension: "tex",
+           // accept: "application/x-latex" // Fails every-time for unknown reason? Should fix later but for now it does the basic job of stopping non-tex files
+        },
+        version: {
+            required: true,
+            pattern: /^[a-zA-Z0-9_.\/]*$/
+        }
+    },
+
+    messages: {
+        file: {
+            extension: "Unsupported file type, you must upload a latex file",
+            // accept: "Improper file format, please check the file and try again"
+        },
+        version: {
+            pattern: "Invalid naming convention, no whitespaces or special characters"
+        }
+    },
+
+    errorElement: "span", // error tag name
+
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        element.parent().parent().addClass('has-error');
+        error.addClass('help-block');
+        error.appendTo(element.parent());
+    },
+
+    success: function (error, element) { // rules for placement of success tag
+        error.removeClass('help-block');
+        error.parents('.form-group').removeClass('has-error');
+        error.remove();
+    },
+
+    submitHandler: function (form, e) {
+        document.write('Good');
+        e.preventDefault();
+        //$('#adminLatexUpload').toggle();
+        //$('.latex-container').append('<div class="loader center-block"></div>');
+        //// $("#adminLatexUpload_Submit").prop('disabled', true);
+        //var adminLatexUploadForm = new FormData();
+        //adminLatexUploadForm.append('file', adminLatexUploadFile);
+        //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
+
+        //console.log(adminLatexUploadForm);
+
+        //var xhr = new XMLHttpRequest();
+        //xhr.open("POST", "/api/Latex/Convert", true);
+        //xhr.addEventListener("load",
+        //    function (evt) {
+        //        console.log('load');
+        //        console.log(evt);
+        //        $("#adminLatexUpload_Submit").prop('disabled', false);
+        //        if (xhr.status >= 200 && xhr.status < 400) {
+        //            $('#adminLatexUpload').toggle();
+        //            $('.loader').remove();
+        //        }
+        //    },
+        //    false);
+        //xhr.addEventListener("error",
+        //    function (evt) {
+        //        alert("Boom, roasted");
+        //        console.log('error');
+        //        console.log(evt);
+        //        $("#adminLatexUpload_Submit").prop('disabled', false);
+        //        $('#adminLatexUpload').toggle();
+        //        $('.loader').remove();
+        //    },
+        //    false);
+        //xhr.send(adminLatexUploadForm);
+    },
+
     invalidHandler: function (e, validator) {
         var errorCount = validator.numberOfInvalids();
         if (errorCount) {

@@ -18,7 +18,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                        <div class="col-md-6 announcement-container"> 
+                        <div class="col-md-8 announcement-container"> 
                             <h4>Update Announcements</h4>
                             <p>To update the announcements on the main page fill out the form below: </p>
                             <form class="form-inline" id="adminAnnouncement">
@@ -32,19 +32,23 @@
                                 </span>
                             </form>
                         </div>
-                    <div class="col-md-6 latex-container">
+                    <div class="col-md-4 latex-container">
                         <h4>Upload new Latex File</h4>
-                        <form class="form-horizontal" id="adminLatexUpload">
-                            <label>
-                                Attach Latex File:
-                                <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required />
-                            </label>
-                            <label>
-                                Version Name:
-                                <input class="form-control" type="text" name="version" id="adminLatexUpload_Version" required />
-                            </label>
+                        <form class="form-vertical" id="adminLatexUpload">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Attach Latex File:
+                                    <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required />
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Version Name:
+                                    <input class="form-control" type="text" name="version" id="adminLatexUpload_Version" required accept=".latex"/>
+                                </label>
+                            </div>
+                            <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share"></span> Upload</button>
                         </form>
-                        <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" disabled="disabled"><span class="glyphicon glyphicon-share"></span> Upload</button>
                     </div>
                     </div>
                 <div class="row">
@@ -144,61 +148,33 @@
         $(document).ready(function () {
             doFetchAnnouncements();
             doFetchLatexUploads();
-            var adminLatexUploadFile = {};
+            // var adminLatexUploadFile = {};
 
-            function checkLatexUploadFormButtonDisabled() {
-                if ($("#adminLatexUpload_Version").get(0).length === 0 ||
-                    $("#adminLatexUpload_File").val().length === 0) {
-                    console.log('disabled');
-                    $("#adminLatexUpload_Submit").prop('disabled', true);
-                } else {
-                    console.log('enabled');
-                    $("#adminLatexUpload_Submit").prop('disabled', false);
-                }
-            }
+            //function checkLatexUploadFormButtonDisabled() {
+            //    if ($("#adminLatexUpload_Version").get(0).length === 0 ||
+            //        $("#adminLatexUpload_File").val().length === 0) {
+            //        console.log('disabled');
+            //        $("#adminLatexUpload_Submit").prop('disabled', true);
+            //    } else {
+            //        console.log('enabled');
+            //        $("#adminLatexUpload_Submit").prop('disabled', false);
+            //    }
+            //}
 
-            $("#adminLatexUpload_File").change(function(e) {
-                console.log('upload change');
-                adminLatexUploadFile = this.files[0];
-                checkLatexUploadFormButtonDisabled();
-            });
-            $("#adminLatexUpload_Version").change(function() {
-                console.log('version changed');
-                checkLatexUploadFormButtonDisabled();
-            });
-            $("#adminLatexUpload_Submit").click(function () {
-                $('#adminLatexUpload').toggle();
-                $('.latex-container').append('<div class="loader center-block"></div>');
-                $("#adminLatexUpload_Submit").prop('disabled', true);
+            //$("#adminLatexUpload_File").change(function(e) {
+            //    console.log('upload change');
+            //    adminLatexUploadFile = this.files[0];
+            //    checkLatexUploadFormButtonDisabled();
+            //});
 
-                var adminLatexUploadForm = new FormData();
-                adminLatexUploadForm.append('file', adminLatexUploadFile);
-                adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
-                console.log(adminLatexUploadForm);
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/api/Latex/Convert", true);
-                xhr.addEventListener("load",
-                    function(evt) {
-                        console.log('load');
-                        console.log(evt);
-                        $("#adminLatexUpload_Submit").prop('disabled', false);
-                        if (xhr.status >= 200 && xhr.status < 400) {
-                            $('#adminLatexUpload').toggle();
-                            $('.loader').remove();
-                        }
-                    },
-                    false);
-                xhr.addEventListener("error",
-                    function(evt) {
-                        console.log('error');
-                        console.log(evt);
-                        $("#adminLatexUpload_Submit").prop('disabled', false);
-                        $('#adminLatexUpload').toggle();
-                        $('.loader').remove();
-                    },
-                    false);
-                xhr.send(adminLatexUploadForm);
-            });
+            //$("#adminLatexUpload_Version").change(function() {
+            //    console.log('version changed');
+            //    checkLatexUploadFormButtonDisabled();
+            //});
+
+            //    $("#adminLatexUpload_Submit").click(function () {
+
+            //});
         });
     </script>
 }
