@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Project.Controllers.HomeController.DownloadModelV2[]
+@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Ex-Downloads";
 }
@@ -12,20 +13,44 @@
 }
 <main>
     <div class="panel panel-primary">
-        <div class="panel-heading">
+        <div class="panel-heading col-md-12">
             Older Downloads
         </div>
-        <div class="panel-body">
-                @foreach (var item in ViewBag.DownloadsList)
+        @foreach (var i in listMoreDownloads)
+        {
+            <div class='well well-sm col-md-4'>
+                <h3>Windows Version: @Model.TagName</h3>
+                <ul>
+               @foreach (var b in Model.Windows.GPU)
                 {
-                    <h3>Most Recent Version: @Model.DownloadName</h3>
-                    <ul>
-                        <li class="model-link">@item.Name <a href="@item.Link">Download</a></li>
-                   </ul>
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
                 }
-        </div>
+                </ul>
+                <ul>
+               @foreach (var b in Model.Windows.CPU)
+                {
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                }
+                </ul>
+                <a>@Html.ActionLink("Click here for most recent versions", "Downloads", "Home")</a>
+            </div>
+
+            <div class='well well-sm col-md-4'>
+                <h3>Linux Version: @Model.TagName</h3>
+                <ul>
+               @foreach (var b in Model.Linux.GPU)
+                {
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                }
+                </ul>
+                <ul>
+               @foreach (var b in Model.Linux.CPU)
+                {
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                }
+                </ul>
+                <br />
+            </div>
+        }
     </div>
 </main>
-
-
-

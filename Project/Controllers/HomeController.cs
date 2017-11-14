@@ -52,6 +52,58 @@ namespace Project.Controllers
             return new DownloadsModel(tag, items, releaseName, releaseItems);
         }
 
+        public DownloadModelV2[] NewDownloadsModelArray()
+        {
+
+            var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
+            var rspExamples = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
+
+            var listMoreDownloads = new List<DownloadModelV2>();
+            for (var i = 0; i < jsn.Count; i++)
+            {
+                dynamic jsn0 = jsn[i];
+                string tag = jsn0.tag_name;
+                dynamic assets = jsn0.assets;
+
+                var model = new DownloadModelV2()
+                {
+                    TagName = tag,
+                    Linux = new DownloadModelV2.DownloadSection(),
+                    Windows = new DownloadModelV2.DownloadSection(),
+                };
+
+                var items = new List<DownloadsModel.DownloadItem>();
+                foreach (dynamic a in assets)
+                {
+                    string name = a.name;
+                    name = name.Replace("_64", "");
+                    string iurl = a.browser_download_url;
+                    items.Add(new DownloadsModel.DownloadItem(name, iurl));
+                }
+                model.Linux.GPU = items.Where(j =>
+                    j.Name.Split('_')[3].Contains("Linux") &&
+                    j.Name.Split('_')[1].Contains("GPU")).ToArray();
+
+                model.Linux.CPU = items.Where(j =>
+                    j.Name.Split('_')[3].Contains("Linux") &&
+                    j.Name.Split('_')[1].Contains("CPU")).ToArray();
+
+                model.Windows.CPU = items.Where(j =>
+                    j.Name.Split('_')[3].Contains("Windows") &&
+                    j.Name.Split('_')[1].Contains("CPU")).ToArray();
+
+                model.Windows.GPU = items.Where(j =>
+                    j.Name.Split('_')[3].Contains("Windows") &&
+                    j.Name.Split('_')[1].Contains("GPU")).ToArray();
+
+                listMoreDownloads.Add(model);
+            }
+
+            return listMoreDownloads.ToArray();
+        }
+
         public DownloadModelV2 NewDownloadsModel()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
@@ -270,19 +322,8 @@ namespace Project.Controllers
         }
 
         public ActionResult MoreDownloads()
-        { // Needs more work, gotta debug ~Caleb
-            var downloadsResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
-            var jsn = Newtonsoft.Json.Linq.JArray.Parse(downloadsResponse);
-            var oldDownloadsList = new List<DownloadsModel.DownloadItem>();
-            foreach (dynamic i in jsn)
-            {
-                string name = i.name;
-                name = name.Replace("_64", "");
-                string iurl = i.browser_download_url;
-                oldDownloadsList.Add(new DownloadsModel.DownloadItem(name, iurl));
-            }
-            ViewBag.Downloadslist = oldDownloadsList;
-            return View();
+        {
+            return View(NewDownloadsModelArray());
         }
 
         public ActionResult MoreExamples()
