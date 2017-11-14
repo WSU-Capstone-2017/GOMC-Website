@@ -1062,52 +1062,54 @@ $('#adminLatexUpload').validate({
         $('.latex-container').append('<div class="loader center-block"></div>');
         console.log(adminLatexUpload);
         // $("#adminLatexUpload_Submit").prop('disabled', true);
+        var adminLatexUploadForm = new FormData();
+        adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
+        adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/Latex/Convert", true);
+        xhr.addEventListener("load",
+            function (evt) {
+                console.log('load');
+                console.log(evt);
+                $("#adminLatexUpload_Submit").prop('disabled', false);
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    $('#adminLatexUpload').toggle();
+                    $('.loader').remove();
+                    console.log("Processed");
+                }
+            }, false);
+        xhr.addEventListener("error",
+            function (evt) {
+                alert("Boom, roasted");
+                console.log('error');
+                console.log(evt);
+                $("#adminLatexUpload_Submit").prop('disabled', false);
+                $('#adminLatexUpload').toggle();
+                $('.loader').remove();
+            },
+            false);
+        xhr.send(adminLatexUploadForm);
         //var adminLatexUploadForm = new FormData();
-        //adminLatexUploadForm.append('file', adminLatexUploadFile);
+        //adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
         //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
-        //var xhr = new XMLHttpRequest();
-        //xhr.open("POST", "/api/Latex/Convert", true);
-        //xhr.addEventListener("load",
-        //    function (evt) {
-        //        console.log('load');
-        //        console.log(evt);
-        //        $("#adminLatexUpload_Submit").prop('disabled', false);
-        //        if (xhr.status >= 200 && xhr.status < 400) {
-        //            $('#adminLatexUpload').toggle();
-        //            $('.loader').remove();
-        //        }
-        //    },
-        //    false);
-        //xhr.addEventListener("error",
-        //    function (evt) {
-        //        alert("Boom, roasted");
-        //        console.log('error');
-        //        console.log(evt);
-        //        $("#adminLatexUpload_Submit").prop('disabled', false);
+                // Prompt a link to do something?  On success-bar?
+        //$.post('/api/Latex/Convert', adminLatexUploadForm)
+        //    .done(function (data) {
         //        $('#adminLatexUpload').toggle();
         //        $('.loader').remove();
-        //    },
-        //    false);
-        //xhr.send(adminLatexUploadForm);
-
-        $.post('/api/Latex/Convert', $(form))
-            .done(function (data) {
-                $('#adminLatexUpload').toggle();
-                $('.loader').remove();
-                // Prompt a link to do something?  On success-bar?
-            })
-            .fail(function (err) {
-                $('#adminLatexUpload').toggle();
-                $('.loader').remove();
-                window.confirm(err.statusText + " Please try again");
-                var messageExplained = JSON.parse(err.responseJSON.Message);
-                console.log(
-                    "Status: " + err.status
-                    + "\n Status Text: " + err.statusText
-                    + "\n Full Response: " + messageExplained.general[0]
-                    + "\n Check the network tab in browser debugger for more details"
-                );
-            });
+        //    })
+        //    .fail(function (err) {
+        //        $('#adminLatexUpload').toggle();
+        //        $('.loader').remove();
+        //        window.confirm(err.statusText + " Please try again");
+        //        var messageExplained = JSON.parse(err.responseJSON.Message);
+        //        console.log(
+        //            "Status: " + err.status
+        //            + "\n Status Text: " + err.statusText
+        //            + "\n Full Response: " + messageExplained.general[0]
+        //            + "\n Check the network tab in browser debugger for more details"
+        //        );
+        //    });
     },
 
     invalidHandler: function (e, validator) {
