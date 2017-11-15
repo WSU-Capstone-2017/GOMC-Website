@@ -138,6 +138,42 @@ namespace Project.Controllers
 			return result;
 		}
 
+		[HttpGet]
+		public HttpResponseMessage DownloadLogFile()
+		{
+			var authentication = Authenticate();
+
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			{
+				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+				return Request.CreateResponse(HttpStatusCode.Unauthorized);
+			}
+
+			var logFilePath = @"C:\www\GOMC-Dev\temp\gomc.website.log";
+			string fileTxt;
+			using (var fs = new FileStream(logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+			using (var sr = new StreamReader(fs, Encoding.Default))
+			{
+				fileTxt = sr.ReadToEnd();
+			}
+			var fileBytes = Encoding.UTF8.GetBytes(fileTxt);
+
+			var result = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new ByteArrayContent(fileBytes)
+			};
+
+			result.Content.Headers.ContentDisposition =
+				new ContentDispositionHeaderValue("attachment")
+				{
+					FileName = "gomc.website.log"
+				};
+
+			result.Content.Headers.ContentType =
+				new MediaTypeHeaderValue(ApplicationOctetStream);
+
+			return result;
+		}
 		public class PublishLatexUploadOutput
 		{
 			public ValidateSessionResultType AuthResult { get; set; }
@@ -164,7 +200,7 @@ namespace Project.Controllers
 			return new PublishLatexUploadOutput
 			{
 				AuthResult = authentication.Result,
-				Success= r.Kind == LatexController.PublishLatexResultType.Success
+				Success = r.Kind == LatexController.PublishLatexResultType.Success
 			};
 		}
 
@@ -186,8 +222,8 @@ namespace Project.Controllers
 				var take = input.PageLength;
 
 				var sqlQuery = "SELECT * FROM Registrations " +
-				               "ORDER BY Created DESC " +
-				               $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+							   "ORDER BY Created DESC " +
+							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 
 				var registrations = db.Registrations
 					.SqlQuery(sqlQuery)
