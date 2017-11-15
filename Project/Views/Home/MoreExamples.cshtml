@@ -1,4 +1,4 @@
-﻿@model Project.Controllers.HomeController.MoreExamplesModel[]
+﻿@model Project.Models.DownloadsModel.ExampleItem[]
 @{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Ex-Examples";
@@ -18,13 +18,11 @@
         </div>
         @foreach (var i in Model)
         {
-            <div class="well well-sm col-md-12">
-                <h3>Examples set: @i.ExamplesTagName</h3>
+            <div class="well well-sm col-md-6">
+                <h3>Examples set: @i.TagName</h3>
                 <ul>
-                    @foreach (var a in i.Examples)
-                    {
-                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                    }
+                    <li class="model-link"><a href="@i.ZipBall">Zip Download</a></li>
+                    <li class="model-link"><a href="@i.TarBall">Tar Download</a></li>
                 </ul>
                 <br />
             </div>

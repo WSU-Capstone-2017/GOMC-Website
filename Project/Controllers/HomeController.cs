@@ -52,33 +52,22 @@ namespace Project.Controllers
             return new DownloadsModel(tag, items, releaseName, releaseItems);
         }
 
-        public MoreExamplesModel[] NewExamplesModelArray()
+        private DownloadsModel.ExampleItem[] DownloadExamplesArray()
         {
-            var releasesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
-            var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(releasesResponse);
+            var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
 
-            var listMoreExamples = new List<MoreExamplesModel>();
-            for (var i = 0; i < releasesJSON.Count; i++)
+            var listMoreExamples = new List<DownloadsModel.ExampleItem>();
+            for (var i = 0; i < jsn.Count; i++)
             {
-                dynamic releasesJSON0 = releasesJSON[i];
-                string tagExamples = releasesJSON0.tag_name;
-                dynamic assets = releasesJSON0.assets;               
+                dynamic item = jsn[i];
 
-                var items = new List<DownloadsModel.DownloadItem>();
-                var exampleItems = new List<DownloadsModel.DownloadItem>();
-                foreach (dynamic set in releasesJSON)
-                {
-                    string rName = set.name;
-                    string rLink = set.zipball_url;
-
-                    exampleItems.Add(new DownloadsModel.DownloadItem(rName, rLink));
-                }
-
-                var model = new MoreExamplesModel
-                {
-                    ExamplesTagName = tagExamples,
-                    Examples = exampleItems.ToArray()
-                };
+                var model = new DownloadsModel.ExampleItem
+				{
+					TagName = item.tag_name,
+					TarBall = item.tarball_url,
+					ZipBall = item.zipball_url,
+				};
 
                 listMoreExamples.Add(model);
 
@@ -356,7 +345,7 @@ namespace Project.Controllers
 
         public ActionResult MoreExamples()
         { 
-            return View(NewExamplesModelArray());
+            return View(DownloadExamplesArray());
         }
     }
 }

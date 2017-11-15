@@ -32,6 +32,13 @@ namespace Project.Models
 			}
 		}
 
+		public class ExampleItem
+		{
+			public string TagName { get; set; }
+			public string TarBall { get; set; }
+			public string ZipBall { get; set; }
+		}
+
         public class ExampleList
         {
             public string Name { get; set; }
