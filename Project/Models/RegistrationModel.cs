@@ -13,6 +13,7 @@ namespace Project.Models
 		public string Email { get; set; }
 		public string Affiliation { get; set; }
 		public string Text { get; set; }
+		public DateTime Created { get; set; }
 
 		public RegistrationModel(){}
         public RegistrationModel(string name, string email) {

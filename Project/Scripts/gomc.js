@@ -1268,7 +1268,7 @@ function doFetchLatexUploads() {
 
 		return "" +
 			atag("Publish", 'LatexUpload_Use_' + a, 'doLatexUse(' + a + ')') +
-			" " +
+			"<br/>" +
 			atag("Get Pdf", 'LatexUpload_Pdf_' + a, 'doLatexPdf(' + a + ')');
 	}
 
@@ -1484,14 +1484,12 @@ function doFetchRegisteredUsers() {
 			for (var i = 0; i < registeredUsersNavState.pageLength; i++) {
 				$("#registeredUser_Name_" + i).text('');
 				$("#registeredUser_Email_" + i).text('');
-
 				if (i >= data.Length) {
 					$("#registeredUser_" + i).hide();
 				} else {
-					latexIdMap[i] = data.Uploads[i].Id;
 					$("#registeredUser_" + i).show();
-					$("#registeredUser_Name" + i).text(data.Users[i].Name);
-					$("#registeredUser_Email" + i).text(data.Users[i].Email);
+					$("#registeredUser_Name_" + i).text(data.Users[i].Name);
+					$("#registeredUser_Email_" + i).text(data.Users[i].Email);
 				}
 			}
 		} else if (data.AuthResult === validateSessionResultType.SessionInvalid) {
