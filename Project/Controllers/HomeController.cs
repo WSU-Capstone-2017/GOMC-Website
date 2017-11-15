@@ -52,6 +52,40 @@ namespace Project.Controllers
             return new DownloadsModel(tag, items, releaseName, releaseItems);
         }
 
+        public MoreExamplesModel[] NewExamplesModelArray()
+        {
+            var releasesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+            var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(releasesResponse);
+
+            var listMoreExamples = new List<MoreExamplesModel>();
+            for (var i = 0; i < releasesJSON.Count; i++)
+            {
+                dynamic releasesJSON0 = releasesJSON[i];
+                string tagExamples = releasesJSON0.tag_name;
+                dynamic assets = releasesJSON0.assets;               
+
+                var items = new List<DownloadsModel.DownloadItem>();
+                var exampleItems = new List<DownloadsModel.DownloadItem>();
+                foreach (dynamic set in releasesJSON)
+                {
+                    string rName = set.name;
+                    string rLink = set.zipball_url;
+
+                    exampleItems.Add(new DownloadsModel.DownloadItem(rName, rLink));
+                }
+
+                var model = new MoreExamplesModel
+                {
+                    ExamplesTagName = tagExamples,
+                    Examples = exampleItems.ToArray()
+                };
+
+                listMoreExamples.Add(model);
+
+            }
+            return listMoreExamples.ToArray();
+        }
+
         public MoreDownloadModelV2[] NewDownloadsModelArray()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
@@ -150,6 +184,12 @@ namespace Project.Controllers
         {
             public string TagName { get; set; }
             public DownloadsModel.DownloadItem[] Items { get; set; }
+        }
+
+        public class MoreExamplesModel
+        {
+            public string ExamplesTagName { get; set; }
+            public DownloadsModel.DownloadItem[] Examples { get; set; }
         }
 
         public class DownloadModelV2
@@ -315,19 +355,8 @@ namespace Project.Controllers
         }
 
         public ActionResult MoreExamples()
-        { // Needs more work, gotta debug ~Caleb
-            var examplesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
-            var jsn = Newtonsoft.Json.Linq.JArray.Parse(examplesResponse);
-            var examplesList = new List<DownloadsModel.DownloadItem>();
-            foreach (dynamic i in jsn)
-            {
-                string name = i.name;
-                name = name.Replace("_64", "");
-                string iurl = i.browser_download_url;
-                examplesList.Add(new DownloadsModel.DownloadItem(name, iurl));
-            }
-            ViewBag.Downloadslist = examplesList;
-            return View();
+        { 
+            return View(NewExamplesModelArray());
         }
     }
 }
