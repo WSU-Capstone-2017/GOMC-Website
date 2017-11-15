@@ -128,15 +128,26 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                 </tr>
-                                @{foreach (var registeredUser in ViewBag.Rez)
+                                @*@{  foreach (var registeredUser in ViewBag.Rez)
                                     {
                                         <tr>
                                             <td>@registeredUser.Name</td>
                                             <td>@registeredUser.Email</td>
                                         </tr>
                                     }
+                                }*@
+                                @{
+                                    for(var i = 0; i < 25; ++i)
+                                    {
+                                        <tr id="@($"registeredUser_{i}")">
+                                            <td id="@($"registeredUser_Name_{i}")"></td>
+                                            <td id="@($"registeredUser_Email_{i}")"></td>
+                                        </tr>
+                                    }
                                 }
                             </table>
+                            <a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Back" onclick="return doNavRegisteredUsers(true);">Back</a>
+                            <a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Next" onclick="return doNavRegisteredUsers(false);">Next</a>
                         </div>
                     </div>
                 </div>
@@ -148,6 +159,7 @@
         $(document).ready(function () {
             doFetchAnnouncements();
             doFetchLatexUploads();
+            doFetchRegisteredUsers();
             // var adminLatexUploadFile = {};
 
             //function checkLatexUploadFormButtonDisabled() {

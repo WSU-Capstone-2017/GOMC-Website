@@ -169,6 +169,48 @@ namespace Project.Controllers
 		}
 
 		[HttpPost]
+		public FetchRegisteredUsersOutput FetchRegisteredUsers(FetchAnnouncementsInput input)
+		{
+			var authentication = Authenticate();
+
+			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
+			{
+				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
+				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
+			}
+
+			using (var db = new ProjectDbContext())
+			{
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Registrations").Single();
+				var skip = input.PageLength * input.PageIndex;
+				var take = input.PageLength;
+
+				var sqlQuery = "SELECT * FROM Registrations " +
+				               "ORDER BY Created DESC " +
+				               $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+
+				var registrations = db.Registrations
+					.SqlQuery(sqlQuery)
+					.ToArray();
+
+				return new FetchRegisteredUsersOutput
+				{
+					AuthResult = ValidateSessionResultType.SessionValid,
+					Users = registrations,
+					TotalLength = totalLength
+				};
+			}
+		}
+
+		public class FetchRegisteredUsersOutput
+		{
+			public ValidateSessionResultType AuthResult { get; set; }
+			public int Length => Users?.Length ?? 0;
+			public RegistrationModel[] Users { get; set; }
+			public int TotalLength { get; set; }
+		}
+
+		[HttpPost]
 		public AnnouncementResult NewAnnouncement(NewAnnouncementModel model)
 		{
 			var authentication = Authenticate();

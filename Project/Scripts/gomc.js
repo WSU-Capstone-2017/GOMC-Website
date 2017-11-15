@@ -35,12 +35,19 @@ var newAnnouncementResult = {
     MissingContent: 3
 };
 
-// Object of the announcement table length
+// Object of the announcement table
 var announcementsNavState = {
     pageIndex: 0,
     pageLength: 5,
 	uiMaxPageLength: 5,
     totalLength: 0
+};
+
+// Object of the registered users table
+var registeredUsersNavState = {
+	pageIndex: 0,
+	pageLength: 25,
+	totalLength: 0
 };
 
 // Object of announcement state
@@ -1245,13 +1252,13 @@ function doLatexUse(i) {
 	return false;
 }
 
-function doFetchLatexUploads() {
+var validateSessionResultType = {
+	SessionValid: 0,
+	SessionExpired: 1,
+	SessionInvalid: 2
+};
 
-	var validateSessionResultType = {
-		SessionValid: 0,
-		SessionExpired: 1,
-		SessionInvalid: 2
-	};
+function doFetchLatexUploads() {
 
 	function latexUploadActions(a) {
 		function atag(val, i, fn, hf) {
@@ -1459,6 +1466,72 @@ function doRemoveAnnouncement(a) {
             }
         });
     return false;
+}
+
+function doFetchRegisteredUsers() {
+	$.ajax({
+		url: '/api/admin/fetchregisteredusers',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			pageIndex: registeredUsersNavState.pageIndex,
+			pageLength: registeredUsersNavState.pageLength
+		})
+	}).done(function (data) {
+		updateNavRegisteredUsers(data.TotalLength);
+		console.log(data);
+		if (data.AuthResult === validateSessionResultType.SessionValid) {
+			for (var i = 0; i < registeredUsersNavState.pageLength; i++) {
+				$("#registeredUser_Name_" + i).text('');
+				$("#registeredUser_Email_" + i).text('');
+
+				if (i >= data.Length) {
+					$("#registeredUser_" + i).hide();
+				} else {
+					latexIdMap[i] = data.Uploads[i].Id;
+					$("#registeredUser_" + i).show();
+					$("#registeredUser_Name" + i).text(data.Users[i].Name);
+					$("#registeredUser_Email" + i).text(data.Users[i].Email);
+				}
+			}
+		} else if (data.AuthResult === validateSessionResultType.SessionInvalid) {
+			console.log('Could not fetch registered users, bad session');
+			window.location.href = "/home/login";
+		} else if (data.AuthResult === validateSessionResultType.SessionExpired) {
+			console.log('Could not fetch registered users, session expired');
+			window.location.href = "/home/login";
+		}
+	});
+}
+
+function doNavRegisteredUsers(a) {
+	if (a) {
+		registeredUsersNavState.pageIndex--;
+	} else {
+		registeredUsersNavState.pageIndex++;
+	}
+	doFetchRegisteredUsers();
+
+	return false;
+}
+
+function updateNavRegisteredUsers(totalLength) {
+	$("#registeredUsers_Next").addClass("btn disabled");
+	$("#registeredUsers_Back").addClass("btn disabled");
+
+	registeredUsersNavState.totalLength = totalLength;
+
+	var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	if ((registeredUsersNavState.pageIndex + 1) < maxPages) {
+		$("#registeredUsers_Next").removeClass("btn disabled");
+	} else {
+		registeredUsersNavState.pageIndex = maxPages - 1;
+	}
+	if (registeredUsersNavState.pageIndex > 0) {
+		$("#registeredUsers_Back").removeClass("btn disabled");
+	} else if (registeredUsersNavState.pageIndex < 0) {
+		registeredUsersNavState.pageIndex = 0;
+	}
 }
 
 // Callback to update the progress bar in the xml config form
