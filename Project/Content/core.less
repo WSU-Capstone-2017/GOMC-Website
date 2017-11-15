@@ -70,13 +70,13 @@ footer {
 }
 	
 .panel-primary > .panel-heading {
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;	
+	color: #020816;
+	background-color: #91D3EF;
+	border-color: #91D3EF;	
 }
 
 .panel-primary {
-	border-color: #bce8f1;
+    border-color: #91D3EF;
 }
 
 header {
@@ -91,7 +91,7 @@ h1, h2, h3 {
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
-    font-size: 1.7em;
+    font-size: 1.7em; /*Just noticed this, this is dreadful we can't have all 3 major h-tags the same size. But we gotta scale them accordingly, I will fix later ~Caleb*/
 }
 
 h4 {
@@ -456,10 +456,19 @@ th {
     padding: 0.313em;
 }
 
+.btn-success {
+    border-color: #9ACD32;
+    background-color: #9ACD32;
+}
+
 /*faq.cshtml specific*/
 .accordion-toggle:hover {
     background-color: #d3d3d3;
 }
+
+
+
+
 
 /*Latex.cshtml specific*/
 .tableofcontents {
@@ -624,6 +633,13 @@ th {
     background-color: #9ACD32;
 }
 
+.pull-left {
+    width: 5.625em;
+}
+
+.prev-btn {
+    margin-right: 1.563em;
+}
 
 /*Latex specific css*/
 .cmr-5{font-size:50%;}
@@ -936,3 +952,59 @@ span#colorbox131{background-color:#E5E5E5;}
 span#textcolor132{color:#00FF00}
 span#colorbox133{background-color:#FFFF00;}
 span#colorbox134{background-color:#FFFF00;}
+
+/*progressbar*/
+/*#test {
+    margin-bottom: 30px;
+    overflow: hidden;
+    
+    counter-reset: step;
+}
+
+#test li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#test li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: white;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}*/
+
+/* Stuff for the label for the xmlPage still under construction
+#test li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; 
+}
+
+#test li:first-child:after {
+    
+    content: none;
+}
+
+
+#test li.active:before, #test li.active:after {
+    background: #ee0979;
+    color: white;
+}*/

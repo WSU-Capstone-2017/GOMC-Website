@@ -12,10 +12,6 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <main>
-    <div class="panel panel-primary">
-        <div class="panel-heading col-md-12">
-            Older Downloads
-        </div>
         @foreach (var i in Model)
         {
             <div class='well well-sm col-md-12'>
@@ -29,5 +25,4 @@
                 <br />
             </div>
         }
-    </div>
 </main>
