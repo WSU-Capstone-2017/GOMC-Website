@@ -394,7 +394,8 @@ $('.prev-btn').click(function (e) {
         currentWidth -= 25;
         updateBar(currentWidth);
     });
-    // e.preventDefault();
+    e.preventDefault();
+    return false;
 });
 
 // Change the XML config page by displaying the next card on validation success

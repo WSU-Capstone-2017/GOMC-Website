@@ -81,7 +81,7 @@ footer {
 
 header {
   text-align: center;
-  background-color: #9acd32;
+  background-color: #9ACD32;
   color: #FFF; 
 }
 
@@ -144,6 +144,10 @@ p {
 nav a {
     color: #FFF;
 }
+/*CSS to remove rounded corners on nav-bar*/
+.nav > li > a{
+    border-radius: 0;
+}
 
 nav {
     overflow: hidden;
@@ -157,7 +161,7 @@ footer {
 
 .main-menu {
     color: #FFF;
-    background-color: #9acd32;
+    background-color: #9ACD32;
     padding-bottom: 0.375em;
 }
 
@@ -187,7 +191,7 @@ footer {
 
 .navbar-toggle {
     color: #FFF;
-    background-color: #9acd32;
+    background-color: #9ACD32;
 }
 
 .jumbo-description {
@@ -332,11 +336,11 @@ th {
 }
 
 .announcement-panel {
-    border-color: #9acd32 !important;
+    border-color: #9ACD32 !important;
 }
 
 .announcement-header {
-    background-color: #9acd32 !important;
+    background-color: #9ACD32 !important;
 }
 
 .sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
@@ -414,37 +418,38 @@ th {
 }
 
 .panel-success > .panel-heading {
-    background-color: #9acd32;
+    background-color: #9ACD32;
     color: #FFFFFF;
 }
 
 /*Ids for menu items, attach ids only on the page focus*/
+/*Client requested double this at .5em demo half to be sure he wants it that way, Dr.Sam recommended chopping it in half*/
 #onFontPage {
-    border-bottom: .5em #106A3A solid;
+    border-bottom: 0.250em #106A3A solid;
 }
 
-#onGomcPage{
-    border-bottom: .5em #E58242 solid;
+#onGomcPage {
+    border-bottom: 0.250em #E58242 solid;
 }
 
-#onDownloadsPage{
-    border-bottom: .5em #91D3EF solid;
+#onDownloadsPage {
+    border-bottom: 0.250em #91D3EF solid;
 }
 
-#onAboutPage{
-    border-bottom: .5em #7F3E97 solid;
+#onAboutPage {
+    border-bottom: 0.250em #7F3E97 solid;
 }
 
-#onDocumentationPage{
-    border-bottom: .5em #FFFF00 solid;
+#onDocumentationPage {
+    border-bottom: 0.250em #FFFF00 solid;
 }
 
 #onFeaturesPage {
-     border-bottom: .5em #FF3232 solid;
+    border-bottom: 0.250em #FF3232 solid;
 }
 
 #onPublicationPage {
-     border-bottom: .5em #7F7FFF solid;
+     border-bottom: 0.250em #7F7FFF solid;
 }
 
 #teamLogo {
@@ -615,6 +620,12 @@ th {
     -ms-transform-origin: 0 0;
 }
 
+.bar-style {
+    background-color: #9ACD32;
+}
+
+
+/*Latex specific css*/
 .cmr-5{font-size:50%;}
 .cmr-7{font-size:70%;}
 .cmmi-5{font-size:50%;font-style: italic;}
