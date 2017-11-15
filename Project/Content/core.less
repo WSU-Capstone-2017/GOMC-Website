@@ -21,6 +21,7 @@
 /*This may have un-foreseen side effects, please test and let me know of any visual issues !Caleb*/
 img {
     width: 18.75em; //300 px converted
+	padding-top: 1em;
 }
 
 .loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
@@ -58,27 +59,30 @@ footer {
     padding-bottom: .625em; /*Just to fluff out the bottom*/
 }
 
-.btn { 
-	margin-bottom: 3.96em !important;
-}
+/*.btn { 
+	margin-bottom: 3.99em !important;
+}*/
 /*^ IDK why this is here, it breaks most buttons' standard behavior? */
+
+/*Fix for the carousel*/
+
 .glyphicon1 {
 	padding-left: 40px;
 }
 	
 .panel-primary > .panel-heading {
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;	
+	color: #020816;
+	background-color: #91D3EF;
+	border-color: #91D3EF;	
 }
 
 .panel-primary {
-	border-color: #bce8f1;
+    border-color: #91D3EF;
 }
 
 header {
   text-align: center;
-  background-color: #9acd32;
+  background-color: #9ACD32;
   color: #FFF; 
 }
 
@@ -88,7 +92,7 @@ h1, h2, h3 {
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
-    font-size: 1.7em;
+    font-size: 1.7em; /*Just noticed this, this is dreadful we can't have all 3 major h-tags the same size. But we gotta scale them accordingly, I will fix later ~Caleb*/
 }
 
 h4 {
@@ -141,6 +145,10 @@ p {
 nav a {
     color: #FFF;
 }
+/*CSS to remove rounded corners on nav-bar*/
+.nav > li > a{
+    border-radius: 0;
+}
 
 nav {
     overflow: hidden;
@@ -154,7 +162,7 @@ footer {
 
 .main-menu {
     color: #FFF;
-    background-color: #9acd32;
+    background-color: #9ACD32;
     padding-bottom: 0.375em;
 }
 
@@ -184,7 +192,7 @@ footer {
 
 .navbar-toggle {
     color: #FFF;
-    background-color: #9acd32;
+    background-color: #9ACD32;
 }
 
 .jumbo-description {
@@ -329,11 +337,11 @@ th {
 }
 
 .announcement-panel {
-    border-color: #9acd32 !important;
+    border-color: #9ACD32 !important;
 }
 
 .announcement-header {
-    background-color: #9acd32 !important;
+    background-color: #9ACD32 !important;
 }
 
 .sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
@@ -411,47 +419,55 @@ th {
 }
 
 .panel-success > .panel-heading {
-    background-color: #9acd32;
+    background-color: #9ACD32;
     color: #FFFFFF;
 }
 
 /*Ids for menu items, attach ids only on the page focus*/
+/*Client requested double this at .5em demo half to be sure he wants it that way, Dr.Sam recommended chopping it in half*/
 #onFontPage {
-    border-bottom: .5em #106A3A solid;
+    border-bottom: 0.250em #106A3A solid;
 }
 
-#onGomcPage{
-    border-bottom: .5em #E58242 solid;
+#onGomcPage {
+    border-bottom: 0.250em #E58242 solid;
 }
 
-#onDownloadsPage{
-    border-bottom: .5em #91D3EF solid;
+#onDownloadsPage {
+    border-bottom: 0.250em #91D3EF solid;
 }
 
-#onAboutPage{
-    border-bottom: .5em #7F3E97 solid;
+#onAboutPage {
+    border-bottom: 0.250em #7F3E97 solid;
 }
 
-#onDocumentationPage{
-    border-bottom: .5em #FFFF00 solid;
+#onDocumentationPage {
+    border-bottom: 0.250em #FFFF00 solid;
 }
 
 #onFeaturesPage {
-     border-bottom: .5em #FF3232 solid;
+    border-bottom: 0.250em #FF3232 solid;
 }
 
 #onPublicationPage {
-     border-bottom: .5em #7F7FFF solid;
+     border-bottom: 0.250em #7F7FFF solid;
 }
 
 #teamLogo {
     padding: 0.313em;
 }
 
+.btn-success {
+    border-color: #9ACD32;
+    background-color: #9ACD32;
+}
+
 /*faq.cshtml specific*/
 .accordion-toggle:hover {
     background-color: #d3d3d3;
 }
+
+
 
 /*Latex.cshtml specific*/
 #site-nav {
@@ -511,8 +527,8 @@ th {
 }
 
 #site-nav li {
-	border-top: 1px solid #000000;
-	border-top: 1px solid rgba(0,0,0,0.07);
+	border-top: .0625em solid #000000;
+	border-top: .0625em solid rgba(0,0,0,0.07);
 }
 
 #resize-nav {
@@ -581,6 +597,19 @@ th {
     -ms-transform-origin: 0 0;
 }
 
+.bar-style {
+    background-color: #9ACD32;
+}
+
+.pull-left {
+    width: 5.625em;
+}
+
+.prev-btn {
+    margin-right: 1.563em;
+}
+
+/*Latex specific css*/
 .cmr-5{font-size:50%;}
 .cmr-7{font-size:70%;}
 .cmmi-5{font-size:50%;font-style: italic;}
@@ -891,3 +920,59 @@ span#colorbox131{background-color:#E5E5E5;}
 span#textcolor132{color:#00FF00}
 span#colorbox133{background-color:#FFFF00;}
 span#colorbox134{background-color:#FFFF00;}
+
+/*progressbar*/
+/*#test {
+    margin-bottom: 30px;
+    overflow: hidden;
+    
+    counter-reset: step;
+}
+
+#test li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#test li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: white;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}*/
+
+/* Stuff for the label for the xmlPage still under construction
+#test li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; 
+}
+
+#test li:first-child:after {
+    
+    content: none;
+}
+
+
+#test li.active:before, #test li.active:after {
+    background: #ee0979;
+    color: white;
+}*/

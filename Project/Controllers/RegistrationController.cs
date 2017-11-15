@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -72,7 +73,8 @@ namespace Project.Controllers
 			    Name = name,
 			    Email = email,
 			    Affiliation = affiliation,
-			    Text = text
+			    Text = text,
+				Created = DateTime.Now
 		    };
 
 	        if (result.Success)

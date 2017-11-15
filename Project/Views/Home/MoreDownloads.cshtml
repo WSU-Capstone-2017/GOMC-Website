@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Project.Controllers.HomeController.MoreDownloadModelV2[]
+@{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Ex-Downloads";
 }
@@ -12,20 +13,22 @@
 }
 <main>
     <div class="panel panel-primary">
-        <div class="panel-heading">
+        <div class="panel-heading col-md-12">
             Older Downloads
         </div>
-        <div class="panel-body">
-                @foreach (var item in ViewBag.DownloadsList)
-                {
-                    <h3>Most Recent Version: @Model.DownloadName</h3>
-                    <ul>
-                        <li class="model-link">@item.Name <a href="@item.Link">Download</a></li>
-                   </ul>
-                }
-        </div>
+        @foreach (var i in Model)
+        {
+            <div class='well well-sm col-md-12'>
+                <h3>Version: @i.TagName</h3>
+                <ul>
+                    @foreach (var a in i.Items)
+                    {
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                    }
+                </ul>
+                <br />
+            </div>
+        }
+        <a>@Html.ActionLink("Click here to go back to most recent version", "Downloads", "Home")</a>
     </div>
 </main>
-
-
-

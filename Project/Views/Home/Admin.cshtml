@@ -18,9 +18,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6 announcement-container">
-        
-                        <div class="col-md-6"> <!--Needs CS validation, error and success glyphs, loader, etc ...-->
+                        <div class="col-md-8 announcement-container"> 
                             <h4>Update Announcements</h4>
                             <p>To update the announcements on the main page fill out the form below: </p>
                             <form class="form-inline" id="adminAnnouncement">
@@ -28,64 +26,80 @@
                                     <label>New Announcement: </label>
                                     <textarea id ="adminAnnouncement_Text" type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
                                 </div>
-                                <div>
+                                <span class="btn-group-vertical">
                                     <button class="btn btn-danger" type="reset"><span class="glyphicon glyphicon-trash"></span> Clear</button>
                                     <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-share"></span> Post</button>
-                                </div>
+                                </span>
                             </form>
                         </div>
-                        <div class="col-md-8 latex-container">
-                            <h4>Upload new Latex File</h4> 
-                            <form class="form-horizontal" id="adminLatexUpload">
-                                <label>
+                    <div class="col-md-4 latex-container">
+                        <h4>Upload new Latex File</h4>
+                        <form class="form-vertical" id="adminLatexUpload" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label">
                                     Attach Latex File:
                                     <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required />
                                 </label>
-                                <label>
-                                    Version:
-                                    <input class="form-control" type="text" name="version" id="adminLatexUpload_Version" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Version Name:
+                                    <input class="form-control" type="text" name="version" id="adminLatexUpload_Version" required accept=".latex"/>
                                 </label>
-                            </form>
-                            <button class ="btn btn-success btn-sm" id="adminLatexUpload_Submit" disabled="disabled"><span class="glyphicon glyphicon-share"></span> Upload</button>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Latex Uploads</h4>
-                            <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>Version</th>
-                                    <th>Created</th>
-                                    <th>Action</th>
-                                </tr>
-                                <tr id="LatexUpload_0"><td id="LatexUpload_Version_0" style="word-break:break-all;" /><td id="LatexUpload_Created_0" /><td id="LatexUpload_Action_0" /></tr>
-                                <tr id="LatexUpload_1"><td id="LatexUpload_Version_1" style="word-break:break-all;" /><td id="LatexUpload_Created_1" /><td id="LatexUpload_Action_1" /></tr>
-                                <tr id="LatexUpload_2"><td id="LatexUpload_Version_2" style="word-break:break-all;" /><td id="LatexUpload_Created_2" /><td id="LatexUpload_Action_2" /></tr>
-                                <tr id="LatexUpload_3"><td id="LatexUpload_Version_3" style="word-break:break-all;" /><td id="LatexUpload_Created_3" /><td id="LatexUpload_Action_3" /></tr>
-                                <tr id="LatexUpload_4"><td id="LatexUpload_Version_4" style="word-break:break-all;" /><td id="LatexUpload_Created_4" /><td id="LatexUpload_Action_4" /></tr>
-                            </table>
-                        </div>
+                            </div>
+                            <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share"></span> Upload</button>
+                        </form>
+                    </div>
                     </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <table class="table table-striped table-bordered" id="webStats">
-                            <h4>Website Statistics</h4>
+                        <h4>Latex Uploads</h4>
+                        <table class="table table-striped table-bordered">
                             <tr>
-                                <th>Name</th>
-                                <th>Value</th>
+                                <th>Version</th>
+                                <th>Created</th>
+                                <th>Action</th>
                             </tr>
-                            <tr>
-                                <td>Downloads</td>
-                                <td>1200</td>
-                            </tr>
-                            <tr>
-                                <td>Clicks</td>
-                                <td>950</td>
-                            </tr>
-                            <tr>
-                                <td>Views</td>
-                                <td>120</td>
-                            </tr>
+                            <tr id="LatexUpload_0"><td id="LatexUpload_Version_0" style="word-break:break-all;" /><td id="LatexUpload_Created_0" /><td id="LatexUpload_Action_0" /></tr>
+                            <tr id="LatexUpload_1"><td id="LatexUpload_Version_1" style="word-break:break-all;" /><td id="LatexUpload_Created_1" /><td id="LatexUpload_Action_1" /></tr>
+                            <tr id="LatexUpload_2"><td id="LatexUpload_Version_2" style="word-break:break-all;" /><td id="LatexUpload_Created_2" /><td id="LatexUpload_Action_2" /></tr>
+                            <tr id="LatexUpload_3"><td id="LatexUpload_Version_3" style="word-break:break-all;" /><td id="LatexUpload_Created_3" /><td id="LatexUpload_Action_3" /></tr>
+                            <tr id="LatexUpload_4"><td id="LatexUpload_Version_4" style="word-break:break-all;" /><td id="LatexUpload_Created_4" /><td id="LatexUpload_Action_4" /></tr>
                         </table>
                     </div>
+                    <div class="col-md-6">
+                            <table class="table table-striped table-bordered" id="webStats">
+                                <h4>Website Statistics</h4>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Downloads</td>
+                                    <td>1200</td>
+                                </tr>
+                                <tr>
+                                    <td>Clicks</td>
+                                    <td>950</td>
+                                </tr>
+                                <tr>
+                                    <td>Views</td>
+                                    <td>120</td>
+                                </tr>
+                            </table>
+                        <h4>Log file</h4>
+                        <a href="/api/admin/DownloadLogFile" class="btn btn-primary active">Download Debug Log File</a>
+                    </div>
+                        @*<div class="col-md-6">
+                <h4>Update the following dynamic content manually via webhooks</h4>
+                <div class="btn-group-vertical btn-group-sm">
+                    <button class="btn btn-sm btn-primary" onclick="refreshLatex()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh LaTeX File</button>
+                    <button class="btn btn-sm btn-success" onclick="refreshDownloads()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the downloads links</button>
+                    <button class="btn btn-sm btn-info" onclick="refreshExamples()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the examples links</button>
+                </div>
+            </div>*@
+                    </div>
+                <div class="row">
                     <div class="col-md-6">
                         <table class="table  table-striped table-bordered" id="fetchAnnouncements">
                             <h4>Current Announcements</h4>
@@ -103,17 +117,9 @@
                         <a href="/api/Admin/" class="col-md-1 btn disabled" id="fetchAnnouncements_Back" onclick="return doNavAnnouncements(true);">Back</a>
                         <a href="/api/Admin/" class="col-md-2 btn disabled" id="fetchAnnouncements_Next" onclick="return doNavAnnouncements(false);">Next</a>
                     </div>
-                    @*<div class="col-md-6">
-                        <h4>Update the following dynamic content manually via webhooks</h4>
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-sm btn-primary" onclick="refreshLatex()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh LaTeX File</button>
-                            <button class="btn btn-sm btn-success" onclick="refreshDownloads()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the downloads links</button>
-                            <button class="btn btn-sm btn-info" onclick="refreshExamples()"><span class="glyphicon glyphicon-refresh"></span>&nbsp; &nbsp; Refresh the examples links</button>
-                        </div>
-                    </div>*@
+                </div>
                 </div>
             </div>
-        </div>
             <div class="panel panel-info">
                 <div class="panel-heading">Registered Users Table</div>
                 <div class="panel-body">
@@ -124,20 +130,30 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                 </tr>
-                                @{foreach (var registeredUser in ViewBag.Rez)
+                                @*@{  foreach (var registeredUser in ViewBag.Rez)
                                     {
                                         <tr>
                                             <td>@registeredUser.Name</td>
                                             <td>@registeredUser.Email</td>
                                         </tr>
                                     }
+                                }*@
+                                @{
+                                    for(var i = 0; i < 25; ++i)
+                                    {
+                                        <tr id="@($"registeredUser_{i}")">
+                                            <td id="@($"registeredUser_Name_{i}")"></td>
+                                            <td id="@($"registeredUser_Email_{i}")"></td>
+                                        </tr>
+                                    }
                                 }
                             </table>
+                            <a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Back" onclick="return doNavRegisteredUsers(true);">Back</a>
+                            <a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Next" onclick="return doNavRegisteredUsers(false);">Next</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 </main>
 @section scripts
 {
@@ -145,61 +161,34 @@
         $(document).ready(function () {
             doFetchAnnouncements();
             doFetchLatexUploads();
-            var adminLatexUploadFile = {};
+            doFetchRegisteredUsers();
+            // var adminLatexUploadFile = {};
 
-            function checkLatexUploadFormButtonDisabled() {
-                if ($("#adminLatexUpload_Version").get(0).length === 0 ||
-                    $("#adminLatexUpload_File").val().length === 0) {
-                    console.log('disabled');
-                    $("#adminLatexUpload_Submit").prop('disabled', true);
-                } else {
-                    console.log('enabled');
-                    $("#adminLatexUpload_Submit").prop('disabled', false);
-                }
-            }
+            //function checkLatexUploadFormButtonDisabled() {
+            //    if ($("#adminLatexUpload_Version").get(0).length === 0 ||
+            //        $("#adminLatexUpload_File").val().length === 0) {
+            //        console.log('disabled');
+            //        $("#adminLatexUpload_Submit").prop('disabled', true);
+            //    } else {
+            //        console.log('enabled');
+            //        $("#adminLatexUpload_Submit").prop('disabled', false);
+            //    }
+            //}
 
-            $("#adminLatexUpload_File").change(function(e) {
-                console.log('upload change');
-                adminLatexUploadFile = this.files[0];
-                checkLatexUploadFormButtonDisabled();
-            });
-            $("#adminLatexUpload_Version").change(function() {
-                console.log('version changed');
-                checkLatexUploadFormButtonDisabled();
-            });
-            $("#adminLatexUpload_Submit").click(function () {
-                $('#adminLatexUpload').toggle();
-                $('.latex-container').append('<div class="loader center-block"></div>');
-                $("#adminLatexUpload_Submit").prop('disabled', true);
+            //$("#adminLatexUpload_File").change(function(e) {
+            //    console.log('upload change');
+            //    adminLatexUploadFile = this.files[0];
+            //    checkLatexUploadFormButtonDisabled();
+            //});
 
-                var adminLatexUploadForm = new FormData();
-                adminLatexUploadForm.append('file', adminLatexUploadFile);
-                adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
-                console.log(adminLatexUploadForm);
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/api/Latex/Convert", true);
-                xhr.addEventListener("load",
-                    function(evt) {
-                        console.log('load');
-                        console.log(evt);
-                        $("#adminLatexUpload_Submit").prop('disabled', false);
-                        if (xhr.status >= 200 && xhr.status < 400) {
-                            $('#adminLatexUpload').toggle();
-                            $('.loader').remove();
-                        }
-                    },
-                    false);
-                xhr.addEventListener("error",
-                    function(evt) {
-                        console.log('error');
-                        console.log(evt);
-                        $("#adminLatexUpload_Submit").prop('disabled', false);
-                        $('#adminLatexUpload').toggle();
-                        $('.loader').remove();
-                    },
-                    false);
-                xhr.send(adminLatexUploadForm);
-            });
+            //$("#adminLatexUpload_Version").change(function() {
+            //    console.log('version changed');
+            //    checkLatexUploadFormButtonDisabled();
+            //});
+
+            //    $("#adminLatexUpload_Submit").click(function () {
+
+            //});
         });
     </script>
 }

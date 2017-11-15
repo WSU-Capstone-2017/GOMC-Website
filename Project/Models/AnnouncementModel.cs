@@ -10,5 +10,11 @@ namespace Project.Models
 		public int AuthorId { get; set; }
 		public string Content { get; set; }
 		public DateTime Created { get; set; }
-	}
+
+        public AnnouncementModel() { }
+        public AnnouncementModel(string content)
+        {
+            Content = content;
+        }
+    }
 }

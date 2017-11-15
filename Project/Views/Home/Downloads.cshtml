@@ -23,7 +23,7 @@
                 <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form</p>
                 <p>Otherwise click the orange button below: </p>
                 <div class="col-md-4">
-                    <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and go straight to download</button>
+                    <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and proceed without registering</button>
                     <div class="well well-sm custom-well registration-container">
                         <form method="post" id="registrationForm">
                             <div class="form-group has-feedback">
@@ -71,10 +71,10 @@
                                 <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
                             }
                         </ul>
-                        <a>@Html.ActionLink("Click here for other revisions", "MoreDownloads", "Home")</a>
+                        <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
                     </div>
 
-                    <div class='well well-sm custom-well col-md-4'>
+                    <div class='well well-sm custom-well col-md-4 col-md-offset-4'>
                         <h3>Most Recent Linux Version: @Model.TagName</h3>
                         <ul>
                             @foreach (var a in Model.Linux.GPU)
@@ -129,7 +129,7 @@
                             <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
                         }
                     </ul>
-                    <a>@Html.ActionLink("Click here for more examples", "MoreExamples", "Home")</a>
+                    <a>@Html.ActionLink("Click here for older examples", "MoreExamples", "Home")</a>
                 </div>
             </div>          
 </main>

@@ -1,8 +1,8 @@
 /*
 gomc.js is the main javascript file for the GOMC website
-    Some of the pages in this website have their own embedded javascript rendered in each section
-    At the top we have our global variables and objects, followed by event handlers, followed by callbacks
-    This javascript was made to be compatible with jQuery 3.2.1 with jQuery-Validate v1.16.0
+        Some of the pages in this website have their own embedded javascript rendered in each section
+        At the top we have our global variables and objects, followed by event handlers, followed by callbacks
+        This javascript was made to be compatible with jQuery 3.2.1 with jQuery-Validate v1.16.0
 */
 
 // Global Vars
@@ -35,12 +35,19 @@ var newAnnouncementResult = {
     MissingContent: 3
 };
 
-// Object of the announcement table length
+// Object of the announcement table
 var announcementsNavState = {
     pageIndex: 0,
     pageLength: 5,
 	uiMaxPageLength: 5,
     totalLength: 0
+};
+
+// Object of the registered users table
+var registeredUsersNavState = {
+	pageIndex: 0,
+	pageLength: 25,
+	totalLength: 0
 };
 
 // Object of announcement state
@@ -51,9 +58,12 @@ var announcementsEdit = {
 };
 // Object to appear and validate against in the orange button of Registration.cshtml
 var registrationString = {
-	init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download',
+    init: '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering',
 	fin: '<span class="glyphicon glyphicon-collapse-up"></span> Open Form and Register'
 };
+
+// Latex file object
+var latexFileData = {};
 
 // Global Object events & telemetry
 $(function () {
@@ -69,6 +79,51 @@ $(function () {
         }
         return param.test(value);
     }, "Invalid pattern");
+
+    $.validator.addMethod("accept", function (value, element, param) {
+
+        // Split mime on commas in case we have multiple types we can accept
+        var typeParam = typeof param === "string" ? param.replace(/\s/g, "") : "image/*",
+            optionalValue = this.optional(element),
+            i, file, regex;
+
+        // Element is optional
+        if (optionalValue) {
+            return optionalValue;
+        }
+
+        if ($(element).attr("type") === "file") {
+            // Escape string to be used in the regex
+            // see: https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+            // Escape also "/*" as "/.*" as a wildcard
+            typeParam = typeParam
+                .replace(/[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, "\\$&")
+                .replace(/,/g, "|")
+                .replace(/\/\*/g, "/.*");
+
+            // Check if the element has a FileList before checking each file
+            if (element.files && element.files.length) {
+                regex = new RegExp(".?(" + typeParam + ")$", "i");
+                for (i = 0; i < element.files.length; i++) {
+                    file = element.files[i];
+
+                    // Grab the mimetype from the loaded file, verify it matches
+                    if (!file.type.match(regex)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        // Either return true because we've validated each file, or because the
+        // browser does not support element.files and the FileList feature
+        return true;
+    }, $.validator.format("Please enter a value with a valid mimetype."));
+
+    // Older "accept" file extension method. Old docs: http://docs.jquery.com/Plugins/Validation/Methods/accept
+    $.validator.addMethod("extension", function (value, element, param) {
+        param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpe?g|gif";
+        return this.optional(element) || value.match(new RegExp("\\.(" + param + ")$", "i"));
+    }, $.validator.format("Please enter a value with a valid extension."));
 
     // Extension methods for each panel in XML-Config
     //$.validator.addMethod("nowhitespace", function (val, item) { // Extension to remove whitespace from xml input forms, from additional.js for jQuery validate
@@ -97,7 +152,7 @@ $('#btn').click(function () {
 $('#closeRegistration').click(function () {
 	$(this).next().slideToggle(() => {
 		$(this).html((count, words) => {
-			return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and go straight to download' ? registrationString.fin : registrationString.init;
+            return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
 		});
 	});
 });
@@ -197,7 +252,7 @@ $('#registrationForm').validate({ // jQuery Validate
 
 });
 
-// Login from admin page
+// Login to admin page from login page
 $('#Admin').validate({
     rules: {
         uName: {
@@ -846,6 +901,13 @@ $('#xmlForm3').validate({
 //    }
 //});
 
+// Listener for new tex file upload
+$("#adminLatexUpload_File").change(function (e) {
+    //console.log('upload change');
+    latexFileData = this.files[0];
+    // checkLatexUploadFormButtonDisabled();
+});
+
 $('#xmlConfig').validate({
     rules: {
         gomc_config_input_DistName: {
@@ -929,14 +991,12 @@ $('#xmlConfig').validate({
         error.remove();
     },
 	submitHandler: function (form, e) {
-		console.log($('#xmlForm1').serialize());
-		console.log($('#xmlForm2').serialize());
-		console.log($('#xmlForm3').serialize());
-		console.log($('#xmlFonfig').serialize());
-
+		//console.log($('#xmlForm1').serialize());
+		//console.log($('#xmlForm2').serialize());
+		//console.log($('#xmlForm3').serialize());
+		//console.log($('#xmlFonfig').serialize()); // Fonfig? Really bro?
 		var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
-
-		console.log(xmlData);
+		//console.log(xmlData);
 
         $.post('/api/configinput/FormPost', xmlData) 
             .done(function (data) {
@@ -964,6 +1024,116 @@ $('#xmlConfig').validate({
                 );
             });
     },
+    invalidHandler: function (e, validator) {
+        var errorCount = validator.numberOfInvalids();
+        if (errorCount) {
+            var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+            window.confirm(errMessage);
+        }
+    }
+});
+
+// Validation for Latex-upload
+$('#adminLatexUpload').validate({
+    debug: true,
+    rules: {
+        file: {
+            required: true,
+            extension: "tex",
+           // accept: "application/x-latex" // Fails every-time for unknown reason? Should fix later but for now it does the basic job of stopping non-tex files
+        },
+        version: {
+            required: true,
+            pattern: /^[a-zA-Z0-9_.\/]*$/
+        }
+    },
+
+    messages: {
+        file: {
+            extension: "Unsupported file type, you must upload a latex file",
+            // accept: "Improper file format, please check the file and try again" // Same as issue above
+        },
+        version: {
+            pattern: "Invalid naming convention, no whitespaces or special characters"
+        }
+    },
+
+    errorElement: "span", // error tag name
+
+    errorPlacement: function (error, element) { // rules for placement of error tag
+        element.parent().parent().addClass('has-error');
+        error.addClass('help-block');
+        error.appendTo(element.parent());
+    },
+
+    success: function (error, element) { // rules for placement of success tag
+        error.removeClass('help-block');
+        error.parents('.form-group').removeClass('has-error');
+        error.remove();
+    },
+
+    submitHandler: function (form, e) {
+        // document.write('Good');
+        e.preventDefault();
+        $('#adminLatexUpload').toggle();
+        $('.latex-container').append('<div class="loader center-block"></div>');
+        console.log(adminLatexUpload);
+        // $("#adminLatexUpload_Submit").prop('disabled', true);
+        var adminLatexUploadForm = new FormData();
+        adminLatexUploadForm.append('file', latexFileData);
+        adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/Latex/Convert", true);
+        xhr.addEventListener("load",
+            function (evt) {
+                console.log('load');
+                console.log(evt);
+                $("#adminLatexUpload_Submit").prop('disabled', false);
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    $('#adminLatexUpload').toggle();
+                    $('.loader').remove();
+                    // console.log("Processed");
+                }
+            }, false);
+        xhr.addEventListener("error",
+            function (err) {
+                $('#adminLatexUpload').toggle();
+                $('.loader').remove();
+                window.confirm(err.statusText + " Please try again");
+                var messageExplained = JSON.parse(err.responseJSON.Message);
+                console.log(
+                    "Status: " + err.status
+                    + "\n Status Text: " + err.statusText
+                    + "\n Full Response: " + messageExplained.general[0]
+                    + "\n Check the network tab in browser debugger for more details"
+                );
+            },
+            false);
+        xhr.send(adminLatexUploadForm);
+        // Below JQuery method is busted AF, I gotta figure out a better way of doing it
+        //var adminLatexUploadForm = new FormData();
+        //adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
+        //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
+                // Prompt a link to do something?  On success-bar?
+        //$.post('/api/Latex/Convert', adminLatexUploadForm)
+        //    .done(function (data) {
+        //        $('#adminLatexUpload').toggle();
+        //        $('.loader').remove();
+        //    })
+        //    .fail(function (err) {
+        //        $('#adminLatexUpload').toggle();
+        //        $('.loader').remove();
+        //        window.confirm(err.statusText + " Please try again");
+        //        var messageExplained = JSON.parse(err.responseJSON.Message);
+        //        console.log(
+        //            "Status: " + err.status
+        //            + "\n Status Text: " + err.statusText
+        //            + "\n Full Response: " + messageExplained.general[0]
+        //            + "\n Check the network tab in browser debugger for more details"
+        //        );
+        //    });
+    },
+
     invalidHandler: function (e, validator) {
         var errorCount = validator.numberOfInvalids();
         if (errorCount) {
@@ -1082,13 +1252,13 @@ function doLatexUse(i) {
 	return false;
 }
 
-function doFetchLatexUploads() {
+var validateSessionResultType = {
+	SessionValid: 0,
+	SessionExpired: 1,
+	SessionInvalid: 2
+};
 
-	var validateSessionResultType = {
-		SessionValid: 0,
-		SessionExpired: 1,
-		SessionInvalid: 2
-	};
+function doFetchLatexUploads() {
 
 	function latexUploadActions(a) {
 		function atag(val, i, fn, hf) {
@@ -1098,7 +1268,7 @@ function doFetchLatexUploads() {
 
 		return "" +
 			atag("Publish", 'LatexUpload_Use_' + a, 'doLatexUse(' + a + ')') +
-			" " +
+			"<br/>" +
 			atag("Get Pdf", 'LatexUpload_Pdf_' + a, 'doLatexPdf(' + a + ')');
 	}
 
@@ -1296,6 +1466,70 @@ function doRemoveAnnouncement(a) {
             }
         });
     return false;
+}
+
+function doFetchRegisteredUsers() {
+	$.ajax({
+		url: '/api/admin/fetchregisteredusers',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			pageIndex: registeredUsersNavState.pageIndex,
+			pageLength: registeredUsersNavState.pageLength
+		})
+	}).done(function (data) {
+		updateNavRegisteredUsers(data.TotalLength);
+		console.log(data);
+		if (data.AuthResult === validateSessionResultType.SessionValid) {
+			for (var i = 0; i < registeredUsersNavState.pageLength; i++) {
+				$("#registeredUser_Name_" + i).text('');
+				$("#registeredUser_Email_" + i).text('');
+				if (i >= data.Length) {
+					$("#registeredUser_" + i).hide();
+				} else {
+					$("#registeredUser_" + i).show();
+					$("#registeredUser_Name_" + i).text(data.Users[i].Name);
+					$("#registeredUser_Email_" + i).text(data.Users[i].Email);
+				}
+			}
+		} else if (data.AuthResult === validateSessionResultType.SessionInvalid) {
+			console.log('Could not fetch registered users, bad session');
+			window.location.href = "/home/login";
+		} else if (data.AuthResult === validateSessionResultType.SessionExpired) {
+			console.log('Could not fetch registered users, session expired');
+			window.location.href = "/home/login";
+		}
+	});
+}
+
+function doNavRegisteredUsers(a) {
+	if (a) {
+		registeredUsersNavState.pageIndex--;
+	} else {
+		registeredUsersNavState.pageIndex++;
+	}
+	doFetchRegisteredUsers();
+
+	return false;
+}
+
+function updateNavRegisteredUsers(totalLength) {
+	$("#registeredUsers_Next").addClass("btn disabled");
+	$("#registeredUsers_Back").addClass("btn disabled");
+
+	registeredUsersNavState.totalLength = totalLength;
+
+	var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	if ((registeredUsersNavState.pageIndex + 1) < maxPages) {
+		$("#registeredUsers_Next").removeClass("btn disabled");
+	} else {
+		registeredUsersNavState.pageIndex = maxPages - 1;
+	}
+	if (registeredUsersNavState.pageIndex > 0) {
+		$("#registeredUsers_Back").removeClass("btn disabled");
+	} else if (registeredUsersNavState.pageIndex < 0) {
+		registeredUsersNavState.pageIndex = 0;
+	}
 }
 
 // Callback to update the progress bar in the xml config form

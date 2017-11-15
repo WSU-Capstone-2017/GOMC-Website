@@ -2,6 +2,7 @@
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC";
 }
+
 @section NavSection {
 <li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
 <li>@Html.ActionLink("Features", "Features", "Home")</li>
@@ -10,6 +11,7 @@
 <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
 <li>@Html.ActionLink("About", "About", "Home")</li>
 }
+
 <header class='special-jumbotron' onload="applyJumbotron">
     <div class='jumbotron'>
         <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
@@ -21,7 +23,7 @@
             <div class='carousel-inner' role='listbox'>
                 <div class='item active cardA'>
                     <h1>GOMC</h1>
-                    <p class="jumbo-description">GOMC is a gpu optimized monte-carlo molecular simulation engine developed for the simulation of vapor-liquid equilibria for systems containing tens of thousands of interaction sites. </p> 
+                    <p class="jumbo-description">GPU optimized monte-carlo molecular simulation engine.</p> 
                 </div>
                 <div class='item cardB'>
                     <h1>Downloads</h1>
@@ -32,10 +34,10 @@
                     <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file'></span> Our newest documentation is here to help you get up and running</a>
                 </div>
             </div>
-            <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev'>
+            <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev' id="carouselLeft">
                 <span class='glyphicon glyphicon-menu-left sit-down'></span>
             </a>
-            <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next'>
+            <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next' id="carouselRight">
                 <span class='glyphicon glyphicon-menu-right sit-down'></span>
             </a>
         </div>
@@ -45,14 +47,13 @@
         <section>
             <div class="row">
                 <div class="panel panel-primary announcement-panel">
-                    <div class="panel-heading announcement-panel announcement-header"><h4>Announcements</h4></div>
+                    <div class="panel-heading announcement-panel announcement-header"><h1>Announcements</h1></div>
                     <div class="panel-body">
                         <ul>
-                            <li id="GomcAnnouncement_0"></li>
-                            <li id="GomcAnnouncement_1"></li>
-                            <li id="GomcAnnouncement_2"></li>
-                            <li id="GomcAnnouncement_3"></li>
-                            <li id="GomcAnnouncement_4"></li>
+                            @foreach (var announcement in ViewBag.AnnouncementList )
+                            {
+                                <li class="model-link">@Html.Raw(@announcement.Content)</li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -60,31 +61,31 @@
             <hr class='grand-line' />
             <div class='row'>
                 <div class='col-md-4 col-xs-12'>
-                    <div class="panel">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
                             <h2>Simulate</h2>
                         </div>
                         <div class="panel-body">
-                            <img src='~/Content/img/simulate.png' class='center-block img-rounded' alt='Simulate Image'/>
+                            <img src='~/Content/img/simulate.png' class='center-block img-rounded' alt='Simulate Image' style="width: 15em;"/>
                             <p>The software provides the capability to simulate live ensembles of molecules and return meaningful data that be extracted into further tests</p>
                             <p>This data can help fine tune and accelerate the design, implementation and analysis of a wide range of chemical structures</p>
                     </div>
                </div>
            </div>
                 <div class='col-md-4 col-xs-12'>
-                    <div class="panel">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
                             <h2>Absorb</h2>
                         </div>
                         <div class="panel-body">
-                            <img src='~/Content/img/absorption.jpg' class='center-block img-rounded' alt='Absorbption Image'  />
+                            <img src='~/Content/img/absorption.jpg' class='center-block img-rounded' alt='Absorbption Image' style="width:19em;" />
                             <p>Our software does produce the percentage of absorption in solutions</p>
                             <p>Absorption rates are a very valuable metric for handling the data corresponding to different reactions, having this would be limit the physical work needed for full implementation of a mixture or compound</p>
                         </div>
                 </div>
             </div>
                 <div class="col-md-4 col-xs-12">
-                    <div class="panel">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
                             <h2>XML Input</h2>
                         </div>
@@ -92,6 +93,7 @@
                             <img src='~/Content/img/xml.jpg' class='center-block img-rounded' alt='XML Image' style="width:7.1875em;" />
                             <p>We also allow for various forms of input files such as .psf .pdb and topology files</p>
                             <p>In addition to these, we now have support for XML input</p>
+                            <br /><br /><br />
                         </div>
                     </div>
                 </div>
@@ -102,7 +104,7 @@
 <script>
         document.onreadystatechange = function () {
             if (document.readyState === 'interactive') {
-                console.log('jumbotron, your\'re up!');
+               // console.log('jumbotron, your\'re up!');
                 $('.jumbotron').css('background-color', '#91D3EF');
                 $('.jumbotron h1').css('background-color', '#91D3EF');
                 $('.carousel-control').css({
