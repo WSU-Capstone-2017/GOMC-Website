@@ -15,19 +15,20 @@
     <div class="panel panel-primary">
         <div class="panel-heading col-md-12">
             Older Examples
-        </div>        
+        </div>
         @foreach (var i in Model)
         {
             <div class="well well-sm col-md-12">
                 <h3>Examples set: @i.ExamplesTagName</h3>
                 <ul>
-                @foreach (var a in i.Examples)
-                {                                      
-                       <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>                    
-                }  
+                    @foreach (var a in i.Examples)
+                    {
+                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                    }
                 </ul>
                 <br />
             </div>
         }
+        <a>@Html.ActionLink("Click here to go back to most recent example", "Downloads", "Home")</a>
     </div>
 </main>
