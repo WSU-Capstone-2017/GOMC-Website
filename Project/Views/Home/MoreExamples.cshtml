@@ -12,21 +12,21 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <main>
-    <div class="panel panel-primary">
-        <div class="panel-heading col-md-12">
-            Older Examples
-        </div>
-        @foreach (var i in Model)
-        {
-            <div class="well well-sm col-md-6">
+    <div class="row">
+        <div class="well well-sm col-md-6">
+            @foreach (var i in Model)
+            {
                 <h3>Examples set: @i.TagName</h3>
                 <ul>
                     <li class="model-link"><a href="@i.ZipBall">Zip Download</a></li>
                     <li class="model-link"><a href="@i.TarBall">Tar Download</a></li>
                 </ul>
-                <br />
-            </div>
-        }
-        <a>@Html.ActionLink("Click here to go back to most recent example", "Downloads", "Home")</a>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a>@Html.ActionLink("Click here to go back to most recent example", "Downloads", "Home")</a>
+        </div>
     </div>
 </main>
