@@ -213,7 +213,7 @@ namespace Project.Controllers
         }
         public ActionResult Documentation()
         {
-            var setPdfPath = "~/Content/gen/Manual.pdf";
+            var setPdfPath = "~/temp/set/Manual.pdf";
             if (System.IO.File.Exists(HttpContext.Server.MapPath(setPdfPath)))
             {
                 ViewBag.UseSetPdf = true;
