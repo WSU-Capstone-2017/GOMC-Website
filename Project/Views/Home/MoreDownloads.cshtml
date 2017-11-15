@@ -1,4 +1,4 @@
-﻿@model Project.Controllers.HomeController.DownloadModelV2[]
+﻿@model Project.Controllers.HomeController.MoreDownloadModelV2[]
 @{
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC: Ex-Downloads";
@@ -16,38 +16,15 @@
         <div class="panel-heading col-md-12">
             Older Downloads
         </div>
-        @foreach (var i in listMoreDownloads)
+        @foreach (var i in Model)
         {
-            <div class='well well-sm col-md-4'>
-                <h3>Windows Version: @Model.TagName</h3>
+            <div class='well well-sm col-md-12'>
+                <h3>Windows Version: @i.TagName</h3>
                 <ul>
-               @foreach (var b in Model.Windows.GPU)
+                    @foreach (var a in i.Items)
                 {
                         <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                }
-                </ul>
-                <ul>
-               @foreach (var b in Model.Windows.CPU)
-                {
-                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                }
-                </ul>
-                <a>@Html.ActionLink("Click here for most recent versions", "Downloads", "Home")</a>
-            </div>
-
-            <div class='well well-sm col-md-4'>
-                <h3>Linux Version: @Model.TagName</h3>
-                <ul>
-               @foreach (var b in Model.Linux.GPU)
-                {
-                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                }
-                </ul>
-                <ul>
-               @foreach (var b in Model.Linux.CPU)
-                {
-                        <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                }
+                    }
                 </ul>
                 <br />
             </div>
