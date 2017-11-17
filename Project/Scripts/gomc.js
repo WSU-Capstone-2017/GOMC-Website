@@ -1533,6 +1533,40 @@ function updateNavRegisteredUsers(totalLength) {
 	}
 }
 
+var announcementsDataCache = {};
+
+function doFetchPreviewAnnouncements() {
+	$.ajax({
+		url: '/api/admin/fetchannouncements',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			PageIndex: 0,
+			PageLength: 5
+		})
+	}).done(function(data) {
+		announcementsDataCache = data;
+		if (data.Result === newAnnouncementResult.Success) {
+			var newHtml = "";
+			for (var i = 0; i < data.Length; i++) {
+				newHtml += "<li>" + data.Announcements[i].Content + "</li>";
+			}
+			$("#adminAnnouncementPreview").html(newHtml);
+		}
+	});
+}
+
+function doPreviewAnnouncements(d) {
+	var data = announcementsDataCache;
+	if (data.Result === newAnnouncementResult.Success) {
+		var newHtml = "<li>" + d + "</li>";
+		for (var i = 0; i < data.Length; i++) {
+			newHtml += "<li>" + data.Announcements[i].Content + "</li>";
+		}
+		$("#adminAnnouncementPreview").html(newHtml);
+	}
+}
+
 // Callback to update the progress bar in the xml config form
 function updateBar(currentWidth) {
     var newWidth = currentWidth + '%';
