@@ -241,7 +241,7 @@ footer {
   margin-top: .625em;
   padding-left: .3125em;
   text-decoration: none !important;
-  color: #020816 !important;
+  color: #020816 !important;        /*Not a link so has to be black text and not blue*/
 }
 
 .person-picture {
@@ -331,11 +331,17 @@ td {
   vertical-align: top;
 }
 
-.img-responsive 
-
-.img-thumbnail {
-	height: 130px;
-	width: 297px;
+.images {
+	display: inline-block;	
+	height: 120px;
+	width: 160px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px;
+	line-height: 1.4285;
+	background-color: #fff;
+	border: 1px solid #ddd;
 }
 
 .img-responsive img-thumbnail {
@@ -354,19 +360,6 @@ th {
 
 .publication-header {
     margin-top: 10.5em;
-}
-
-.pub-img {
-    width: 18.75em;
-    /*height: 110px;*/
-}
-
-.other-img {
-    width: 16.75em;
-}
-
-.table-text{
-    vertical-align: middle;
 }
 
 /*Gomc.cshtml specific*/
