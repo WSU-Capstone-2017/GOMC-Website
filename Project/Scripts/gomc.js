@@ -504,7 +504,7 @@ $('#xmlForm1').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            //element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
@@ -706,7 +706,7 @@ $('#xmlForm2').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            // element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
@@ -865,7 +865,7 @@ $('#xmlForm3').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            //element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
@@ -978,7 +978,7 @@ $('#xmlConfig').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+           // element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
