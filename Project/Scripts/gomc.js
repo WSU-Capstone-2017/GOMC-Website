@@ -511,11 +511,12 @@ $('#xmlForm1').validate({
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+       // error.parent().addClass('has-success');
         // remove errors
        // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
         error.remove();
+        //$('.help-block').val("");
     },
     submitHandler: function (form, e) { // callback triggered on successful validation
       
@@ -1076,8 +1077,8 @@ $('#adminLatexUpload').validate({
         // document.write('Good');
         e.preventDefault();
         $('#adminLatexUpload').toggle();
-        $('.latex-container').append('<div class="loader center-block"></div>');
-        console.log(adminLatexUpload);
+        $('.latex-container').append('<div class="loader center-block"><span>Processing please wait...</span></div>'); // Needs to be tested
+        // console.log(adminLatexUpload);
         // $("#adminLatexUpload_Submit").prop('disabled', true);
         var adminLatexUploadForm = new FormData();
         adminLatexUploadForm.append('file', latexFileData);
@@ -1086,8 +1087,8 @@ $('#adminLatexUpload').validate({
         xhr.open("POST", "/api/Latex/Convert", true);
         xhr.addEventListener("load",
             function (evt) {
-                console.log('load');
-                console.log(evt);
+                // console.log('load');
+                // console.log(evt);
                 $("#adminLatexUpload_Submit").prop('disabled', false);
                 if (xhr.status >= 200 && xhr.status < 400) {
                     $('#adminLatexUpload').toggle();
