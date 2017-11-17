@@ -1446,27 +1446,33 @@ function doNavAnnouncements(a) {
 }
 
 function doRemoveAnnouncement(a) {
-    $.ajax({
-        url: '/api/Admin/DeleteAnnouncement',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-			AnnouncementId: announcementIdMap[a]
-        })
-    })
-        .done(function (data) {
-            console.log(data);
-            if (data.Result === newAnnouncementResult.Success) {
-                doFetchAnnouncements();
-            } else if (data === newAnnouncementResult.InvalidSession) {
-                console.log('Could not remove announcement, bad session');
-                window.location.href = "/Home/Login";
-            } else if (data === newAnnouncementResult.SessionExpired) {
-                console.log('Could not remove announcement, session expired');
-                window.location.href = "/Home/Login";
-            }
-        });
-    return false;
+	var r = confirm("Are you sure you want to remove this item?");
+
+	if (r === false) {
+		return false;
+	}
+
+	$.ajax({
+			url: '/api/Admin/DeleteAnnouncement',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				AnnouncementId: announcementIdMap[a]
+			})
+		})
+		.done(function(data) {
+			console.log(data);
+			if (data.Result === newAnnouncementResult.Success) {
+				doFetchAnnouncements();
+			} else if (data === newAnnouncementResult.InvalidSession) {
+				console.log('Could not remove announcement, bad session');
+				window.location.href = "/Home/Login";
+			} else if (data === newAnnouncementResult.SessionExpired) {
+				console.log('Could not remove announcement, session expired');
+				window.location.href = "/Home/Login";
+			}
+		});
+	return false;
 }
 
 function doFetchRegisteredUsers() {
