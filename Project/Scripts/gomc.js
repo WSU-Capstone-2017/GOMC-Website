@@ -713,7 +713,7 @@ $('#xmlForm2').validate({
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+        //error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
@@ -872,7 +872,7 @@ $('#xmlForm3').validate({
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+        //error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
@@ -985,7 +985,7 @@ $('#xmlConfig').validate({
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+       // error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');

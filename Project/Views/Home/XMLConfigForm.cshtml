@@ -134,19 +134,27 @@
                                 <h4>Enter the following System Data</h4>
                                 <form id="xmlForm2">
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" data-placement="right" title="NPT or GibbsNpt must be selected, Pressure is in Bar" class="block-label">Pressure</label>
+                                        <div>
+                                            <label data-toggle="tooltip" data-placement="right" title="NPT or GibbsNpt must be selected, Pressure is in Bar">Pressure</label>
+                                        </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Pressure" id="Pressure"><span>  <i>Bar</i></span>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets temperature for system" class="block-label">Temperature</label>
+                                        <div>
+                                            <label data-toggle="tooltip" title="Sets temperature for system">Temperature</label>
+                                        </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Specific radius of non-bonded interaction energy" class="block-label">Rcut</label>
+                                        <div>
+                                            <label data-toggle="tooltip" title="Specific radius of non-bonded interaction energy">Rcut</label>
+                                        </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets minimal possible distance" class="block-label">RcutLow</label>
+                                        <div>
+                                            <label data-toggle="tooltip" title="Sets minimal possible distance">RcutLow</label>
+                                        </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
                                     </div>
                                     <label data-toggle="tooltip" title="Defines whether or not long range corrections are used">Long Range Correction</label>
@@ -253,7 +261,9 @@
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Dielectric" id="Dielectric">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Considers pressure calculation or not" class="block-label">PressureCalc</label>
+                                        <div>
+                                            <label data-toggle="tooltip" title="Considers pressure calculation or not">PressureCalc</label>
+                                        </div>
                                         <input class="xml-control form-control inline-control" type="number" min="0" name="gomc_config_input_PressureCalc" id="PressureCalc"><span><i> Bar</i></span>
                                     </div>
                                     <div class="form-group">
