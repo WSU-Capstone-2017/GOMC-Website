@@ -20,7 +20,7 @@
 
 /*This may have un-foreseen side effects, please test and let me know of any visual issues !Caleb*/
 img {
-    width: 18.75em; //300 px converted
+    width: 18.75em; 
 	padding-top: 1em;
 }
 
@@ -63,16 +63,7 @@ footer {
     padding-bottom: .625em; /*Just to fluff out the bottom*/
 }
 
-/*.btn { 
-	margin-bottom: 3.99em !important;
-}*/
-/*^ IDK why this is here, it breaks most buttons' standard behavior? */
-
 /*Fix for the carousel*/
-
-.glyphicon1 {
-	padding-left: 40px;
-}
 	
 .panel-primary > .panel-heading {
 	color: #020816;
@@ -187,10 +178,6 @@ footer {
 .navbar-default {
     border: none;
 }
-
-/*.special-jumbotron {
-    margin-top: 5.5em;
-}*/
 
 ::selection {
   background-color: #E58242;
@@ -333,20 +320,14 @@ td {
 
 .images {
 	display: inline-block;	
-	height: 120px;
-	width: 160px;
-	padding-bottom: 4px;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 4px;
-	line-height: 1.4285;
+	height: 7.5em;
+	width: 11.3em;
+	padding-bottom: .3em;
+	padding-left: .3em;
+	padding-right: .3em;
+	padding-top: .3em;	
 	background-color: #fff;
-	border: 1px solid #ddd;
-}
-
-.img-responsive img-thumbnail {
-	height: 130px;
-	width: 297px;
+	border: .0625em solid #ddd;
 }
 
 tr {
@@ -377,7 +358,7 @@ th {
 
 .announcement-header {
     background-color: #9ACD32 !important;
-	padding-top: .5px;
+	padding-top: .03125em;
 }
 
 .sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
@@ -457,7 +438,7 @@ th {
 .panel-success > .panel-heading {
     background-color: #9ACD32;
     color: #FFFFFF;
-	padding-top: .5px;
+	padding-top: .03125em;
 }
 
 /*Ids for menu items, attach ids only on the page focus*/
@@ -587,29 +568,6 @@ th {
 	font-size: 1em;
 }
 
-#site-nav .current {
-	font-weight: bold;
-	text-shadow: .0625em .0625em rgba(0,0,0,0.2);
-	position: relative;
-}
-
-#site-nav .current:after {
-	content: '⇒';
-	position: absolute;
-	top: 0.2em;
-	line-height: 1.2em;
-	right: 6px;
-	font-weight: bold;
-	text-shadow: none;
-	z-index: 0;
-	color: #666;
-}
-
-#site-nav .current ul {
-	font-weight: normal;
-	text-shadow: none;
-}
-
 /*XML specific*/
 .xml-control {
     width: auto;
@@ -685,7 +643,7 @@ div.newtheorem { margin-bottom: 2em; margin-top: 2em;}
 .obeylines-h,.obeylines-v {white-space: nowrap; }
 div.obeylines-v p { margin-top:0; margin-bottom:0; }
 .overline{ text-decoration:overline; }
-.overline img{ border-top: 1px solid black; }
+.overline img{ border-top: .0625em solid black; }
 td.displaylines {text-align:center; white-space:nowrap;}
 .centerline {text-align:center;}
 .rightline {text-align:right;}
@@ -700,7 +658,7 @@ div.flushright, div.flushright div.flushright {text-align: right;}
 div.flushright div {text-align: left;}
 div.flushleft {text-align: left;}
 .underline{ text-decoration:underline; }
-.underline img{ border-bottom: 1px solid black; margin-bottom:1pt; }
+.underline img{ border-bottom: .0625em solid black; margin-bottom:1pt; }
 .framebox-c, .framebox-l, .framebox-r { padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
 .framebox-c {text-align:center;}
 .framebox-l {text-align:left;}
@@ -722,7 +680,7 @@ td.td01{ padding-left:0pt; padding-right:5pt; }
 td.td10{ padding-left:5pt; padding-right:0pt; }
 td.td11{ padding-left:5pt; padding-right:5pt; }
 table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
-.hline hr, .cline hr{ height : 1px; margin:0px; }
+.hline hr, .cline hr{ height : .0625em; margin:0px; }
 .tabbing-right {text-align:right;}
 span.TEX {letter-spacing: -0.125em; }
 span.TEX span.E{ position:relative;top:0.5ex;left:-0.0417em;}
@@ -789,7 +747,7 @@ div.lstlisting{font-family: monospace; white-space: nowrap; margin-top:0.5em; ma
 div.lstinputlisting{ font-family: monospace; white-space: nowrap; }
 .lstinputlisting .label{margin-right:0.5em;}
 P.fancyvrb {white-space: nowrap; margin:0em;}
-.framedenv{border: 1px solid black;}
+.framedenv{border: .0625em solid black;}
 div.tabular, div.center div.tabular {text-align: center; margin-top:0.5em; margin-bottom:0.5em; }
 table.tabular td p{margin-top:0em;}
 table.tabular {margin-left: auto; margin-right: auto;}
@@ -805,23 +763,23 @@ td.td01{ padding-left:0pt; padding-right:5pt; }
 td.td10{ padding-left:5pt; padding-right:0pt; }
 td.td11{ padding-left:5pt; padding-right:5pt; }
 table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
-.hline hr, .cline hr{ height : 1px; margin:0px; }
+.hline hr, .cline hr{ height : .0625em; margin:0px; }
 div.array {text-align:center;}
 span#colorbox1{background-color:#FFFF00;}
 span#colorbox2{background-color:#FF0000;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4{border-collapse:collapse;}
-#TBL-4-1 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4-1 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-4-1{border-collapse:collapse;}
 span#colorbox3{background-color:#FFFF00;}
 span#colorbox4{background-color:#FFFF00;}
@@ -929,7 +887,7 @@ span#textcolor105{color:#0000FF}
 span#textcolor106{color:#00FF00}
 div#colorbox107{background-color:#E5E5E5;}
 span#colorbox108{background-color:#E5E5E5;}
-#TBL-47 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-47 colgroup{border-left: .0625em solid black;border-right:.0625em solid black;}
 #TBL-47{border-collapse:collapse;}
 span#colorbox109{background-color:#E5E5E5;}
 div#colorbox110{background-color:#FFFF00;}
