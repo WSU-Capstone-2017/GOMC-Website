@@ -504,7 +504,7 @@ $('#xmlForm1').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            //element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
@@ -706,14 +706,14 @@ $('#xmlForm2').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            // element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+        //error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
@@ -865,14 +865,14 @@ $('#xmlForm3').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+            //element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+        //error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
@@ -978,14 +978,14 @@ $('#xmlConfig').validate({
             error.appendTo(element.parent());
             // Remove success
             // element.next().removeClass('glyphicon-ok');
-            element.parent().removeClass('has-success');
+           // element.parent().removeClass('has-success');
         }
     },
     success: function (error, element) { // rules for placement of success tag
         // Add checkmark glyph
         // error.prev().addClass('glyphicon glyphicon-ok');
         // add success look
-        error.parent().addClass('has-success');
+       // error.parent().addClass('has-success');
         // remove errors
         // error.prev().removeClass('glyphicon-remove');
         error.parent().removeClass('has-error');
