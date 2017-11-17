@@ -1200,7 +1200,8 @@ function doFetchAnnouncements() {
             pageLength: announcementsNavState.pageLength
         })
     }).done(function (data) {
-        console.log(data);
+		console.log(data);
+	    announcementsDataCache = data;
         updateNavAnnouncements(data.TotalLength);
         if (data.Result === newAnnouncementResult.Success) {
             var i = 0;
@@ -1228,6 +1229,7 @@ function doFetchAnnouncements() {
             window.location.href = "/home/login";
         }
     });
+	doFetchPreviewAnnouncements();
 }
 function doLatexPdf(i) {
 	window.location.href = '/api/admin/downloadlatexfile?latexId=' + latexIdMap[i] + '&Kind=Pdf';
