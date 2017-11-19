@@ -14,23 +14,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/core.less")
+    @RenderSection("head", false);
 </head>
-<nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-    <div class='container'>
-        <div class='navbar-header' id='menu '>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                <span class='glyphicon glyphicon-align-justify'></span>
-            </button>
-            <a href='#'><img src='~/Content/img/gomc-w.png' alt='team logo' id="teamLogo" style="width:4.375em;"></a>
-        </div>
-        <div class='collapse navbar-collapse navbar-right' id='navCollapse'>
-            <ul class='nav nav-tabs'>
-                @RenderSection("NavSection", required: true)
-            </ul>
-        </div>
-    </div>
-</nav>
 <body>
+    <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
+        <div class='container'>
+            <div class='navbar-header' id='menu '>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
+                    <span class='glyphicon glyphicon-align-justify'></span>
+                </button>
+                <a href='#'><img src='~/Content/img/gomc-w.png' alt='team logo' id="teamLogo" style="width:4.375em;"></a>
+            </div>
+            <div class='collapse navbar-collapse navbar-right' id='navCollapse'>
+                <ul class='nav nav-tabs'>
+                    @RenderSection("NavSection", required: true)
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         @RenderBody()
     </div>

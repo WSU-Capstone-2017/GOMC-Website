@@ -79,7 +79,7 @@ namespace Project.Controllers
 				return LatexConvertResult.MissingFile;
 			}
 
-			var file = File.ReadAllText(provider.FileData[0].LocalFileName);
+			var file = File.ReadAllText(provider.FileData[0].LocalFileName, Encoding.Default);
 			File.Delete(provider.FileData[0].LocalFileName);
 
 			using (var db = new ProjectDbContext())
@@ -146,7 +146,18 @@ namespace Project.Controllers
 			hdoc.LoadHtml(inputHtml);
 
 			var htmElem = hdoc.DocumentNode.Element("html");
-			var body = htmElem.Element("body");
+
+			var body = htmElem?.Element("body");
+
+			if (body == null)
+			{
+				hdoc.DocumentNode.InnerHtml = "";
+				htmElem = hdoc.CreateElement("html");
+				hdoc.DocumentNode.AppendChild(htmElem);
+				body = hdoc.CreateElement("body");
+				htmElem.AppendChild(body);
+				body.InnerHtml = inputHtml;
+			}
 
 			var imgs = body.SelectNodes("//img").ToArray();
 			foreach (var i in imgs)
@@ -188,13 +199,14 @@ namespace Project.Controllers
 
 				File.Copy(p, p2, true);
 			}
-			var csview = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"));
+
+			var csview = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"), Encoding.UTF8);
 
 			const string repStr = "@Html.Raw(ViewBag.HtmlContent)";
 
 			csview = csview.Replace(repStr, bodyHtml);
 			csview = csview.Replace("Plugin homepage @", "Plugin homepage @@");
-			File.WriteAllText(HttpContext.Current.Server.MapPath("~/temp/set/LatexHtml.cshtml"), csview);
+			File.WriteAllText(HttpContext.Current.Server.MapPath("~/temp/set/LatexHtml.cshtml"), csview, Encoding.UTF8);
 
 			File.Copy(HttpContext.Current.Server.MapPath("~/views/web.config"),
 				HttpContext.Current.Server.MapPath("~/temp/set/web.config"), true);
@@ -238,31 +250,34 @@ namespace Project.Controllers
 					var zp = Path.Combine(newDir, "Manual.zip");
 					File.WriteAllBytes(zp, lm.HtmlZip);
 					PublishLatexResult ret = null;
-					using (var zip = ZipFile.OpenRead(zp))
+					using (var zip = ZipFile.Open(zp, ZipArchiveMode.Read))
 					{
 						var entry = zip.GetEntry("Manual.html");
-						if (entry != null)
+						if(entry != null)
 						{
-							using (var sr = new StreamReader(entry.Open()))
+							using(var s = entry.Open())
 							{
+								var ms = new MemoryStream();
+								s.CopyTo(ms);
+								File.WriteAllBytes(outManualHtmlPath, ms.ToArray());
+								File.WriteAllBytes(pdfPath, lm.Pdf);
+
 								ret = new PublishLatexResult
 								{
 									Kind = PublishLatexResultType.Success,
-									HtmlContent = HtmlFix(sr.ReadToEnd())
+									HtmlContent = HtmlFix(File.ReadAllText(outManualHtmlPath, Encoding.UTF8))
 								};
-								File.WriteAllText(outManualHtmlPath, ret.HtmlContent);
-								File.WriteAllBytes(pdfPath, lm.Pdf);
 							}
 						}
-						foreach (var i in zip.Entries.Where(j => j.Name.StartsWith("Manual") && j.Name.EndsWith(".png")))
-						{
-							using (var ist = i.Open())
-							{
-								var byts = ist.ReadToEnd();
-								File.WriteAllBytes(HttpContext.Current.Server.MapPath(
-									$"~/temp/set/images/{i.Name}"), byts);
-							}
-						}
+						//foreach (var i in zip.Entries.Where(j => j.Name.StartsWith("Manual") && j.Name.EndsWith(".png")))
+						//{
+						//	using (var ist = i.Open())
+						//	{
+						//		var byts = ist.ReadToEnd();
+						//		File.WriteAllBytes(HttpContext.Current.Server.MapPath(
+						//			$"~/temp/set/images/{i.Name}"), byts);
+						//	}
+						//}
 					}
 					Directory.Delete(newDir, true);
 					if (ret != null)

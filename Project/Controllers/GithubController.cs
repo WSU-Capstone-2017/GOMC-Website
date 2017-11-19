@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using Project.Core;
@@ -60,6 +61,7 @@ namespace Project.Controllers
 						string file;
 						using (var wc = new WebClient())
 						{
+							wc.Encoding = Encoding.Default;
 							file = wc.DownloadString(durl.ToString());
 						}
 
@@ -107,7 +109,7 @@ namespace Project.Controllers
 
 				var conv = new LatexConvertor();
 
-				var convRes = conv.Convert(file, false);
+				var convRes = conv.Convert(file);
 
 				if (convRes != ConversionResult.Success)
 				{

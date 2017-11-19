@@ -25,7 +25,7 @@ namespace Project.Latex
 		public byte[] Pdf { get; set; }
 		public ConversionResult Result { get; set; }
 
-		public ConversionResult Convert(string latexFileContent, bool htlatex = true, bool pdflatex = true)
+		public ConversionResult Convert(string latexFileContent, bool pandoc = true, bool pdflatex = true)
 		{
 			var fileDir = HttpContext.Current.Server.MapPath($"~/temp/upload_{Guid.NewGuid()}/");
 			Directory.CreateDirectory(fileDir);
@@ -50,9 +50,9 @@ namespace Project.Latex
 
 			var fileName = Path.Combine(fileDir, "Manual.tex");
 
-			File.WriteAllText(fileName, latexFileContent);
+			File.WriteAllText(fileName, latexFileContent, Encoding.Default);
 
-			Result = ConvertAtDir(fileDir, htlatex, pdflatex);
+			Result = ConvertAtDir(fileDir, pandoc, pdflatex);
 
 			Directory.Delete(fileDir, true);
 
@@ -60,11 +60,11 @@ namespace Project.Latex
 		}
 
 
-		public ConversionResult ConvertAtDir(string fileDir, bool htlatex = false, bool pdflatex = true)
+		public ConversionResult ConvertAtDir(string fileDir, bool pandoc = false, bool pdflatex = true)
 		{
 			HtmlMap.Clear();
 
-			if(!htlatex && !pdflatex)
+			if(!pandoc && !pdflatex)
 			{
 				return Result = ConversionResult.Invalid;
 			}
@@ -74,66 +74,46 @@ namespace Project.Latex
 			log.Info($"fileDir = {fileDir}");
 
 			var fileName = Path.Combine(fileDir, "Manual.tex").Replace("\\", "/");
-			var latexFileContent = File.ReadAllText(fileName);
+			var latexFileContent = File.ReadAllText(fileName, Encoding.Default);
 
 			LatexFile = latexFileContent;
 
 			// the current version of the latex file has images referenced with out specifying the extension
-			// htlatex is sensitive about that and so we must provide the extension. all the extensions are
-			// .png except images/website which is .jpg
+			// all the extensions are
+			// png except images/website which is jpg
 
 			var content = Regex.Replace(latexFileContent, "{images/(\\w+)}", "{images/$1.png}")
-				.Replace("{images/website.png}", "{images/website.jpg}");
+				.Replace("{images/website.png}", "{images/website.jpg}")
+				.Replace(" & ", " \\& ");
 
 			File.WriteAllText(fileName, content, Encoding.UTF8);
 
 			try
 			{
-				if (htlatex)
+				if (pandoc)
 				{
-					log.Info("running htlatex...");
+					log.Info("running pandoc...");
 
-					var htmlProc = new Process
+					var pandocProc = new Process
 					{
-						StartInfo = new ProcessStartInfo("htlatex", "Manual.tex")
+						StartInfo = new ProcessStartInfo("pandoc", "--mathjax -s --toc -o pandoc.out Manual.tex")
 						{
 							WorkingDirectory = fileDir,
 						}
 					};
 
+					pandocProc.Start();
+					pandocProc.WaitForExit();
 
-					htmlProc.Start();
-					Thread.Sleep(1000);
+					log.Info("pandoc done");
 
-					var hndl = htmlProc.MainWindowHandle;
-					if (hndl == IntPtr.Zero)
+					using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create, Encoding.UTF8))
 					{
-						throw new ApplicationException($"{nameof(htmlProc)}.{nameof(htmlProc.MainWindowHandle)} == 0");
-					}
-
-					while (!htmlProc.HasExited)
-					{
-						// htlatex will request user input when there is latex errors,
-						// we will press enter each second to simulate user input
-						// TODO: find an alternative way to run htlatex without using the PostMessage hack
-						if (!PostMessage(htmlProc.MainWindowHandle, 0x100, 0x0D, 0))
+						HtmlMap.Add("Manual.html", File.ReadAllText(Path.Combine(fileDir, "pandoc.out")));
+						zip.CreateEntryFromFile(Path.Combine(fileDir, "pandoc.out"), "Manual.html");
+						foreach(var i in new DirectoryInfo(Path.Combine(fileDir, "images")).GetFiles())
 						{
-							throw new Win32Exception(Marshal.GetLastWin32Error());
-						}
-						Thread.Sleep(1000);
-					}
-
-					log.Info("htlatex done");
-					using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
-					{
-						HtmlMap.Add("Manual.html", File.ReadAllText(Path.Combine(fileDir, "Manual.Html"), Encoding.UTF8));
-						HtmlMap.Add("Manual.css", File.ReadAllText(Path.Combine(fileDir, "Manual.css"), Encoding.UTF8));
-						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
-						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.css"), "Manual.html");
-						foreach (var i in new DirectoryInfo(fileDir).GetFiles("Manual*x.png"))
-						{
-							HtmlMap.Add(i.Name, File.ReadAllText(i.FullName, Encoding.UTF8));
-							zip.CreateEntryFromFile(i.FullName, i.Name);
+							zip.CreateEntryFromFile(i.FullName, "images/" + i.Name);
 						}
 					}
 
