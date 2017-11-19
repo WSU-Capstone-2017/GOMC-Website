@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using HtmlAgilityPack;
 using Project.Core;
 using Project.Data;
 using Project.Latex;
@@ -109,243 +104,62 @@ namespace Project.Controllers
 			}
 		}
 
-		public static int? GetSetLatexId()
+		public static PublishLatexResult PublishLatex(int latexId)
 		{
 			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
-			var st = Path.Combine(dir, "latex_html.site_item");
-			if (!File.Exists(st))
-			{
-				return null;
-			}
 
-			var latexId = File.ReadAllText(st).AsInt();
-
-			if (!latexId.HasValue)
-			{
-				return null;
-			}
-
-			using (var db = new ProjectDbContext())
-			{
-				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
-												  "WHERE Id = @inputId",
-					new SqlParameter("@inputId", latexId.Value)).SingleOrDefault();
-
-				if (lm == null)
-				{
-					return null;
-				}
-
-				return latexId.Value;
-			}
-		}
-
-		private static string HtmlFix(string inputHtml)
-		{
-			var hdoc = new HtmlDocument();
-			hdoc.LoadHtml(inputHtml);
-
-			var htmElem = hdoc.DocumentNode.Element("html");
-
-			var body = htmElem?.Element("body");
-
-			if (body == null)
-			{
-				hdoc.DocumentNode.InnerHtml = "";
-				htmElem = hdoc.CreateElement("html");
-				hdoc.DocumentNode.AppendChild(htmElem);
-				body = hdoc.CreateElement("body");
-				htmElem.AppendChild(body);
-				body.InnerHtml = inputHtml;
-			}
-
-			var imgs = body.SelectNodes("//img").ToArray();
-			foreach (var i in imgs)
-			{
-				var dir = ("~/content/latex/images/");
-				var attr = i.Attributes["src"].Value;
-				if (attr.StartsWith("Manual") && attr.EndsWith(".png"))
-				{
-					attr = attr.Replace("Manual", "~/temp/set/images/Manual");
-				}
-				else
-				{
-					attr = attr.Replace("images/", dir);
-				}
-				i.Attributes["src"].Value = attr;
-			}
-			var bodyHtml = body.InnerHtml;
-
-			var imgDir = HttpContext.Current.Server.MapPath("~/Latex/images");
-			var newImgDir = HttpContext.Current.Server.MapPath("~/temp/set/images");
-
-			if (!Directory.Exists(newImgDir))
-			{
-				Directory.CreateDirectory(newImgDir);
-			}
-
-			foreach (var p in Directory.GetFiles(imgDir, "*.*", SearchOption.AllDirectories))
-			{
-				var p2 = p.Replace(imgDir, newImgDir);
-
-				var p2Dir = Path.GetDirectoryName(p2);
-
-				Debug.Assert(p2Dir != null);
-
-				if (!Directory.Exists(p2Dir))
-				{
-					Directory.CreateDirectory(p2Dir);
-				}
-
-				File.Copy(p, p2, true);
-			}
-
-			var csview = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"), Encoding.UTF8);
-
-			const string repStr = "@Html.Raw(ViewBag.HtmlContent)";
-
-			csview = csview.Replace(repStr, bodyHtml);
-			csview = csview.Replace("Plugin homepage @", "Plugin homepage @@");
-			File.WriteAllText(HttpContext.Current.Server.MapPath("~/temp/set/LatexHtml.cshtml"), csview, Encoding.UTF8);
-
-			File.Copy(HttpContext.Current.Server.MapPath("~/views/web.config"),
-				HttpContext.Current.Server.MapPath("~/temp/set/web.config"), true);
-
-			return bodyHtml;
-		}
-
-		public static PublishLatexResult PublishLatex(int latexId, bool forceIfThere = false)
-		{
-			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
-			var st = Path.Combine(dir, "latex_html.site_item");
-			var pdfPath = Path.Combine(dir, "Manual.pdf");
-			var outManualHtmlPath = Path.Combine(
-				dir, "latex_output_Manual.html");
-
-			if (!Directory.Exists(dir))
+			if(!Directory.Exists(dir))
 			{
 				Directory.CreateDirectory(dir);
 			}
 
-			using (var db = new ProjectDbContext())
+			using(var db = new ProjectDbContext())
 			{
 				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
-												  "WHERE Id = @inputId",
+				                                  "WHERE Id = @inputId",
 					new SqlParameter("@inputId", latexId)).SingleOrDefault();
 
-				if (lm == null)
+				if(lm == null)
 				{
-					return new PublishLatexResult { Kind = PublishLatexResultType.InputLatexIdInvalid };
+					return PublishLatexResult.InputLatexIdInvalid;
 				}
-
-				if (lm.LatexFile == null)
+				
+				using(var htmlZipMs = new MemoryStream(lm.HtmlZip))
+				using(var zip = new ZipArchive(htmlZipMs, ZipArchiveMode.Read))
 				{
-					return new PublishLatexResult { Kind = PublishLatexResultType.MissingLatexFile };
-				}
+					var entry = zip.GetEntry("manual_view.cshtml");
 
-				if (lm.HtmlZip != null && !forceIfThere)
-				{
-					var newDir = HttpContext.Current.Server.MapPath($"~/temp/auto_delete_{Guid.NewGuid()}");
-					Directory.CreateDirectory(newDir);
-					var zp = Path.Combine(newDir, "Manual.zip");
-					File.WriteAllBytes(zp, lm.HtmlZip);
-					PublishLatexResult ret = null;
-					using (var zip = ZipFile.Open(zp, ZipArchiveMode.Read))
+					if(entry == null)
 					{
-						var entry = zip.GetEntry("Manual.html");
-						if(entry != null)
-						{
-							using(var s = entry.Open())
-							{
-								var ms = new MemoryStream();
-								s.CopyTo(ms);
-								File.WriteAllBytes(outManualHtmlPath, ms.ToArray());
-								File.WriteAllBytes(pdfPath, lm.Pdf);
-
-								ret = new PublishLatexResult
-								{
-									Kind = PublishLatexResultType.Success,
-									HtmlContent = HtmlFix(File.ReadAllText(outManualHtmlPath, Encoding.UTF8))
-								};
-							}
-						}
-						//foreach (var i in zip.Entries.Where(j => j.Name.StartsWith("Manual") && j.Name.EndsWith(".png")))
-						//{
-						//	using (var ist = i.Open())
-						//	{
-						//		var byts = ist.ReadToEnd();
-						//		File.WriteAllBytes(HttpContext.Current.Server.MapPath(
-						//			$"~/temp/set/images/{i.Name}"), byts);
-						//	}
-						//}
+						return PublishLatexResult.MissingLatexFile;
 					}
-					Directory.Delete(newDir, true);
-					if (ret != null)
+
+					using(var s = entry.Open())
 					{
-						File.WriteAllText(st, latexId.ToString());
-						return ret;
+						var manualViewPath = Path.Combine(dir, "manual_view.cshtml");
+
+						var pdfPath = Path.Combine(dir, "Manual.pdf");
+
+						var ms = new MemoryStream();
+						s.CopyTo(ms);
+
+						File.WriteAllBytes(manualViewPath, ms.ToArray());
+						File.WriteAllBytes(pdfPath, lm.Pdf);
+
+						File.Copy(HttpContext.Current.Server.MapPath("~/views/web.config"),
+							HttpContext.Current.Server.MapPath("~/temp/set/web.config"), true);
+
+						return PublishLatexResult.Success;
 					}
 				}
-
-				if (!forceIfThere && File.Exists(st) && File.Exists(outManualHtmlPath))
-				{
-					var setLatexId = File.ReadAllText(st).AsInt();
-					if (setLatexId.HasValue && setLatexId.Value == latexId)
-					{
-						return new PublishLatexResult
-						{
-							Kind = PublishLatexResultType.Success,
-							HtmlContent = HtmlFix(File.ReadAllText(outManualHtmlPath, Encoding.UTF8))
-						};
-					}
-				}
-
-				var conv = new LatexConvertor();
-
-				string htmlContent;
-
-				if (conv.Convert(lm.LatexFile, true, false) != ConversionResult.Success ||
-				   !conv.HtmlMap.TryGetValue("Manual.html", out htmlContent))
-				{
-					return new PublishLatexResult { Kind = PublishLatexResultType.ConvertFail };
-				}
-
-				if (!Directory.Exists(dir))
-				{
-					Directory.CreateDirectory(dir);
-				}
-
-				htmlContent = HtmlFix(htmlContent);
-
-				File.WriteAllText(outManualHtmlPath, htmlContent, Encoding.UTF8);
-				File.WriteAllBytes(pdfPath, lm.Pdf);
-
-				lm.HtmlZip = conv.HtmlZip;
-				db.LatexUploads.AddOrUpdate(lm);
-				db.SaveChanges();
-
-				File.WriteAllText(st, latexId.ToString());
-
-				return new PublishLatexResult
-				{
-					Kind = PublishLatexResultType.Success,
-					HtmlContent = htmlContent
-				};
 			}
 		}
 
-		public enum PublishLatexResultType
+		public enum PublishLatexResult
 		{
 			Success,
 			InputLatexIdInvalid,
-			SetLatexIdInvalid,
-			MissingLatexFile,
-			ConvertFail
-		}
-		public class PublishLatexResult
-		{
-			public PublishLatexResultType Kind { get; set; }
-			public string HtmlContent { get; set; }
+			MissingLatexFile
 		}
 	}
 }

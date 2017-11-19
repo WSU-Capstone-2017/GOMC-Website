@@ -200,7 +200,7 @@ namespace Project.Controllers
 			return new PublishLatexUploadOutput
 			{
 				AuthResult = authentication.Result,
-				Success = r.Kind == LatexController.PublishLatexResultType.Success
+				Success = r == LatexController.PublishLatexResult.Success
 			};
 		}
 

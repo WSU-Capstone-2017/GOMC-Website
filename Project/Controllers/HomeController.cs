@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -321,24 +323,18 @@ namespace Project.Controllers
 
         public ActionResult Latex()
         {
-            var latexId = LatexController.GetSetLatexId();
-            if (latexId == null)
-            {
-                return View();
-            }
-            var r = LatexController.PublishLatex(latexId.Value);
-            if (r.Kind != LatexController.PublishLatexResultType.Success)
+	        var p = "~/temp/set/manual_view.cshtml";
+            if (!System.IO.File.Exists(HttpContext.Server.MapPath(p)))
             {
                 return View();
             }
             else
             {
-                ViewBag.HtmlContent = r.HtmlContent;
-                return View("~/temp/set/LatexHtml.cshtml");
+                return View(p);
             }
         }
 
-        public ActionResult MoreDownloads()
+		public ActionResult MoreDownloads()
         {
             return View(NewDownloadsModelArray());
         }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web;
+using System.Web.WebPages;
+using HtmlAgilityPack;
 
 namespace Project.Latex
 {
@@ -16,16 +15,12 @@ namespace Project.Latex
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		[DllImport("User32.Dll", EntryPoint = "PostMessageA")]
-		private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
-
-		public Dictionary<string, string> HtmlMap { get; set; } = new Dictionary<string, string>();
 		public string LatexFile { get; set; }
 		public byte[] HtmlZip { get; set; }
 		public byte[] Pdf { get; set; }
 		public ConversionResult Result { get; set; }
 
-		public ConversionResult Convert(string latexFileContent, bool pandoc = true, bool pdflatex = true)
+		public ConversionResult Convert(string latexFileContent)
 		{
 			var fileDir = HttpContext.Current.Server.MapPath($"~/temp/upload_{Guid.NewGuid()}/");
 			Directory.CreateDirectory(fileDir);
@@ -52,23 +47,47 @@ namespace Project.Latex
 
 			File.WriteAllText(fileName, latexFileContent, Encoding.Default);
 
-			Result = ConvertAtDir(fileDir, pandoc, pdflatex);
+			Result = ConvertAtDir(fileDir);
 
 			Directory.Delete(fileDir, true);
 
 			return Result;
 		}
 
+		private static string csviewCache;
 
-		public ConversionResult ConvertAtDir(string fileDir, bool pandoc = false, bool pdflatex = true)
+		private string GetHtmlView(string content)
 		{
-			HtmlMap.Clear();
-
-			if(!pandoc && !pdflatex)
+			if(csviewCache.IsEmpty())
 			{
-				return Result = ConversionResult.Invalid;
+				csviewCache = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"), Encoding.UTF8);
 			}
 
+			var hdoc = new HtmlDocument();
+
+			HtmlNode
+				html = hdoc.CreateElement("html"),
+				body = hdoc.CreateElement("body");
+
+			html.AppendChild(body);
+			hdoc.DocumentNode.AppendChild(html);
+
+			body.InnerHtml = content;
+
+			var imgs = body.SelectNodes("//img").ToArray();
+			foreach(var i in imgs)
+			{
+				var attr = i.Attributes["src"];
+				attr.Value = attr.Value.Replace("images/", "~/content/latex/images/");
+			}
+
+			return csviewCache
+				.Replace("@Html.Raw(ViewBag.HtmlContent)", body.InnerHtml)
+				.Replace("Plugin homepage @", "Plugin homepage @@");
+		}
+
+		public ConversionResult ConvertAtDir(string fileDir)
+		{
 			Debug.Assert(fileDir != null);
 
 			log.Info($"fileDir = {fileDir}");
@@ -90,64 +109,59 @@ namespace Project.Latex
 
 			try
 			{
-				if (pandoc)
+				log.Info("running pandoc...");
+
+				var pandocProc = new Process
 				{
-					log.Info("running pandoc...");
-
-					var pandocProc = new Process
+					StartInfo = new ProcessStartInfo("pandoc", "--mathjax -s --toc -o pandoc.out Manual.tex")
 					{
-						StartInfo = new ProcessStartInfo("pandoc", "--mathjax -s --toc -o pandoc.out Manual.tex")
-						{
-							WorkingDirectory = fileDir,
-						}
-					};
-
-					pandocProc.Start();
-					pandocProc.WaitForExit();
-
-					log.Info("pandoc done");
-
-					using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create, Encoding.UTF8))
-					{
-						HtmlMap.Add("Manual.html", File.ReadAllText(Path.Combine(fileDir, "pandoc.out")));
-						zip.CreateEntryFromFile(Path.Combine(fileDir, "pandoc.out"), "Manual.html");
-						foreach(var i in new DirectoryInfo(Path.Combine(fileDir, "images")).GetFiles())
-						{
-							zip.CreateEntryFromFile(i.FullName, "images/" + i.Name);
-						}
+						WorkingDirectory = fileDir,
 					}
+				};
 
-					HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
-				}
+				pandocProc.Start();
+				pandocProc.WaitForExit();
 
-				if(pdflatex)
+				log.Info("pandoc done");
+
+				using(var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create, Encoding.UTF8))
 				{
-					var pdfProc = new Process
+					var pandocOut = File.ReadAllText(Path.Combine(fileDir, "pandoc.out"), Encoding.UTF8);
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "pandoc.out"), "Manual.html");
+					File.WriteAllText(Path.Combine(fileDir, "manual_view.cshtml"), GetHtmlView(pandocOut), Encoding.UTF8);
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "manual_view.cshtml"), "manual_view.cshtml");
+					foreach(var i in new DirectoryInfo(Path.Combine(fileDir, "images")).GetFiles())
 					{
-						StartInfo = new ProcessStartInfo("pdflatex",
-							$"--shell-escape --interaction=nonstopmode {fileName} > pdflatex.log.txt")
-						{
-							WorkingDirectory = fileDir,
-							WindowStyle = ProcessWindowStyle.Hidden
-						}
-					};
-
-					log.Info("running pdflatex...");
-
-					pdfProc.Start();
-					pdfProc.WaitForExit();
-
-					log.Info("pdflatex done");
-
-					log.Info("running pdflatex again...");
-
-					pdfProc.Start();
-					pdfProc.WaitForExit();
-
-					log.Info("pdflatex done");
-
-					Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
+						zip.CreateEntryFromFile(i.FullName, "images/" + i.Name);
+					}
 				}
+
+				HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
+				var pdfProc = new Process
+				{
+					StartInfo = new ProcessStartInfo("pdflatex",
+						$"--shell-escape --interaction=nonstopmode {fileName} > pdflatex.log.txt")
+					{
+						WorkingDirectory = fileDir,
+						WindowStyle = ProcessWindowStyle.Hidden
+					}
+				};
+
+				log.Info("running pdflatex...");
+
+				pdfProc.Start();
+				pdfProc.WaitForExit();
+
+				log.Info("pdflatex done");
+
+				log.Info("running pdflatex again...");
+
+				pdfProc.Start();
+				pdfProc.WaitForExit();
+
+				log.Info("pdflatex done");
+
+				Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
 			}
 			catch (Exception ex)
 			{
