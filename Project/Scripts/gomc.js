@@ -1089,7 +1089,8 @@ $('#adminLatexUpload').validate({
             function (evt) {
                 // console.log('load');
                 // console.log(evt);
-                $("#adminLatexUpload_Submit").prop('disabled', false);
+				$("#adminLatexUpload_Submit").prop('disabled', false);
+	            doFetchLatexUploads();
                 if (xhr.status >= 200 && xhr.status < 400) {
                     $('#adminLatexUpload').toggle();
                     $('.loader').remove();
