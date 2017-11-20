@@ -64,17 +64,79 @@ namespace Project.Latex
 			}
 
 			var hdoc = new HtmlDocument();
+			hdoc.LoadHtml(content);
 
-			HtmlNode
-				html = hdoc.CreateElement("html"),
-				body = hdoc.CreateElement("body");
+			var body = hdoc.DocumentNode.SelectNodes("//body")[0];
 
-			html.AppendChild(body);
-			hdoc.DocumentNode.AppendChild(html);
+			var tocNav = hdoc.DocumentNode.SelectNodes("//nav")[0];
+			body.RemoveChild(tocNav);
 
-			body.InnerHtml = content;
+			tocNav.SelectNodes("ul")[0].Attributes.Add("class", "navspy-menu");
+			tocNav.Attributes["id"].Value = "site-nav";
 
-			var imgs = body.SelectNodes("//img").ToArray();
+			foreach(var i in tocNav.SelectNodes("ul/descendant::ul"))
+			{
+				i.Attributes.Add("style", "display: block;");
+			}
+			foreach(var i in tocNav.SelectNodes("descendant::li"))
+			{
+				i.Attributes.Add("class", "menu-item");
+			}
+			foreach(var i in tocNav.SelectNodes("descendant::a"))
+			{
+				if(i.ParentNode.ChildNodes["ul"] != null)
+				{
+					var spn = hdoc.CreateElement("span");
+					spn.Attributes.Add("class", "caret");
+					i.AppendChild(spn);
+				}
+			}
+			foreach(var i in tocNav.SelectNodes("descendant::a"))
+			{
+
+				var a = hdoc.CreateElement("a");
+				a.Attributes.Add("href", i.Attributes["href"].Value);
+
+				a.InnerHtml = i.InnerHtml;
+
+				i.Attributes.Remove();
+				i.Attributes.Add("class", "section-link");
+
+				i.InnerHtml = "";
+
+				i.Name = "div";
+
+				i.AppendChild(a);
+			}
+
+			var div1 = hdoc.CreateElement("div");
+			div1.Attributes.Add("class", "col-md-10");
+
+			var div2 = hdoc.CreateElement("div");
+			div2.Attributes.Add("id", "contents-container");
+			div2.InnerHtml = body.InnerHtml;
+
+			div1.AppendChild(div2);
+
+			var div3 = hdoc.CreateElement("div");
+			div3.Attributes.Add("class", "col-md-2");
+
+			var div4 = hdoc.CreateElement("div");
+			div4.Attributes.Add("id", "site-content");
+			div4.AppendChild(tocNav);
+
+			div3.AppendChild(div4);
+
+			hdoc.DocumentNode.ChildNodes["html"].RemoveChild(body);
+
+			var body2 = hdoc.CreateElement("body");
+			body2.AppendChild(div3);
+			body2.AppendChild(div1);
+
+			hdoc.DocumentNode.ChildNodes["html"].AppendChild(body2);
+
+			var imgs = body2.SelectNodes("//img").ToArray();
+
 			foreach(var i in imgs)
 			{
 				var attr = i.Attributes["src"];
@@ -82,7 +144,7 @@ namespace Project.Latex
 			}
 
 			return csviewCache
-				.Replace("@Html.Raw(ViewBag.HtmlContent)", body.InnerHtml)
+				.Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
 				.Replace("Plugin homepage @", "Plugin homepage @@");
 		}
 

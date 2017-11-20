@@ -321,8 +321,12 @@ namespace Project.Controllers
             return View();
         }
 
+	    public ActionResult Latex2()
+	    {
+		    return View("Latex");
+	    }
         public ActionResult Latex()
-        {
+		{
 	        var p = "~/temp/set/manual_view.cshtml";
             if (!System.IO.File.Exists(HttpContext.Server.MapPath(p)))
             {
