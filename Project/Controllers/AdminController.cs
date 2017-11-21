@@ -8,8 +8,10 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
+using System.Web.WebPages;
 using Project.Core;
 using Project.Data;
 using Project.Latex;
@@ -203,10 +205,53 @@ namespace Project.Controllers
 				Success = r == LatexController.PublishLatexResult.Success
 			};
 		}
+		public class FetchRegisteredUsersInput : FetchAnnouncementsInput
+		{
+			public string FilterName { get; set; }
+			public string FilterEmail { get; set; }
+			public bool IsDesc { get; set; }
+			public RegisteredUsersOrderBy OrderBy { get; set; }
+		}
+
+		public enum RegisteredUsersOrderBy
+		{
+			Name,
+			Email,
+			Text,
+			Created
+		}
 
 		[HttpPost]
-		public FetchRegisteredUsersOutput FetchRegisteredUsers(FetchAnnouncementsInput input)
+		public FetchRegisteredUsersOutput FetchRegisteredUsers(FetchRegisteredUsersInput input)
 		{
+			Regex
+				nameRegex = null,
+				emailRegex = null;
+
+			if(input.FilterName != null)
+			{
+				try
+				{
+					nameRegex = new Regex(input.FilterName);
+				}
+				catch
+				{
+					log.Error("Invalid name regex: " + input.FilterName);
+				}
+			}
+
+			if(input.FilterEmail != null)
+			{
+				try
+				{
+					emailRegex = new Regex(input.FilterEmail);
+				}
+				catch
+				{
+					log.Error("Invalid email regex: " + input.FilterEmail);
+				}
+			}
+
 			var authentication = Authenticate();
 
 			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
@@ -215,6 +260,26 @@ namespace Project.Controllers
 				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
 			}
 
+			var orderBy = "";
+
+			switch(input.OrderBy)
+			{
+				case RegisteredUsersOrderBy.Name:
+					orderBy = "Name";
+					break;
+				case RegisteredUsersOrderBy.Email:
+					orderBy = "Email";
+					break;
+				case RegisteredUsersOrderBy.Text:
+					orderBy = "Text";
+					break;
+				case RegisteredUsersOrderBy.Created:
+					orderBy = "Created";
+					break;
+			}
+
+			var desc = !input.IsDesc ? "DESC" : "ASC";
+
 			using (var db = new ProjectDbContext())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Registrations").Single();
@@ -222,11 +287,21 @@ namespace Project.Controllers
 				var take = input.PageLength;
 
 				var sqlQuery = "SELECT * FROM Registrations " +
-							   "ORDER BY Created DESC " +
+							   $"ORDER BY {orderBy} {desc} " +
 							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 
 				var registrations = db.Registrations
 					.SqlQuery(sqlQuery)
+					.Where(j =>
+					{
+						if(nameRegex == null || input.FilterEmail.IsEmpty()) return true;
+						return nameRegex.IsMatch(j.Name);
+					})
+					.Where(j =>
+					{
+						if (emailRegex == null || input.FilterEmail.IsEmpty()) return true;
+						return emailRegex.IsMatch(j.Name);
+					})
 					.ToArray();
 
 				return new FetchRegisteredUsersOutput

@@ -151,17 +151,36 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
+                    <h4>Filter</h4>
+                    <div class="form-group col-md-12">
+                        <label>
+                            Name:
+                            <input type="search" data-toggle="tooltip" title="Filter based on name (regex)"/>
+                        </label>
+                        <label>
+                            Email:
+                            <input type="search" data-toggle="tooltip" title="Filter based on email (regex)"/>
+                        </label>
+                        <button class="btn btn-success" onclick="return doFetchRegisteredUsers()"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                    
+                    <br/>
+                    <h4>Data</h4>
                     <table class="table table-striped table-bordered" id="userNamesAndEmails">
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th id="registeredUser_th_0" class="info"><a onclick="return onRegisteredUserTh(0)">Name <span class="glyphicon glyphicon-menu-down"></span></a></th>
+                            <th id="registeredUser_th_1"><a onclick="return onRegisteredUserTh(1)">Email <span class="glyphicon"></span></a></th>
+                            <th id="registeredUser_th_2"><a onclick="return onRegisteredUserTh(2)">Comment <span class="glyphicon"></span></a></th>
+                            <th id="registeredUser_th_3"><a onclick="return onRegisteredUserTh(3)">Created <span class="glyphicon"></span></a></th>
                         </tr>
-                        @{for (var i = 0; i < 25; ++i)
-                            {
-                                <tr id="@($"registeredUser_{i}")">
-                                    <td id="@($"registeredUser_Name_{i}")"></td>
-                                    <td id="@($"registeredUser_Email_{i}")"></td>
-                                </tr>}
+                        @{for(var i = 0; i < 25; ++i)
+                          {
+                              <tr id="@($"registeredUser_{i}")">
+                                  <td id="@($"registeredUser_Name_{i}")"></td>
+                                  <td id="@($"registeredUser_Email_{i}")"></td>
+                                  <td id="@($"registeredUser_Text_{i}")"></td>
+                                  <td id="@($"registeredUser_Created_{i}")"></td>
+                              </tr>}
                         }
                     </table>
 
