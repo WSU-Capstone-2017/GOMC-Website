@@ -22,7 +22,7 @@
                     <form class="form-inline" id="adminAnnouncement">
                         <div class="form-group">
                             <label>New Announcement: </label>
-                            <br/>
+                            <br />
                             <textarea id="adminAnnouncement_Text" type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
                         </div>
                         <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-share"></span> Post </button>
@@ -77,11 +77,10 @@
                             <td id='fetchAnnouncements_Action_4'></td>
                         </tr>
                     </table>
-                    @* These buttons are just straight up screwed there isn't a way to easily style them because of the JS enabling and disabling things*@
-                    @*<div class="btn-group">
-                    <button class="btn btn-sm btn-default active"><span class="glyphicon glyphicon-arrow-left"></span>Back</button>
-                    <button class="btn btn-sm btn-success">Next</button>
-                </div>*@
+                    <div class="btn-group">
+                        <button id="fetchAnnouncements_Back" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(true);"><span class="glyphicon glyphicon-arrow-left"></span>Back</button>
+                        <button id="fetchAnnouncements_Next" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(false);"><span class="glyphicon glyphicon-arrow-right"></span>Next</button>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <h4>Website Statistics</h4>
@@ -124,11 +123,11 @@
                         <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share"></span> Upload</button>
                     </form>
                     <br />
-                    <br/>
+                    <br />
                     <h4>Server Logs</h4>
                     <a href="/api/admin/DownloadLogFile" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-download-alt"></span>   Download Log data</a>
                 </div>
-   
+
                 <div class="col-md-6">
                     <h4>Latex Uploads</h4>
                     <table class="table table-striped table-bordered">
@@ -165,9 +164,11 @@
                                 </tr>}
                         }
                     </table>
-                    @*These are also getting scrapped for pagination*@
-                    @*<a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Back" onclick="return doNavRegisteredUsers(true);">Back</a>
-                        <a href="/api/Admin/" class="col-md-2 btn disabled" id="registeredUsers_Next" onclick="return doNavRegisteredUsers(false);">Next</a>*@
+
+                    <div class="btn-group">
+                        <button id="registeredUsers_Back" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(true);"><span class="glyphicon glyphicon-arrow-left"></span>Back</button>
+                        <button id="registeredUsers_Next" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(false);"><span class="glyphicon glyphicon-arrow-right"></span>Next</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1408,24 +1408,23 @@ function doFetchGomcAnnouncements() {
 }
 
 function updateNavAnnouncements(totalLength) {
-    $("#fetchAnnouncements_Next").addClass("btn disabled");
-    $("#fetchAnnouncements_Back").addClass("btn disabled");
+	$("#fetchAnnouncements_Next").addClass("disabled");
+	$("#fetchAnnouncements_Back").addClass("disabled");
 
-    announcementsNavState.totalLength = totalLength;
+	announcementsNavState.totalLength = totalLength;
 
-    var maxPages = Math.ceil(announcementsNavState.totalLength / announcementsNavState.pageLength);
-    if ((announcementsNavState.pageIndex + 1) < maxPages) {
-        $("#fetchAnnouncements_Next").removeClass("btn disabled");
-    } else {
-        announcementsNavState.pageIndex = maxPages - 1;
-    }
-    if (announcementsNavState.pageIndex > 0) {
-        $("#fetchAnnouncements_Back").removeClass("btn disabled");
-    } else if (announcementsNavState.pageIndex < 0) {
-        announcementsNavState.pageIndex = 0;
-    }
+	var maxPages = Math.ceil(announcementsNavState.totalLength / announcementsNavState.pageLength);
+	if ((announcementsNavState.pageIndex + 1) < maxPages) {
+		$("#fetchAnnouncements_Next").removeClass("disabled");
+	} else {
+		announcementsNavState.pageIndex = maxPages - 1;
+	}
+	if (announcementsNavState.pageIndex > 0) {
+		$("#fetchAnnouncements_Back").removeClass("disabled");
+	} else if (announcementsNavState.pageIndex < 0) {
+		announcementsNavState.pageIndex = 0;
+	}
 }
-
 function updateAnnouncementsNavStateTotalLength() {
     announcementsNavState.totalLength = 0;
     $.ajax({
@@ -1532,19 +1531,19 @@ function doNavRegisteredUsers(a) {
 }
 
 function updateNavRegisteredUsers(totalLength) {
-	$("#registeredUsers_Next").addClass("btn disabled");
-	$("#registeredUsers_Back").addClass("btn disabled");
+	$("#registeredUsers_Next").addClass("disabled");
+	$("#registeredUsers_Back").addClass("disabled");
 
 	registeredUsersNavState.totalLength = totalLength;
 
 	var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
 	if ((registeredUsersNavState.pageIndex + 1) < maxPages) {
-		$("#registeredUsers_Next").removeClass("btn disabled");
+		$("#registeredUsers_Next").removeClass("disabled");
 	} else {
 		registeredUsersNavState.pageIndex = maxPages - 1;
 	}
 	if (registeredUsersNavState.pageIndex > 0) {
-		$("#registeredUsers_Back").removeClass("btn disabled");
+		$("#registeredUsers_Back").removeClass("disabled");
 	} else if (registeredUsersNavState.pageIndex < 0) {
 		registeredUsersNavState.pageIndex = 0;
 	}
