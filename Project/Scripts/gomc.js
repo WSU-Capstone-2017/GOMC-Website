@@ -1364,6 +1364,7 @@ function doSaveAnnouncement(a) {
 				console.log('save announcement success');
 				announcementsEdit.text = newContent;
 				doCancelAnnouncement(a);
+				doFetchPreviewAnnouncements();
 			} else {
 				console.log('save announcement fail');
 				doCancelAnnouncement(a);
