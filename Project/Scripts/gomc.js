@@ -1207,7 +1207,7 @@ function doFetchAnnouncements() {
         if (data.Result === newAnnouncementResult.Success) {
             var i = 0;
             for (i = 0; i < announcementsNavState.uiMaxPageLength; i++) {
-                $("#fetchAnnouncements_Message_" + i).text('');
+                $("#fetchAnnouncements_Message_" + i + " > div").text('');
                 $("#fetchAnnouncements_Created_" + i).text('');
                 $("#fetchAnnouncements_Action_" + i).text('');
 
@@ -1217,7 +1217,7 @@ function doFetchAnnouncements() {
 				announcementIdMap[i] = data.Announcements[i].Id;
                 $("#fetchAnnouncements_tr_" + i).show();
 	            buildAnnouncementActions(i);
-				$("#fetchAnnouncements_Message_" + i).text(data.Announcements[i].Content);
+				$("#fetchAnnouncements_Message_" + i + " > div").text(data.Announcements[i].Content);
 
 				var dt = new Date(data.Announcements[i].Created);
 				$("#fetchAnnouncements_Created_" + i).text(dt.toLocaleDateString("en-US") + " " + dt.toLocaleTimeString("en-US"));
@@ -1333,7 +1333,8 @@ function buildAnnouncementActions(a) {
 }
 
 function doCancelAnnouncement(a) {
-	$("#fetchAnnouncements_Message_" + a).text(announcementsEdit.text);
+	$("#fetchAnnouncements_Message_" + a + " > div").text(announcementsEdit.text);
+	makeAnnouncementBoxEditable(a, false);
 	announcementsEdit.isEdit = false;
 	announcementsEdit.text = "";
 	announcementsEdit.id = 0;
@@ -1341,8 +1342,14 @@ function doCancelAnnouncement(a) {
 	return false;
 }
 
+function makeAnnouncementBoxEditable(a, b) {
+	var $div = $("#fetchAnnouncements_Message_" + a + " > div");
+	$div.prop('contenteditable', b);
+	$div.focus();
+}
 function doSaveAnnouncement(a) {
-	var newContent = $("#EditAnnouncementText").text();
+	var newContent = $("#fetchAnnouncements_Message_" + a + " > div").text();
+	console.log('saving: ' + newContent);
 	$.ajax({
 			url: '/api/admin/editannouncement',
 			type: 'POST',
@@ -1366,12 +1373,13 @@ function doSaveAnnouncement(a) {
 }
 
 function doEditAnnouncement(a) {
+	for (var i = 0; i < announcementsNavState.uiMaxPageLength; i++)
+		makeAnnouncementBoxEditable(i, i === a);
+
 	if (announcementsEdit.isEdit === false) {
 		announcementsEdit.isEdit = true;
 		announcementsEdit.id = a;
-		announcementsEdit.text = $("#fetchAnnouncements_Message_" + a).text();
-		$("#fetchAnnouncements_Message_" + a).html("<textarea id='EditAnnouncementText'></textarea>");
-		$("#EditAnnouncementText").text(announcementsEdit.text);
+		announcementsEdit.text = $("#fetchAnnouncements_Message_" + a + " > div").text();
 		buildAnnouncementActions(a);
 	} else {
 		doCancelAnnouncement(announcementsEdit.id);
