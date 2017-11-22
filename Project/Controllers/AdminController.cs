@@ -2,6 +2,7 @@
 using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -260,49 +261,43 @@ namespace Project.Controllers
 				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
 			}
 
-			string orderBy;
-
-			switch (input.OrderBy)
-			{
-				case RegisteredUsersOrderBy.Name:
-					orderBy = "Name";
-					break;
-				case RegisteredUsersOrderBy.Email:
-					orderBy = "Email";
-					break;
-				case RegisteredUsersOrderBy.Text:
-					orderBy = "Text";
-					break;
-				case RegisteredUsersOrderBy.Created:
-					orderBy = "Created";
-					break;
-				default:
-					orderBy = "";
-					break;
-			}
-
-			var desc = !input.IsDesc ? "DESC" : "ASC";
-
 			using (var db = new ProjectDbContext())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Registrations").Single();
+				var allRegistrations = db.Registrations.ToArray();
+
+				var totalLength = allRegistrations.Length;
+
 				if (input.PageLength < 0)
 				{
 					input.PageLength = totalLength;
 					input.PageIndex = 0;
 				}
+
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
-				var sqlQuery = "SELECT * FROM Registrations " +
-							   $"ORDER BY {orderBy} {desc} " +
-							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+				string orderByFn(RegistrationModel m)
+				{
+					switch (input.OrderBy)
+					{
+						case RegisteredUsersOrderBy.Name: return m.Name;
+						case RegisteredUsersOrderBy.Email: return m.Email;
+						case RegisteredUsersOrderBy.Text: return m.Text;
+						case RegisteredUsersOrderBy.Created: return m.Created.ToString("G");
+						default: return m.Name;
+					}
+				}
 
-				var registrations = db.Registrations
-					.SqlQuery(sqlQuery)
+				var registrations =
+					(
+						input.IsDesc
+							? allRegistrations.OrderByDescending(orderByFn)
+							: allRegistrations.OrderBy(orderByFn)
+					)
 					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
 					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
-					.ToArray();
+					.Skip(skip)
+					.Take(take).ToArray();
 
 				return new FetchRegisteredUsersOutput
 				{
@@ -350,9 +345,9 @@ namespace Project.Controllers
 				if (str == "") return " ";
 				return str
 					.Replace("\"", "'")
-					.Replace("\n", "\"\\n\"")
-					.Replace("\r", "\"\\r\"")
-					.Replace(",", "\",\"");
+					.Replace("\n", "\\n")
+					.Replace("\r", "\\r")
+					.Replace(",", ";");
 			}
 
 			foreach (var r in reg.Users)
