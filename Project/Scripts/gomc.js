@@ -1490,6 +1490,18 @@ function doRemoveAnnouncement(a) {
 	return false;
 }
 
+function exportRegisteredUsers() {
+	window.location.href = "/api/admin/exportregisteredusers?" +
+		"&IsDesc=" +
+		registeredUsersNavState.isDesc +
+		"&OrderBy=" +
+		registeredUsersNavState.currentTh +
+		"&nameFilter=" +
+		encodeURI(registeredUsersNavState.nameFilter) +
+		"&emailFilter=" +
+		encodeURI(registeredUsersNavState.emailFilter);
+}
+
 function doFetchRegisteredUsers() {
 	$.ajax({
 		url: '/api/admin/fetchregisteredusers',

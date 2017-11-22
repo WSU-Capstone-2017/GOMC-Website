@@ -286,6 +286,11 @@ namespace Project.Controllers
 			using (var db = new ProjectDbContext())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Registrations").Single();
+				if (input.PageLength < 0)
+				{
+					input.PageLength = totalLength;
+					input.PageIndex = 0;
+				}
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
@@ -314,6 +319,66 @@ namespace Project.Controllers
 			public int Length => Users?.Length ?? 0;
 			public RegistrationModel[] Users { get; set; }
 			public int TotalLength { get; set; }
+		}
+
+		[HttpGet]
+		public HttpResponseMessage ExportRegisteredUsers(bool isDesc, RegisteredUsersOrderBy orderBy, string nameFilter, string emailFilter)
+		{
+			var reg = FetchRegisteredUsers(new FetchRegisteredUsersInput
+			{
+				PageIndex = 0,
+				PageLength = -1,
+				IsDesc = isDesc,
+				OrderBy = orderBy,
+				FilterName = nameFilter,
+				FilterEmail = emailFilter
+			});
+
+			if (reg.AuthResult != ValidateSessionResultType.SessionValid)
+			{
+				return Request.CreateResponse(HttpStatusCode.Unauthorized);
+			}
+
+			byte[] fileBytes;
+
+			var sr = new StringWriter();
+			sr.WriteLine("Name, Email, Affiliation, Comment, Created");
+
+			// escape commas, quotes and new lines
+			string escapeStr(string str)
+			{
+				if (str == "") return " ";
+				return str
+					.Replace("\"", "'")
+					.Replace("\n", "\"\\n\"")
+					.Replace("\r", "\"\\r\"")
+					.Replace(",", "\",\"");
+			}
+
+			foreach (var r in reg.Users)
+			{
+				var str = $"{escapeStr(r.Name)},{escapeStr(r.Email)},{escapeStr(r.Affiliation)},{escapeStr(r.Text)},{r.Created:G}";
+
+				sr.WriteLine(str);
+			}
+
+			fileBytes = sr.Encoding.GetBytes(sr.ToString());
+
+			var result = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new ByteArrayContent(fileBytes)
+			};
+
+			result.Content.Headers.ContentDisposition =
+				new ContentDispositionHeaderValue("attachment")
+				{
+					FileName = "export.csv"
+				};
+
+			result.Content.Headers.ContentType =
+				new MediaTypeHeaderValue(ApplicationOctetStream);
+
+			return result;
 		}
 
 		[HttpPost]
