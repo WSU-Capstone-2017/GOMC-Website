@@ -228,7 +228,7 @@ namespace Project.Controllers
 				nameRegex = null,
 				emailRegex = null;
 
-			if(input.FilterName != null)
+			if (!input.FilterName.IsEmpty())
 			{
 				try
 				{
@@ -240,7 +240,7 @@ namespace Project.Controllers
 				}
 			}
 
-			if(input.FilterEmail != null)
+			if (!input.FilterEmail.IsEmpty())
 			{
 				try
 				{
@@ -260,9 +260,9 @@ namespace Project.Controllers
 				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
 			}
 
-			var orderBy = "";
+			string orderBy;
 
-			switch(input.OrderBy)
+			switch (input.OrderBy)
 			{
 				case RegisteredUsersOrderBy.Name:
 					orderBy = "Name";
@@ -275,6 +275,9 @@ namespace Project.Controllers
 					break;
 				case RegisteredUsersOrderBy.Created:
 					orderBy = "Created";
+					break;
+				default:
+					orderBy = "";
 					break;
 			}
 
@@ -292,16 +295,8 @@ namespace Project.Controllers
 
 				var registrations = db.Registrations
 					.SqlQuery(sqlQuery)
-					.Where(j =>
-					{
-						if(nameRegex == null || input.FilterEmail.IsEmpty()) return true;
-						return nameRegex.IsMatch(j.Name);
-					})
-					.Where(j =>
-					{
-						if (emailRegex == null || input.FilterEmail.IsEmpty()) return true;
-						return emailRegex.IsMatch(j.Name);
-					})
+					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
+					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
 					.ToArray();
 
 				return new FetchRegisteredUsersOutput

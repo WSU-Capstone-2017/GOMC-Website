@@ -151,20 +151,23 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <h4>Filter</h4>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-8">
+                        <h4>Filter</h4>
                         <label>
                             Name:
-                            <input type="search" data-toggle="tooltip" title="Filter based on name (regex)"/>
+                            <input id="registerdUseresFilter_Name" type="search" data-toggle="tooltip" title="Filter based on name (regex)"/>
                         </label>
                         <label>
                             Email:
-                            <input type="search" data-toggle="tooltip" title="Filter based on email (regex)"/>
+                            <input id="registerdUseresFilter_Email" type="search" data-toggle="tooltip" title="Filter based on email (regex)"/>
                         </label>
                         <button class="btn btn-success" onclick="return doFetchRegisteredUsers()"><span class="glyphicon glyphicon-search"></span> Search</button>
                     </div>
-                    
-                    <br/>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
                     <h4>Data</h4>
                     <table class="table table-striped table-bordered" id="userNamesAndEmails">
                         <tr>
@@ -202,6 +205,14 @@
             doFetchLatexUploads();
             doFetchRegisteredUsers();
             doFetchPreviewAnnouncements();
+
+            $("#registerdUseresFilter_Name").change(function() {
+                registeredUsersNavState.nameFilter = $("#registerdUseresFilter_Name").val();
+            });
+
+            $("#registerdUseresFilter_Email").change(function () {
+                registeredUsersNavState.emailFilter = $("#registerdUseresFilter_Email").val();
+            });
 
             $("#adminAnnouncement_Text").keyup(function () {
                 doPreviewAnnouncements($("#adminAnnouncement_Text").val());
