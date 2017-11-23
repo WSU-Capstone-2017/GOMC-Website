@@ -24,8 +24,8 @@ namespace Project.Controllers
             using (var db = new ProjectDbContext())
             {
                 var lm =
-                    db.FailedLogins.SqlQuery($"SELECT * FROM dbo.FailedLogins WHERE LoginId = {loginId}")
-                    .Where(j => j.Date > new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0))
+                    db.FailedLogins.SqlQuery($"SELECT * FROM dbo.FailedLogins WHERE LoginId = '{loginId}'")
+                    .Where(j => j.Date > (DateTime.Now - TimeSpan.FromHours(1)))
                     .ToArray();
 
                 return lm.Length;
@@ -46,7 +46,6 @@ namespace Project.Controllers
             }
             if (result.ResultType == LoginResultType.InvalidPassword)
             {
-                var showCaptcha = false;
                 using (var db = new ProjectDbContext())
                 {
                     var lm = db.UserLogins.SqlQuery($"SELECT * FROM dbo.UserLoginModels WHERE Email = '{email}'").SingleOrDefault();
@@ -63,6 +62,8 @@ namespace Project.Controllers
                             LoginId = lm.Id,
                             Date = DateTime.Now
                         });
+
+                        db.SaveChanges();
                     }
                 }
                 return new LoginResult(LoginResultType.InvalidPassword);

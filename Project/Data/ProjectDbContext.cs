@@ -2,6 +2,7 @@
 using Project.Models;
 using Project.Models.LoginSystem;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Data
 {
@@ -20,6 +21,7 @@ namespace Project.Data
 		}
 	}
 
+    [Table("FailedLogins")]
     public class FailedLoginModel
     {
         public int Id { get; set; }

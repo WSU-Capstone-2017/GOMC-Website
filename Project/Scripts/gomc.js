@@ -24,7 +24,8 @@ var buildAnnouncementActionType = {
 var loginResultType = {
 	Success: 0,
 	InvalidEmail: 1,
-	InvalidPassword: 2
+    InvalidPassword: 2,
+    NeedCaptcha: 3
 };
 
 // Object of the announcement Result
@@ -308,8 +309,14 @@ $('#Admin').validate({
 					// cookie for admin login session and expires in 3 days
 					Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
 					window.location.href = "/home/admin";
-                } else if (data.ResultType === loginResultType.NeedCaptcha) {
-                    $("#loginCaptchaDiv").removeClass("disabled");
+                } else if (data.ResultType === loginResultType.NeedCaptcha) {                  
+                    console.log("need captcha");
+
+                    $('#Admin').toggle();
+                    $('.loader').toggle();
+
+                    $("#loginCaptchaDiv").removeClass("hidden");
+                                    
                 } else {
 					var failMms = data.ResultType;
 					switch (failMms) {
