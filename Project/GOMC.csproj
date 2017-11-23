@@ -196,6 +196,7 @@
     <Compile Include="Latex\LatexConvertResult.cs" />
     <Compile Include="Models\Github\PushModel.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
+    <Compile Include="Models\LoginsModel.cs" />
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />

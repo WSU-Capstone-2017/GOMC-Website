@@ -184,6 +184,7 @@ namespace Project.LoginSystem
 	{
 		Success,
 		InvalidEmail,
-		InvalidPassword
+		InvalidPassword,
+        NeedCaptcha
 	}
 }

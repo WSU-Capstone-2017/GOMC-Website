@@ -28,6 +28,10 @@
                             <span class="form-control-feedback"></span>
                         </div>
                     </div>
+                    <div class="g-recaptcha scale-captcha disabled" id="loginCaptchaDiv"
+                         data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"
+                         data-callback="captchaSelect"></div> <!--Implemented for captcha-->
+                    
                     @Html.ActionLink("Go to Admin", "Admin", null, new { @class = "btn btn-primary", @id = "adminDirect", @style = "display: none;" })
                     <button class='btn btn-success' type='submit'><span class="glyphicon glyphicon-log-in"></span> Login</button>
                 </form>

@@ -308,7 +308,9 @@ $('#Admin').validate({
 					// cookie for admin login session and expires in 3 days
 					Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
 					window.location.href = "/home/admin";
-				} else {
+                } else if (data.ResultType === loginResultType.NeedCaptcha) {
+                    $("#loginCaptchaDiv").removeClass("disabled");
+                } else {
 					var failMms = data.ResultType;
 					switch (failMms) {
 						case 1:
