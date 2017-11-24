@@ -159,7 +159,7 @@ $('#btn').click(function () {
 $('#closeRegistration').click(function () {
 	$(this).next().slideToggle(() => {
 		$(this).html((count, words) => {
-			return words == '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
+			return words === '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
 		});
 	});
 });
@@ -252,7 +252,7 @@ $('#registrationForm').validate({ // jQuery Validate
 	invalidHandler: function (e, validator) { // callback triggered on failed validation
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -318,7 +318,7 @@ $('#Admin').validate({
                     $('#Admin').toggle();
                     $('.loader').toggle();
 
-                    $("#loginCaptchaDiv").removeClass("hidden")
+					$("#loginCaptchaDiv").removeClass("hidden");
 
                     window.confirm("Invalid password");
                                     
@@ -354,7 +354,7 @@ $('#Admin').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -542,7 +542,7 @@ $('#xmlForm1').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -743,7 +743,7 @@ $('#xmlForm2').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -902,7 +902,7 @@ $('#xmlForm3').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -1046,7 +1046,7 @@ $('#xmlConfig').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -1058,8 +1058,8 @@ $('#adminLatexUpload').validate({
 	rules: {
 		file: {
 			required: true,
-			extension: "tex",
-			// accept: "application/x-latex" // Fails every-time for unknown reason? Should fix later but for now it does the basic job of stopping non-tex files
+			extension: "tex"
+			// ,accept: "application/x-latex" // Fails every-time for unknown reason? Should fix later but for now it does the basic job of stopping non-tex files
 		},
 		version: {
 			required: true,
@@ -1069,8 +1069,8 @@ $('#adminLatexUpload').validate({
 
 	messages: {
 		file: {
-			extension: "Unsupported file type, you must upload a latex file",
-			// accept: "Improper file format, please check the file and try again" // Same as issue above
+			extension: "Unsupported file type, you must upload a latex file"
+			// ,accept: "Improper file format, please check the file and try again" // Same as issue above
 		},
 		version: {
 			pattern: "Invalid naming convention, no whitespaces or special characters"
@@ -1157,7 +1157,7 @@ $('#adminLatexUpload').validate({
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
 		if (errorCount) {
-			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors."
+			var errMessage = errorCount === 1 ? "You have 1 error." : "You have " + errorCount + " errors.";
 			window.confirm(errMessage);
 		}
 	}
@@ -1208,7 +1208,13 @@ function refreshExamples() {
 	console.log("Refresh Examples Clicked!");
 }
 
+function checkAnnouncementNavBounds() {
+	if (announcementsNavState.pageIndex < 0) {
+		announcementsNavState.pageIndex = 0;
+	}
+}
 function doFetchAnnouncements() {
+	checkAnnouncementNavBounds();
 	announcementsNavState.totalLength = 0;
 	$.ajax({
 		url: '/api/Admin/FetchAnnouncements',
