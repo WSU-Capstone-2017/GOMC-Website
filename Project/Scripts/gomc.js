@@ -70,6 +70,8 @@ var registrationString = {
 // Latex file object
 var latexFileData = {};
 
+//Taskbar to show current position on latex converter
+$(".navspy-menu").navspy();
 // Global Object events & telemetry
 $(function () {
 	console.log('READY');
