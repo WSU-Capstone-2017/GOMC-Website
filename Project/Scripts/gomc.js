@@ -309,13 +309,16 @@ $('#Admin').validate({
 					// cookie for admin login session and expires in 3 days
 					Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
 					window.location.href = "/home/admin";
-                } else if (data.ResultType === loginResultType.NeedCaptcha) {                  
+                } else if (data.ResultType === loginResultType.NeedCaptcha) {
+                    
                     console.log("need captcha");
 
                     $('#Admin').toggle();
                     $('.loader').toggle();
 
-                    $("#loginCaptchaDiv").removeClass("hidden");
+                    $("#loginCaptchaDiv").removeClass("hidden")
+
+                    window.confirm("Invalid password");
                                     
                 } else {
 					var failMms = data.ResultType;
