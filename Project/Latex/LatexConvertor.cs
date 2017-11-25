@@ -72,8 +72,8 @@ namespace Project.Latex
 			body.RemoveChild(tocNav);
 
 			tocNav.SelectNodes("ul")[0].Attributes.Add("class", "navspy-menu");
-            tocNav.SelectNodes("li")[0].Attributes.Add("menu-item", "data-spy-on");
-
+            
+            
             tocNav.Attributes["id"].Value = "site-nav";
 
 			foreach(var i in tocNav.SelectNodes("ul/descendant::ul"))

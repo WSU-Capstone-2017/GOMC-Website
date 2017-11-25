@@ -185,6 +185,9 @@ namespace Project.LoginSystem
 		Success,
 		InvalidEmail,
 		InvalidPassword,
-        NeedCaptcha
+        NeedCaptcha,
+        CaptchaValid,
+        PasswordValid,
+        EmailValid      
 	}
 }

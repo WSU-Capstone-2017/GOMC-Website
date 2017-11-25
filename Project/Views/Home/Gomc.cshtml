@@ -2,16 +2,14 @@
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC";
 }
-
 @section NavSection {
-<li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
-<li>@Html.ActionLink("Features", "Features", "Home")</li>
-<li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
-<li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-<li>@Html.ActionLink("Publications", "Publications", "Home")</li>
-<li>@Html.ActionLink("About", "About", "Home")</li>
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
 }
-
 <header class='special-jumbotron' onload="applyJumbotron">
     <div class='jumbotron'>
         <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>

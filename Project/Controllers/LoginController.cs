@@ -44,6 +44,7 @@ namespace Project.Controllers
             {
                 return new LoginResult(LoginResultType.InvalidEmail);
             }
+
             if (result.ResultType == LoginResultType.InvalidPassword)
             {
                 using (var db = new ProjectDbContext())
