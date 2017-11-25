@@ -14,7 +14,7 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-	    private static bool CaptchaCheck(string gRecaptchaResponse)
+	    public static bool CaptchaCheck(string gRecaptchaResponse)
 	    {
 		    var userIp = HttpContext.Current.Request.UserHostAddress;
 

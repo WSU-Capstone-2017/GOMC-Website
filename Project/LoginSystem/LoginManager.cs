@@ -36,14 +36,7 @@ namespace Project.LoginSystem
                 }
                 if (b.Length == 1)
                 {
-                    if (b[0].PasswordHash == GetHash(password))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }                   
+                    return b[0].PasswordHash == GetHash(password);                                
                 }             
             }
             return false;           
@@ -116,7 +109,7 @@ namespace Project.LoginSystem
                     }
                     else
                     {
-                        return new GetLoginIdResult(LoginResultType.InvalidPassword);
+                        return new GetLoginIdResult(LoginResultType.InvalidPassword, b[0].Id);
                     }
                 }
             }
@@ -136,13 +129,13 @@ namespace Project.LoginSystem
         }
         public static String GetHash(string value)                                //Function for getting password to hash value
         {
-            StringBuilder stringbuilder = new StringBuilder();                    //For building a string
+            var stringbuilder = new StringBuilder();                    //For building a string
 
             using (var hash = SHA256.Create())                                     //var confonts to w.e hash is and this is where we start creating using sha256 algorithm
             {
-                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value).Concat(salt).ToArray());   //Password is in string, gets computed to hash value and byte value
+                var hashBytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value).Concat(salt).ToArray());   //Password is in string, gets computed to hash value and byte value
 
-                foreach (var i in hashmi)                                        //Used for changing it back to string value
+                foreach (var i in hashBytes)                                        //Used for changing it back to string value
                 {
                     stringbuilder.Append(i.ToString("x2"));                      //String builder for making the string into one whole string,append is adding var i to the string which will have hex value and 2 bytes each
                 }
@@ -186,8 +179,6 @@ namespace Project.LoginSystem
 		InvalidEmail,
 		InvalidPassword,
         NeedCaptcha,
-        CaptchaValid,
-        PasswordValid,
-        EmailValid      
+        InvalidCaptcha   
 	}
 }

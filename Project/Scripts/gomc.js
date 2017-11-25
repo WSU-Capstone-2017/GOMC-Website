@@ -25,7 +25,8 @@ var loginResultType = {
 	Success: 0,
 	InvalidEmail: 1,
     InvalidPassword: 2,
-    NeedCaptcha: 3
+    NeedCaptcha: 3,
+    InvalidCaptcha: 4
 };
 
 // Object of the announcement Result
@@ -303,22 +304,33 @@ $('#Admin').validate({
 		$('.login-container').append('<div class="loader center-block"></div>');
 		$.post('/api/Login/ValidateLogin', $(form).serialize())
 			.done(function (data) {
-				if (data.ResultType === loginResultType.Success) {
-					$('#Admin').toggle();
-					$('.loader').toggle();
-					// cookie for admin login session and expires in 3 days
-					Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
-					window.location.href = "/home/admin";
+                if (data.ResultType === loginResultType.Success) {
+                    $('#Admin').toggle();
+                    $('.loader').toggle();
+                    // cookie for admin login session and expires in 3 days
+                    Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
+                    window.location.href = "/home/admin";
                 } else if (data.ResultType === loginResultType.NeedCaptcha) {
-                    
+
                     console.log("need captcha");
 
                     $('#Admin').toggle();
                     $('.loader').toggle();
 
-					$("#loginCaptchaDiv").removeClass("hidden");
+                    $("#loginCaptchaDiv").removeClass("hidden");
 
-                    window.confirm("Invalid password");
+                    window.confirm("Need captcha");
+
+                } else if (data.ResultType === loginResultType.InvalidCaptcha) {
+
+                    console.log("Invalid captcha");
+
+                    $('#Admin').toggle();
+                    $('.loader').toggle();
+
+                    $("#loginCaptchaDiv").removeClass("hidden");
+
+                    window.confirm("Captcha is invalid");               
                                     
                 } else {
 					var failMms = data.ResultType;
