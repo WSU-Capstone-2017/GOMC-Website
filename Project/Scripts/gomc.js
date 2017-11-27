@@ -419,8 +419,10 @@ $('.prev-btn').click(function (e) {
 	window.scrollTo(0, 0);
 	currentWorkingPanel.slideUp('slow', () => {
 		currentWorkingPanel.prev().slideDown('slow');
-		currentWidth -= 25;
-		updateBar(currentWidth);
+		//currentWidth -= 25;
+        //updateBar(currentWidth); 
+        //$("#progressbar").children().hasClass('active').last().removeClass('active');
+        $('.active').last().removeClass('active')
 	});
 	// e.preventDefault();
 });
@@ -433,7 +435,11 @@ $('.next-btn').click(function (e) {
 	currentWorkingPanel.next().addClass('working-panel');
 	window.scrollTo(0, 0);
 	currentWorkingPanel.slideUp('slow', () => {
-		currentWorkingPanel.next().slideDown('slow');
+        currentWorkingPanel.next().slideDown('slow');
+        //currentWidth += 25;
+        //updateBar(currentWidth); 
+        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        $("#progressbar").children().hasClass('active').last().next().addClass('active');
 	});
 	// e.preventDefault();
 });
@@ -447,8 +453,9 @@ $('#xmlForm1Save').click(function () {
 		window.scrollTo(0, 0);
 		currentWorkingPanel.slideUp('slow', () => {
 			currentWorkingPanel.next().slideDown('slow');
-			currentWidth += 25;
-			updateBar(currentWidth);
+			//currentWidth += 25;
+			//updateBar(currentWidth);
+            $("#progressbar li").eq(1).addClass('active');
 		});
 	}
 });
@@ -567,8 +574,9 @@ $('#xmlForm2Save').click(function () {
 		window.scrollTo(0, 0);
 		currentWorkingPanel.slideUp('slow', () => {
 			currentWorkingPanel.next().slideDown('slow');
-			currentWidth += 25;
-			updateBar(currentWidth);
+			//currentWidth += 25;
+			//updateBar(currentWidth);
+            $("#progressbar li").eq(2).addClass('active');
 		});
 	}
 });
@@ -768,8 +776,9 @@ $('#xmlForm3Save').click(function () {
 		window.scrollTo(0, 0);
 		currentWorkingPanel.slideUp('slow', () => {
 			currentWorkingPanel.next().slideDown('slow');
-			currentWidth += 25;
-			updateBar(currentWidth);
+			//currentWidth += 25;
+			//updateBar(currentWidth);
+            $("#progressbar li").eq(3).addClass('active');
 		});
 	}
 });
@@ -935,6 +944,7 @@ $("#adminLatexUpload_File").change(function (e) {
 	//console.log('upload change');
 	latexFileData = this.files[0];
 	// checkLatexUploadFormButtonDisabled();
+    $('#fileNameContainer').val(latexFileData.name);
 });
 
 $('#xmlConfig').validate({
@@ -1105,7 +1115,7 @@ $('#adminLatexUpload').validate({
 		// document.write('Good');
 		e.preventDefault();
 		$('#adminLatexUpload').toggle();
-		$('.latex-container').append('<div class="loader center-block"><span>Processing please wait...</span></div>'); // Needs to be tested
+        $('.latex-container').append('<div class="loader center-block"></div><span class="loader-mms">Processing please wait...</span>'); // Needs to be tested
 		// console.log(adminLatexUpload);
 		// $("#adminLatexUpload_Submit").prop('disabled', true);
 		var adminLatexUploadForm = new FormData();
@@ -1121,14 +1131,16 @@ $('#adminLatexUpload').validate({
 				doFetchLatexUploads();
 				if (xhr.status >= 200 && xhr.status < 400) {
 					$('#adminLatexUpload').toggle();
-					$('.loader').remove();
+                    $('.loader').remove();
+                    $('.loader-mms').remove();
 					// console.log("Processed");
 				}
 			}, false);
 		xhr.addEventListener("error",
 			function (err) {
 				$('#adminLatexUpload').toggle();
-				$('.loader').remove();
+                $('.loader').remove();
+                $('.loader-mms').remove();
 				window.confirm(err.statusText + " Please try again");
 				var messageExplained = JSON.parse(err.responseJSON.Message);
 				console.log(

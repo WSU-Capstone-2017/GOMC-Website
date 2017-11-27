@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-
+            <hr class="grand-line" />
             <div class="row">
                 <div class="col-md-6">
                     <h4>Current Announcements</h4>
@@ -79,7 +79,7 @@
                     </table>
                     <div class="btn-group">
                         <button id="fetchAnnouncements_Back" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(true);"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-                        <button id="fetchAnnouncements_Next" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button id="fetchAnnouncements_Next" class="btn btn-sm btn-success" onclick="return doNavAnnouncements(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -104,15 +104,17 @@
                     </table>
                 </div>
             </div>
+            <hr class="grand-line" />
             <div class="row">
                 <div class="col-md-6 latex-container">
                     <h4>Upload new Latex File</h4>
                     <form class="form-vertical" id="adminLatexUpload" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label class="control-label">
-                                Attach Latex File:
-                                <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required />
+                            <label class="control-label btn-sm btn-success latex-btn"> <!--Fix shitty button with better glyphico-->
+                                <span class="glyphicon glyphicon-search icon-style"></span>Browse
+                                <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required hidden/>
                             </label>
+                            <input type="text" id="fileNameContainer" readonly />
                         </div>
                         <div class="form-group">
                             <label class="control-label">
@@ -193,7 +195,7 @@
 
                     <div class="btn-group">
                         <button id="registeredUsers_Back" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(true);"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-                        <button id="registeredUsers_Next" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button id="registeredUsers_Next" class="btn btn-sm btn-success" onclick="return doNavRegisteredUsers(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
                 </div>
             </div>
