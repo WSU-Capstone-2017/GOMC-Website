@@ -381,6 +381,7 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
+    <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -422,8 +423,6 @@
     <Content Include="Scripts\js.cookie.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\navspy.js" />
-    <Content Include="Scripts\navspy.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

@@ -488,54 +488,58 @@ th {
 
 
 /*Latex.cshtml specific*/
-#site-nav {
+#navbar {    
+    background: #d1d2d4;
 	height: 100%;
-	float: left;
-	width: 15.1em;
-	background-color: #d1d2d4;
-	overflow: auto;
+    overflow: auto;
+    float: left;
+    width: 15.1em;
 	margin-top: -.3125em;
 }
 
-#site-nav ul, #site-nav li {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	font-size: .96em;
+#navbar ul, #navbar li {
+    padding: 0;     
+	  margin: 0;	 
+	  font-size: .96em;	
+    list-style-type: none;
 }
 
-#site-nav li {
-	padding: 0.3em;
-	line-height: 105%;
-	border-top: .0625em solid #000000;
-	border-top: .0625em solid rgba(0,0,0,0.07);
+#navbar li {
+  	padding: 0.3em;
+	  line-height: 105%;
+	  border-top: .0625em solid #000000;
+	  border-top: .0625em solid rgba(0,0,0,0.07);
 }
 
-#site-nav ul ul {
-	margin-top: 0.3em;
+#navbar ul ul {
+  margin-top: 0.3em;
 }
 
-#site-nav li a {
-	padding-left: 1.8em;
-	padding-right: 0.6em;
+#navbar li a {
+  padding-left: 0.5em;
+	padding-right: 0em;
 	display: block;
 }
 
-#site-nav li li a {
-	padding-left: 2.8em;
+#navbar li li a {
+   padding-left: 2.8em;
 }
 
-#site-nav li li li a {
-	padding-left: 3.8em;
+#navbar li li li a{
+  padding-left: 3.8em;
 }
 
-#site-nav a {
-	color: #000;
-	text-decoration: none;
+#navbar a {
+    text-decoration: none;
+    color: #000;
 }
 
-#site-nav a:hover {
-	color: #000;
+#navbar .active a {
+    color: red;
+}
+
+#navbar a:hover {
+  color: #000;
 	text-decoration: underline;
 }
 
@@ -549,7 +553,7 @@ th {
 #contents-container {
 	height: 100%;
 	overflow: auto;
-	width: 77em;
+	width: 82em;
 	margin-left: -4em;
 }
 
