@@ -89,9 +89,21 @@ namespace Project.Controllers
 			}
 		}
 
-		private static bool UploadLatex(string file, string version, string email)
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public GithubController() : this(null)
 		{
-			using (var db = new ProjectDbContext())
+			
+		}
+
+		public GithubController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
+		private bool UploadLatex(string file, string version, string email)
+		{
+			using (var db = DbGetter())
 			{
 				log.Info($"fetching email '{email}'");
 

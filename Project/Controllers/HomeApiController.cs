@@ -7,10 +7,22 @@ namespace Project.Controllers
 {
 	public class HomeApiController : ApiController
 	{
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public HomeApiController() : this(null)
+		{
+			
+		}
+
+		public HomeApiController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
 		[HttpPost]
 		public AnnouncementItem[] FetchAnnouncements()
 		{
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 

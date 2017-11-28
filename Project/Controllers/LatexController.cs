@@ -20,6 +20,17 @@ namespace Project.Controllers
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public LatexController() : this(null)
+		{
+
+		}
+
+		public LatexController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
 
 		[HttpPost]
 		public async Task<LatexConvertResult> Convert()
@@ -77,7 +88,7 @@ namespace Project.Controllers
 			var file = File.ReadAllText(provider.FileData[0].LocalFileName, Encoding.Default);
 			File.Delete(provider.FileData[0].LocalFileName);
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var conv = new LatexConvertor();
 
@@ -104,8 +115,10 @@ namespace Project.Controllers
 			}
 		}
 
-		public static PublishLatexResult PublishLatex(int latexId)
+		public static PublishLatexResult PublishLatex(int latexId, Func<ProjectDbContext> dbGetter = null)
 		{
+			dbGetter = dbGetter ?? (() => new ProjectDbContext());
+
 			var dir = HttpContext.Current.Server.MapPath("~/temp/set");
 
 			if(!Directory.Exists(dir))
@@ -113,7 +126,7 @@ namespace Project.Controllers
 				Directory.CreateDirectory(dir);
 			}
 
-			using(var db = new ProjectDbContext())
+			using(var db = dbGetter())
 			{
 				var lm = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads " +
 				                                  "WHERE Id = @inputId",

@@ -17,7 +17,15 @@ namespace Project.LoginSystem
 		    Encoding.UTF8.GetBytes(
 			    "IvgpV69JXsiEb3VdhXuijykfjvWWutgsthAiQs1bdfXf0kKRgdkBGC2MSdJ9Sp92YeWehTXF9tzCywbmJSdW2hTmoClpejFV");
 
-        public Boolean LoginIsValid(string email, string password)
+	    private static readonly Func<ProjectDbContext> defaultDbGetter = () => new ProjectDbContext();
+	    public Func<ProjectDbContext> DbGetter { get; }
+
+	    public LoginManager(Func<ProjectDbContext> dbGetter = null)
+	    {
+		    DbGetter = dbGetter ?? defaultDbGetter;
+	    }
+
+		public Boolean LoginIsValid(string email, string password)
         {
             if (IsValidEmail(email) == false) 
             {
@@ -27,7 +35,7 @@ namespace Project.LoginSystem
             {
                 return false;
             }
-            using (var db = new ProjectDbContext())
+            using (var db = DbGetter())
             {
                 var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
                 if (b.Length == 0)
@@ -42,9 +50,9 @@ namespace Project.LoginSystem
             return false;           
         }
 
-	    public static ValidateSessionResultType ValidateSession(Guid session)
+	    public static ValidateSessionResultType ValidateSession(Guid session, Func<ProjectDbContext> dbGetter = null)
 	    {
-		    using(var db = new ProjectDbContext())
+		    using(var db = (dbGetter ?? defaultDbGetter)())
 		    {
 			    var b = db.Database.SqlQuery<AlreadyLoggedModel>($"select * from AlreadyLoggedModels where Session = '{session}'").FirstOrDefault();
 
@@ -62,9 +70,9 @@ namespace Project.LoginSystem
 		    }
 		}
 
-	    public static int? LoginIdFromSession(Guid session)
+	    public static int? LoginIdFromSession(Guid session, Func<ProjectDbContext> dbGetter = null)
 	    {
-		    using(var db = new ProjectDbContext())
+		    using(var db = (dbGetter ?? defaultDbGetter)())
 		    {
 			    var sqlParameter = new SqlParameter("@SessionInput", session);
 
@@ -94,7 +102,7 @@ namespace Project.LoginSystem
             {
                 return new GetLoginIdResult(LoginResultType.InvalidPassword);
             }
-            using (var db = new ProjectDbContext())
+            using (var db = DbGetter())
             {
                 var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
                 if (b.Length == 0)

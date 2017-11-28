@@ -18,6 +18,17 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
+		public Func<ProjectDbContext> DbGetter { get; }
+
+	    public HomeController() : this(null)
+	    {
+	    }
+
+		public HomeController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
         public DownloadsModel GetDownloadModel()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
@@ -200,7 +211,7 @@ namespace Project.Controllers
 
         public ActionResult Gomc()
         {
-            using (var serverConn = new ProjectDbContext())
+            using (var serverConn = DbGetter())
             {
       //          SELECT TOP(1000) [Id]
       //,[AuthorId]
@@ -292,7 +303,7 @@ namespace Project.Controllers
 
             if (r == ValidateSessionResultType.SessionValid)
             {
-                using (var serverConn = new ProjectDbContext())
+                using (var serverConn = DbGetter())
                 {
                     var ResultRoster = new List<RegistrationModel>();
                     var Roster = (

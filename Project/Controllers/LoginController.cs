@@ -15,9 +15,14 @@ namespace Project.Controllers
     {
         private readonly LoginManager loginManager;
 
-        public LoginController()                                        
+	    public LoginController() : this(null)
+	    {
+		    
+	    }
+        public LoginController(Func<ProjectDbContext> dbGetter)
         {
-            loginManager = new LoginManager();
+	        DbGetter = dbGetter ?? (() => new ProjectDbContext());
+            loginManager = new LoginManager(DbGetter);
         }
 
         private int CheckFailedLogins(ProjectDbContext db, int loginId)
@@ -29,8 +34,9 @@ namespace Project.Controllers
 
                 return lm.Length;            
         }
+	    public Func<ProjectDbContext> DbGetter { get; }
 
-        public LoginResult ValidateLogin(FormDataCollection uiData)
+		public LoginResult ValidateLogin(FormDataCollection uiData)
         {
             var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
             var email = loginCredentials.GetValue("uName");
@@ -44,7 +50,7 @@ namespace Project.Controllers
                 return new LoginResult(result.ResultType);
             }
 
-            using (var db = new ProjectDbContext())
+            using (var db = DbGetter())
             {
                 if (result.ResultType == LoginResultType.InvalidPassword)
                 {

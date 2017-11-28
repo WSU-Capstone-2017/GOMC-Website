@@ -56,6 +56,17 @@ namespace Project.Controllers
 			public DateTime Created { get; set; }
 		}
 
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public AdminController() : this(null)
+		{
+		}
+
+		public AdminController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
 		[HttpPost]
 		public FetchLatexUploadsOutput FetchLatexUploads()
 		{
@@ -67,7 +78,7 @@ namespace Project.Controllers
 				return new FetchLatexUploadsOutput { AuthResult = authentication.Result };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var uploads = db.LatexUploads
 					.OrderByDescending(j => j.Created)
@@ -104,7 +115,7 @@ namespace Project.Controllers
 
 			byte[] fileBytes = null;
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var sqprm = new SqlParameter("@inputId", input.LatexUploadId);
 				var up = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads WHERE Id = @inputId", sqprm).SingleOrDefault();
@@ -261,7 +272,7 @@ namespace Project.Controllers
 				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var allRegistrations = db.Registrations.ToArray();
 
@@ -387,7 +398,7 @@ namespace Project.Controllers
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
 
@@ -435,7 +446,7 @@ namespace Project.Controllers
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
 				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 
@@ -458,7 +469,7 @@ namespace Project.Controllers
 				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 				var skip = input.PageLength * input.PageIndex;
@@ -491,7 +502,7 @@ namespace Project.Controllers
 				return new DeleteAnnouncementOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				const string query = "DELETE FROM dbo.Announcments " +
 									 "WHERE Id = @inputAnnouncementId";
@@ -519,7 +530,7 @@ namespace Project.Controllers
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				const string query = "UPDATE dbo.Announcments " +
 									 "SET Content = @inputContent " +

@@ -14,7 +14,18 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-	    public static bool CaptchaCheck(string gRecaptchaResponse)
+		public Func<ProjectDbContext> DbGetter { get; }
+
+	    public RegistrationController() : this(null)
+	    {
+		    
+	    }
+	    public RegistrationController(Func<ProjectDbContext> dbGetter)
+	    {
+		    DbGetter = dbGetter ?? (() => new ProjectDbContext());
+	    }
+
+		public static bool CaptchaCheck(string gRecaptchaResponse)
 	    {
 		    var userIp = HttpContext.Current.Request.UserHostAddress;
 
@@ -79,7 +90,7 @@ namespace Project.Controllers
 
 	        if (result.Success)
 	        {
-	            using (var db = new ProjectDbContext())
+	            using (var db = DbGetter())
 	            {
 	                db.Registrations.Add(model);
 	                db.SaveChanges();
