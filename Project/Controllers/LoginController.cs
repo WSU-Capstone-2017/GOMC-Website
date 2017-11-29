@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.WebPages;
 using Project.Core;
 
 namespace Project.Controllers
@@ -14,64 +15,104 @@ namespace Project.Controllers
     {
         private readonly LoginManager loginManager;
 
-        public LoginController()                                        //Created this that way stuff from dbContext will not be null when called from loginmanager
+	    public LoginController() : this(null)
+	    {
+		    
+	    }
+        public LoginController(Func<ProjectDbContext> dbGetter)
         {
-            loginManager = new LoginManager();
+	        DbGetter = dbGetter ?? (() => new ProjectDbContext());
+            loginManager = new LoginManager(DbGetter);
         }
 
-        public LoginResult ValidateLogin(FormDataCollection uiData)                       
+        private int CheckFailedLogins(ProjectDbContext db, int loginId)
         {
-            var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
-	        string email = loginCredentials.GetValue("uName");
-	        string password = loginCredentials.GetValue("pCode");
+            var lm =
+                    db.FailedLogins.SqlQuery($"SELECT * FROM dbo.FailedLogins WHERE LoginId = '{loginId}'")
+                    .Where(j => j.Date > (DateTime.Now - TimeSpan.FromHours(1)))
+                    .ToArray();
 
-            var result = loginManager.GetLoginId(email, password);          
-            if (result.ResultType == LoginResultType.InvalidEmail )
+                return lm.Length;            
+        }
+	    public Func<ProjectDbContext> DbGetter { get; }
+
+		public Func<string, bool> CaptchaCheckFn { get; set; }
+
+		public LoginResult ValidateLogin(FormDataCollection uiData)
+		{
+			var captchaCheckFn = CaptchaCheckFn ?? RegistrationController.CaptchaCheck;
+
+			var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
+            var email = loginCredentials.GetValue("uName");
+            var password = loginCredentials.GetValue("pCode");
+            var captchaResponse = loginCredentials.GetValue("g-recaptcha-response");
+
+            var result = loginManager.GetLoginId(email, password);
+
+            if (result.ResultType == LoginResultType.InvalidEmail || !result.LoginId.HasValue)
             {
-                return new LoginResult(LoginResultType.InvalidEmail);
+                return new LoginResult(result.ResultType);
             }
-            if (result.ResultType == LoginResultType.InvalidPassword)
-            {
-                return new LoginResult(LoginResultType.InvalidPassword);
-            }
-            if (result.ResultType == LoginResultType.Success)
-            {
-				Debug.Assert(result.LoginId.HasValue);
 
-	            using(var dbContext = new ProjectDbContext())
-	            {
-		            var session = Guid.NewGuid(); //Create a GUID for id which has (email,password)
-		            var expiredTime =
-			            DateTime.Now +
-			            TimeSpan.FromHours(3); //From exact time at that moment, the login will expire 3 hrs from then
-		            var loggedIn =
-			            new AlreadyLoggedModel(); //loggedin using the table created in AlreadyLoggedModel(4 options)
-		            loggedIn.Expiration = expiredTime;
-		            loggedIn.Session =
-			            session; //Getting into loggedin and then session which is given to each user, session is a Guid(unique identifier)
-		            loggedIn.LoginId = result.LoginId.Value; //We use .value to get the loginID since it is nullable
-		            dbContext.AlreadyLoggedIns.Add(loggedIn); //Lets you add stuff in the AlreadyLoggedIns            
+            using (var db = DbGetter())
+            {
+                if (result.ResultType == LoginResultType.InvalidPassword)
+                {
+                    db.FailedLogins.Add(new FailedLoginModel()
+                    {
+                        LoginId = result.LoginId.Value,
+                        Date = DateTime.Now
+                    });
 
-		            dbContext.SaveChanges(); //Saves changes automatically
-		            return new LoginResult(LoginResultType.Success, session);
-	            }
+                    db.SaveChanges();
+                }
+
+                var failedLogins = CheckFailedLogins(db, result.LoginId.Value);
+
+                if (failedLogins >= 3)
+                {
+                    if (captchaResponse.IsEmpty())
+                    {
+                        return new LoginResult(LoginResultType.NeedCaptcha);
+                    }
+
+                    if (!captchaCheckFn(captchaResponse))
+                    {
+                        return new LoginResult(LoginResultType.InvalidCaptcha);
+                    }
+                }
+
+                if (result.ResultType == LoginResultType.InvalidPassword)
+                {
+                    return new LoginResult(LoginResultType.InvalidPassword);
+                }
+
+                if (result.ResultType == LoginResultType.Success)
+                {
+                    var session = Guid.NewGuid();
+
+                    var expiredTime =
+                        DateTime.Now +
+                        TimeSpan.FromHours(3);
+
+                    var loggedIn = new AlreadyLoggedModel
+                    {
+                        Expiration = expiredTime,
+                        Session = session,
+                        LoginId = result.LoginId.Value
+                    };
+
+                    db.AlreadyLoggedIns.Add(loggedIn);
+
+                    db.SaveChanges();
+                    return new LoginResult(LoginResultType.Success, session);
+                }
             }
             return null;
         }
-        public Boolean ValidateSession(Guid session)       //Create function for validating session
+        public bool ValidateSession(Guid session)
         {
-	        using(var dbContext = new ProjectDbContext())
-	        {
-		        foreach(var i in dbContext.AlreadyLoggedIns) //Var i gets table from AlreadyLoggedIns in the database
-		        {
-			        if(i.Session == session && DateTime.Now < i.Expiration
-			        ) //checks to see if sessions match and input expiration is less than expiration in database
-			        {
-				        return true;
-			        }
-		        }
-	        }
-	        return false;
-        }           
+            return LoginManager.ValidateSession(session) == ValidateSessionResultType.SessionValid;
+        }
     }
 }

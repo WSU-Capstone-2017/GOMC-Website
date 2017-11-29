@@ -46,9 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="dotless.Core, Version=1.5.2.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
-      <HintPath>..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -196,6 +193,7 @@
     <Compile Include="Latex\LatexConvertResult.cs" />
     <Compile Include="Models\Github\PushModel.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
+    <Compile Include="Models\LoginsModel.cs" />
     <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
@@ -227,6 +225,7 @@
     <Content Include="Content\img\bonds.png" />
     <Content Include="Content\img\brock.jpg" />
     <Content Include="Content\img\canonical-ensemble.png" />
+    <Content Include="Content\img\canonical-ensemble2.png" />
     <Content Include="Content\img\cell-list.png" />
     <Content Include="Content\img\cell.png" />
     <Content Include="Content\img\clone.png" />
@@ -288,6 +287,7 @@
     <Content Include="Content\img\Manual.29x.png" />
     <Content Include="Content\img\MARTINI.png" />
     <Content Include="Content\img\nonbonded.png" />
+    <Content Include="Content\img\optimized-mie.png" />
     <Content Include="Content\img\out1.png" />
     <Content Include="Content\img\out2.png" />
     <Content Include="Content\img\out3.png" />
@@ -332,6 +332,23 @@
     <Content Include="Content\Latex\images\vsabout.png" />
     <Content Include="Content\Latex\images\vshelp.png" />
     <Content Include="Content\Latex\images\website.jpg" />
+    <Content Include="Content\about.css" />
+    <Content Include="Content\admin.css" />
+    <Content Include="Content\docs.css" />
+    <Content Include="Content\downloads.css" />
+    <Content Include="Content\faq.css" />
+    <Content Include="Content\feat.css" />
+    <Content Include="Content\gomc.css" />
+    <Content Include="Content\latex.css" />
+    <Content Include="Content\latex-html.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\more-downloads.css" />
+    <Content Include="Content\more-examples.css" />
+    <Content Include="Content\privacy.css" />
+    <Content Include="Content\publications.css" />
+    <Content Include="Content\site.css" />
+    <Content Include="Content\terms.css" />
+    <Content Include="Content\xml.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\img\gomc.png" />
     <Content Include="Content\img\gpu.png" />
@@ -378,6 +395,7 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
+    <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -405,6 +423,23 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gomc.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\about.js" />
+    <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\docs.js" />
+    <Content Include="Scripts\faq.js" />
+    <Content Include="Scripts\feat.js" />
+    <Content Include="Scripts\gomc-new.js" />
+    <Content Include="Scripts\latex.js" />
+    <Content Include="Scripts\latex-html.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\more-downloads.js" />
+    <Content Include="Scripts\more-examples.js" />
+    <Content Include="Scripts\privacy.js" />
+    <Content Include="Scripts\publications.js" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\terms.js" />
+    <Content Include="Scripts\xml.js" />
+    <Content Include="Scripts\downloads.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />

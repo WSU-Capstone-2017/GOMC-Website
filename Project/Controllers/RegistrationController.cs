@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +13,19 @@ namespace Project.Controllers
 {
     public class RegistrationController : ApiController
     {
-	    private static bool CaptchaCheck(string gRecaptchaResponse)
+		public Func<ProjectDbContext> DbGetter { get; }
+
+	    public RegistrationController() : this(null)
+	    {
+		    
+	    }
+	    public RegistrationController(Func<ProjectDbContext> dbGetter)
+	    {
+		    DbGetter = dbGetter ?? (() => new ProjectDbContext());
+	    }
+	    public Func<string, bool> CaptchaCheckFn { get; set; }
+
+		public static bool CaptchaCheck(string gRecaptchaResponse)
 	    {
 		    var userIp = HttpContext.Current.Request.UserHostAddress;
 
@@ -38,10 +49,12 @@ namespace Project.Controllers
 
 	    public RegistrationResult Input(FormDataCollection formDataCollection)
 	    {
+		    var captchaCheckFn = CaptchaCheckFn ?? CaptchaCheck;
+
 		    var dict = formDataCollection.ToDictionary(j => j.Key, j => j.Value);
 		    var result = new RegistrationResult();
 
-			if (!CaptchaCheck(dict.GetValue("g-recaptcha-response")))
+			if (!captchaCheckFn(dict.GetValue("g-recaptcha-response")))
 			{
 				result.ErrorResult(RegistrationErrorType.CaptchaInvalid);
 				return result;
@@ -79,7 +92,7 @@ namespace Project.Controllers
 
 	        if (result.Success)
 	        {
-	            using (var db = new ProjectDbContext())
+	            using (var db = DbGetter())
 	            {
 	                db.Registrations.Add(model);
 	                db.SaveChanges();

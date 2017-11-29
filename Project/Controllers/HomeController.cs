@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +18,17 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
+		public Func<ProjectDbContext> DbGetter { get; }
+
+	    public HomeController() : this(null)
+	    {
+	    }
+
+		public HomeController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
         public DownloadsModel GetDownloadModel()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
@@ -52,33 +65,22 @@ namespace Project.Controllers
             return new DownloadsModel(tag, items, releaseName, releaseItems);
         }
 
-        public MoreExamplesModel[] NewExamplesModelArray()
+        private DownloadsModel.ExampleItem[] DownloadExamplesArray()
         {
-            var releasesResponse = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
-            var releasesJSON = Newtonsoft.Json.Linq.JArray.Parse(releasesResponse);
+            var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC_Examples/releases");
+            var jsn = Newtonsoft.Json.Linq.JArray.Parse(rsp);
 
-            var listMoreExamples = new List<MoreExamplesModel>();
-            for (var i = 0; i < releasesJSON.Count; i++)
+            var listMoreExamples = new List<DownloadsModel.ExampleItem>();
+            for (var i = 0; i < jsn.Count; i++)
             {
-                dynamic releasesJSON0 = releasesJSON[i];
-                string tagExamples = releasesJSON0.tag_name;
-                dynamic assets = releasesJSON0.assets;               
+                dynamic item = jsn[i];
 
-                var items = new List<DownloadsModel.DownloadItem>();
-                var exampleItems = new List<DownloadsModel.DownloadItem>();
-                foreach (dynamic set in releasesJSON)
-                {
-                    string rName = set.name;
-                    string rLink = set.zipball_url;
-
-                    exampleItems.Add(new DownloadsModel.DownloadItem(rName, rLink));
-                }
-
-                var model = new MoreExamplesModel
-                {
-                    ExamplesTagName = tagExamples,
-                    Examples = exampleItems.ToArray()
-                };
+                var model = new DownloadsModel.ExampleItem
+				{
+					TagName = item.tag_name,
+					TarBall = item.tarball_url,
+					ZipBall = item.zipball_url,
+				};
 
                 listMoreExamples.Add(model);
 
@@ -209,7 +211,7 @@ namespace Project.Controllers
 
         public ActionResult Gomc()
         {
-            using (var serverConn = new ProjectDbContext())
+            using (var serverConn = DbGetter())
             {
       //          SELECT TOP(1000) [Id]
       //,[AuthorId]
@@ -301,7 +303,7 @@ namespace Project.Controllers
 
             if (r == ValidateSessionResultType.SessionValid)
             {
-                using (var serverConn = new ProjectDbContext())
+                using (var serverConn = DbGetter())
                 {
                     var ResultRoster = new List<RegistrationModel>();
                     var Roster = (
@@ -330,33 +332,31 @@ namespace Project.Controllers
             return View();
         }
 
+	    public ActionResult Latex2()
+	    {
+		    return View("Latex");
+	    }
         public ActionResult Latex()
-        {
-            var latexId = LatexController.GetSetLatexId();
-            if (latexId == null)
-            {
-                return View();
-            }
-            var r = LatexController.PublishLatex(latexId.Value);
-            if (r.Kind != LatexController.PublishLatexResultType.Success)
+		{
+	        var p = "~/temp/set/manual_view.cshtml";
+            if (!System.IO.File.Exists(HttpContext.Server.MapPath(p)))
             {
                 return View();
             }
             else
             {
-                ViewBag.HtmlContent = r.HtmlContent;
-                return View("~/temp/set/LatexHtml.cshtml");
+                return View(p);
             }
         }
 
-        public ActionResult MoreDownloads()
+		public ActionResult MoreDownloads()
         {
             return View(NewDownloadsModelArray());
         }
 
         public ActionResult MoreExamples()
         { 
-            return View(NewExamplesModelArray());
+            return View(DownloadExamplesArray());
         }
     }
 }

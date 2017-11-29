@@ -2,14 +2,17 @@
 using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
+using System.Web.WebPages;
 using Project.Core;
 using Project.Data;
 using Project.Latex;
@@ -53,6 +56,17 @@ namespace Project.Controllers
 			public DateTime Created { get; set; }
 		}
 
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public AdminController() : this(null)
+		{
+		}
+
+		public AdminController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
 		[HttpPost]
 		public FetchLatexUploadsOutput FetchLatexUploads()
 		{
@@ -64,7 +78,7 @@ namespace Project.Controllers
 				return new FetchLatexUploadsOutput { AuthResult = authentication.Result };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var uploads = db.LatexUploads
 					.OrderByDescending(j => j.Created)
@@ -101,7 +115,7 @@ namespace Project.Controllers
 
 			byte[] fileBytes = null;
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var sqprm = new SqlParameter("@inputId", input.LatexUploadId);
 				var up = db.LatexUploads.SqlQuery("SELECT * FROM dbo.LatexUploads WHERE Id = @inputId", sqprm).SingleOrDefault();
@@ -200,13 +214,56 @@ namespace Project.Controllers
 			return new PublishLatexUploadOutput
 			{
 				AuthResult = authentication.Result,
-				Success = r.Kind == LatexController.PublishLatexResultType.Success
+				Success = r == LatexController.PublishLatexResult.Success
 			};
+		}
+		public class FetchRegisteredUsersInput : FetchAnnouncementsInput
+		{
+			public string FilterName { get; set; }
+			public string FilterEmail { get; set; }
+			public bool IsDesc { get; set; }
+			public RegisteredUsersOrderBy OrderBy { get; set; }
+		}
+
+		public enum RegisteredUsersOrderBy
+		{
+			Name,
+			Email,
+			Text,
+			Created
 		}
 
 		[HttpPost]
-		public FetchRegisteredUsersOutput FetchRegisteredUsers(FetchAnnouncementsInput input)
+		public FetchRegisteredUsersOutput FetchRegisteredUsers(FetchRegisteredUsersInput input)
 		{
+			Regex
+				nameRegex = null,
+				emailRegex = null;
+
+			if (!input.FilterName.IsEmpty())
+			{
+				try
+				{
+					nameRegex = new Regex(input.FilterName);
+				}
+				catch
+				{
+					log.Error("Invalid name regex: " + input.FilterName);
+				}
+			}
+
+			if (!input.FilterEmail.IsEmpty())
+			{
+				try
+				{
+					emailRegex = new Regex(input.FilterEmail);
+				}
+				catch
+				{
+					log.Error("Invalid email regex: " + input.FilterEmail);
+				}
+			}
+
 			var authentication = Authenticate();
 
 			if (authentication.Result != ValidateSessionResultType.SessionValid || !authentication.Session.HasValue)
@@ -215,19 +272,43 @@ namespace Project.Controllers
 				return new FetchRegisteredUsersOutput { AuthResult = (authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Registrations").Single();
+				var allRegistrations = db.Registrations.ToArray();
+
+				var totalLength = allRegistrations.Length;
+
+				if (input.PageLength < 0)
+				{
+					input.PageLength = totalLength;
+					input.PageIndex = 0;
+				}
+
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
-				var sqlQuery = "SELECT * FROM Registrations " +
-							   "ORDER BY Created DESC " +
-							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
+				string orderByFn(RegistrationModel m)
+				{
+					switch (input.OrderBy)
+					{
+						case RegisteredUsersOrderBy.Name: return m.Name;
+						case RegisteredUsersOrderBy.Email: return m.Email;
+						case RegisteredUsersOrderBy.Text: return m.Text;
+						case RegisteredUsersOrderBy.Created: return m.Created.ToString("G");
+						default: return m.Name;
+					}
+				}
 
-				var registrations = db.Registrations
-					.SqlQuery(sqlQuery)
-					.ToArray();
+				var registrations =
+					(
+						input.IsDesc
+							? allRegistrations.OrderByDescending(orderByFn)
+							: allRegistrations.OrderBy(orderByFn)
+					)
+					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
+					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
+					.Skip(skip)
+					.Take(take).ToArray();
 
 				return new FetchRegisteredUsersOutput
 				{
@@ -246,6 +327,66 @@ namespace Project.Controllers
 			public int TotalLength { get; set; }
 		}
 
+		[HttpGet]
+		public HttpResponseMessage ExportRegisteredUsers(bool isDesc, RegisteredUsersOrderBy orderBy, string nameFilter, string emailFilter)
+		{
+			var reg = FetchRegisteredUsers(new FetchRegisteredUsersInput
+			{
+				PageIndex = 0,
+				PageLength = -1,
+				IsDesc = isDesc,
+				OrderBy = orderBy,
+				FilterName = nameFilter,
+				FilterEmail = emailFilter
+			});
+
+			if (reg.AuthResult != ValidateSessionResultType.SessionValid)
+			{
+				return Request.CreateResponse(HttpStatusCode.Unauthorized);
+			}
+
+			byte[] fileBytes;
+
+			var sr = new StringWriter();
+			sr.WriteLine("Name, Email, Affiliation, Comment, Created");
+
+			// escape commas, quotes and new lines
+			string escapeStr(string str)
+			{
+				if (str == "") return " ";
+				return str
+					.Replace("\"", "'")
+					.Replace("\n", "\\n")
+					.Replace("\r", "\\r")
+					.Replace(",", ";");
+			}
+
+			foreach (var r in reg.Users)
+			{
+				var str = $"{escapeStr(r.Name)},{escapeStr(r.Email)},{escapeStr(r.Affiliation)},{escapeStr(r.Text)},{r.Created:G}";
+
+				sr.WriteLine(str);
+			}
+
+			fileBytes = sr.Encoding.GetBytes(sr.ToString());
+
+			var result = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new ByteArrayContent(fileBytes)
+			};
+
+			result.Content.Headers.ContentDisposition =
+				new ContentDispositionHeaderValue("attachment")
+				{
+					FileName = "export.csv"
+				};
+
+			result.Content.Headers.ContentType =
+				new MediaTypeHeaderValue(ApplicationOctetStream);
+
+			return result;
+		}
+
 		[HttpPost]
 		public AnnouncementResult NewAnnouncement(NewAnnouncementModel model)
 		{
@@ -257,7 +398,7 @@ namespace Project.Controllers
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
 
@@ -305,7 +446,7 @@ namespace Project.Controllers
 				Debug.Assert(authentication.Result != ValidateSessionResultType.SessionValid);
 				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 
@@ -328,7 +469,7 @@ namespace Project.Controllers
 				return new FetchAnnouncementsOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
 				var skip = input.PageLength * input.PageIndex;
@@ -361,7 +502,7 @@ namespace Project.Controllers
 				return new DeleteAnnouncementOutput { Result = SessionToAnnouncementResult(authentication.Result) };
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				const string query = "DELETE FROM dbo.Announcments " +
 									 "WHERE Id = @inputAnnouncementId";
@@ -389,7 +530,7 @@ namespace Project.Controllers
 				return SessionToAnnouncementResult(authentication.Result);
 			}
 
-			using (var db = new ProjectDbContext())
+			using (var db = DbGetter())
 			{
 				const string query = "UPDATE dbo.Announcments " +
 									 "SET Content = @inputContent " +

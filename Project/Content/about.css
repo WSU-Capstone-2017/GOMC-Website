@@ -1,0 +1,50 @@
+﻿/*
+    GOMC: About page styles
+*/
+
+/*Class Styles*/
+.new-head {
+    padding: .625em;
+}
+
+.formatted-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 3em 0 3em;
+}
+
+.person-card {
+    margin-top: .625em;
+    padding-left: .3125em;
+}
+
+.person-card2 {
+    margin-top: .625em;
+    padding-left: .3125em;
+    text-decoration: none !important;
+    color: #020816 !important; /*Not a link so has to be black text and not blue*/
+}
+
+.person-picture {
+    float: left;
+    margin-right: .3125em;
+}
+
+.about-team img {
+    width: 8.5em;
+}
+
+.about-grants img {
+    width: 5em;
+}
+
+
+@media only screen and (max-width: 64em) {
+    .top-card {
+        margin-bottom: 1.5625em; /*Stops bunching of the grants*/
+    }
+
+    .person-picture {
+        float: none;
+    }
+}

@@ -12,13 +12,10 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <main>
-    <div class="panel panel-primary">
-        <div class="panel-heading col-md-12">
-            Older Downloads
-        </div>
-        @foreach (var i in Model)
-        {
-            <div class='well well-sm col-md-12'>
+    <div class="row">
+        <div class='well well-sm col-md-6'>
+            @foreach (var i in Model)
+            {
                 <h3>Version: @i.TagName</h3>
                 <ul>
                     @foreach (var a in i.Items)
@@ -27,8 +24,10 @@
                     }
                 </ul>
                 <br />
-            </div>
-        }
-        <a>@Html.ActionLink("Click here to go back to most recent version", "Downloads", "Home")</a>
-    </div>
+            }
+        </div>
+        </div>
+        <div class="row">
+            <a>@Html.ActionLink("Click here to go back to most recent version", "Downloads", "Home")</a>
+        </div>
 </main>

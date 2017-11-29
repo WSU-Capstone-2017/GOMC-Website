@@ -20,9 +20,9 @@
     <hr class='grand-line' />
             <div class="row">
                 <h3>Optional</h3>
-                <p><b>If you would like to receive emails from us when our newest software</b> is available please fill out the below form</p>
-                <p>Otherwise click the orange button below: </p>
-                <div class="col-md-4">
+                <p><b>If you would like to receive emails from us when our newest software</b> is available, please fill out the form below</p>
+                <p>Otherwise, click the orange button below: </p>
+                <div class="col-md-4 col-md-offset-4">
                     <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and proceed without registering</button>
                     <div class="well well-sm custom-well registration-container">
                         <form method="post" id="registrationForm">
@@ -57,15 +57,38 @@
             <hr class='grand-line' />
             <div class='row'>     
                 <section>
+                    <div class="col-md-8">
+                        <!--Placeholder text-->
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Suspendisse purus nulla, dictum vitae augue vel, fermentum accumsan metus. Aliquam placerat mattis tortor, ut aliquet urna fermentum sed.
+                            Aenean fermentum magna leo, vitae pellentesque lorem tincidunt a. Phasellus iaculis viverra tempus. Pellentesque sed neque vitae ligula elementum pharetra quis sed dolor. Duis at odio id enim pretium tristique at quis ipsum.
+                            Aenean vitae euismod nisi, sed venenatis nisl. Integer sed neque dictum, consequat sem ut, dictum urna. Proin commodo neque in malesuada sagittis. Donec dapibus enim sit amet quam aliquam malesuada.
+                            Aenean cursus nibh vel vehicula rhoncus. Sed viverra iaculis enim, a aliquam tellus consectetur in. In cursus tincidunt interdum. Morbi vestibulum feugiat eros, in feugiat urna ultrices nec. Aliquam mattis convallis accumsan.
+                            Praesent aliquet ultricies velit, sed ullamcorper nunc egestas a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut sem elit, bibendum ac dolor posuere, sollicitudin ultrices eros. Donec et lacinia massa.
+                            Nullam fermentum nisi sit amet mi suscipit auctor.
+                            Ut porta dui nec dolor lacinia, ut eleifend magna pulvinar. Nam vitae nisi ut nisl suscipit tempus facilisis vel urna. Quisque ante lorem, maximus consequat tincidunt vitae, sagittis non velit. Donec eleifend fringilla justo nec gravida.
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed ultricies egestas urna, eu tincidunt est porttitor ac. Praesent pellentesque felis eget elit sollicitudin fermentum.
+                            Maecenas tempus mi vel porta tincidunt. Donec at semper nisi, gravida pellentesque est. Donec id interdum lorem. Mauris viverra risus dolor, ut porttitor nisi ultricies non. Vestibulum eget euismod arcu, sit amet posuere quam.
+                            Quisque venenatis metus nec dui auctor, sed condimentum diam ultricies. Praesent velit lorem, eleifend vitae felis sed, imperdiet hendrerit est. Praesent vitae placerat justo, quis vestibulum augue. Quisque nec iaculis purus, et lacinia elit.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In sit amet ornare felis. Integer interdum velit vitae felis ornare laoreet. Nam dapibus, lorem ac commodo lacinia, sem est hendrerit justo, a volutpat eros arcu facilisis libero.
+                            Vivamus suscipit ex vitae ligula sollicitudin porta a vitae sem. Integer nec felis dolor. Nulla vehicula tellus vitae tincidunt placerat.
+                            Nullam malesuada, odio consequat ornare tincidunt, ipsum odio volutpat tortor, sed lacinia mauris dui eu lacus. Integer varius convallis augue ut dapibus.
+                            Aliquam erat volutpat. Nam ullamcorper, eros nec tristique tempus, ex arcu sollicitudin turpis, vel efficitur odio erat eget purus. Sed elit erat, interdum dapibus ex sit amet, fringilla rutrum augue.
+                            Phasellus sollicitudin pulvinar urna, ut dignissim libero sagittis et. In turpis neque, tempor quis luctus eget, consequat dignissim orci. Vestibulum nec tincidunt purus. Ut felis turpis, lobortis at facilisis non, pellentesque ut velit.
+                            Curabitur vehicula nec dui vitae tempus. Aenean aliquam consectetur scelerisque. Duis egestas elit rhoncus egestas faucibus. Donec pharetra nulla ligula, ut molestie massa feugiat non. Aenean dictum porta ex.
+                            Nulla tempor, eros quis egestas rhoncus, risus neque venenatis justo, nec posuere nulla libero quis diam.
+                        </p>
+                    </div>
                     <div class='well well-sm custom-well col-md-4'>
                         <h3>Most Recent Windows Version: @Model.TagName</h3>
-                        <ul>
+                        <ul class="download-list">
                             @foreach (var a in Model.Windows.GPU)
                             {
                                 <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
                             }
                         </ul>
-                        <ul>
+                        <ul class="download-list">
                             @foreach (var a in Model.Windows.CPU)
                             {
                                 <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
@@ -73,22 +96,31 @@
                         </ul>
                         <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
                     </div>
-
-                    <div class='well well-sm custom-well col-md-4 col-md-offset-4'>
+                    <div class='well well-sm custom-well col-md-4'>
                         <h3>Most Recent Linux Version: @Model.TagName</h3>
-                        <ul>
+                        <ul class="download-list">
                             @foreach (var a in Model.Linux.GPU)
                             {
                                 <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
                             }
                         </ul>
-                        <ul>
+                        <ul class="download-list">
                             @foreach (var a in Model.Linux.CPU)
                             {
                                 <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
                             }
                         </ul>
-                        <br />
+                        <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
+                    </div>
+                    <div class='well well-sm custom-well col-md-4'>
+                        <h3>Examples set: @Model.ExamplesTagName</h3>
+                        <ul class="download-list">
+                            @foreach (var example in Model.Examples)
+                            {
+                                <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
+                            }
+                        </ul>
+                        <a>@Html.ActionLink("Click here for older examples", "MoreExamples", "Home")</a>
                     </div>
                 </section>
             
@@ -121,18 +153,12 @@
                     </aside>*@
             </div>
             <div class="row">
-                <div class='well well-sm custom-well col-md-4'>
-                    <h3>Examples set: @Model.ExamplesTagName</h3>
-                    <ul>
-                        @foreach (var example in Model.Examples)
-                        {
-                            <li class="model-link">@example.Name <a href="@example.Link">Example</a></li>
-                        }
-                    </ul>
-                    <a>@Html.ActionLink("Click here for older examples", "MoreExamples", "Home")</a>
-                </div>
+                
             </div>          
 </main>
+@section scripts
+{
 <script src='https://www.google.com/recaptcha/api.js'></script> <!--Captcha script implementation-->
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+}

@@ -2,15 +2,15 @@
 
 # Capstone-Senior-Project
 
-This repository is a conglomeration of the source code and documentation pertaining to
-the CSC 4996: GOMC Capstone Project. Within this repo will be a working version of our dynamic website as per our client's request. This is project is currently in development.
+This repository is a version history of the source code and documentation pertaining to
+the Fall 2017 CSC 4996: GOMC Capstone Project for Wayne State University. Within this repo will be a working version of our dynamic website as per our client's request. This is project is currently in development.
 
 # Project Overview
-The GOMC development team is focused on building a dynamic website for our client the GOMC Research & Development Team. The GOMC project is a simulation engine using the Monte Carlo method for vapor-liquid equilibria systems.
+The GOMC development team is focused on building a dynamic website for our client representing the GOMC Research & Development Team. The GOMC project is a simulation engine using the Monte Carlo method for vapor-liquid equilibria systems.
 
 Currently the static website is forcing maintenance tasks to be done manually which is very error prone and time-consuming. The downloads page is not always up-to-date with what is available in the releases of their software. In addition, the software accepts input in raw text which is also error prone. The software users commonly write incorrect inputs which cause the program to crash.
 
-Our solution for our client is to have a dynamic website making the downloads page automatically kept up to date as new releases are produced and the user would have automated validation on input data to insure that errors are addressed.
+Our solution for our client is to have a dynamic website making the downloads page automatically kept up to date as new releases are produced and the user would have automated validation on input data to insure that errors are addressed. As well as to provide a modern look to an older website and to breathe new life into it with new features.
 
 # Scope
 The central goal of this website is to develop an underused website into a core tool for presentation of the research team, release management and data input.  
@@ -27,20 +27,14 @@ Razor
 
 Bootstrap
 
-jQuery
-
-QUnit
+Javascript with jQuery, QUnit and jQuery Validate
 
 ### Back end
-ASP/ C#
+C#
 
 Github Api V3
 
-JSON
-
 C/C++
-
-Cmake
 
 ### Database
 MySql
@@ -50,6 +44,8 @@ MySql
 
 Team Lead: Ahmed Taher, Database / Back-End Lead
 
+TA: Azam Peyvandipour
+
 Team Members: 
 
 Caleb Latimer, UI / UX / Front-End / Presentation Lead
@@ -57,7 +53,5 @@ Caleb Latimer, UI / UX / Front-End / Presentation Lead
 Muamer Besic, QA / Documentation Lead
 
 
-TA: Azam Peyvandipour
 
-
-> This is version 4.0
+> This is version 5.0

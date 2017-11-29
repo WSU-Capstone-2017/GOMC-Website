@@ -2,16 +2,14 @@
     Layout = "~/Views/Home/_Home_Layout.cshtml";
     ViewBag.Title = "GOMC";
 }
-
 @section NavSection {
-<li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
-<li>@Html.ActionLink("Features", "Features", "Home")</li>
-<li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
-<li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-<li>@Html.ActionLink("Publications", "Publications", "Home")</li>
-<li>@Html.ActionLink("About", "About", "Home")</li>
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home", htmlAttributes: new { id = "onGomcPage" })</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
 }
-
 <header class='special-jumbotron' onload="applyJumbotron">
     <div class='jumbotron'>
         <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
@@ -27,15 +25,15 @@
                 </div>
                 <div class='item cardB'>
                     <h1>Downloads</h1>
-                    <a class='btn btn-primary btn-lg' href='downloads.html'><span class='glyphicon glyphicon-download-alt'></span> Please find our newest releases</a>
+                    <a class='btn btn-primary btn-lg' href='downloads.html'><span class='glyphicon glyphicon-download-alt icon-style'></span>Please find our newest releases</a>
                 </div>
                 <div class='item cardC'>
                     <h1>Documentation</h1>
-                    <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file'></span> Our newest documentation is here to help you get up and running</a>
+                    <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file icon-style'></span>Our newest documentation is here to help you get up and running</a>
                 </div>
             </div>
             <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev' id="carouselLeft">
-                <span class='glyphicon glyphicon-menu-left sit-down'></span>
+                <span class='glyphicon glyphicon-menu-left sit-down'></span> 
             </a>
             <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next' id="carouselRight">
                 <span class='glyphicon glyphicon-menu-right sit-down'></span>
@@ -100,11 +98,10 @@
             </div>
         </section>
 </main>
-@section scripts{
+@*@section scripts{
 <script>
         document.onreadystatechange = function () {
             if (document.readyState === 'interactive') {
-               // console.log('jumbotron, your\'re up!');
                 $('.jumbotron').css('background-color', '#91D3EF');
                 $('.jumbotron h1').css('background-color', '#91D3EF');
                 $('.carousel-control').css({
@@ -134,4 +131,4 @@
             }
         }
 </script>  
-}
+}*@

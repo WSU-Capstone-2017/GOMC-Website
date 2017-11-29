@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using Project.Core;
@@ -60,6 +61,7 @@ namespace Project.Controllers
 						string file;
 						using (var wc = new WebClient())
 						{
+							wc.Encoding = Encoding.Default;
 							file = wc.DownloadString(durl.ToString());
 						}
 
@@ -87,9 +89,21 @@ namespace Project.Controllers
 			}
 		}
 
-		private static bool UploadLatex(string file, string version, string email)
+		public Func<ProjectDbContext> DbGetter { get; }
+
+		public GithubController() : this(null)
 		{
-			using (var db = new ProjectDbContext())
+			
+		}
+
+		public GithubController(Func<ProjectDbContext> dbGetter)
+		{
+			DbGetter = dbGetter ?? (() => new ProjectDbContext());
+		}
+
+		private bool UploadLatex(string file, string version, string email)
+		{
+			using (var db = DbGetter())
 			{
 				log.Info($"fetching email '{email}'");
 
@@ -107,7 +121,7 @@ namespace Project.Controllers
 
 				var conv = new LatexConvertor();
 
-				var convRes = conv.Convert(file, false);
+				var convRes = conv.Convert(file);
 
 				if (convRes != ConversionResult.Success)
 				{

@@ -1,0 +1,87 @@
+﻿/*XMLConfig Styles*/
+
+/*Class Styles*/
+.panel-success > .panel-heading {
+    background-color: #9ACD32;
+    color: #FFFFFF;
+    padding-top: .03125em;
+}
+
+.xml-control {
+    width: auto;
+}
+
+.block-label {
+    display: block;
+}
+
+.inline-control {
+    display: inline-block;
+}
+
+.bar-style {
+    background-color: #9ACD32;
+}
+
+.pull-left {
+    width: 5.625em;
+}
+
+.prev-btn {
+    margin-right: 1.563em;
+}
+
+/*ID Styles*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    counter-reset: step; /*CSS counters to number the steps*/
+}
+
+    #progressbar li {
+        list-style-type: none;
+        color: #000000;
+        text-transform: uppercase;
+        width: 25%;
+        float: left;
+        position: relative;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+    /*Status counter*/
+        #progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 24px;
+            height: 24px;
+            line-height: 26px;
+            display: block;
+            font-size: 12px;
+            color: #000;
+            border-radius: 25px;
+            margin: 0 auto 10px auto;
+            background-color: #F5F5F5;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /*progressbar connectors*/
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 4px;
+            background-color: #F5F5F5;
+            position: absolute;
+            left: -50%;
+            top: 9px;
+            z-index: -1; /*put it behind the numbers*/
+        }
+
+        #progressbar li:first-child:after { 
+            content: none;
+        }
+
+        #progressbar li.active:before, #progressbar li.active:after {
+            background-color: #9ACD32;
+            color: white;
+        }

@@ -17,7 +17,15 @@ namespace Project.LoginSystem
 		    Encoding.UTF8.GetBytes(
 			    "IvgpV69JXsiEb3VdhXuijykfjvWWutgsthAiQs1bdfXf0kKRgdkBGC2MSdJ9Sp92YeWehTXF9tzCywbmJSdW2hTmoClpejFV");
 
-        public Boolean LoginIsValid(string email, string password)
+	    private static readonly Func<ProjectDbContext> defaultDbGetter = () => new ProjectDbContext();
+	    public Func<ProjectDbContext> DbGetter { get; }
+
+	    public LoginManager(Func<ProjectDbContext> dbGetter = null)
+	    {
+		    DbGetter = dbGetter ?? defaultDbGetter;
+	    }
+
+		public Boolean LoginIsValid(string email, string password)
         {
             if (IsValidEmail(email) == false) 
             {
@@ -27,7 +35,7 @@ namespace Project.LoginSystem
             {
                 return false;
             }
-            using (var db = new ProjectDbContext())
+            using (var db = DbGetter())
             {
                 var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
                 if (b.Length == 0)
@@ -36,22 +44,15 @@ namespace Project.LoginSystem
                 }
                 if (b.Length == 1)
                 {
-                    if (b[0].PasswordHash == GetHash(password))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }                   
+                    return b[0].PasswordHash == GetHash(password);                                
                 }             
             }
             return false;           
         }
 
-	    public static ValidateSessionResultType ValidateSession(Guid session)
+	    public static ValidateSessionResultType ValidateSession(Guid session, Func<ProjectDbContext> dbGetter = null)
 	    {
-		    using(var db = new ProjectDbContext())
+		    using(var db = (dbGetter ?? defaultDbGetter)())
 		    {
 			    var b = db.Database.SqlQuery<AlreadyLoggedModel>($"select * from AlreadyLoggedModels where Session = '{session}'").FirstOrDefault();
 
@@ -69,9 +70,9 @@ namespace Project.LoginSystem
 		    }
 		}
 
-	    public static int? LoginIdFromSession(Guid session)
+	    public static int? LoginIdFromSession(Guid session, Func<ProjectDbContext> dbGetter = null)
 	    {
-		    using(var db = new ProjectDbContext())
+		    using(var db = (dbGetter ?? defaultDbGetter)())
 		    {
 			    var sqlParameter = new SqlParameter("@SessionInput", session);
 
@@ -101,7 +102,7 @@ namespace Project.LoginSystem
             {
                 return new GetLoginIdResult(LoginResultType.InvalidPassword);
             }
-            using (var db = new ProjectDbContext())
+            using (var db = DbGetter())
             {
                 var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
                 if (b.Length == 0)
@@ -116,7 +117,7 @@ namespace Project.LoginSystem
                     }
                     else
                     {
-                        return new GetLoginIdResult(LoginResultType.InvalidPassword);
+                        return new GetLoginIdResult(LoginResultType.InvalidPassword, b[0].Id);
                     }
                 }
             }
@@ -136,13 +137,13 @@ namespace Project.LoginSystem
         }
         public static String GetHash(string value)                                //Function for getting password to hash value
         {
-            StringBuilder stringbuilder = new StringBuilder();                    //For building a string
+            var stringbuilder = new StringBuilder();                    //For building a string
 
             using (var hash = SHA256.Create())                                     //var confonts to w.e hash is and this is where we start creating using sha256 algorithm
             {
-                byte[] hashmi = hash.ComputeHash(Encoding.UTF8.GetBytes(value).Concat(salt).ToArray());   //Password is in string, gets computed to hash value and byte value
+                var hashBytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value).Concat(salt).ToArray());   //Password is in string, gets computed to hash value and byte value
 
-                foreach (var i in hashmi)                                        //Used for changing it back to string value
+                foreach (var i in hashBytes)                                        //Used for changing it back to string value
                 {
                     stringbuilder.Append(i.ToString("x2"));                      //String builder for making the string into one whole string,append is adding var i to the string which will have hex value and 2 bytes each
                 }
@@ -184,6 +185,8 @@ namespace Project.LoginSystem
 	{
 		Success,
 		InvalidEmail,
-		InvalidPassword
+		InvalidPassword,
+        NeedCaptcha,
+        InvalidCaptcha   
 	}
 }

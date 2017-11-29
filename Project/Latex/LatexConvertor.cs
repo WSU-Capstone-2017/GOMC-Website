@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web;
+using System.Web.WebPages;
+using HtmlAgilityPack;
 
 namespace Project.Latex
 {
@@ -16,16 +15,12 @@ namespace Project.Latex
 	{
 		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		[DllImport("User32.Dll", EntryPoint = "PostMessageA")]
-		private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
-
-		public Dictionary<string, string> HtmlMap { get; set; } = new Dictionary<string, string>();
 		public string LatexFile { get; set; }
 		public byte[] HtmlZip { get; set; }
 		public byte[] Pdf { get; set; }
 		public ConversionResult Result { get; set; }
 
-		public ConversionResult Convert(string latexFileContent, bool htlatex = true, bool pdflatex = true)
+		public ConversionResult Convert(string latexFileContent)
 		{
 			var fileDir = HttpContext.Current.Server.MapPath($"~/temp/upload_{Guid.NewGuid()}/");
 			Directory.CreateDirectory(fileDir);
@@ -50,124 +45,189 @@ namespace Project.Latex
 
 			var fileName = Path.Combine(fileDir, "Manual.tex");
 
-			File.WriteAllText(fileName, latexFileContent);
+			File.WriteAllText(fileName, latexFileContent, Encoding.Default);
 
-			Result = ConvertAtDir(fileDir, htlatex, pdflatex);
+			Result = ConvertAtDir(fileDir);
 
 			Directory.Delete(fileDir, true);
 
 			return Result;
 		}
 
+		private static string csviewCache;
 
-		public ConversionResult ConvertAtDir(string fileDir, bool htlatex = false, bool pdflatex = true)
+		private string GetHtmlView(string content)
 		{
-			HtmlMap.Clear();
-
-			if(!htlatex && !pdflatex)
+			if(csviewCache.IsEmpty())
 			{
-				return Result = ConversionResult.Invalid;
+				csviewCache = File.ReadAllText(HttpContext.Current.Server.MapPath("~/Views/Home/LatexHtml.cshtml"), Encoding.UTF8);
 			}
 
+			var hdoc = new HtmlDocument();
+			hdoc.LoadHtml(content);
+
+			var body = hdoc.DocumentNode.SelectNodes("//body")[0];
+
+			var tocNav = hdoc.DocumentNode.SelectNodes("//nav")[0];
+			body.RemoveChild(tocNav);
+
+			tocNav.SelectNodes("ul")[0].Attributes.Add("class", "nav");
+                      
+            tocNav.Attributes["id"].Value = "navbar";
+
+			foreach(var i in tocNav.SelectNodes("ul/descendant::ul"))
+			{
+				i.Attributes.Add("style", "display: block;");
+			}
+
+            //The li below needs to be changed
+			foreach(var i in tocNav.SelectNodes("descendant::li"))
+			{
+				i.Attributes.Add("class", "menu-item");
+			}
+
+			foreach(var i in tocNav.SelectNodes("descendant::a"))
+			{
+				if(i.ParentNode.ChildNodes["ul"] != null)
+				{
+					var spn = hdoc.CreateElement("span");
+					spn.Attributes.Add("class", "caret");
+					i.AppendChild(spn);
+				}
+			}
+			foreach(var i in tocNav.SelectNodes("descendant::a"))
+			{
+
+				var a = hdoc.CreateElement("a");
+				a.Attributes.Add("href", i.Attributes["href"].Value);
+
+				a.InnerHtml = i.InnerHtml;
+
+				i.Attributes.Remove();
+				//i.Attributes.Add("class", "section-link");
+
+				i.InnerHtml = "";
+
+				i.Name = "div";
+
+				i.AppendChild(a);
+			}
+
+			var div1 = hdoc.CreateElement("div");
+			div1.Attributes.Add("class", "col-md-10");
+
+			var div2 = hdoc.CreateElement("div");
+			div2.Attributes.Add("id", "contents-container");
+			div2.InnerHtml = body.InnerHtml;
+
+			div1.AppendChild(div2);
+
+			var div3 = hdoc.CreateElement("div");
+			div3.Attributes.Add("class", "col-md-2");
+
+			var div4 = hdoc.CreateElement("div");
+			div4.Attributes.Add("id", "site-content");
+			div4.AppendChild(tocNav);
+
+			div3.AppendChild(div4);
+
+			hdoc.DocumentNode.ChildNodes["html"].RemoveChild(body);
+
+			var body2 = hdoc.CreateElement("body");
+			body2.AppendChild(div3);
+			body2.AppendChild(div1);
+
+			hdoc.DocumentNode.ChildNodes["html"].AppendChild(body2);
+
+			var imgs = body2.SelectNodes("//img").ToArray();
+
+			foreach(var i in imgs)
+			{
+				var attr = i.Attributes["src"];
+				attr.Value = attr.Value.Replace("images/", "~/content/latex/images/");
+			}
+
+			return csviewCache
+				.Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
+				.Replace("Plugin homepage @", "Plugin homepage @@");
+		}
+
+		public ConversionResult ConvertAtDir(string fileDir)
+		{
 			Debug.Assert(fileDir != null);
 
 			log.Info($"fileDir = {fileDir}");
 
 			var fileName = Path.Combine(fileDir, "Manual.tex").Replace("\\", "/");
-			var latexFileContent = File.ReadAllText(fileName);
+			var latexFileContent = File.ReadAllText(fileName, Encoding.Default);
 
 			LatexFile = latexFileContent;
 
 			// the current version of the latex file has images referenced with out specifying the extension
-			// htlatex is sensitive about that and so we must provide the extension. all the extensions are
-			// .png except images/website which is .jpg
+			// all the extensions are
+			// png except images/website which is jpg
 
 			var content = Regex.Replace(latexFileContent, "{images/(\\w+)}", "{images/$1.png}")
-				.Replace("{images/website.png}", "{images/website.jpg}");
+				.Replace("{images/website.png}", "{images/website.jpg}")
+				.Replace(" & ", " \\& ");
 
 			File.WriteAllText(fileName, content, Encoding.UTF8);
 
 			try
 			{
-				if (htlatex)
+				log.Info("running pandoc...");
+
+				var pandocProc = new Process
 				{
-					log.Info("running htlatex...");
-
-					var htmlProc = new Process
+					StartInfo = new ProcessStartInfo("pandoc", "--mathjax -s --toc -o pandoc.out Manual.tex")
 					{
-						StartInfo = new ProcessStartInfo("htlatex", "Manual.tex")
-						{
-							WorkingDirectory = fileDir,
-						}
-					};
-
-
-					htmlProc.Start();
-					Thread.Sleep(1000);
-
-					var hndl = htmlProc.MainWindowHandle;
-					if (hndl == IntPtr.Zero)
-					{
-						throw new ApplicationException($"{nameof(htmlProc)}.{nameof(htmlProc.MainWindowHandle)} == 0");
+						WorkingDirectory = fileDir,
 					}
+				};
 
-					while (!htmlProc.HasExited)
+				pandocProc.Start();
+				pandocProc.WaitForExit();
+
+				log.Info("pandoc done");
+
+				using(var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create, Encoding.UTF8))
+				{
+					var pandocOut = File.ReadAllText(Path.Combine(fileDir, "pandoc.out"), Encoding.UTF8);
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "pandoc.out"), "Manual.html");
+					File.WriteAllText(Path.Combine(fileDir, "manual_view.cshtml"), GetHtmlView(pandocOut), Encoding.UTF8);
+					zip.CreateEntryFromFile(Path.Combine(fileDir, "manual_view.cshtml"), "manual_view.cshtml");
+					foreach(var i in new DirectoryInfo(Path.Combine(fileDir, "images")).GetFiles())
 					{
-						// htlatex will request user input when there is latex errors,
-						// we will press enter each second to simulate user input
-						// TODO: find an alternative way to run htlatex without using the PostMessage hack
-						if (!PostMessage(htmlProc.MainWindowHandle, 0x100, 0x0D, 0))
-						{
-							throw new Win32Exception(Marshal.GetLastWin32Error());
-						}
-						Thread.Sleep(1000);
+						zip.CreateEntryFromFile(i.FullName, "images/" + i.Name);
 					}
-
-					log.Info("htlatex done");
-					using (var zip = ZipFile.Open(Path.Combine(fileDir, "html.zip"), ZipArchiveMode.Create))
-					{
-						HtmlMap.Add("Manual.html", File.ReadAllText(Path.Combine(fileDir, "Manual.Html"), Encoding.UTF8));
-						HtmlMap.Add("Manual.css", File.ReadAllText(Path.Combine(fileDir, "Manual.css"), Encoding.UTF8));
-						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.Html"), "Manual.html");
-						zip.CreateEntryFromFile(Path.Combine(fileDir, "Manual.css"), "Manual.html");
-						foreach (var i in new DirectoryInfo(fileDir).GetFiles("Manual*x.png"))
-						{
-							HtmlMap.Add(i.Name, File.ReadAllText(i.FullName, Encoding.UTF8));
-							zip.CreateEntryFromFile(i.FullName, i.Name);
-						}
-					}
-
-					HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
 				}
 
-				if(pdflatex)
+				HtmlZip = File.ReadAllBytes(Path.Combine(fileDir, "html.zip"));
+				var pdfProc = new Process
 				{
-					var pdfProc = new Process
+					StartInfo = new ProcessStartInfo("pdflatex",
+						$"--shell-escape --interaction=nonstopmode {fileName} > pdflatex.log.txt")
 					{
-						StartInfo = new ProcessStartInfo("pdflatex",
-							$"--shell-escape --interaction=nonstopmode {fileName} > pdflatex.log.txt")
-						{
-							WorkingDirectory = fileDir,
-							WindowStyle = ProcessWindowStyle.Hidden
-						}
-					};
+						WorkingDirectory = fileDir,
+						WindowStyle = ProcessWindowStyle.Hidden
+					}
+				};
 
-					log.Info("running pdflatex...");
+				log.Info("running pdflatex...");
 
-					pdfProc.Start();
-					pdfProc.WaitForExit();
+				pdfProc.Start();
+				pdfProc.WaitForExit();
 
-					log.Info("pdflatex done");
+				log.Info("pdflatex done");
 
-					log.Info("running pdflatex again...");
+				log.Info("running pdflatex again...");
 
-					pdfProc.Start();
-					pdfProc.WaitForExit();
+				pdfProc.Start();
+				pdfProc.WaitForExit();
 
-					log.Info("pdflatex done");
+				log.Info("pdflatex done");
 
-					Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
-				}
+				Pdf = File.ReadAllBytes(Path.Combine(fileDir, "Manual.pdf"));
 			}
 			catch (Exception ex)
 			{

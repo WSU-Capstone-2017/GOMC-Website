@@ -1,0 +1,53 @@
+﻿/*
+    GOMC: Admin page styles
+*/
+
+/*Class Styles*/
+.adminPage {
+    background-color: #FDFFFC;
+    color: #020816;
+    padding: .625em;
+    margin: 1.25em;
+}
+
+.adminLabel {
+    padding: .625em;
+}
+
+.logout-button {
+    padding: .625em;
+}
+
+.admin-view-panel {
+    margin-top: 6.5em;
+}
+
+.btn-success {
+    border-color: #9ACD32;
+    background-color: #9ACD32;
+}
+
+.loader-mms {
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    padding: 0.625em;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.latex-btn {
+    font-weight: normal;
+}
+
+/*ID Styles*/
+#announcementClear, #adminAnnouncement_Submit {
+    display: block;
+    margin: 0.625em 0.625em 0.625em 0;
+}
+
+#adminAnnouncement_Submit {
+    padding-right: 1.2em;
+}
