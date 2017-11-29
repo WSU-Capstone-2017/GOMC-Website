@@ -23,8 +23,9 @@ namespace Project.Controllers
 	    {
 		    DbGetter = dbGetter ?? (() => new ProjectDbContext());
 	    }
+	    public Func<string, bool> CaptchaCheckFn { get; set; }
 
-	    public static bool CaptchaCheck(string gRecaptchaResponse)
+		public static bool CaptchaCheck(string gRecaptchaResponse)
 	    {
 		    var userIp = HttpContext.Current.Request.UserHostAddress;
 
@@ -46,9 +47,9 @@ namespace Project.Controllers
 		    return success == "true";
 	    }
 
-	    public RegistrationResult Input(FormDataCollection formDataCollection, Func<string, bool> captchaCheckFn = null)
+	    public RegistrationResult Input(FormDataCollection formDataCollection)
 	    {
-		    captchaCheckFn = captchaCheckFn ?? CaptchaCheck;
+		    var captchaCheckFn = CaptchaCheckFn ?? CaptchaCheck;
 
 		    var dict = formDataCollection.ToDictionary(j => j.Key, j => j.Value);
 		    var result = new RegistrationResult();

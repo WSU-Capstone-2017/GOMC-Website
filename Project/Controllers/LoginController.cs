@@ -36,9 +36,11 @@ namespace Project.Controllers
         }
 	    public Func<ProjectDbContext> DbGetter { get; }
 
-		public LoginResult ValidateLogin(FormDataCollection uiData, Func<string, bool> captchaCheckFn = null)
+		public Func<string, bool> CaptchaCheckFn { get; set; }
+
+		public LoginResult ValidateLogin(FormDataCollection uiData)
 		{
-			captchaCheckFn = captchaCheckFn ?? RegistrationController.CaptchaCheck;
+			var captchaCheckFn = CaptchaCheckFn ?? RegistrationController.CaptchaCheck;
 
 			var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
             var email = loginCredentials.GetValue("uName");
