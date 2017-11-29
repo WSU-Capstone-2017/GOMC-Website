@@ -203,27 +203,15 @@
     </div>
 </main>
 *@section scripts
-{
-    <script>
-        $(document).ready(function () {
+ {
+     <script>
+    $(document).ready(function() {
             doFetchAnnouncements();
             doFetchLatexUploads();
             doFetchRegisteredUsers();
+
             doFetchPreviewAnnouncements();
-            </script >
-                }
-@*
-            $("#registerdUseresFilter_Name").change(function() {
-                registeredUsersNavState.nameFilter = $("#registerdUseresFilter_Name").val();
-            });
-
-            $("#registerdUseresFilter_Email").change(function () {
-                registeredUsersNavState.emailFilter = $("#registerdUseresFilter_Email").val();
-            });
-
-            $("#adminAnnouncement_Text").keyup(function () {
-                doPreviewAnnouncements($("#adminAnnouncement_Text").val());
-            });
-        });
-    </script>
-}*@
+    })
+        </script>
+     
+ }
