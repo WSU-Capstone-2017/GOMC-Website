@@ -274,7 +274,15 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				var allRegistrations = db.Registrations.ToArray();
+				var allRegistrations = 
+					(
+						input.IsDesc
+							? db.Registrations.OrderByDescending(orderByFn)
+							: db.Registrations.OrderBy(orderByFn)
+					)
+					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
+					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
+					.ToArray();
 
 				var totalLength = allRegistrations.Length;
 
@@ -299,14 +307,7 @@ namespace Project.Controllers
 					}
 				}
 
-				var registrations =
-					(
-						input.IsDesc
-							? allRegistrations.OrderByDescending(orderByFn)
-							: allRegistrations.OrderBy(orderByFn)
-					)
-					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
-					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
+				var registrations = allRegistrations
 					.Skip(skip)
 					.Take(take).ToArray();
 

@@ -162,6 +162,7 @@ $('#adminLatexUpload').validate({
             function (evt) {
                 // console.log('load');
                 // console.log(evt);
+	            $("#adminLatexUpload")[0].reset();
                 $("#adminLatexUpload_Submit").prop('disabled', false);
                 doFetchLatexUploads();
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -483,9 +484,14 @@ function updateAnnouncementsNavStateTotalLength() {
 
 function doNavAnnouncements(a) {
     if (a) {
-        announcementsNavState.pageIndex--;
-    } else {
-        announcementsNavState.pageIndex++;
+		announcementsNavState.pageIndex--;
+		if (announcementsNavState.pageIndex < 0) {
+			announcementsNavState.pageIndex = 0;
+		}
+	} else {
+	    if (!$("#fetchAnnouncements_Next").hasClass("disabled")) {
+		    announcementsNavState.pageIndex++;
+	    }
     }
     doFetchAnnouncements();
 
@@ -549,7 +555,7 @@ function doFetchRegisteredUsers() {
         })
     }).done(function (data) {
         updateNavRegisteredUsers(data.TotalLength);
-        // console.log(data);
+        console.log(data);
         if (data.AuthResult === validateSessionResultType.SessionValid) {
             for (var i = 0; i < registeredUsersNavState.pageLength; i++) {
                 $("#registeredUser_Name_" + i).text('');
@@ -612,9 +618,15 @@ function onRegisteredUserTh(a) {
 
 function doNavRegisteredUsers(a) {
     if (a) {
-        registeredUsersNavState.pageIndex--;
-    } else {
-        registeredUsersNavState.pageIndex++;
+		registeredUsersNavState.pageIndex--;
+		if (registeredUsersNavState.pageIndex < 0) {
+			registeredUsersNavState.pageIndex = 0;
+		}
+	} else {
+
+		if (!$("#registeredUsers_Next").hasClass("disabled")) {
+		    registeredUsersNavState.pageIndex++;
+	    }
     }
     doFetchRegisteredUsers();
 
@@ -627,7 +639,15 @@ function updateNavRegisteredUsers(totalLength) {
 
     registeredUsersNavState.totalLength = totalLength;
 
-    var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	console.log(
+		"pageLength: " + registeredUsersNavState.pageLength +
+		", totalLength: " +
+		registeredUsersNavState.totalLength +
+		", maxPages: " +
+		maxPages +
+		", pageIndex: " +
+		registeredUsersNavState.pageIndex);
     if ((registeredUsersNavState.pageIndex + 1) < maxPages) {
         $("#registeredUsers_Next").removeClass("disabled");
     } else {

@@ -107,6 +107,10 @@
             <hr class="grand-line" />
             <div class="row">
                 <div class="col-md-6 latex-container">
+                    <h4>Server Logs</h4>
+                    <a href="/api/admin/DownloadLogFile" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-download-alt"></span>   Download Log data</a>
+                    <br />
+                    <br />
                     <h4>Upload new Latex File</h4>
                     <form class="form-vertical" id="adminLatexUpload" enctype="multipart/form-data">
                         <div class="form-group">
@@ -124,10 +128,6 @@
                         </div>
                         <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share"></span> Upload</button>
                     </form>
-                    <br />
-                    <br />
-                    <h4>Server Logs</h4>
-                    <a href="/api/admin/DownloadLogFile" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-download-alt"></span>   Download Log data</a>
                 </div>
 
                 <div class="col-md-6">
@@ -202,7 +202,7 @@
         </div>
     </div>
 </main>
-*@section scripts
+@section scripts
  {
      <script>
     $(document).ready(function() {
