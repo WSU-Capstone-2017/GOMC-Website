@@ -71,19 +71,21 @@ namespace Project.Latex
 			var tocNav = hdoc.DocumentNode.SelectNodes("//nav")[0];
 			body.RemoveChild(tocNav);
 
-			tocNav.SelectNodes("ul")[0].Attributes.Add("class", "navspy-menu");
-            
-            
-            tocNav.Attributes["id"].Value = "site-nav";
+			tocNav.SelectNodes("ul")[0].Attributes.Add("class", "nav");
+                      
+            tocNav.Attributes["id"].Value = "navbar";
 
 			foreach(var i in tocNav.SelectNodes("ul/descendant::ul"))
 			{
 				i.Attributes.Add("style", "display: block;");
 			}
+
+            //The li below needs to be changed
 			foreach(var i in tocNav.SelectNodes("descendant::li"))
 			{
 				i.Attributes.Add("class", "menu-item");
 			}
+
 			foreach(var i in tocNav.SelectNodes("descendant::a"))
 			{
 				if(i.ParentNode.ChildNodes["ul"] != null)
@@ -102,7 +104,7 @@ namespace Project.Latex
 				a.InnerHtml = i.InnerHtml;
 
 				i.Attributes.Remove();
-				i.Attributes.Add("class", "section-link");
+				//i.Attributes.Add("class", "section-link");
 
 				i.InnerHtml = "";
 

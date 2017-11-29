@@ -160,3 +160,15 @@
     })
 
 }(window.jQuery);
+
+$('#navbar').on('activate.bs.scrollspy', function () {
+    item = $('#nav').find(".active").last();
+    item.animatescroll({ element: '#navbar', padding: 20 });
+})();
+
+$('site-content').scrollspy({
+
+    target: '#navbar',
+
+    offset: 54
+});
