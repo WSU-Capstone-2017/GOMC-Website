@@ -202,8 +202,7 @@
         </div>
     </div>
 </main>
-
-@section scripts
+*@section scripts
 {
     <script>
         $(document).ready(function () {
@@ -211,7 +210,9 @@
             doFetchLatexUploads();
             doFetchRegisteredUsers();
             doFetchPreviewAnnouncements();
-
+            </script >
+                }
+@*
             $("#registerdUseresFilter_Name").change(function() {
                 registeredUsersNavState.nameFilter = $("#registerdUseresFilter_Name").val();
             });
@@ -225,4 +226,4 @@
             });
         });
     </script>
-}
+}*@

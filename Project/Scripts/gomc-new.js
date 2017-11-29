@@ -34,3 +34,18 @@ document.onreadystatechange = function () {
 }
 
 // Pulled from gomc.js
+//Navigation button in the Responsive Nav view of all cshtml pages
+$('#btn').click(function () {
+    if ($('#btn').children().hasClass('glyphicon-align-justify')) {
+        $('#btn').children().removeClass('glyphicon-align-justify');
+        $('#btn').children().addClass('glyphicon-remove');
+        $('header').css('margin-top', '22.5em');
+    }
+    else {
+        $('#btn').children().removeClass('glyphicon-remove');
+        $('#btn').children().addClass('glyphicon-align-justify');
+        $('header').css('margin-top', '6.5em');
+    }
+    $('#btn').css('color', '#FFFFFF');
+    $('#btn').css('backgroundColor', '#2C3539');
+});
