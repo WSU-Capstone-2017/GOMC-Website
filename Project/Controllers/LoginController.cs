@@ -36,9 +36,11 @@ namespace Project.Controllers
         }
 	    public Func<ProjectDbContext> DbGetter { get; }
 
-		public LoginResult ValidateLogin(FormDataCollection uiData)
-        {
-            var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
+		public LoginResult ValidateLogin(FormDataCollection uiData, Func<string, bool> captchaCheckFn = null)
+		{
+			captchaCheckFn = captchaCheckFn ?? RegistrationController.CaptchaCheck;
+
+			var loginCredentials = uiData.ToDictionary(j => j.Key, j => j.Value);
             var email = loginCredentials.GetValue("uName");
             var password = loginCredentials.GetValue("pCode");
             var captchaResponse = loginCredentials.GetValue("g-recaptcha-response");
@@ -72,7 +74,7 @@ namespace Project.Controllers
                         return new LoginResult(LoginResultType.NeedCaptcha);
                     }
 
-                    if (!RegistrationController.CaptchaCheck(captchaResponse))
+                    if (!captchaCheckFn(captchaResponse))
                     {
                         return new LoginResult(LoginResultType.InvalidCaptcha);
                     }
