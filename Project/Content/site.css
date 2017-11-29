@@ -1,0 +1,35 @@
+﻿/*
+    GOMC: Site map page styles
+*/
+
+/*Class Styles*/
+.panel-gomc {
+    background-color: #E58242;
+}
+
+.panel-features {
+    background-color: #106A3A;
+    color: #FFF;
+}
+
+.panel-downloads {
+    background-color: #91D3EF;
+}
+
+.panel-documentation {
+    background-color: #7F3E97;
+    color: #FFF;
+}
+
+.panel-publication {
+    background-color: #CFE7A7;
+}
+
+.panel-about {
+    background-color: #7F7FFF;
+    color: #FFF;
+}
+
+.panel-footer {
+    background-color: #FF3232;
+}

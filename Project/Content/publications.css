@@ -1,0 +1,43 @@
+﻿/*
+    GOMC: Publications page styles
+*/
+
+/*Tags*/
+h4 {
+    font-size: 1.3em;
+    color: #000000;
+    font-weight: 900;
+}
+
+td {
+    padding: .625em;
+    vertical-align: top;
+}
+
+tr {
+    background-color: #eeeeee;
+}
+
+th {
+    font-size: 1.3em;
+    padding-bottom: .4em;
+}
+
+
+
+/*Class Styles*/
+.images {
+    display: inline-block;
+    height: 7.5em;
+    width: 11.3em;
+    padding-bottom: .3em;
+    padding-left: .3em;
+    padding-right: .3em;
+    padding-top: .3em;
+    background-color: #fff;
+    border: .0625em solid #ddd;
+}
+
+.publication-header {
+    margin-top: 10.5em;
+}

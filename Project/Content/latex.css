@@ -1,0 +1,82 @@
+﻿/*
+    GOMC: Latex page styles
+*/
+
+/*ID Styles*/
+#navbar {
+    background: #D1D2D4;
+    height: 100%;
+    overflow: auto;
+    float: left;
+    width: 15.1em;
+    margin-top: -.3125em;
+}
+
+    #navbar ul, #navbar li {
+        padding: 0;
+        margin: 0;
+        font-size: .96em;
+        list-style-type: none;
+    }
+
+    #navbar li {
+        padding: 0.3em;
+        line-height: 105%;
+        border-top: .0625em solid #000000;
+        border-top: .0625em solid rgba(0,0,0,0.07);
+    }
+
+    #navbar ul ul {
+        margin-top: 0.3em;
+    }
+
+    #navbar li a {
+        padding-left: 0.5em;
+        padding-right: 0em;
+        display: block;
+    }
+
+    #navbar li li a {
+        padding-left: 2.8em;
+    }
+
+    #navbar li li li a {
+        padding-left: 3.8em;
+    }
+
+    #navbar a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    #navbar .active a {
+        color: red;
+    }
+
+    #navbar a:hover {
+        color: #000;
+        text-decoration: underline;
+    }
+
+#site-content {
+    position: fixed;
+    top: 4.9em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-left: .125em solid #303030;
+    border-bottom: .125em solid #303030;
+    border-right: .125em solid #303030;
+}
+
+#contents-container {
+    height: 100%;
+    overflow: auto;
+    width: 82em;
+    margin-left: -4em;
+}
+
+#contents {
+    padding: 1em 1.5em;
+    font-size: 1em;
+}

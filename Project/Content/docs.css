@@ -1,0 +1,38 @@
+﻿/*
+    GOMC: Documentation page styles
+*/
+
+/*Tag Styles*/
+h6 {
+    font-size: 1.3em;
+    color: #9ACD32;
+    font-weight: bold;
+}
+
+/*Class Styles*/
+.center-p {
+    text-align: center;
+}
+
+.bar-style {
+    color: #020816;
+    background-color: #CFE7A7;
+}
+
+.model-link {
+    padding: 0 .1875em .1875em 0;
+    list-style-type: none;
+}
+
+.custom-well {
+    background-color: #CFE7A7;
+    padding-top: 0;
+}
+
+.btn-push-down {
+    margin-bottom: .3125em;
+}
+
+.download-list {
+    padding-left: 0; /*Removes the padding for the lists of download information in the downloads page*/
+}

@@ -1,3 +1,13 @@
+/*==============================================================================
+    FILE HAS BEEN FULLY IMPORTED AND BROKEN UP IN THE BUNDLE
+    DO NOT ADD ANY CODE TO THIS FILE AS IT WILL NOT COMPILE
+    CONSIDER THIS FILE DEPRECATED AND WILL BE REMOVED IN THE FINAL PUSH
+    IT IS STILL HERE FOR REFERENCE ONLY
+    ==============================================================================
+*/
+
+
+
 /*==========================================================
  Title: GOMC core.less
  Description:
@@ -5,10 +15,10 @@
 ==========================================================*/
 
 /* Custom Fonts from google*/
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto'); /*Ported*/
 
 /*Keyframe and loader animation*/
-@keyframes spin {
+@keyframes spin { /*Ported*/
     0% {
         transform: rotate(0deg);
     }
@@ -19,14 +29,15 @@
 }
 
 /*This may have un-foreseen side effects, please test and let me know of any visual issues !Caleb*/
-img {
-    width: 18.75em; 
-	padding-top: 1em;
+img { /*Ported*/
+    width: 18.75em;
+    padding-top: 1em;
 }
 
-#Admin {
+/*Dead code?*/
+/*#Admin {
     padding: 0.625em;
-}
+}*/
 
 .loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
     border-top: 1em solid #106A3A;
@@ -37,26 +48,26 @@ img {
     width: 7.5em;
     height: 7.5em;
     animation: spin 2s linear infinite;
-}
+} /*Ported*/
 
 /* Selector styles - General for nav footer and consistent page scheme */
-body {
-  color: #020816;
-  background-color: #ffffff;
-  padding-top: 4.9em;
-  font-family: 'Open Sans', 'Roboto', Helvetica  !important; /*Must over-ride font-family of scaffolding.less*/
+body { /*Ported*/
+    color: #020816;
+    background-color: #ffffff;
+    padding-top: 4.9em;
+    font-family: 'Open Sans', 'Roboto', Helvetica !important; /*Must over-ride font-family of scaffolding.less*/
 }
 
-header {
+header { /*Ported*/
     margin-top: 1.93em;
 }
 
-main {
-  margin: 1.25em;
-  padding: .625em;
+main { /*Ported*/
+    margin: 1.25em;
+    padding: .625em;
 }
 
-footer {
+footer { /*Ported*/
     text-align: center;
     background-color: #eeeeee;
     color: #020816;
@@ -64,45 +75,45 @@ footer {
 }
 
 /*Fix for the carousel*/
-	
-.panel-primary > .panel-heading {
-	color: #020816;
-	background-color: #91D3EF;
-	border-color: #91D3EF;	
-}
 
-.panel-primary {
+.panel-primary > .panel-heading { /*Ported*/
+    color: #020816;
+    background-color: #91D3EF;
     border-color: #91D3EF;
 }
 
-header {
-  text-align: center;
-  background-color: #9ACD32;
-  color: #FFF; 
+.panel-primary { /*Ported*/
+    border-color: #91D3EF;
 }
 
-h1, h2, h3 {
+header { /*Ported*/
+    text-align: center;
+    background-color: #9ACD32;
+    color: #FFF;
+}
+
+h1, h2, h3 { /*Ported*/
     text-align: center;
     background-color: #9ACD32;
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
-    font-size: 1.7em; /*Just noticed this, this is dreadful we can't have all 3 major h-tags the same size. But we gotta scale them accordingly, I will fix later ~Caleb*/
+    font-size: 1.7em;
 }
 
-h4 {
-	font-size: 1.3em;
-	color: #000000;
+h4 { /*Ported*/
+    font-size: 1.3em;
+    color: #000000;
     font-weight: 900;
 }
 
-h6 {
-	font-size: 1.3em;
-	color: #9ACD32;
-	font-weight: bold;
+h6 { /*Ported*/
+    font-size: 1.3em;
+    color: #9ACD32;
+    font-weight: bold;
 }
 
-h5 {
+h5 { /*Ported*/
     text-align: center;
     background-color: #9ACD32;
     color: white;
@@ -114,141 +125,141 @@ h5 {
     padding-top: .1em;
 }
 
-h7 {
+/*h7 { Dead Code?
     font-size: 1.3em;
     padding-bottom: .4em;
     text-decoration: underline;
     color: #9ACD32;
     font-weight: bold;
-}
+}*/
 
-h8 {
+/*h8 { Dead Code?
 	color: #337ab7;
 	font-size: 1.1em;
 	padding-top: 0em;
-}
+}*/
 
-h9 {
+/*h9 { Dead Code?
 	font-size: 1.4em;
 	font-weight: bold;
-}
+}*/
 
-p {
+p {/*Ported*/
     font-size: 1.2em;
 }
 
-nav a {
+nav a { /*Ported*/
     color: #FFF;
 }
 /*CSS to remove rounded corners on nav-bar*/
-.nav > li > a{
+.nav > li > a { /*Ported*/
     border-radius: 0;
 }
 
-nav {
+nav { /*Ported*/
     overflow: hidden;
     transition: height 0.5s;
 }
 
-footer {
+/*footer { Dead Code?
     color: #000000;
     background-color: #ffffff;
-}
+}*/
 
-.main-menu {
+.main-menu { /*Ported*/
     color: #FFF;
     background-color: #9ACD32;
     padding-bottom: 0.375em;
 }
 
-.nav-tabs {
+.nav-tabs { /*Ported*/
     border-bottom: none;
     text-transform: uppercase;
     font-weight: 600;
 }
 
-.not-render {
+.not-render { /*Ported*/
     display: none;
 }
 
-.render {
+.render { /*Ported*/
     display: block;
 }
 
-.navbar-default {
+.navbar-default { /*Ported*/
     border: none;
 }
 
-::selection {
-  background-color: #E58242;
+::selection { /*Ported*/
+    background-color: #E58242;
 }
 
-.navbar-toggle {
+.navbar-toggle { /*Ported*/
     color: #FFF;
     background-color: #9ACD32;
 }
 
-.jumbo-description {
+.jumbo-description { /*Ported*/
     text-align: center;
     margin: .5em;
     padding: 1em;
 }
 
-.carousel-indicators {
-	bottom: 0em;
+.carousel-indicators { /*Ported*/
+    bottom: 0em;
 }
 
-.carousel-control.left {
-	background-image: none !important;
-	background: transparent !important;
+.carousel-control.left { /*Ported*/
+    background-image: none !important;
+    background: transparent !important;
 }
 
-.carousel-control.right {
-	background-image: none !important;
-	background: transparent !important;
+.carousel-control.right { /*Ported*/
+    background-image: none !important;
+    background: transparent !important;
 }
 
 /*About.cshtml specific */
-.new-head {
+.new-head { /*Ported*/
     padding: .625em;
 }
 
-.formatted-container {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 3em 0 3em;
+.formatted-container { /*Ported*/
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 3em 0 3em;
 }
 
-.person-card {
-  margin-top: .625em;
-  padding-left: .3125em;
+.person-card { /*Ported*/
+    margin-top: .625em;
+    padding-left: .3125em;
 }
 
-.person-card2 {
-  margin-top: .625em;
-  padding-left: .3125em;
-  text-decoration: none !important;
-  color: #020816 !important;        /*Not a link so has to be black text and not blue*/
+.person-card2 { /*Ported*/
+    margin-top: .625em;
+    padding-left: .3125em;
+    text-decoration: none !important;
+    color: #020816 !important; /*Not a link so has to be black text and not blue*/
 }
 
-.person-picture {
-  float: left;
-  margin-right: .3125em;
+.person-picture { /*Ported*/
+    float: left;
+    margin-right: .3125em;
 }
 
-.about-team {
+.about-team { /*Ported*/
     img {
         width: 8.5em;
     }
 }
 
-.about-grants {
+.about-grants { /*Ported*/
     img {
         width: 5em;
     }
 }
 
-@media only screen and (max-width: 64em) {
+@media only screen and (max-width: 64em) {/*Ported*/
     .top-card {
         margin-bottom: 1.5625em; /*Stops bunching of the grants*/
     }
@@ -259,7 +270,7 @@ footer {
 }
 
 /*Documentation.cshtml specific*/
-.center-p {
+.center-p { /*Ported*/
     text-align: center;
 }
 /*.form-left-nav {
@@ -278,7 +289,7 @@ footer {
     float: right;
 }*/
 
-.bar-style {
+.bar-style {/*Ported*/
     color: #020816;
     background-color: #CFE7A7;
 }
@@ -288,37 +299,37 @@ footer {
   display: none;
 }*/
 
-.model-link {
+.model-link {/*Ported*/
     padding: 0 .1875em .1875em 0;
     list-style-type: none;
 }
 
-.custom-well {
+.custom-well {/*Ported*/
     background-color: #CFE7A7;
     padding-top: 0;
 }
 
-.btn-push-down {
+.btn-push-down {/*Ported*/
     margin-bottom: .3125em;
 }
 
-.download-list {
+.download-list {/*Ported*/
     padding-left:0; /*Removes the padding for the lists of download information in the downloads page*/
 }
 
 /*Features.cshtml specific*/
-.different-main {
+.different-main { /*Ported*/
     background-color: #ffffff;
     color: #222222;
 }
 
 /*Publication.cshtml specific*/
-td {
+td {/*Ported*/
   padding: .625em;
   vertical-align: top;
 }
 
-.images {
+.images {/*Ported*/
 	display: inline-block;	
 	height: 7.5em;
 	width: 11.3em;
@@ -330,252 +341,255 @@ td {
 	border: .0625em solid #ddd;
 }
 
-tr {
-    background-color: #eeeeee;	
+tr { /*Ported*/
+    background-color: #eeeeee;
 }
 
-th {
-	font-size: 1.3em;
-	padding-bottom: .4em;
+th { /*Ported*/
+    font-size: 1.3em;
+    padding-bottom: .4em;
 }
 
-.publication-header {
+.publication-header {/*Ported*/
     margin-top: 10.5em;
 }
 
 /*Gomc.cshtml specific*/
-.gomcHome {
+.gomcHome { /*Ported*/
     min-height: 15.625em;
 }
 
-.gomcHome h1 {
-  background-color: none;
+.gomcHome h1 { /*Ported*/
+    background-color: none;
 }
 
-.announcement-panel {
+.announcement-panel { /*Ported*/
     border-color: #9ACD32 !important;
 }
 
-.announcement-header {
+.announcement-header { /*Ported*/
     background-color: #9ACD32 !important;
-	padding-top: .03125em;
+    padding-top: .03125em;
 }
 
-.sit-down{ /*for some reason the glyphs on the carousel want to fly away, this stops them for now. I need to find a better fix*/
+.sit-down { /*Ported*/
     margin-top: 5em;
 }
 
-.grand-line {
+.grand-line { /*Ported*/
     margin: 1.25em;
 }
 
-.footer-text {
+.footer-text { /*Ported*/
     font-weight: 600;
 }
 
-.mid-card {
+.mid-card { /*Ported*/
     background-color: #2C3539;
     color: #FFF;
 }
 
 /*Admin.cshtml  specific*/
-.adminPage {
+.adminPage {/*Ported*/
   background-color: #FDFFFC;
   color: #020816;
   padding: .625em;
   margin: 1.25em;
 }
 
-.adminLabel {
+.adminLabel {/*Ported*/
   padding: .625em;
 }
 	
 /*Site-Map.cshtml specific*/
-.panel-gomc {
+.panel-gomc { /*Ported*/
     background-color: #E58242;
 }
 
-.panel-features {
+.panel-features { /*Ported*/
     background-color: #106A3A;
     color: #FFF;
 }
 
-.panel-downloads {
+.panel-downloads { /*Ported*/
     background-color: #91D3EF;
 }
 
-.panel-documentation {
+.panel-documentation { /*Ported*/
     background-color: #7F3E97;
     color: #FFF;
 }
 
-.panel-publication {
+.panel-publication { /*Ported*/
     background-color: #CFE7A7;
 }
 
-.panel-about {
+.panel-about { /*Ported*/
     background-color: #7F7FFF;
     color: #FFF;
 }
 
-.panel-footer {
+.panel-footer { /*Ported*/
     background-color: #FF3232;
 }
 
 /*Classes for the footer pages & General classes*/
-.minimal-panel-page {
+/*.minimal-panel-page { Dead Code??
     text-align: center;
-}
+}*/
 
-.logout-button {
+.logout-button { /*Ported*/
     padding: .625em;
 }
 
-.admin-view-panel {
+.admin-view-panel {/*Ported*/
     margin-top: 6.5em;
 }
 
-.panel-success > .panel-heading {
+.panel-success > .panel-heading {/*Ported*/
     background-color: #9ACD32;
     color: #FFFFFF;
 	padding-top: .03125em;
 }
 
 /*Ids for menu items, attach ids only on the page focus*/
-/*Client requested double this at .5em demo half to be sure he wants it that way, Dr.Sam recommended chopping it in half*/
-#onFontPage {
+#onFontPage { /*Ported*/
     border-bottom: 0.250em #106A3A solid;
 }
 
-#onGomcPage {
+#onGomcPage { /*Ported*/
     border-bottom: 0.250em #E58242 solid;
 }
 
-#onDownloadsPage {
+#onDownloadsPage { /*Ported*/
     border-bottom: 0.250em #91D3EF solid;
 }
 
-#onAboutPage {
+#onAboutPage { /*Ported*/
     border-bottom: 0.250em #7F3E97 solid;
 }
 
-#onDocumentationPage {
+#onDocumentationPage { /*Ported*/
     border-bottom: 0.250em #FFFF00 solid;
 }
 
-#onFeaturesPage {
+#onFeaturesPage { /*Ported*/
     border-bottom: 0.250em #FF3232 solid;
 }
 
-#onPublicationPage {
-     border-bottom: 0.250em #7F7FFF solid;
+#onPublicationPage { /*Ported*/
+    border-bottom: 0.250em #7F7FFF solid;
 }
 
-#teamLogo {
+#teamLogo { /*Ported*/
     padding: 0.313em;
 }
 
-.btn-success {
+.btn-success {/*Ported*/
     border-color: #9ACD32;
     background-color: #9ACD32;
 }
 
 /*faq.cshtml specific*/
-.accordion-toggle:hover {
+.accordion-toggle:hover { /*Ported*/
     background-color: #d3d3d3;
 }
 
 
 
 /*Latex.cshtml specific*/
-#navbar {    
+#navbar { /*Ported*/
     background: #d1d2d4;
-	height: 100%;
+    height: 100%;
     overflow: auto;
     float: left;
     width: 15.1em;
-	margin-top: -.3125em;
+    margin-top: -.3125em;
 }
 
-#navbar ul, #navbar li {
-    padding: 0;     
-	  margin: 0;	 
-	  font-size: .96em;	
+#navbar ul, #navbar li { /*Ported*/
+    padding: 0;
+    margin: 0;
+    font-size: .96em;
     list-style-type: none;
 }
 
-#navbar li {
-  	padding: 0.3em;
-	  line-height: 105%;
-	  border-top: .0625em solid #000000;
-	  border-top: .0625em solid rgba(0,0,0,0.07);
+#navbar li { /*Ported*/
+    padding: 0.3em;
+    line-height: 105%;
+    border-top: .0625em solid #000000;
+    border-top: .0625em solid rgba(0,0,0,0.07);
 }
 
-#navbar ul ul {
-  margin-top: 0.3em;
+#navbar ul ul { /*Ported*/
+    margin-top: 0.3em;
 }
 
-#navbar li a {
-  padding-left: 0.5em;
-	padding-right: 0em;
-	display: block;
+#navbar li a { /*Ported*/
+    padding-left: 0.5em;
+    padding-right: 0em;
+    display: block;
 }
 
-#navbar li li a {
-   padding-left: 2.8em;
+#navbar li li a { /*Ported*/
+    padding-left: 2.8em;
 }
 
-#navbar li li li a{
-  padding-left: 3.8em;
+#navbar li li li a { /*Ported*/
+    padding-left: 3.8em;
 }
 
-#navbar a {
+#navbar a { /*Ported*/
     text-decoration: none;
     color: #000;
 }
 
-#navbar .active a {
+#navbar .active a { /*Ported*/
     color: red;
 }
 
-#navbar a:hover {
-  color: #000;
-	text-decoration: underline;
+#navbar a:hover { /*Ported*/
+    color: #000;
+    text-decoration: underline;
 }
 
-#site-content {
-	position: fixed; top: 4.9em; bottom: 0; left: 0; right: 0;
-	border-left: .125em solid #303030;
-	border-bottom: .125em solid #303030;
-	border-right: .125em solid #303030;
+#site-content { /*Ported*/
+    position: fixed;
+    top: 4.9em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-left: .125em solid #303030;
+    border-bottom: .125em solid #303030;
+    border-right: .125em solid #303030;
 }
 
-#contents-container {
-	height: 100%;
-	overflow: auto;
-	width: 82em;
-	margin-left: -4em;
+#contents-container { /*Ported*/
+    height: 100%;
+    overflow: auto;
+    width: 82em;
+    margin-left: -4em;
 }
 
-#contents {
-	padding: 1em 1.5em;
-	font-size: 1em;
+#contents { /*Ported*/
+    padding: 1em 1.5em;
+    font-size: 1em;
 }
 
 /*XML specific*/
-.xml-control {
+.xml-control { /*Ported*/
     width: auto;
 }
 
-.block-label {
+.block-label { /*Ported*/
     display: block;
 }
 
-.inline-control {
+.inline-control { /*Ported*/
     display: inline-block;
 }
 
-.scale-captcha {
+.scale-captcha { /*Ported*/
     transform: scale(0.77);
     transform-origin: 0 0;
     -webkit-transform: scale(0.77);
@@ -586,19 +600,20 @@ th {
     -ms-transform-origin: 0 0;
 }
 
-.bar-style {
+.bar-style { /*Ported*/
     background-color: #9ACD32;
 }
 
-.pull-left {
+.pull-left { /*Ported*/
     width: 5.625em;
 }
 
-.prev-btn {
+.prev-btn { /*Ported*/
     margin-right: 1.563em;
 }
 
 /*Latex specific css*/
+/*PORTED*/
 .cmr-5{font-size:50%;}
 .cmr-7{font-size:70%;}
 .cmmi-5{font-size:50%;font-style: italic;}
@@ -911,14 +926,14 @@ span#colorbox133{background-color:#FFFF00;}
 span#colorbox134{background-color:#FFFF00;}
 
 /*progressbar*/
-#progressbar {
+#progressbar {/*Ported*/
     margin-bottom: 30px;
     overflow: hidden;
     /*CSS counters to number the steps*/
     counter-reset: step;
 }
 
-#progressbar li {
+#progressbar li {/*Ported*/
     list-style-type: none;
     color: #000000;
     text-transform: uppercase;
@@ -929,7 +944,7 @@ span#colorbox134{background-color:#FFFF00;}
     text-align: center;
 }
 
-#progressbar li:before {
+#progressbar li:before { /*Ported*/
     content: counter(step);
     counter-increment: step;
     width: 24px;
@@ -946,7 +961,7 @@ span#colorbox134{background-color:#FFFF00;}
 }
 
 /*progressbar connectors*/
-#progressbar li:after {
+#progressbar li:after { /*Ported*/
     content: '';
     width: 100%;
     height: 4px;
@@ -957,24 +972,24 @@ span#colorbox134{background-color:#FFFF00;}
     z-index: -1; /*put it behind the numbers*/
 }
 
-#progressbar li:first-child:after {
+#progressbar li:first-child:after { /*Ported*/
     /*connector not needed before the first step*/
     content: none;
 }
 
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
-#progressbar li.active:before, #progressbar li.active:after {
+#progressbar li.active:before, #progressbar li.active:after { /*Ported*/
     background-color: #9ACD32;
     color: white;
 }
 
-#announcementClear, #adminAnnouncement_Submit {
+#announcementClear, #adminAnnouncement_Submit { /*Ported*/
     display: block;
     margin: 0.625em 0.625em 0.625em 0;
 }
 
-#adminAnnouncement_Submit {
+#adminAnnouncement_Submit { /*Ported*/
     padding-right: 1.2em;
 }
 
@@ -982,22 +997,22 @@ span#colorbox134{background-color:#FFFF00;}
     padding: 8px 10px 8px 10px;
 }*/
 
-.loader-mms {
+.loader-mms {/*Ported*/
     text-align: center;
     display: block;
     font-weight: bold;
     padding: 0.625em;
 }
 
-[hidden] {
+[hidden] {/*Ported*/
     display: none !important;
 }
 
-.latex-btn {
+.latex-btn {/*Ported*/
     font-weight: normal;
 }
 
 /*Should be added to all glyphicons everywhere, remove those extra spaces too*/
-.icon-style {
+.icon-style { /*Ported*/
     margin-right: 0.3125em;
 }
