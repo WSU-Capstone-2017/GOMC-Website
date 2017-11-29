@@ -161,6 +161,7 @@
 
 }(window.jQuery);
 
+//LEFT SIDE SCROLLING (THESE LAST 2 should be for scrolling, above code is for scrollspy)
 $('#navbar').on('activate.bs.scrollspy', function () {
     item = $('#nav').find(".active").last();
     item.animatescroll({ element: '#navbar', padding: 20 });
