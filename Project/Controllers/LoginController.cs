@@ -95,14 +95,14 @@ namespace Project.Controllers
                         DateTime.Now +
                         TimeSpan.FromHours(3);
 
-                    var loggedIn = new AlreadyLoggedModel
+                    var loggedIn = new LoginSessions
                     {
                         Expiration = expiredTime,
                         Session = session,
                         LoginId = result.LoginId.Value
                     };
 
-                    db.AlreadyLoggedIns.Add(loggedIn);
+                    db.LoginSessions.Add(loggedIn);
 
                     db.SaveChanges();
                     return new LoginResult(LoginResultType.Success, session);

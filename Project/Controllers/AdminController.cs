@@ -404,7 +404,7 @@ namespace Project.Controllers
 				var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
 
 				var l = db.Database
-					.SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
+					.SqlQuery<LoginSessions>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
 					.SingleOrDefault();
 
 				if (l == null)

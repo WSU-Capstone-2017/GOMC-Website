@@ -52,7 +52,7 @@ namespace Project.LoginSystem
 	    {
 		    using(var db = (dbGetter ?? defaultDbGetter)())
 		    {
-			    var b = db.Database.SqlQuery<AlreadyLoggedModel>($"select * from AlreadyLoggedModels where Session = '{session}'").FirstOrDefault();
+			    var b = db.Database.SqlQuery<LoginSessions>($"select * from LoginSessions where Session = '{session}'").FirstOrDefault();
 
 			    if(b == null)
 			    {
@@ -74,7 +74,7 @@ namespace Project.LoginSystem
 		    {
 			    var sqlParameter = new SqlParameter("@SessionInput", session);
 
-			    var l = db.Database.SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
+			    var l = db.Database.SqlQuery<LoginSessions>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
 				    .SingleOrDefault();
 
 			    if(l == null)
