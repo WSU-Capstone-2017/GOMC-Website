@@ -139,7 +139,7 @@ namespace Project.Latex
 			return csviewCache
 				.Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
 				.Replace("Plugin homepage @", "Plugin homepage @@")
-                .Replace("style='background-color: lightgray'", "style='background: none'");
+                .Replace("background-color: lightgray", "background: none");
 		}
 
 		public ConversionResult ConvertAtDir(string fileDir)

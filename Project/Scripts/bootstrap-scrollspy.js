@@ -167,11 +167,46 @@ $('#navbar').on('activate.bs.scrollspy', function () {
     item.animatescroll({ element: '#navbar', padding: 20 });
 })();
 
-$('body').scrollspy({
-    target: '#navbar',
-});
 
-$('.scrollToTop').click(function (e) {
-    $('contents-container, container').animate({ scrollTop: 0 }, 800, 'swing');
-    return false;
-});
+Dofactory.namespace("Utils").ScrollToTop = (function () {
+
+    var start = function () {
+
+        setInterval(function () {          
+            $('#scrollRight').css("right", "30px");
+
+        }, 1500);
+
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 800) {
+                $('.scrollToTop').fadeIn();
+            } else {
+                $('.scrollToTop').fadeOut();
+            }
+        });
+
+        $('.scrollToTop').click(function (e) {
+            $('html, body').animate({ scrollTop: 0 }, 500, 'swing');
+            return false;
+        });
+
+
+    };
+
+    return { start: start };
+
+})();
+
+    ////$(window).scroll(function () {
+    //    if ($(this).scrollTop() > 100) {
+    //        $('.scrollToTop').fadeIn();
+    //    }
+    //    else {
+    //        $('.scrollToTop').fadeOut();
+    //    }
+    //});
+    //$('.scrollToTop').click(function () {
+    //    $('html, body').animate({ scrollTop: 0 }, 500);
+    //    return false;
+    //});
