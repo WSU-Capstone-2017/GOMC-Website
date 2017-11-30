@@ -66,9 +66,10 @@ $('#adminAnnouncement').submit(function () {
             Content: msgContent
         })
     })
-        .done(function (data) {
+		.done(function (data) {
             $('#adminAnnouncement').toggle();
             $('.loader').remove();
+		    $('#adminAnnouncement')[0].reset();
             if (data === newAnnouncementResult.Success) {
                 console.log('New announcement submitted');
                 announcementsNavState.pageIndex = 0;
@@ -86,7 +87,10 @@ $('#adminAnnouncement').submit(function () {
         });
     return false;
 });
-
+$("#announcementClear").click(function () {
+	doPreviewAnnouncements('');
+	return true;
+});
 $("#registerdUseresFilter_Name").change(function () {
     registeredUsersNavState.nameFilter = $("#registerdUseresFilter_Name").val();
 });
@@ -686,7 +690,13 @@ function doFetchPreviewAnnouncements() {
 function doPreviewAnnouncements(d) {
     var data = announcementsDataCache;
     if (data.Result === newAnnouncementResult.Success) {
-        var newHtml = "<li>" + d + "</li>";
+		var newHtml = "<li>" + d + "</li>";
+	    function isEmpty(val) {
+		    return (val === undefined || val == null || val.length <= 0) ? true : false;
+		}
+		if (isEmpty(d)) {
+			newHtml = '';
+		}
         for (var i = 0; i < data.Length; i++) {
             newHtml += "<li>" + data.Announcements[i].Content + "</li>";
         }

@@ -219,11 +219,14 @@ namespace Project.Controllers
         {
             using (var db = DbGetter())
             {
-	            ViewBag.AnnouncementList = db.Announcements
-					.Select(j => new AnnouncementModel {Content = j.Content})
-					.ToList();
+	            var lst = db.Announcements
+					.ToArray()
+		            .Select(j => new AnnouncementModel(j.Content))
+		            .ToList();
 
-                return View();
+	            ViewBag.AnnouncementList = lst;
+
+				return View();
             }
         }
         public ActionResult Features()
