@@ -10,7 +10,7 @@ namespace Project.Data
 	{
 		public class MockType
 		{
-			public UserLoginModel[] UserLogins { get; set; } = new UserLoginModel[0];
+			public LoginModel[] Logins { get; set; } = new LoginModel[0];
 			public AlreadyLoggedModel[]  AlreadyLoggedIns { get; set; } = new AlreadyLoggedModel[0];
 			public RegistrationModel[]  Registrations { get; set; } = new RegistrationModel[0];
 			public LatexUploadModel[]  LatexUploads { get; set; } = new LatexUploadModel[0];
@@ -18,7 +18,7 @@ namespace Project.Data
 			public FailedLoginModel[]  FailedLogins { get; set; } = new FailedLoginModel[0];
 		}
 
-        public DbSet<UserLoginModel> UserLogins { get; set; }
+        public DbSet<LoginModel> UserLogins { get; set; }
         public DbSet<AlreadyLoggedModel> AlreadyLoggedIns { get; set; }
         public DbSet<RegistrationModel> Registrations{ get; set; }
 		public DbSet<LatexUploadModel> LatexUploads { get; set; }
@@ -35,7 +35,7 @@ namespace Project.Data
 			Announcements.RemoveRange(Announcements);
 			FailedLogins.RemoveRange(FailedLogins);
 
-			UserLogins.AddRange(mock.UserLogins);
+			UserLogins.AddRange(mock.Logins);
 			AlreadyLoggedIns.AddRange(mock.AlreadyLoggedIns);
 			Registrations.AddRange(mock.Registrations);
 			LatexUploads.AddRange(mock.LatexUploads);

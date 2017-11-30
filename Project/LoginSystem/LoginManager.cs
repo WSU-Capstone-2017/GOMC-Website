@@ -6,8 +6,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using Project.Controllers;
-using static Project.Controllers.LoginController;
 
 namespace Project.LoginSystem
 {
@@ -25,7 +23,7 @@ namespace Project.LoginSystem
 		    DbGetter = dbGetter ?? defaultDbGetter;
 	    }
 
-		public Boolean LoginIsValid(string email, string password)
+		public bool LoginIsValid(string email, string password)
         {
             if (IsValidEmail(email) == false) 
             {
@@ -37,7 +35,7 @@ namespace Project.LoginSystem
             }
             using (var db = DbGetter())
             {
-                var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
+                var b = db.Database.SqlQuery<LoginModel>($"select * from Logins where email = '{email}'").ToArray();
                 if (b.Length == 0)
                 {
                     return false;
@@ -104,7 +102,7 @@ namespace Project.LoginSystem
             }
             using (var db = DbGetter())
             {
-                var b = db.Database.SqlQuery<UserLoginModel>($"select * from UserLoginModels where email = '{email}'").ToArray();
+                var b = db.Database.SqlQuery<LoginModel>($"select * from Logins where email = '{email}'").ToArray();
                 if (b.Length == 0)
                 {
                     return new GetLoginIdResult(LoginResultType.InvalidEmail);
@@ -135,7 +133,7 @@ namespace Project.LoginSystem
                 return false;
             }
         }
-        public static String GetHash(string value)                                //Function for getting password to hash value
+        public static string GetHash(string value)                                //Function for getting password to hash value
         {
             var stringbuilder = new StringBuilder();                    //For building a string
 

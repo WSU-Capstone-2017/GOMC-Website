@@ -207,7 +207,7 @@
     <Compile Include="Models\Gomc\FreqInput.cs" />
     <Compile Include="Models\DownloadsModel.cs" />
     <Compile Include="Models\Github\ReleasesModel.cs" />
-    <Compile Include="Models\LoginSystem\UserLoginModel.cs" />
+    <Compile Include="Models\LoginSystem\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\UserStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

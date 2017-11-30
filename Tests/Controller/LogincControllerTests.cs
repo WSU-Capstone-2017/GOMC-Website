@@ -17,9 +17,9 @@ namespace Project.Controller
         {
             var mk = new ProjectDbContext.MockType
             {
-                UserLogins = new[]
+                Logins = new[]
                 {
-                    new UserLoginModel
+                    new LoginModel
                     {
                         Email = "test@email.com", PasswordHash = LoginManager.GetHash("password")
                     }
@@ -43,9 +43,9 @@ namespace Project.Controller
         {
             var mk = new ProjectDbContext.MockType
             {
-                UserLogins = new[]
+                Logins = new[]
                 {
-                    new UserLoginModel
+                    new LoginModel
                     {
                         Email = "test@email.com", PasswordHash = LoginManager.GetHash("password")
                     }
@@ -69,9 +69,9 @@ namespace Project.Controller
         {
             var mk = new ProjectDbContext.MockType
             {
-                UserLogins = new[]
+                Logins = new[]
                 {
-                    new UserLoginModel
+                    new LoginModel
                     {
                         Email = "test@email.com", PasswordHash = LoginManager.GetHash("password")
                     }
