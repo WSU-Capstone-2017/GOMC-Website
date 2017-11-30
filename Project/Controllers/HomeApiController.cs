@@ -24,7 +24,7 @@ namespace Project.Controllers
 		{
 			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcements").Single();
 
 				if(totalLength == 0)
 				{
@@ -34,7 +34,7 @@ namespace Project.Controllers
 				const int skip = 0;
 				var take = totalLength >= 5 ? 5 : totalLength;
 
-				var sqlQuery = "SELECT * FROM Announcments " +
+				var sqlQuery = "SELECT * FROM Announcements " +
 				               "ORDER BY Created DESC " +
 				               $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 

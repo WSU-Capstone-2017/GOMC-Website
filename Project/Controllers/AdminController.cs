@@ -449,7 +449,7 @@ namespace Project.Controllers
 			}
 			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcements").Single();
 
 				return new FetchAnnouncementsOutput
 				{
@@ -472,11 +472,11 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcements").Single();
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
-				var sqlQuery = "SELECT * FROM Announcments " +
+				var sqlQuery = "SELECT * FROM Announcements " +
 							   "ORDER BY Created DESC " +
 							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 
@@ -505,7 +505,7 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				const string query = "DELETE FROM dbo.Announcments " +
+				const string query = "DELETE FROM dbo.Announcements " +
 									 "WHERE Id = @inputAnnouncementId";
 
 				var parm = new SqlParameter("@inputAnnouncementId", input.AnnouncementId);
@@ -533,7 +533,7 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				const string query = "UPDATE dbo.Announcments " +
+				const string query = "UPDATE dbo.Announcements " +
 									 "SET Content = @inputContent " +
 									 "WHERE Id = @inputAnnouncementId;";
 

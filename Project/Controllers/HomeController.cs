@@ -217,25 +217,12 @@ namespace Project.Controllers
 
         public ActionResult Gomc()
         {
-            using (var serverConn = DbGetter())
+            using (var db = DbGetter())
             {
-      //          SELECT TOP(1000) [Id]
-      //,[AuthorId]
-      //,[Content]
-      //,[Created]
-      //  FROM[projectdb].[dbo].[Announcments]
-      //  Order By Created DESC
-                var Announcements = (
-                    from item in serverConn.Announcements
-                    orderby item.Created descending
-                    select new { item.Content}
-                ).ToList();
-                var AnnouncementsList = new List<AnnouncementModel>();
-                foreach(var i in Announcements)
-                {
-                    AnnouncementsList.Add(new AnnouncementModel(i.Content));
-                }
-                ViewBag.AnnouncementList = AnnouncementsList;
+	            ViewBag.AnnouncementList = db.Announcements
+					.Select(j => new AnnouncementModel {Content = j.Content})
+					.ToList();
+
                 return View();
             }
         }
