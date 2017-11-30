@@ -7,17 +7,17 @@ namespace Project.Models
 	{
 
 		public string DownloadName { get; set; }
-        public string ExampleName { get; set; }
+		public string ExampleName { get; set; }
 
 		public DownloadItem[] Downloads { get; set; }
-        public ExampleList[] Examples { get; set; }
-		
-		public DownloadsModel(string Dname, IEnumerable<DownloadItem> Ditems, string Rname, IEnumerable<ExampleList>Ritems)
+		public ExampleList[] Examples { get; set; }
+
+		public DownloadsModel(string dname, IEnumerable<DownloadItem> ditems, string rname, IEnumerable<ExampleList> ritems)
 		{
-			DownloadName = Dname;
-			Downloads = Ditems.ToArray();
-            ExampleName = Rname;
-            Examples = Ritems.ToArray();
+			DownloadName = dname;
+			Downloads = ditems.ToArray();
+			ExampleName = rname;
+			Examples = ritems.ToArray();
 		}
 
 		public class DownloadItem
@@ -39,16 +39,16 @@ namespace Project.Models
 			public string ZipBall { get; set; }
 		}
 
-        public class ExampleList
-        {
-            public string Name { get; set; }
-            public string Link { get; set; }
+		public class ExampleList
+		{
+			public string Name { get; set; }
+			public string Link { get; set; }
 
-            public ExampleList(string name, string link)
-            {
-                Name = name;
-                Link = link;
-            }
-        }
+			public ExampleList(string name, string link)
+			{
+				Name = name;
+				Link = link;
+			}
+		}
 	}
 }

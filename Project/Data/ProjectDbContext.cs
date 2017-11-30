@@ -1,8 +1,6 @@
 ﻿using System.Data.Entity;
 using Project.Models;
 using Project.Models.LoginSystem;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Data
 {
@@ -54,12 +52,4 @@ namespace Project.Data
 			return new ProjectDbContext(mock);
 		}
 	}
-
-    [Table("FailedLogins")]
-    public class FailedLoginModel
-    {
-        public int Id { get; set; }
-        public int LoginId { get; set; }
-        public DateTime Date { get; set; }
-    }
 }

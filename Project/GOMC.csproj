@@ -177,6 +177,7 @@
     <Compile Include="Controllers\HomeApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LatexController.cs" />
+    <Compile Include="Models\LoginSystem\FailedLoginModel.cs" />
     <Compile Include="Models\AnnouncementModel.cs" />
     <Compile Include="Models\Github\EventBaseModel.cs" />
     <Compile Include="Models\Github\PingModel.cs" />
@@ -193,7 +194,6 @@
     <Compile Include="Latex\LatexConvertResult.cs" />
     <Compile Include="Models\Github\PushModel.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
-    <Compile Include="Models\LoginsModel.cs" />
     <Compile Include="Models\LoginSystem\LoginSessions.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
