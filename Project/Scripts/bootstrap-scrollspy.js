@@ -163,13 +163,15 @@
 
 //LEFT SIDE SCROLLING (THESE LAST 2 should be for scrolling, above code is for scrollspy)
 $('#navbar').on('activate.bs.scrollspy', function () {
-    item = $('#nav').find(".active").last();
+    item = $('#navbar').find(".active").last();
     item.animatescroll({ element: '#navbar', padding: 20 });
 })();
 
-$('site-content').scrollspy({
-
+$('body').scrollspy({
     target: '#navbar',
+});
 
-    offset: 54
+$('.scrollToTop').click(function (e) {
+    $('contents-container, container').animate({ scrollTop: 0 }, 800, 'swing');
+    return false;
 });
