@@ -9,7 +9,7 @@
     overflow: auto;
     float: left;
     width: 15.1em;
-    margin-top: -.3125em;
+    margin-top: 1.6em;
 }
 
     #navbar ul, #navbar li {
@@ -74,6 +74,7 @@
     overflow: auto;
     width: 82em;
     margin-left: -4em;
+	margin-top: 1.7em;
 }
 
 #contents {

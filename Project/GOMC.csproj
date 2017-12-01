@@ -395,6 +395,7 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
+    <Content Include="Scripts\animatescroll.js" />
     <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
