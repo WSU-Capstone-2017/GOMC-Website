@@ -12,7 +12,7 @@
 <main>
     <div class="panel panel-primary admin-view-panel">
         <div class="panel-heading">
-            <h4>Official Admin View<button class="btn btn-sm btn-danger pull-right logout-button" id="adminLogout"><span class="glyphicon glyphicon-log-out"></span> Logout</button></h4>
+            <h4>Official Admin View<button class="btn btn-sm btn-danger pull-right logout-button" id="adminLogout"><span class="glyphicon glyphicon-log-out icon-style"></span>Logout</button></h4>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -25,8 +25,8 @@
                             <br />
                             <textarea id="adminAnnouncement_Text" type="textarea" wrap="soft" name="NewAnnouncement" required rows="3" cols="35" class="form-control"></textarea>
                         </div>
-                        <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-share"></span> Post </button>
-                        <button id="announcementClear" class="btn btn-danger" type="reset"><span class="glyphicon glyphicon-trash"></span> Clear</button>
+                        <button id="adminAnnouncement_Submit" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-share icon-style"></span>Post </button>
+                        <button id="announcementClear" class="btn btn-danger" type="reset"><span class="glyphicon glyphicon-trash icon-style"></span>Clear</button>
                     </form>
                 </div>
                 <div class="col-md-6">
@@ -78,8 +78,8 @@
                         </tr>
                     </table>
                     <div class="btn-group">
-                        <button id="fetchAnnouncements_Back" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(true);"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-                        <button id="fetchAnnouncements_Next" class="btn btn-sm btn-success" onclick="return doNavAnnouncements(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button id="fetchAnnouncements_Back" class="btn btn-sm btn-default" onclick="return doNavAnnouncements(true);"><span class="glyphicon glyphicon-arrow-left icon-style"></span>Back</button>
+                        <button id="fetchAnnouncements_Next" class="btn btn-sm btn-success" onclick="return doNavAnnouncements(false);"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -108,14 +108,14 @@
             <div class="row">
                 <div class="col-md-6 latex-container">
                     <h4>Server Logs</h4>
-                    <a href="/api/admin/DownloadLogFile" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-download-alt"></span>   Download Log data</a>
+                    <a href="/api/admin/DownloadLogFile" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-download-alt icon-style"></span>Download Log data</a>
                     <br />
                     <br />
                     <h4>Upload new Latex File</h4>
                     <form class="form-vertical" id="adminLatexUpload" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label class="control-label btn-sm btn-success latex-btn"> <!--Fix shitty button with better glyphico-->
-                                <span class="glyphicon glyphicon-search icon-style"></span>Browse
+                            <label class="control-label btn-sm btn-success latex-btn">
+                                <span class="glyphicon glyphicon-search icon-style icon-style"></span>Browse
                                 <input class="form-control" type="file" name="file" id="adminLatexUpload_File" required hidden/>
                             </label>
                             <input type="text" id="fileNameContainer" readonly />
@@ -126,7 +126,7 @@
                                 <input class="form-control" type="text" name="version" id="adminLatexUpload_Version" required accept=".latex" />
                             </label>
                         </div>
-                        <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share"></span> Upload</button>
+                        <button class="btn btn-success btn-sm" id="adminLatexUpload_Submit" type="submit"><span class="glyphicon glyphicon-share icon-style"></span>Upload</button>
                     </form>
                 </div>
 
@@ -163,11 +163,11 @@
                             Email:
                             <input id="registerdUseresFilter_Email" type="search" data-toggle="tooltip" title="Filter based on email (regex)"/>
                         </label>
-                        <button class="btn btn-success" onclick="return doFetchRegisteredUsers()"><span class="glyphicon glyphicon-search"></span> Search</button>
+                        <button class="btn btn-success" onclick="return doFetchRegisteredUsers()"><span class="glyphicon glyphicon-search icon-style"></span>Search</button>
                     </div>
                     <div class="col-md-4">
                         <h4>Export</h4>
-                        <button class="btn btn-success btn-sm" onclick="return exportRegisteredUsers()"><span class="glyphicon glyphicon-download-alt"></span> Download CSV</button>
+                        <button class="btn btn-success btn-sm" onclick="return exportRegisteredUsers()"><span class="glyphicon glyphicon-download-alt icon-style"></span>Download CSV</button>
                     </div>
                 </div>
             </div>
@@ -194,8 +194,8 @@
                     </table>
 
                     <div class="btn-group">
-                        <button id="registeredUsers_Back" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(true);"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-                        <button id="registeredUsers_Next" class="btn btn-sm btn-success" onclick="return doNavRegisteredUsers(false);">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button id="registeredUsers_Back" class="btn btn-sm btn-default" onclick="return doNavRegisteredUsers(true);"><span class="glyphicon glyphicon-arrow-left icon-style"></span>Back</button>
+                        <button id="registeredUsers_Next" class="btn btn-sm btn-success" onclick="return doNavRegisteredUsers(false);"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
                     </div>
                 </div>
             </div>
