@@ -167,4 +167,34 @@ $('#navbar').on('activate.bs.scrollspy', function () {
     item.animatescroll({ element: '#navbar', padding: 20 });
 })();
 
+//Below code for clicking arrow to scroll to top
+Dofactory.namespace("Utils").ScrollToTop = (function () {
+
+    var start = function () {
+
+        setInterval(function () {
+            $('#scrollRight').css("right", "30px");
+
+        }, 1500);
+
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 800) {
+                $('.scrollToTop').fadeIn();
+            } else {
+                $('.scrollToTop').fadeOut();
+            }
+        });
+
+        $('.scrollToTop').click(function (e) {
+            $('html, body').animate({ scrollTop: 0 }, 500, 'swing');
+            return false;
+        });
+
+
+    };
+
+    return { start: start };
+
+})();
 
