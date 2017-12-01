@@ -67,6 +67,7 @@
     border-left: .125em solid #303030;
     border-bottom: .125em solid #303030;
     border-right: .125em solid #303030;
+    margin-top: 2em;
 }
 
 #contents-container {
@@ -79,4 +80,9 @@
 #contents {
     padding: 1em 1.5em;
     font-size: 1em;
+}
+
+/*Untested on current version, need the new Latex File*/
+#site-content code{
+    background: none;
 }
