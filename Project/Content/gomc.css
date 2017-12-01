@@ -176,6 +176,13 @@ background: none;
     color: #FFF;
 }
 
+.first-gomc-card {
+    padding-left: 0;
+}
+
+.last-gomc-card { 
+    padding-right: 0;
+}
 /*Id styles*/
 
 /*Ids for menu items, attach ids only on the page focus*/
