@@ -2,7 +2,7 @@
 
 /*Class Styles*/
 .panel-success > .panel-heading {
-    background-color: #9ACD32;
+  background-color: #141470;
     color: #FFFFFF;
     padding-top: .03125em;
 }
@@ -20,7 +20,7 @@
 }
 
 .bar-style {
-    background-color: #9ACD32;
+  background-color: #141470;
 }
 
 .pull-left {
@@ -82,6 +82,6 @@
         }
 
         #progressbar li.active:before, #progressbar li.active:after {
-            background-color: #9ACD32;
+          background-color: #141470;
             color: white;
         }

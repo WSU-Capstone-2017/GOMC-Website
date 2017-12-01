@@ -12,9 +12,11 @@ body {
     padding-top: 4.9em;
     font-family: 'Open Sans', 'Roboto', Helvetica !important; /*Must over-ride font-family of scaffolding.less*/
 }
-
 header {
     margin-top: 1.93em;
+    text-align: center;
+    background-color: #141470;
+    color: #FFF;
 }
 
 main {
@@ -35,15 +37,11 @@ img {
     padding-top: 1em;
 }
 
-header {
-    text-align: center;
-    background-color: #9ACD32;
-    color: #FFF;
-}
+
 
 h1, h2, h3 {
     text-align: center;
-    background-color: #9ACD32;
+  background-color: #141470;
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
@@ -66,18 +64,22 @@ nav {
 /*Class styles*/
 
 /*CSS to remove rounded corners on nav-bar*/
+.special-jumbotron {
+background: none;
+}
+
 .nav > li > a {
     border-radius: 0;
 }
 
 .panel-primary > .panel-heading {
     color: #020816;
-    background-color: #91D3EF;
-    border-color: #91D3EF;
+    background-color: aliceblue;
+    border-color: aliceblue;
 }
 
 .panel-primary {
-    border-color: #91D3EF;
+    border-color: aliceblue;
 }
 
 /*Should be added to all glyphicons everywhere, remove those extra spaces too*/
@@ -87,7 +89,7 @@ nav {
 
 .main-menu {
     color: #FFF;
-    background-color: #9ACD32;
+    background-color: #141470;
     padding-bottom: 0.375em;
 }
 
@@ -115,7 +117,7 @@ nav {
 
 .navbar-toggle {
     color: #FFF;
-    background-color: #9ACD32;
+  background-color: #141470;
 }
 
 .jumbo-description {
@@ -147,11 +149,11 @@ nav {
     }
 
 .announcement-panel {
-    border-color: #9ACD32 !important;
+    border-color: #141470 !important;
 }
 
 .announcement-header {
-    background-color: #9ACD32 !important;
+    background-color: #141470 !important;
     padding-top: .03125em;
 }
 
