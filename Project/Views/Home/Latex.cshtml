@@ -10,7 +10,7 @@
     <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
-//LEFT SIDE SCROLLING, the below code is the taskbar//
+
 <div id="site-content">
     <nav id="navbar">
         <ul class="nav">
@@ -166,7 +166,7 @@
         </ul>      
     </nav>
     
-    //LEFT SIDE SCROLLING, the data-spy and data-target are needed for scrollspy to work//
+    @*//LEFT SIDE SCROLLING, the data-spy and data-target are needed for scrollspy to work//*@
     <div id="contents-container" data-spy="scroll" data-target="#navbar">
         <article id="contents">
             <p class="noindent">
@@ -7808,11 +7808,14 @@ W (SWITCH) =--i-j-(--2 + d&#x03C6;1(rij))&#x00D7;-ij
         <li class="itemize">
             Loren Schwiebert: <span class="cmtt-10">loren@wayne.edu</span>
         </li>
-    </ul>
+    </ul>   
     
- </article>
-    //LEFT SIDE SCROLLING, script for bootstrap
+    <a class="scrollToTop" id="scrollRight" style="right: 30px; display: inline;" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>
+   </article>
+
+    @*
     @section scripts
     {    
-        <script src="~/Scripts/bootstrap-scrollspy.js"></script>
-    }
+        <script src="~/Scripts/bootstrap-scrollspy.js"></script>       
+        <script src="~/Scripts/animatescroll.js"></script>
+    }*@

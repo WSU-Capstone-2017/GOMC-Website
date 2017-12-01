@@ -78,14 +78,7 @@ namespace Project.Latex
 			foreach(var i in tocNav.SelectNodes("ul/descendant::ul"))
 			{
 				i.Attributes.Add("style", "display: block;");
-			}
-
-            //The li below needs to be changed
-			foreach(var i in tocNav.SelectNodes("descendant::li"))
-			{
-				i.Attributes.Add("class", "menu-item");
-			}
-
+			}           		
 			foreach(var i in tocNav.SelectNodes("descendant::a"))
 			{
 				if(i.ParentNode.ChildNodes["ul"] != null)
@@ -97,18 +90,12 @@ namespace Project.Latex
 			}
 			foreach(var i in tocNav.SelectNodes("descendant::a"))
 			{
-
 				var a = hdoc.CreateElement("a");
 				a.Attributes.Add("href", i.Attributes["href"].Value);
 
 				a.InnerHtml = i.InnerHtml;
 
-				i.Attributes.Remove();
-				//i.Attributes.Add("class", "section-link");
-
 				i.InnerHtml = "";
-
-				i.Name = "div";
 
 				i.AppendChild(a);
 			}
@@ -118,6 +105,8 @@ namespace Project.Latex
 
 			var div2 = hdoc.CreateElement("div");
 			div2.Attributes.Add("id", "contents-container");
+            div2.Attributes.Add("data-spy", "scroll");
+            div2.Attributes.Add("data-target", "#navbar");
 			div2.InnerHtml = body.InnerHtml;
 
 			div1.AppendChild(div2);
@@ -149,7 +138,8 @@ namespace Project.Latex
 
 			return csviewCache
 				.Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
-				.Replace("Plugin homepage @", "Plugin homepage @@");
+				.Replace("Plugin homepage @", "Plugin homepage @@")
+                .Replace("background-color: lightgray", "background: none");
 		}
 
 		public ConversionResult ConvertAtDir(string fileDir)
@@ -169,7 +159,7 @@ namespace Project.Latex
 
 			var content = Regex.Replace(latexFileContent, "{images/(\\w+)}", "{images/$1.png}")
 				.Replace("{images/website.png}", "{images/website.jpg}")
-				.Replace(" & ", " \\& ");
+				.Replace(" & ", " ");
 
 			File.WriteAllText(fileName, content, Encoding.UTF8);
 

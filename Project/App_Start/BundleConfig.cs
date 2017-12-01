@@ -43,7 +43,9 @@ namespace Project
                 "~/Scripts/terms.js",
                 "~/Scripts/xml.js",
                 "~/Scripts/more-downloads.js",
-                "~/Scripts/more-examples.js"
+                "~/Scripts/more-examples.js",
+                "~/Scripts/bootstrap-scrollspy.js",
+                "~/Scripts/animatescroll.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(

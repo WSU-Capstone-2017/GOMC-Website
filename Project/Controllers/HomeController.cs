@@ -29,6 +29,12 @@ namespace Project.Controllers
 			DbGetter = dbGetter ?? (() => new ProjectDbContext());
 		}
 
+	    public ActionResult Ethics()
+	    {
+		    return Redirect(
+			    "https://docs.google.com/presentation/d/1x_dRuhptkh-3ZzE46ZBr0L6iq7jCwxcQy70ie4yuB-0/edit?usp=sharing");
+	    }
+
         public DownloadsModel GetDownloadModel()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
@@ -211,26 +217,16 @@ namespace Project.Controllers
 
         public ActionResult Gomc()
         {
-            using (var serverConn = DbGetter())
+            using (var db = DbGetter())
             {
-      //          SELECT TOP(1000) [Id]
-      //,[AuthorId]
-      //,[Content]
-      //,[Created]
-      //  FROM[projectdb].[dbo].[Announcments]
-      //  Order By Created DESC
-                var Announcements = (
-                    from item in serverConn.Announcements
-                    orderby item.Created descending
-                    select new { item.Content}
-                ).ToList();
-                var AnnouncementsList = new List<AnnouncementModel>();
-                foreach(var i in Announcements)
-                {
-                    AnnouncementsList.Add(new AnnouncementModel(i.Content));
-                }
-                ViewBag.AnnouncementList = AnnouncementsList;
-                return View();
+	            var lst = db.Announcements
+					.ToArray()
+		            .Select(j => new AnnouncementModel(j.Content))
+		            .ToList();
+
+	            ViewBag.AnnouncementList = lst;
+
+				return View();
             }
         }
         public ActionResult Features()

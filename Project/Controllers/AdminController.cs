@@ -274,7 +274,15 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				var allRegistrations = db.Registrations.ToArray();
+				var allRegistrations = 
+					(
+						input.IsDesc
+							? db.Registrations.OrderByDescending(orderByFn)
+							: db.Registrations.OrderBy(orderByFn)
+					)
+					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
+					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
+					.ToArray();
 
 				var totalLength = allRegistrations.Length;
 
@@ -299,14 +307,7 @@ namespace Project.Controllers
 					}
 				}
 
-				var registrations =
-					(
-						input.IsDesc
-							? allRegistrations.OrderByDescending(orderByFn)
-							: allRegistrations.OrderBy(orderByFn)
-					)
-					.Where(j => nameRegex == null || nameRegex.IsMatch(j.Name))
-					.Where(j => emailRegex == null || emailRegex.IsMatch(j.Email))
+				var registrations = allRegistrations
 					.Skip(skip)
 					.Take(take).ToArray();
 
@@ -403,7 +404,7 @@ namespace Project.Controllers
 				var sqlParameter = new SqlParameter("@SessionInput", authentication.Session);
 
 				var l = db.Database
-					.SqlQuery<AlreadyLoggedModel>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
+					.SqlQuery<LoginSessions>("dbo.GetLoginIdFromSession @SessionInput", sqlParameter)
 					.SingleOrDefault();
 
 				if (l == null)
@@ -448,7 +449,7 @@ namespace Project.Controllers
 			}
 			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcements").Single();
 
 				return new FetchAnnouncementsOutput
 				{
@@ -471,11 +472,11 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcments").Single();
+				var totalLength = db.Database.SqlQuery<int>("SELECT COUNT(*) FROM dbo.Announcements").Single();
 				var skip = input.PageLength * input.PageIndex;
 				var take = input.PageLength;
 
-				var sqlQuery = "SELECT * FROM Announcments " +
+				var sqlQuery = "SELECT * FROM Announcements " +
 							   "ORDER BY Created DESC " +
 							   $"OFFSET ({skip}) ROWS FETCH NEXT ({take}) ROWS ONLY";
 
@@ -504,7 +505,7 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				const string query = "DELETE FROM dbo.Announcments " +
+				const string query = "DELETE FROM dbo.Announcements " +
 									 "WHERE Id = @inputAnnouncementId";
 
 				var parm = new SqlParameter("@inputAnnouncementId", input.AnnouncementId);
@@ -532,7 +533,7 @@ namespace Project.Controllers
 
 			using (var db = DbGetter())
 			{
-				const string query = "UPDATE dbo.Announcments " +
+				const string query = "UPDATE dbo.Announcements " +
 									 "SET Content = @inputContent " +
 									 "WHERE Id = @inputAnnouncementId;";
 

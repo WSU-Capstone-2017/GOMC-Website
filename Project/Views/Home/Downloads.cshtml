@@ -12,52 +12,14 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <main>
-        <section class='contact'>
-            <h6>Keep up with us on GitHub:<a href="https://github.com/GOMC-WSU/GOMC"> Click Here</a></h6>
-            <a class="github-button" aria-label="Star WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website" data-size="large" data-icon="octicon-star">Star</a> 
-            <a class="github-button" aria-label="Fork WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website/fork" data-size="large" data-icon="octicon-repo-forked">Fork</a>
-        </section>
-    <hr class='grand-line' />
             <div class="row">
-                <h3>Optional</h3>
-                <p><b>If you would like to receive emails from us when our newest software</b> is available, please fill out the form below</p>
-                <p>Otherwise, click the orange button below: </p>
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down'></span> Close Form and proceed without registering</button>
-                    <div class="well well-sm custom-well registration-container">
-                        <form method="post" id="registrationForm">
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Name *</label>
-                                <input type="text" class="form-control" name="userName" required title="Enter a valid name, no special characters or numbers" placeholder="Name" />
-                                <span class="form-control-feedback"></span>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Email *</label>
-                                <input type="email" class="form-control" name="userEmail" required placeholder="Email" title="Enter a valid email" />
-                                <span class="form-control-feedback"></span>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Affliation *</label>
-                                <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" title="Enter your group or school" />
-                                <span class="form-control-feedback"></span>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label"> Please tell us why you are interested in GOMC *</label>
-                                <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments" title="Details"></textarea>
-                                <span class="form-control-feedback"></span>
-                            </div>
-                            <div class="g-recaptcha scale-captcha"
-                                    data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT" 
-                                    data-callback="captchaSelect"></div> <!--Implemented for captcha-->
-                            <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save"></span>Register</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <hr class='grand-line' />
-            <div class='row'>     
-                <section>
-                    <div class="col-md-8">
+                <div class="col-md-8">
+                    <section class='contact'>
+                        <h6>Keep up with us on GitHub:<a href="https://github.com/GOMC-WSU/GOMC"> Click Here</a></h6>
+                        <a class="github-button" aria-label="Star WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website" data-size="large" data-icon="octicon-star">Star</a>
+                        <a class="github-button" aria-label="Fork WSU-Capstone-2017/GOMC-Website on GitHub" href="https://github.com/WSU-Capstone-2017/GOMC-Website/fork" data-size="large" data-icon="octicon-repo-forked">Fork</a>
+                    </section>
+                    <section>
                         <!--Placeholder text-->
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -79,24 +41,8 @@
                             Curabitur vehicula nec dui vitae tempus. Aenean aliquam consectetur scelerisque. Duis egestas elit rhoncus egestas faucibus. Donec pharetra nulla ligula, ut molestie massa feugiat non. Aenean dictum porta ex.
                             Nulla tempor, eros quis egestas rhoncus, risus neque venenatis justo, nec posuere nulla libero quis diam.
                         </p>
-                    </div>
-                    <div class='well well-sm custom-well col-md-4'>
-                        <h3>Most Recent Windows Version: @Model.TagName</h3>
-                        <ul class="download-list">
-                            @foreach (var a in Model.Windows.GPU)
-                            {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                            }
-                        </ul>
-                        <ul class="download-list">
-                            @foreach (var a in Model.Windows.CPU)
-                            {
-                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
-                            }
-                        </ul>
-                        <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
-                    </div>
-                    <div class='well well-sm custom-well col-md-4'>
+                    </section>
+                    <div class='well well-sm custom-well'>
                         <h3>Most Recent Linux Version: @Model.TagName</h3>
                         <ul class="download-list">
                             @foreach (var a in Model.Linux.GPU)
@@ -112,7 +58,23 @@
                         </ul>
                         <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
                     </div>
-                    <div class='well well-sm custom-well col-md-4'>
+                    <div class='well well-sm custom-well'>
+                        <h3>Most Recent Windows Version: @Model.TagName</h3>
+                        <ul class="download-list">
+                            @foreach (var a in Model.Windows.GPU)
+                            {
+                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                            }
+                        </ul>
+                        <ul class="download-list">
+                            @foreach (var a in Model.Windows.CPU)
+                            {
+                                <li class="model-link">@a.Name <a href="@a.Link">Download</a></li>
+                            }
+                        </ul>
+                        <a>@Html.ActionLink("Click here for older versions", "MoreDownloads", "Home")</a>
+                    </div>
+                    <div class='well well-sm custom-well'>
                         <h3>Examples set: @Model.ExamplesTagName</h3>
                         <ul class="download-list">
                             @foreach (var example in Model.Examples)
@@ -122,39 +84,42 @@
                         </ul>
                         <a>@Html.ActionLink("Click here for older examples", "MoreExamples", "Home")</a>
                     </div>
-                </section>
-            
-           
-                @*<aside>
-                        <div class='col-md-8'>
-                            <h3>GOMC</h3>
-                            <p>These are details about the release including version number, major features, setbacks, breakthroughs and or workarounds.</p>
-                            <p>
-                                The Monte Carlo method is a well-known method in finance, as it lets us compute difficult, if not impossible, expected values of complex stochastic functions. Mike has already discussed the method in several articles regarding
-                                option pricing, but a few recap lines can be helpful for those that are new to it.
-                            </p>
-                            <p>The Monte Carlo method was first introduced in the field of physics, for complex simulations, very likely by Enrico Fermi in the 1930s for studying neutron diffusion. It then became popular in the 1940s among physicists and mathematicians involved in creating bombs for the U.S. Army. </p>
-                            <p>
-                                The projects needed a code name, so John Von Neumann chose "Monte Carlo",
-                                referring to the famous Monte Carlo Casino. Since then, technology and especially computational power have increased dramatically, letting us use these methods for a large variety of problems.
-                            </p>
-                            <p>
-                                In finance the Monte Carlo
-                                method is mainly used for option pricing as, especially with exotic options, the payoff is sometimes too complex, if not impossible, to compute. The main idea behind it is quite simple: simulate the stochastic components in
-                                a formula and then average the results, leading to the expected value. Of course, the more simulations (paths) you make, the more accurate the result will be.
-                            </p>
-                            <p>
-                                A commonly accepted value for the minimum number of paths is 106106.
-                                That should give good results for most of the simulations. Otherwise, there are techniques that can reduce variance in order to make even more accurate predictions. Given the random nature of this process, variance reduction
-                                is not the only problem we can encounter. Another one, probably the most important, is how the random numbers are generated. There is an entire branch of mathematics talking about this and a detailed explanation is well beyond
-                                the purpose of this article, but we will see that CUDA can provide different efficient methods for generating random numbers by including the useful library curand.
-                            </p>
-                        </div>
-                    </aside>*@
-            </div>
-            <div class="row">
-                
-            </div>          
+                </div>
+                    <div class="col-md-4">
+                        <h3>Optional</h3>
+                        <p><b>If you would like to receive emails from us when our newest software</b> is available, please fill out the form below</p>
+                        <p>Otherwise, click the orange button below: </p>
+                            <button class="btn btn-warning btn-push-down" id="closeRegistration"><span class='glyphicon glyphicon-collapse-down icon-style'></span>Close Form and proceed without registering</button>
+                            <div class="well well-sm custom-well registration-container">
+                                <form method="post" id="registrationForm">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label"> Name *</label>
+                                        <input type="text" class="form-control" name="userName" required title="Enter a valid name, no special characters or numbers" placeholder="Name" />
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label"> Email *</label>
+                                        <input type="email" class="form-control" name="userEmail" required placeholder="Email" title="Enter a valid email" />
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label"> Affliation *</label>
+                                        <input type="text" class="form-control" name="userAffliation" required placeholder="Group or School" title="Enter your group or school" />
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label"> Please tell us why you are interested in GOMC *</label>
+                                        <textarea class="form-control" rows="3" name="extraComment" required placeholder="Comments" title="Details"></textarea>
+                                        <span class="form-control-feedback"></span>
+                                    </div>
+                                    <div class="g-recaptcha scale-captcha"
+                                         data-sitekey="6LdqvTUUAAAAAGJtFI0OoT-vwmQK6meSc53CpBkT"
+                                         data-callback="captchaSelect"></div> <!--Implemented for captcha-->
+                                    <button class="btn btn-group-lg btn-success submit registration-submission-btn" id="submitRegistration" disabled="true"><span class="glyphicon glyphicon-save icon-style"></span>Register</button>
+                                </form>
+                            </div>
+                    </div>
+            </div> 
 </main>
 @section scripts
 {

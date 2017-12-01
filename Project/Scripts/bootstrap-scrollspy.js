@@ -163,13 +163,38 @@
 
 //LEFT SIDE SCROLLING (THESE LAST 2 should be for scrolling, above code is for scrollspy)
 $('#navbar').on('activate.bs.scrollspy', function () {
-    item = $('#nav').find(".active").last();
+    item = $('#navbar').find(".active").last();
     item.animatescroll({ element: '#navbar', padding: 20 });
 })();
 
-$('site-content').scrollspy({
+//Below code for clicking arrow to scroll to top
+Dofactory.namespace("Utils").ScrollToTop = (function () {
 
-    target: '#navbar',
+    var start = function () {
 
-    offset: 54
-});
+        setInterval(function () {
+            $('#scrollRight').css("right", "30px");
+
+        }, 1500);
+
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 800) {
+                $('.scrollToTop').fadeIn();
+            } else {
+                $('.scrollToTop').fadeOut();
+            }
+        });
+
+        $('.scrollToTop').click(function (e) {
+            $('html, body').animate({ scrollTop: 0 }, 500, 'swing');
+            return false;
+        });
+
+
+    };
+
+    return { start: start };
+
+})();
+

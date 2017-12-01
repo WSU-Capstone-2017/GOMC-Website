@@ -1,8 +1,6 @@
 ﻿using System.Data.Entity;
 using Project.Models;
 using Project.Models.LoginSystem;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Data
 {
@@ -10,16 +8,16 @@ namespace Project.Data
 	{
 		public class MockType
 		{
-			public UserLoginModel[] UserLogins { get; set; } = new UserLoginModel[0];
-			public AlreadyLoggedModel[]  AlreadyLoggedIns { get; set; } = new AlreadyLoggedModel[0];
+			public LoginModel[] Logins { get; set; } = new LoginModel[0];
+			public LoginSessions[]  LoginSessions { get; set; } = new LoginSessions[0];
 			public RegistrationModel[]  Registrations { get; set; } = new RegistrationModel[0];
 			public LatexUploadModel[]  LatexUploads { get; set; } = new LatexUploadModel[0];
 			public AnnouncementModel[]  Announcements { get; set; } = new AnnouncementModel[0];
 			public FailedLoginModel[]  FailedLogins { get; set; } = new FailedLoginModel[0];
 		}
 
-        public DbSet<UserLoginModel> UserLogins { get; set; }
-        public DbSet<AlreadyLoggedModel> AlreadyLoggedIns { get; set; }
+        public DbSet<LoginModel> UserLogins { get; set; }
+        public DbSet<LoginSessions> LoginSessions { get; set; }
         public DbSet<RegistrationModel> Registrations{ get; set; }
 		public DbSet<LatexUploadModel> LatexUploads { get; set; }
 		public DbSet<AnnouncementModel> Announcements { get; set; }
@@ -29,14 +27,14 @@ namespace Project.Data
 		private ProjectDbContext(MockType mock) : base(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;")
 		{
 			UserLogins.RemoveRange(UserLogins);
-			AlreadyLoggedIns.RemoveRange(AlreadyLoggedIns);
+			LoginSessions.RemoveRange(LoginSessions);
 			Registrations.RemoveRange(Registrations);
 			LatexUploads.RemoveRange(LatexUploads);
 			Announcements.RemoveRange(Announcements);
 			FailedLogins.RemoveRange(FailedLogins);
 
-			UserLogins.AddRange(mock.UserLogins);
-			AlreadyLoggedIns.AddRange(mock.AlreadyLoggedIns);
+			UserLogins.AddRange(mock.Logins);
+			LoginSessions.AddRange(mock.LoginSessions);
 			Registrations.AddRange(mock.Registrations);
 			LatexUploads.AddRange(mock.LatexUploads);
 			Announcements.AddRange(mock.Announcements);
@@ -54,12 +52,4 @@ namespace Project.Data
 			return new ProjectDbContext(mock);
 		}
 	}
-
-    [Table("FailedLogins")]
-    public class FailedLoginModel
-    {
-        public int Id { get; set; }
-        public int LoginId { get; set; }
-        public DateTime Date { get; set; }
-    }
 }

@@ -177,6 +177,7 @@
     <Compile Include="Controllers\HomeApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LatexController.cs" />
+    <Compile Include="Models\LoginSystem\FailedLoginModel.cs" />
     <Compile Include="Models\AnnouncementModel.cs" />
     <Compile Include="Models\Github\EventBaseModel.cs" />
     <Compile Include="Models\Github\PingModel.cs" />
@@ -193,8 +194,7 @@
     <Compile Include="Latex\LatexConvertResult.cs" />
     <Compile Include="Models\Github\PushModel.cs" />
     <Compile Include="Models\LatexUploadModel.cs" />
-    <Compile Include="Models\LoginsModel.cs" />
-    <Compile Include="Models\LoginSystem\AlreadyLoggedModel.cs" />
+    <Compile Include="Models\LoginSystem\LoginSessions.cs" />
     <Compile Include="LoginSystem\LoginManager.cs" />
     <Compile Include="Models\Gomc\BoxDimInput.cs" />
     <Compile Include="Models\Gomc\Ensemble.cs" />
@@ -207,7 +207,7 @@
     <Compile Include="Models\Gomc\FreqInput.cs" />
     <Compile Include="Models\DownloadsModel.cs" />
     <Compile Include="Models\Github\ReleasesModel.cs" />
-    <Compile Include="Models\LoginSystem\UserLoginModel.cs" />
+    <Compile Include="Models\LoginSystem\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\UserStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -395,6 +395,7 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
+    <Content Include="Scripts\animatescroll.js" />
     <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

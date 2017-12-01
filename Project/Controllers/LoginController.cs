@@ -2,7 +2,6 @@
 using Project.LoginSystem;
 using Project.Models.LoginSystem;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
@@ -95,14 +94,14 @@ namespace Project.Controllers
                         DateTime.Now +
                         TimeSpan.FromHours(3);
 
-                    var loggedIn = new AlreadyLoggedModel
+                    var loggedIn = new LoginSessions
                     {
                         Expiration = expiredTime,
                         Session = session,
                         LoginId = result.LoginId.Value
                     };
 
-                    db.AlreadyLoggedIns.Add(loggedIn);
+                    db.LoginSessions.Add(loggedIn);
 
                     db.SaveChanges();
                     return new LoginResult(LoginResultType.Success, session);

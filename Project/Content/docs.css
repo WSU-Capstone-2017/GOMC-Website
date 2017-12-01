@@ -5,7 +5,7 @@
 /*Tag Styles*/
 h6 {
     font-size: 1.3em;
-    color: #9ACD32;
+    color: #141470;
     font-weight: bold;
 }
 
@@ -25,7 +25,7 @@ h6 {
 }
 
 .custom-well {
-    background-color: #CFE7A7;
+    background-color: aliceblue;
     padding-top: 0;
 }
 

@@ -11,38 +11,39 @@
     <li>@Html.ActionLink("About", "About", "Home")</li>
 }
 <header class='special-jumbotron' onload="applyJumbotron">
-    <div class='jumbotron'>
-        <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
-            <ol class='carousel-indicators'>
-                <li data-target='#gomcHome' data-slide-to='0' class='active'></li>
-                <li data-target='#gomcHome' data-slide-to='1'></li>
-                <li data-target='#gomcHome' data-slide-to='2'></li>
-            </ol>
-            <div class='carousel-inner' role='listbox'>
-                <div class='item active cardA'>
-                    <h1>GOMC</h1>
-                    <p class="jumbo-description">GPU optimized monte-carlo molecular simulation engine.</p> 
+    <div class="row">
+        <div class='jumbotron gomc-jumbotron'>
+            <div class='carousel slide gomcHome' data-ride='carousel' id='gomcHome'>
+                <ol class='carousel-indicators'>
+                    <li data-target='#gomcHome' data-slide-to='0' class='active'></li>
+                    <li data-target='#gomcHome' data-slide-to='1'></li>
+                    <li data-target='#gomcHome' data-slide-to='2'></li>
+                </ol>
+                <div class='carousel-inner' role='listbox'>
+                    <div class='item active cardA'>
+                        <h1>GOMC</h1>
+                        <p class="jumbo-description">GPU optimized monte-carlo molecular simulation engine.</p>
+                    </div>
+                    <div class='item cardB'>
+                        <h1>Downloads</h1>
+                        <a class='btn btn-primary btn-lg' href='downloads.html'><span class='glyphicon glyphicon-download-alt icon-style'></span>Please find our newest releases</a>
+                    </div>
+                    <div class='item cardC'>
+                        <h1>Documentation</h1>
+                        <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file icon-style'></span>Our newest documentation is here to help you get up and running</a>
+                    </div>
                 </div>
-                <div class='item cardB'>
-                    <h1>Downloads</h1>
-                    <a class='btn btn-primary btn-lg' href='downloads.html'><span class='glyphicon glyphicon-download-alt icon-style'></span>Please find our newest releases</a>
-                </div>
-                <div class='item cardC'>
-                    <h1>Documentation</h1>
-                    <a class='btn btn-primary btn-lg' href='publication.html'><span class='glyphicon glyphicon-file icon-style'></span>Our newest documentation is here to help you get up and running</a>
-                </div>
+                <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev' id="carouselLeft">
+                    <span class='glyphicon glyphicon-menu-left sit-down'></span>
+                </a>
+                <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next' id="carouselRight">
+                    <span class='glyphicon glyphicon-menu-right sit-down'></span>
+                </a>
             </div>
-            <a class='left carousel-control' href='#gomcHome' role='button' data-slide='prev' id="carouselLeft">
-                <span class='glyphicon glyphicon-menu-left sit-down'></span> 
-            </a>
-            <a class='right carousel-control' href="#gomcHome" role='button' data-slide='next' id="carouselRight">
-                <span class='glyphicon glyphicon-menu-right sit-down'></span>
-            </a>
         </div>
     </div>
 </header>
-<main>
-        <section>
+
             <div class="row">
                 <div class="panel panel-primary announcement-panel">
                     <div class="panel-heading announcement-panel announcement-header"><h1>Announcements</h1></div>
@@ -58,7 +59,7 @@
             </div>
             <hr class='grand-line' />
             <div class='row'>
-                <div class='col-md-4 col-xs-12'>
+                <div class='col-md-4 col-xs-12 first-gomc-card'>
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h2>Simulate</h2>
@@ -82,7 +83,7 @@
                         </div>
                 </div>
             </div>
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-4 col-xs-12 last-gomc-card">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h2>XML Input</h2>
@@ -96,8 +97,7 @@
                     </div>
                 </div>
             </div>
-        </section>
-</main>
+
 @*@section scripts{
 <script>
         document.onreadystatechange = function () {

@@ -110,7 +110,7 @@ namespace Project.Controllers
 				var prm = new SqlParameter("@inputEmail", email);
 
 				var s = db.UserLogins.SqlQuery(
-					"SELECT * FROM dbo.UserLoginModels WHERE Email = @inputEmail", prm)
+					"SELECT * FROM dbo.Logins WHERE Email = @inputEmail", prm)
 					.SingleOrDefault();
 
 				if (s == null)

@@ -66,9 +66,10 @@ $('#adminAnnouncement').submit(function () {
             Content: msgContent
         })
     })
-        .done(function (data) {
+		.done(function (data) {
             $('#adminAnnouncement').toggle();
             $('.loader').remove();
+		    $('#adminAnnouncement')[0].reset();
             if (data === newAnnouncementResult.Success) {
                 console.log('New announcement submitted');
                 announcementsNavState.pageIndex = 0;
@@ -86,7 +87,10 @@ $('#adminAnnouncement').submit(function () {
         });
     return false;
 });
-
+$("#announcementClear").click(function () {
+	doPreviewAnnouncements('');
+	return true;
+});
 $("#registerdUseresFilter_Name").change(function () {
     registeredUsersNavState.nameFilter = $("#registerdUseresFilter_Name").val();
 });
@@ -162,6 +166,7 @@ $('#adminLatexUpload').validate({
             function (evt) {
                 // console.log('load');
                 // console.log(evt);
+	            $("#adminLatexUpload")[0].reset();
                 $("#adminLatexUpload_Submit").prop('disabled', false);
                 doFetchLatexUploads();
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -483,9 +488,14 @@ function updateAnnouncementsNavStateTotalLength() {
 
 function doNavAnnouncements(a) {
     if (a) {
-        announcementsNavState.pageIndex--;
-    } else {
-        announcementsNavState.pageIndex++;
+		announcementsNavState.pageIndex--;
+		if (announcementsNavState.pageIndex < 0) {
+			announcementsNavState.pageIndex = 0;
+		}
+	} else {
+	    if (!$("#fetchAnnouncements_Next").hasClass("disabled")) {
+		    announcementsNavState.pageIndex++;
+	    }
     }
     doFetchAnnouncements();
 
@@ -549,7 +559,7 @@ function doFetchRegisteredUsers() {
         })
     }).done(function (data) {
         updateNavRegisteredUsers(data.TotalLength);
-        // console.log(data);
+        console.log(data);
         if (data.AuthResult === validateSessionResultType.SessionValid) {
             for (var i = 0; i < registeredUsersNavState.pageLength; i++) {
                 $("#registeredUser_Name_" + i).text('');
@@ -612,9 +622,15 @@ function onRegisteredUserTh(a) {
 
 function doNavRegisteredUsers(a) {
     if (a) {
-        registeredUsersNavState.pageIndex--;
-    } else {
-        registeredUsersNavState.pageIndex++;
+		registeredUsersNavState.pageIndex--;
+		if (registeredUsersNavState.pageIndex < 0) {
+			registeredUsersNavState.pageIndex = 0;
+		}
+	} else {
+
+		if (!$("#registeredUsers_Next").hasClass("disabled")) {
+		    registeredUsersNavState.pageIndex++;
+	    }
     }
     doFetchRegisteredUsers();
 
@@ -627,7 +643,15 @@ function updateNavRegisteredUsers(totalLength) {
 
     registeredUsersNavState.totalLength = totalLength;
 
-    var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	var maxPages = Math.ceil(registeredUsersNavState.totalLength / registeredUsersNavState.pageLength);
+	console.log(
+		"pageLength: " + registeredUsersNavState.pageLength +
+		", totalLength: " +
+		registeredUsersNavState.totalLength +
+		", maxPages: " +
+		maxPages +
+		", pageIndex: " +
+		registeredUsersNavState.pageIndex);
     if ((registeredUsersNavState.pageIndex + 1) < maxPages) {
         $("#registeredUsers_Next").removeClass("disabled");
     } else {
@@ -666,7 +690,13 @@ function doFetchPreviewAnnouncements() {
 function doPreviewAnnouncements(d) {
     var data = announcementsDataCache;
     if (data.Result === newAnnouncementResult.Success) {
-        var newHtml = "<li>" + d + "</li>";
+		var newHtml = "<li>" + d + "</li>";
+	    function isEmpty(val) {
+		    return (val === undefined || val == null || val.length <= 0) ? true : false;
+		}
+		if (isEmpty(d)) {
+			newHtml = '';
+		}
         for (var i = 0; i < data.Length; i++) {
             newHtml += "<li>" + data.Announcements[i].Content + "</li>";
         }
