@@ -90,13 +90,15 @@ background: none;
 .main-menu {
     color: #FFF;
     background-color: #141470;
-    padding-bottom: 0.375em;
+    padding-bottom: 0.521em;
 }
 
 .nav-tabs {
     border-bottom: none;
     text-transform: uppercase;
     font-weight: 600;
+    font-size: 1.2em;
+    margin-top: 2em;
 }
 
 .not-render {
@@ -206,5 +208,5 @@ background: none;
 }
 
 #teamLogo {
-    padding: 0.313em;
+    padding: 0.525em;
 }
