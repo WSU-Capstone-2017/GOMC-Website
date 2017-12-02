@@ -39,18 +39,42 @@ img {
 }
 
 
-
-h1, h2, h3 {
+/*H-tag styles*/
+h1, h2 {
     text-align: center;
-  background-color: #141470;
+    background-color: #141470;
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
-    font-size: 1.7em;
+}h3 {
+    background-color: #141470;
+    color: #FFF;
+    padding-bottom: .1875em;
+    padding-top: .1875em;
+    text-align: center;
+}h4,h5, h6 {
+    /*font-size: 1.3em;*/
+    /*color: #000000;*/
+    font-weight: 900;
+}h5 {
+    /*text-align: center;*/
+    background-color: #141470;
+    color: #FFFFFF;
+    /*font-size: 1.74em;*/
+    margin-top: 0em;
+    margin-bottom: .31em;
+    margin-left: 0em;
+    padding-bottom: .1em;
+    padding-top: .1em;
+}h6 {
+    /*font-size: 1.3em;*/
+    color: #141470;
+    font-weight: bold;
 }
+ /*........................................................*/
 
-p {
-    font-size: 1.2em;
+p { /*16px -> 1em*/
+    font-size: 1em;
 }
 
 nav a {
@@ -264,14 +288,14 @@ nav {
         margin-top: 7.5px;
     }
 
-        .nav-tabs > li {
+    .nav-tabs > li {
             float: none;
-        }
+    }
 
-            .navbar-nav > li > a {
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
+     .navbar-nav > li > a {
+           padding-top: 10px;
+           padding-bottom: 10px;
+     }
 
     .collapse.in {
         display: block !important;

@@ -19,12 +19,6 @@
                 <li>Config Body</li>
             </ul>
             <div class='col-md-12' id=xmlDataContainer>
-           
-                @*<div class="progress">
-                    <div class='progress-bar bar-style' role='progressbar' aria-valueactive='1' aria-valuemin='0' aria-valuemax="8" id='userProgress'>
-                        <span id="progressStatus"></span>
-                    </div>
-                </div>*@
                     <div class='panel-group '>
                         <div class="panel panel-success panel-first working-panel">
                             <div class="panel-heading">Initial Structure Setup</div>
@@ -33,37 +27,37 @@
                                     <h4>Please select an Ensemble</h4>
                                     <label>Ensembles</label>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Canonical Ensemble" data-placement="right" >
+                                        <label data-toggle="tooltip" title="Canonical" data-placement="right" >
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Nvt" value="Nvt">
                                             NVT
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Isobaric-isothermal Ensemble" data-placement="right">
+                                        <label data-toggle="tooltip" title="Isobaric-isothermal" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Npt" value="Npt">
                                             NPT
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Grand Canonical Ensemble" data-placement="right">
+                                        <label data-toggle="tooltip" title="Grand Canonical" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Gcmc" value="Gcmc">
                                             GCMC
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Constant Volume Gibbs Ensemble" data-placement="right">
+                                        <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNvt" value="GibbsNvt">
                                             GibbsNVT
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Constant Pressure Gibbs Ensemble" data-placement="right">
+                                        <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNpt" value="GibbsNpt">
                                             GibbsNpt
                                         </label>
                                     </div>
                                     <h4>Please enter the following input data</h4>
-                                    <label data-toggle="tooltip" title="Determines whether to restart the simulation">Restart</label>
+                                    <label data-toggle="tooltip" title="Sets restart active">Restart</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Restart" id="Restart-true" value="true">
@@ -76,7 +70,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Dictates how to start the pseudo-random number generator (random string or random numbers)">Prng</label>
+                                    <label data-toggle="tooltip" title="Random Text or Random Digits">Prng</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Prng" id="PrngRandom" value="Random">RANDOM
@@ -88,7 +82,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets the random int seed, only if Prng = INTSEED">RandomSeed</label>
+                                        <label data-toggle="tooltip" title="Sets the random seed">RandomSeed</label>
                                         <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RandomSeed" id="RandomSeed">
                                     </div>
                                     <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
@@ -112,16 +106,16 @@
                                     </div>
                                     <h4>Please enter the input configuration data</h4>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Provides the name and location of the parameter file to use for the simulation">ParametersFileName</label>
+                                        <label data-toggle="tooltip" title="Provides the name or location of the parameters">ParametersFileName</label>
                                         <input class="xml-control form-control" type="text" name="gomc_config_input_ParametersFileName" id="ParametersFileName">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Define filenames for each box in the system">Coordinate File (<i>.pdb</i>)</label>
+                                        <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
                                         <input class="xml-control form-control" type="text"   name="gomc_config_input_Coordinates_1" id="InputCoordinates1">
                                         <input class="xml-control form-control" type="text"   name="gomc_config_input_Coordinates_2" id="InputCoordinates2">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Define the PSF filenames for each box in the system">Structure File (<i>.psf</i>)</label>
+                                        <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
                                         <input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_1" id="InputStructures1">
                                         <input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_2" id="InputStructures2">
                                     </div>
@@ -136,19 +130,19 @@
                                 <form id="xmlForm2">
                                     <div class="form-group">
                                         <div>
-                                            <label data-toggle="tooltip" title="NPT or GibbsNpt must be selected, Pressure is in Bar">Pressure</label>
+                                            <label data-toggle="tooltip" title="Pressure in Bar">Pressure</label>
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Pressure" id="Pressure"><span>  <i>Bar</i></span>
                                     </div>
                                     <div class="form-group">
                                         <div>
-                                            <label data-toggle="tooltip" title="Sets temperature for system">Temperature</label>
+                                            <label data-toggle="tooltip" title="Temperature in Kelvin">Temperature</label>
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
                                     </div>
                                     <div class="form-group">
                                         <div>
-                                            <label data-toggle="tooltip" title="Specific radius of non-bonded interaction energy">Rcut</label>
+                                            <label data-toggle="tooltip" title="Radius of interaction energy">Rcut</label>
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
                                     </div>
@@ -158,7 +152,7 @@
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
                                     </div>
-                                    <label data-toggle="tooltip" title="Defines whether or not long range corrections are used">Long Range Correction</label>
+                                    <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="InputLrc-true" value="true">
@@ -171,7 +165,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Define which pairs of bonded atoms should be excluded from non-bonded interactions">Exclude Interactions</label>
+                                    <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Exclude" id="Exclude-OneTwo" value="OneTwo">
@@ -190,31 +184,31 @@
                                             1-4
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Define potential function type to calculate non-bonded energy between atoms">Lennard-Jones</label>
+                                    <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Nonbonded interaction energy and force based on the Lennard Johns n-6 equation">
+                                        <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialVdw" value="Vdw">
                                             Truncated
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Option forces the energy to be zero at Rcut distance">
+                                        <label data-toggle="tooltip" title="Zero at Rcut distance">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialShift" value="Shift">
                                             SHIFT
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Option forces potential energy to be zero at Rcut distance. Starts modification at RSwitch distance">
+                                        <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialSwitch" value="Switch">
                                             SWITCH
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Switch must be the potential function. A distance is non-bonded and interaction energy is truncated smoothly">Rswitch</label>
+                                        <label data-toggle="tooltip" title="Distance is where interaction energy is truncated smoothly">Rswitch</label>
                                         <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_Rswitch" id="RSwitch">
                                     </div>
                                     <h4>Enter metadata</h4>
-                                    <label data-toggle="tooltip" title="Consider Coulomb interaction or not">ElectroStatic</label>
+                                    <label data-toggle="tooltip" title="Consider Coulomb interaction">ElectroStatic</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ElectroStatic" id="ElectroStatic-true" value="true">
@@ -227,7 +221,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Considers summation for electrostatic calculation">Ewald</label>
+                                    <label data-toggle="tooltip" title="Considers sum for electrostatic">Ewald</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ewald" id="Ewald-true" value="true">
@@ -240,7 +234,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Considers storing the reciprocal for Ewald summation">CachedFourier</label>
+                                    <label data-toggle="tooltip" title="Considers the reciprocal for Ewald">CachedFourier</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CachedFourier" id="CachedFourier-true" value="true">
@@ -254,21 +248,21 @@
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Specifies accuracy of the Ewald summation calculation">Tolerance</label>
+                                        <label data-toggle="tooltip" title="Specifies accuracy of the Ewald sum">Tolerance</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Tolerance" id="Tolerance">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI force field">Dielectric</label>
+                                        <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI">Dielectric</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Dielectric" id="Dielectric">
                                     </div>
                                     <div class="form-group">
                                         <div>
-                                            <label data-toggle="tooltip" title="Considers pressure calculation or not">PressureCalc</label>
+                                            <label data-toggle="tooltip" title="Considers pressure calculation">PressureCalc</label>
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" min="0" name="gomc_config_input_PressureCalc" id="PressureCalc"><span><i> Bar</i></span>
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Defines constant factor to modify 1-4 intra-molecule coulomb interaction">1-4 Scaling</label>
+                                        <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_OneFourScaling" id="OneFourScaling">
                                     </div>
                                     <div class="form-group">
@@ -276,19 +270,19 @@
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_RunSteps" id="RunSteps">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets the number of steps necessary to equilibrate the system">EqSteps</label>
+                                        <label data-toggle="tooltip" title="Sets the number of steps for equilibrium">EqSteps</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_EqSteps" id="EqSteps">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets the number of steps per adjustment to the maximum constants for each move">AdjSteps</label>
+                                        <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_AdjSteps" id="AdjSteps">
                                     </div>
-                                    <label data-toggle="tooltip" title="For GCMC chemical potential at which simulation is run">ChemPot</label>
+                                    <label data-toggle="tooltip" title="Chemical potential">ChemPot</label>
                                     <div class="form-group">
                                         <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_ChemPot_ResName" id="ChemPotResName"></label>
                                         <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_ChemPot_Value" id="ChemPotValue"></label>
                                     </div>
-                                    <label data-toggle="tooltip" title="For GCMC Fugacity at which the simulation is run">Fugacity</label>
+                                    <label data-toggle="tooltip" title="Fugacity">Fugacity</label>
                                     <div class="form-group">
                                         <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Fugacity_ResName" id="FugacityResName"></label>
                                         <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Fugacity_Value" id="FugacityValue"></label>
@@ -306,11 +300,11 @@
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_IntraSwapFreq" id="IntraSwapFreq">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title=" For Gibbs and GCMC, Fractional % at which volume displacement move will occur">VolFreq</label>
+                                        <label data-toggle="tooltip" title="Fractional % at which volume displacement move will occur">VolFreq</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_VolFreq" id="VolFreq">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="For Gibbs and GCMC fractional percentage at which the particle swap move will occur">SwapFreq</label>
+                                        <label data-toggle="tooltip" title="Fractional percentage at which the particle swap move will occur">SwapFreq</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_SwapFreq" id="SwapFreq">
                                     </div>
                                     <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
@@ -350,13 +344,13 @@
                                        </label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">BoxDim 0</label>
+                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">Cell Basis Vector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="BoxDim1-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="BoxDim1-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="BoxDim1-ZAxis"></label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">BoxDim 1</label>
+                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">Cell Basis Vector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="BoxDim2-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="BoxDim2-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="BoxDim2-ZAxis"></label>
