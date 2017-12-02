@@ -67,6 +67,8 @@
     border-left: .125em solid #303030;
     border-bottom: .125em solid #303030;
     border-right: .125em solid #303030;
+	margin-bottom: 1.7em;
+	border: none;
 }
 
 #contents-container {
