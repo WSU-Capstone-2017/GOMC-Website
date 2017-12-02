@@ -34,3 +34,15 @@
     -ms-transform: scale(0.77);
     -ms-transform-origin: 0 0;
 }
+
+pre.command-line {
+    border: 2px solid #DDD;
+    background-color: #333;
+    color: #FFF;
+    padding: 10px;
+    -webkit-font-smoothing: auto;
+}
+
+pre span {
+    white-space: pre-wrap;
+}

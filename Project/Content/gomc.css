@@ -186,6 +186,11 @@ nav {
 .last-gomc-card { 
     padding-right: 0;
 }
+
+.adjust-distance-nav {
+    margin-top: 1.4285714285714286em
+}
+
 /*Id styles*/
 
 /*Ids for menu items, attach ids only on the page focus*/

@@ -50,7 +50,8 @@
     }
 
     #navbar .active a {
-        color: red;
+        /*color: red;*/
+        font-weight:600;
     }
 
     #navbar a:hover {

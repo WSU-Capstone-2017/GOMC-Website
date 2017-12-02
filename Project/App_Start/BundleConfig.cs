@@ -80,7 +80,7 @@ namespace Project
                     "~/Content/xml.css"
                     ));
             // Set to true to enable full bundle optimization
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
 	}
 }

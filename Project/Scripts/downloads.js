@@ -71,13 +71,14 @@ var registrationString = {
 };
 
 // Orange button on downloads.cshtml
-$('#closeRegistration').click(function () {
-    $(this).next().slideToggle(() => {
-        $(this).html((count, words) => {
-            return words === '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
-        });
-    });
-});
+// Button removed as per client request
+//$('#closeRegistration').click(function () {
+//    $(this).next().slideToggle(() => {
+//        $(this).html((count, words) => {
+//            return words === '<span class="glyphicon glyphicon-collapse-down"></span> Close Form and proceed without registering' ? registrationString.fin : registrationString.init;
+//        });
+//    });
+//});
 
 // Registration form on the downloads.cshtml
 $('#registrationForm').validate({ // jQuery Validate
@@ -136,12 +137,10 @@ $('#registrationForm').validate({ // jQuery Validate
             $('.registration-container').append('<div class="loader"></div>');
             $.post('/api/Registration/Input', $(form).serialize())
                 .done(function (data) {
-                    $('#closeRegistration').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
-                    $('#closeRegistration').addClass('btn-success');
-                    $('#closeRegistration').removeClass('btn-warning');
-                    $('#closeRegistration').next().slideToggle(() => {
-                        $('#closeRegistration').prop('disabled', true);
-                        $('.loader').remove();
+                    $('.registration-container').html('Thanks for Registering! <span class="glyphicon glyphicon-ok-sign"></span> ');
+                    $('.registration-container').css({
+                        "backgroundColor": "#3C763D",
+                        "color": "#FFF"
                     });
                 })
 
