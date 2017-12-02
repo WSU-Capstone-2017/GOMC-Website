@@ -46,6 +46,5 @@ $('#btn').click(function () {
         $('#btn').children().addClass('glyphicon-align-justify');
         $('header').css('margin-top', '6.5em');
     }
-    $('#btn').css('color', '#FFFFFF');
-    $('#btn').css('backgroundColor', '#2C3539');
+ 
 });
