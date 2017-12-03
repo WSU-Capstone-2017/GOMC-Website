@@ -67,6 +67,7 @@ namespace Project.Latex
 			hdoc.LoadHtml(content);
 
 			var body = hdoc.DocumentNode.SelectNodes("//body")[0];
+            
 
 			var tocNav = hdoc.DocumentNode.SelectNodes("//nav")[0];
 			body.RemoveChild(tocNav);
@@ -99,32 +100,29 @@ namespace Project.Latex
 
 				i.AppendChild(a);
 			}
-
-			var div1 = hdoc.CreateElement("div");
-			div1.Attributes.Add("class", "col-md-10");
-
+					
 			var div2 = hdoc.CreateElement("div");
 			div2.Attributes.Add("id", "contents-container");
             div2.Attributes.Add("data-spy", "scroll");
             div2.Attributes.Add("data-target", "#navbar");
-			div2.InnerHtml = body.InnerHtml;
+			div2.InnerHtml = body.InnerHtml;			
 
-			div1.AppendChild(div2);
+            var div5 = hdoc.CreateElement("a");
+            div5.Attributes.Add("class", "scrollToTop");
+            div5.Attributes.Add("id", "scrollRight");
+            div5.Attributes.Add("style", "right: 30px; display: inline;");
+            div5.Attributes.Add("href", "#");
 
-			var div3 = hdoc.CreateElement("div");
-			div3.Attributes.Add("class", "col-md-2");
+            var div6 = hdoc.CreateElement("span");
+            div6.Attributes.Add("class", "glyphicon glyphicon-arrow-up");
 
-			var div4 = hdoc.CreateElement("div");
+            var div4 = hdoc.CreateElement("div");
 			div4.Attributes.Add("id", "site-content");
 			div4.AppendChild(tocNav);
 
-			div3.AppendChild(div4);
-
 			hdoc.DocumentNode.ChildNodes["html"].RemoveChild(body);
 
-			var body2 = hdoc.CreateElement("body");
-			body2.AppendChild(div3);
-			body2.AppendChild(div1);
+			var body2 = hdoc.CreateElement("body");			
 
 			hdoc.DocumentNode.ChildNodes["html"].AppendChild(body2);
 
@@ -136,10 +134,9 @@ namespace Project.Latex
 				attr.Value = attr.Value.Replace("images/", "~/content/latex/images/");
 			}
 
-			return csviewCache
-				.Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
-				.Replace("Plugin homepage @", "Plugin homepage @@")
-                .Replace("background-color: lightgray", "background: none");
+            return csviewCache
+                .Replace("@Html.Raw(ViewBag.HtmlContent)", body2.InnerHtml)
+                .Replace("Plugin homepage @", "Plugin homepage @@");
 		}
 
 		public ConversionResult ConvertAtDir(string fileDir)

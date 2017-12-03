@@ -1,6 +1,5 @@
 ﻿// XMLConfig JS
 
-// Disable Rules
         $('#backToMain').click(() => window.location.replace('gomc'));
         $('#newForm').click(() => window.location.replace( 'xmlconfigform'));
         $("#GibbsNpt, #GibbsNvt, #Npt, #Nvt, #Gcmc").change(function() {
@@ -68,7 +67,7 @@
         }
         });
 
-        // Display Previous Card
+        // Change the XML config page by displaying the previous card
         $('.prev-btn').click(function (e) {
             var currentWorkingPanel = $('.working-panel');
             currentWorkingPanel.removeClass('working-panel');
