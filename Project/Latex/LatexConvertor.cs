@@ -68,7 +68,6 @@ namespace Project.Latex
 
 			var body = hdoc.DocumentNode.SelectNodes("//body")[0];
             
-
 			var tocNav = hdoc.DocumentNode.SelectNodes("//nav")[0];
 			body.RemoveChild(tocNav);
 
@@ -107,6 +106,10 @@ namespace Project.Latex
             div2.Attributes.Add("data-target", "#navbar");
 			div2.InnerHtml = body.InnerHtml;			
 
+            var div4 = hdoc.CreateElement("div");
+			div4.Attributes.Add("id", "site-content");
+			div4.AppendChild(tocNav);
+
             var div5 = hdoc.CreateElement("a");
             div5.Attributes.Add("class", "scrollToTop");
             div5.Attributes.Add("id", "scrollRight");
@@ -115,11 +118,6 @@ namespace Project.Latex
 
             var div6 = hdoc.CreateElement("span");
             div6.Attributes.Add("class", "glyphicon glyphicon-arrow-up");
-
-            var div4 = hdoc.CreateElement("div");
-			div4.Attributes.Add("id", "site-content");
-			div4.AppendChild(tocNav);
-
 			hdoc.DocumentNode.ChildNodes["html"].RemoveChild(body);
 
 			var body2 = hdoc.CreateElement("body");			

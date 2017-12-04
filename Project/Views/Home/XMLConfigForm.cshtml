@@ -317,7 +317,7 @@
                             <div class='panel-body '>
                                 <h4>Enter Metadata Configuration Data</h4>
                                <form id="xmlForm3">
-                                   <label data-toggle="tooltip" title="For Gibbs, consider change to the volume of the simulation box">Use Constant Area</label>
+                                   <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
                                    <div class="radio">
                                        <label>
                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="UseConstantArea-true" value="true">
@@ -330,7 +330,7 @@
                                            False
                                        </label>
                                    </div>
-                                   <label data-toggle="tooltip" title="For absorption in GibbsNPT changing the volume of the fluid phase box to maintain imposed pressure and temperature">FixVolBox0</label>
+                                   <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
                                    <div class="radio">
                                        <label>
                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="FixVolBox0-true" value="true">
@@ -344,13 +344,13 @@
                                        </label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">Cell Basis Vector</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="BoxDim1-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="BoxDim1-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="BoxDim1-ZAxis"></label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Defines the axis of the simulation box, it occurs once for NVT & NPT twice for Gibbs or GC">Cell Basis Vector</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="BoxDim2-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="BoxDim2-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="BoxDim2-ZAxis"></label>
@@ -373,7 +373,7 @@
                                    </div>
                                    <h4>Please Enter Output Header Format</h4>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Unique name for the simulation used to name the block average">OutputName</label>
+                                       <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
                                        <input class="xml-control form-control" type="text" name="gomc_config_input_OutputName" id="OutputName">
                                    </div>
                                    <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
@@ -392,7 +392,7 @@
                                    <div class="form-group">
                                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CoordinatesFreq_Value" id="CoordinatesFreqValue"></label>
                                    </div>
-                                   <label data-toggle="tooltip" title="Controls the output of the last state of the simulation">RestartFreq</label>
+                                   <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
                                    <div class="radio">
                                        <label>
                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="RestartFreqEnabled-true" value="true">
@@ -424,7 +424,7 @@
                                    <div class="form-group">
                                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_ConsoleFreq_Value" id="ConsoleFreqValue"></label>
                                    </div>
-                                   <label data-toggle="tooltip" title="Controls the block averages output for thermodynamic properties">BlockAverageFreq</label>
+                                   <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
                                    <div class="radio">
                                        <label>
                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="BlockAverageFreqEnabled-true" value="true">True
@@ -468,18 +468,18 @@
                                         <input class="xml-control form-control" type="text" name="gomc_config_input_HistName" id="HistName">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets a number which is a part of the file name">RunNumber</label>
+                                        <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
                                         <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RunNumber" id="RunNumber">
                                     </div>
                                     <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets a letter which is part of the file name">RunLetter</label>
+                                        <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
                                         <input class="xml-control form-control" type="text" name="gomc_config_input_RunLetter" id="RunLetter">
                                     </div>
                                     <div class="form-group">
                                         <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
                                         <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="SampleFreq">
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutEnergy 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="OutEnergy1-true" value="true">
@@ -492,7 +492,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutEnergy 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 2</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="OutEnergy2-true" value="true">
@@ -505,7 +505,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutPressure 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="OutPressure1-true" value="true">
@@ -518,7 +518,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutPressure 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 2</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="OutPressure2-true" value="true">
@@ -531,7 +531,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutMolNum 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="OutMolNumber1-true" value="true">
@@ -544,7 +544,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutMolNum 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 2</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="OutMolNumber2-true" value="true">
@@ -557,7 +557,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutDensity 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity-_true" value="true">
@@ -570,14 +570,14 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutDensity 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 2</label>
                                     <div class="radio">
                                         <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-true" value="true">True</label>
                                     </div>
                                     <div class="radio">
                                         <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-false" value="false">False</label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutVolume 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="OutVolume1-true" value="true">
@@ -590,7 +590,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutVolume 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 2</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="OutVolume2-true" value="true">
@@ -603,7 +603,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutSurfaceTension 1</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 1</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="OutSurfaceTension1-true" value="true">
@@ -616,7 +616,7 @@
                                             False
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Enables or disables specific thermodynamic output tracking">OutSurfaceTension 2</label>
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 2</label>
                                     <div class="radio">
                                         <label>
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="OutSurfaceTension2-true" value="true">
