@@ -72,6 +72,7 @@ namespace Project.Latex
             body.RemoveChild(tocNav);
 
             tocNav.SelectNodes("ul")[0].Attributes.Add("class", "nav");
+            tocNav.SelectNodes("ul")[0].Attributes.Add("style", "margin-bottom: 7em;");
 
             tocNav.Attributes["id"].Value = "navbar";
 
@@ -88,23 +89,23 @@ namespace Project.Latex
                     i.AppendChild(spn);
                 }
             }
-            foreach (var i in tocNav.SelectNodes("descendant::a"))
-            {
-                var a = hdoc.CreateElement("a");
-                a.Attributes.Add("href", i.Attributes["href"].Value);
+            //foreach (var i in tocNav.SelectNodes("descendant::a"))
+            //{
+            //    var a = hdoc.CreateElement("a");
+            //    a.Attributes.Add("href", i.Attributes["href"].Value);
 
-                a.InnerHtml = i.InnerHtml;
+            //    a.InnerHtml = i.InnerHtml;
 
-                i.InnerHtml = "";
+            //    i.InnerHtml = "";
 
-                i.AppendChild(a);
-            }
+            //    i.AppendChild(a);
+            //}
 
             var div2 = hdoc.CreateElement("div");
             //div2.Attributes.Add("id", "contents-container");
-            div2.Attributes.Add("data-spy", "scroll");
-            div2.Attributes.Add("data-target", "#navbar");
-            div2.Attributes.Add("style", "margin-left:240px;");
+            //div2.Attributes.Add("data-spy", "scroll");
+            //div2.Attributes.Add("data-target", "#navbar");
+            div2.Attributes.Add("style", "margin-left: 17em;");
             div2.InnerHtml = body.InnerHtml;
 
             var navDiv = hdoc.CreateElement("div");

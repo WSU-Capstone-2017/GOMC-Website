@@ -10,6 +10,7 @@
     overflow: auto;
     float: left;
     width: 15.1em;
+	margin-top: -.3em;
     /*margin-top: 1.6em;*/
 }
 
@@ -71,13 +72,14 @@
     border-right: .125em solid #303030;
 	margin-bottom: 1.7em;
 	border: none;
+	margin-right: 1em;
 }
 
 #contents-container {
     height: 100%;
     overflow: auto;
     width: 82em;
-    margin-left: -4em;
+    /*margin-left: -4em;*/
 	margin-top: 1.7em;	
 }
 
