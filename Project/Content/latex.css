@@ -4,12 +4,13 @@
 
 /*ID Styles*/
 #navbar {
+	position: fixed;   /*Added*/
     background: #D1D2D4;
     height: 100%;
     overflow: auto;
     float: left;
     width: 15.1em;
-    margin-top: 1.6em;
+    /*margin-top: 1.6em;*/
 }
 
     #navbar ul, #navbar li {
@@ -60,7 +61,7 @@
     }
 
 #site-content {
-    position: fixed;
+    /*position: fixed;*/
     top: 4.9em;
     bottom: 0;
     left: 0;

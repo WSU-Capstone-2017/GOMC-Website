@@ -29,12 +29,6 @@ namespace Project.Controllers
 			DbGetter = dbGetter ?? (() => new ProjectDbContext());
 		}
 
-	    public ActionResult Ethics()
-	    {
-		    return Redirect(
-			    "https://docs.google.com/presentation/d/1x_dRuhptkh-3ZzE46ZBr0L6iq7jCwxcQy70ie4yuB-0/edit?usp=sharing");
-	    }
-
         public DownloadsModel GetDownloadModel()
         {
             var rsp = Utils.SimpleGet("https://api.github.com/repos/GOMC-WSU/GOMC/releases");
