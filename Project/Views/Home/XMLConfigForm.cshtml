@@ -864,57 +864,101 @@
 
             }
         })
-        // Form 4: Dependancies
+        // Form 4: Dependancies       
         $("#DistName").change(function () {
-
+            if ($("#Gcmc").is(":checked")) {
+                $("#DistName").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#DistName").attr("disabled", "disabled");
+            }
         })
         $("#HistName").change(function () {
-
+            if ($("#Gcmc").is(":checked")) {
+                $("#HistName").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#HistName").attr("disabled", "disabled");
+            }
         })
         $("#RunNumber").change(function () {
-
+            if ($("#Gcmc").is(":checked")) {
+                $("#RunNumber").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#RunNumber").attr("disabled", "disabled");
+            }
         })
         $("#RunLetter").change(function () {
-
+            if ($("#Gcmc").is(":checked")) {
+                $("#RunLetter").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#RunLetter").attr("disabled", "disabled");
+            }
         })
         $("#OutMolNumber1-true, #OutMolNumber1-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutMolNumber1-true").prop('required', 'true');
-            }            
+            }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutMolNumber1-true, #OutMolNumber1-false").attr("disabled", "disabled");
+            }               
         })
         $("#OutMolNumber2-true, #OutMolNumber2-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutMolNumber2-true").prop('required', 'true');
             } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutMolNumber2-true, #OutMolNumber2-false").attr("disabled", "disabled");
+            }  
         })
         $("#OutDensity1-true, #OutDensity1-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutDensity1-true").prop('required', 'true');
             } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutDensity1-true, #OutDensity1-false").attr("disabled", "disabled");
+            }  
         })
         $("#OutDensity2-true, #OutDensity2-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutDensity2-true").prop('required', 'true');
             } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutDensity2-true, #OutDensity2-false").attr("disabled", "disabled");
+            }  
         })
         $("#OutVolume1-true, #OutVolume1-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutVolume1-true").prop('required', 'true');
             }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutVolume1-true, #OutVolume1-false").attr("disabled", "disabled");
+            }  
         })
         $("#OutVolume2-true, #OutVolume2-false").change(function () {
             if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#OutVolume2-true").prop('required', 'true');
             }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutVolume2-true, #OutVolume2-false").attr("disabled", "disabled");
+            }  
         })
         $("#OutSurfaceTension1-true, #OutSurfaceTension1-false").change(function () {
             if ($("#Nvt").is(":checked")) {
                 $("#OutSurfaceTension1-true").prop('required', 'true');
             }
+            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutSurfaceTension1-true, #OutSurfaceTension1-false").attr("disabled", "disabled");
+            }
         })
         $("#OutSurfaceTension2-true, #OutSurfaceTension2-false").change(function () {
             if ($("#Nvt").is(":checked")) {
                 $("#OutSurfaceTension2-true").prop('required', 'true');
+            }
+            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutSurfaceTension2-true, #OutSurfaceTension2-false").attr("disabled", "disabled");
             }
         })
     </script>
