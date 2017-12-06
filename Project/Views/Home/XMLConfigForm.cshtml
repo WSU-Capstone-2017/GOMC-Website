@@ -326,362 +326,705 @@
                                     <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
                                     <button class="btn btn-success btn-sm pull-left" id="xmlForm2Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
                                 </form>
+=======
+    <div class="row">
+        <ul id="progressbar">
+            <li class="active">Structure</li>
+            <li>System</li>
+            <li>Config Header</li>
+            <li>Config Body</li>
+        </ul>
+        <div class='col-md-12' id=xmlDataContainer>
+            <div class='panel-group '>
+                <div class="panel panel-success panel-first working-panel">
+                    <div class="panel-heading">Initial Structure Setup</div>
+                    <div class="panel-body">
+                        <form id="xmlForm1">
+                            <h4>Please select an Ensemble</h4>
+                            <label>Ensembles</label>
+                            @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Canonical" data-placement="right">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Nvt" value="Nvt">
+                                    NVT
+                                </label>
+>>>>>>> 1a17dd7bfe413193729ff1a379882f9945c24538
                             </div>
-                        </div>
-                        <div class='panel panel-success panel-third not-render'>
-                            <div class='panel-heading'>Output Header Configuration</div>
-                            <div class='panel-body '>
-                                <h4>Enter Metadata Configuration Data</h4>
-                               <form id="xmlForm3">
-                                   <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="UseConstantArea-true" value="true">
-                                           True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="UseConstantArea-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="FixVolBox0-true" value="true">
-                                           True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="FixVolBox0-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
-                                       <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="BoxDim1-XAxis"></label>
-                                       <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="BoxDim1-YAxis"></label>
-                                       <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="BoxDim1-ZAxis"></label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
-                                       <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="BoxDim2-XAxis"></label>
-                                       <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="BoxDim2-YAxis"></label>
-                                       <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="BoxDim2-ZAxis"></label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
-                                       <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcFirst" id="CbmcFirst">
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
-                                       <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcNth" id="CbmcNth">
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
-                                       <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcAng" id="CbmcAng">
-                                   </div>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
-                                       <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcDih" id="CbmcDih">
-                                   </div>
-                                   <h4>Please Enter Output Header Format</h4>
-                                   <div class="form-group">
-                                       <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
-                                       <input class="xml-control form-control" type="text" name="gomc_config_input_OutputName" id="OutputName">
-                                   </div>
-                                   <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CoordinatesFreq_Enabled" id="CoordinatesFreqEnabled-true" value="true">
-                                           True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CoordinatesFreq_Enabled" id="CoordinatesFreqEnabled-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CoordinatesFreq_Value" id="CoordinatesFreqValue"></label>
-                                   </div>
-                                   <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="RestartFreqEnabled-true" value="true">
-                                           True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="RestartFreqEnabled-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RestartFreq_Value" id="RestartFreqValue"></label>
-                                   </div>
-                                   <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ConsoleFreq_Enabled" id="ConsoleFreqEnabled-true" value="true">
-                                           True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ConsoleFreq_Enabled" id="ConsoleFreqEnabled-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_ConsoleFreq_Value" id="ConsoleFreqValue"></label>
-                                   </div>
-                                   <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="BlockAverageFreqEnabled-true" value="true">True
-                                       </label>
-                                   </div>
-                                   <div class="radio">
-                                       <label>
-                                           <input class="xml-control form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="BlockAverageFreqEnabled-false" value="false">
-                                           False
-                                       </label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BlockAverageFreq_Value" id="BlockAverageFreqValue"></label>
-                                   </div>
-                                   <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
-                                   <div class="radio">
-                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-true" value="true">True</label>
-                                   </div>
-                                   <div class="radio">
-                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-false" value="false">False</label>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_HistogramFreq_Value" id="HistogramFreqValue"></label>
-                                   </div>
-                                   <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
-                                   <button class="btn btn-success btn-sm pull-left" id="xmlForm3Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
-                               </form>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Isobaric-isothermal" data-placement="right">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Npt" value="Npt">
+                                    NPT
+                                </label>
                             </div>
-                        </div>
-                        <div class='panel panel-success panel-fourth not-render'>
-                            <div class='panel-heading '>Output Body Configuration</div>
-                            <div class='panel-body '>
-                                <h4>Please Enter the Output Body Format</h4>
-                                <form id="xmlConfig">
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
-                                        <input class="xml-control form-control" type="text" name="gomc_config_input_DistName" id="DistName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
-                                        <input class="xml-control form-control" type="text" name="gomc_config_input_HistName" id="HistName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
-                                        <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RunNumber" id="RunNumber">
-                                    </div>
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
-                                        <input class="xml-control form-control" type="text" name="gomc_config_input_RunLetter" id="RunLetter">
-                                    </div>
-                                    <div class="form-group">
-                                        <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
-                                        <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="SampleFreq">
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="OutEnergy1-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="OutEnergy1-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 2</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="OutEnergy2-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="OutEnergy2-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="OutPressure1-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="OutPressure1-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 2</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="OutPressure2-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="OutPressure2-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="OutMolNumber1-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="OutMolNumber-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 2</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="OutMolNumber2-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="OutMolNumber2-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity-_true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity1-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 2</label>
-                                    <div class="radio">
-                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-true" value="true">True</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-false" value="false">False</label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="OutVolume1-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="OutVolume1-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 2</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="OutVolume2-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="OutVolume2-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 1</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="OutSurfaceTension1-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="OutSurfaceTension1-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 2</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="OutSurfaceTension2-true" value="true">
-                                            True
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="OutSurfaceTension2-false" value="false">
-                                            False
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
-                                    <button class='btn btn-success btn-sm pull-left'  type="submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
-                                </form>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Grand Canonical" data-placement="right">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Gcmc" value="Gcmc">
+                                    GCMC
+                                </label>
                             </div>
-                        </div>
-                        <div class="panel panel-default panel-fifth not-render">
-                            <div class="panel-heading">Thank You!  <span class="glyphicon glyphicon-ok-circle"></span></div>
-                            <div class="panel-body">
-                                <p>Thank you for using our XML converter! </p>
-                                <p>Please check your downloads folder and run the simulation engine with the resulting file</p>
-                                <p>If you cannot find your download, please check your pop up blocker or other browser add-ons</p>
-                                <div class="btn-group-vertical">
-                                    <button class="btn btn-primary btn-lg" id="backToMain"><span class="glyphicon glyphicon-log-out icon-style"></span>Back to main page</button>
-                                    <button class="btn btn-default btn-lg" id="newForm"><span class="glyphicon glyphicon-open icon-style"></span>Start a new form</button>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNvt" value="GibbsNvt">
+                                    Gibbs-NVT
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNpt" value="GibbsNpt">
+                                    Gibbs-NPT
+                                </label>
+                            </div>
+                            <h4>Please enter the following input data</h4>
+                            <label data-toggle="tooltip" title="Sets restart active">Restart</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Restart" id="Restart-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Restart" id="Restart-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Random Text or Random Digits">Prng</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Prng" id="PrngRandom" value="Random">RANDOM
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Prng" id="PrngIntseed" value="Intseed">INTSEED
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets the random seed">RandomSeed</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RandomSeed" id="RandomSeed">
+                            </div>
+                            <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ParaType" id="ParaTypeCharmm" value="Charmm">
+                                    CHARMM
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ParaType" id="ParaTypeExotic" value="Exotic">
+                                    MIE
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ParaType" id="ParaTypeMartini" value="Martini">
+                                    MARTINI
+                                </label>
+                            </div>
+                            <h4>Please enter the input configuration data</h4>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Provides the name or location of the parameters">ParametersFileName</label>
+                                <input class="xml-control form-control" type="text" name="gomc_config_input_ParametersFileName" id="ParametersFileName">
+                            </div>
+                            <div class="form-group coordinates-block">
+                                <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
+                                <label class="block-label">File-Number:<input class="xml-control form-control" type="number" name="gomc_config_input_Coordinates_1" id="InputCoordinates1" readonly value="0"></label>
+                                <label class="block-label">File-Name:<input class="xml-control form-control" type="text" name="gomc_config_input_Coordinates_2" id="InputCoordinates2"></label>
+                            </div>
+                            <div class="form-group structures-block">
+                                <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
+                                <label class="block-label">File-Number: <input class="xml-control form-control" type="number" name="gomc_config_input_Structures_1" id="InputStructures1" readonly value="0"></label>
+                                <label class="block-label">File-Name: <input class="xml-control form-control" type="text" name="gomc_config_input_Structures_2" id="InputStructures2"></label>
+                            </div>
+                        </form>
+                        <button class="btn btn-success btn-sm pull-left" id="xmlForm1Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                    </div>
+                </div>
+                <div class="panel panel-success panel-second not-render">
+                    <div class="panel-heading">Initial System Setup</div>
+                    <div class="panel-body">
+                        <h4>Enter the following System Data</h4>
+                        @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                        <form id="xmlForm2">
+                            <div class="form-group">
+                                <div>
+                                    <label data-toggle="tooltip" title="Pressure in Bar">Pressure</label>
+                                </div>
+                                <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Pressure" id="Pressure"><span>  <i>Bar</i></span>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label data-toggle="tooltip" title="Temperature in Kelvin">Temperature</label>
+                                </div>
+                                <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label data-toggle="tooltip" title="Radius of interaction energy">Rcut</label>
+                                </div>
+                                <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label data-toggle="tooltip" title="Sets minimal possible distance">RcutLow</label>
+                                </div>
+                                <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
+                            </div>
+                            <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="InputLrc-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="Lrc-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Exclude" id="Exclude-OneTwo" value="OneTwo">
+                                    1-2
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Exclude" id="Exclude-OneThree" value="OneThree">
+                                    1-3
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Exclude" id="Exclude-OneFour" value="OneFour" checked>
+                                    1-4
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialVdw" value="Vdw">
+                                    Truncated
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Zero at Rcut distance">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialShift" value="Shift">
+                                    SHIFT
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialSwitch" value="Switch">
+                                    SWITCH
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Distance is where interaction energy is truncated smoothly">Rswitch</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_Rswitch" id="RSwitch">
+                            </div>
+                            <h4>Enter metadata</h4>
+                            <label data-toggle="tooltip" title="Consider Coulomb interaction">ElectroStatic</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ElectroStatic" id="ElectroStatic-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ElectroStatic" id="ElectroStatic-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Considers sum for electrostatic">Ewald</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ewald" id="Ewald-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ewald" id="Ewald-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Considers the reciprocal for Ewald">CachedFourier</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CachedFourier" id="CachedFourier-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CachedFourier" id="CachedFourier-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Specifies accuracy of the Ewald sum">Tolerance</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Tolerance" id="Tolerance">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI">Dielectric</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Dielectric" id="Dielectric">
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label data-toggle="tooltip" title="Considers pressure calculation">PressureCalc</label>
+                                </div>
+                                <input class="xml-control form-control inline-control" type="number" min="0" name="gomc_config_input_PressureCalc" id="PressureCalc"><span><i> Bar</i></span>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_OneFourScaling" id="OneFourScaling">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets the total number of steps to run">RunSteps</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_RunSteps" id="RunSteps">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets the number of steps for equilibrium">EqSteps</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_EqSteps" id="EqSteps">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_AdjSteps" id="AdjSteps">
+                            </div>
+                            <label data-toggle="tooltip" title="Chemical potential">ChemPot</label>
+                            <div class="form-group">
+                                <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_ChemPot_ResName" id="ChemPotResName"></label>
+                                <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_ChemPot_Value" id="ChemPotValue"></label>
+                            </div>
+                            <label data-toggle="tooltip" title="Fugacity">Fugacity</label>
+                            <div class="form-group">
+                                <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Fugacity_ResName" id="FugacityResName"></label>
+                                <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Fugacity_Value" id="FugacityValue"></label>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_DisFreq" id="DisFreq">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Fractional % for rigid rotation">RotFreq</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_RotFreq" id="RotFreq">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Fractional % at which the particle will be removed from and inserted to the same box">IntraSwapFreq</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_IntraSwapFreq" id="IntraSwapFreq">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Fractional % at which volume displacement move will occur">VolFreq</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_VolFreq" id="VolFreq">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Fractional percentage at which the particle swap move will occur">SwapFreq</label>
+                                <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_SwapFreq" id="SwapFreq">
+                            </div>
+                            <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                            <button class="btn btn-success btn-sm pull-left" id="xmlForm2Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                        </form>
+                    </div>
+                </div>
+                <div class='panel panel-success panel-third not-render'>
+                    <div class='panel-heading'>Output Header Configuration</div>
+                    <div class='panel-body '>
+                        <h4>Enter Metadata Configuration Data</h4>
+                        @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                        <form id="xmlForm3">
+                            <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="UseConstantArea-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_UseConstantArea" id="UseConstantArea-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="FixVolBox0-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_FixVolBox0" id="FixVolBox0-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group" id="BoxDim1">
+                                <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 1</label>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_0_XAxis" id="BoxDim1_0-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_0_YAxis" id="BoxDim1_0-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_0_ZAxis" id="BoxDim1_0-ZAxis"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_1_XAxis" id="BoxDim1_1-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_1_YAxis" id="BoxDim1_1-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_1_ZAxis" id="BoxDim1_1-ZAxis"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_2_XAxis" id="BoxDim1_2-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_2_YAxis" id="BoxDim1_2-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_2_ZAxis" id="BoxDim1_2-ZAxis"></label>
                                 </div>
                             </div>
+                            <div class="form-group" id="BoxDim2">
+                                <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 2</label>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_0_XAxis" id="BoxDim2_0-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_0_YAxis" id="BoxDim2_0-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_0_ZAxis" id="BoxDim2_0-ZAxis"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_1_XAxis" id="BoxDim2_1-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_1_YAxis" id="BoxDim2_1-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_1_ZAxis" id="BoxDim2_1-ZAxis"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_2_XAxis" id="BoxDim2_2-XAxis"></label>
+                                    <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_2_YAxis" id="BoxDim2_2-YAxis"></label>
+                                    <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_2_ZAxis" id="BoxDim2_2-ZAxis"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcFirst" id="CbmcFirst">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcNth" id="CbmcNth">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcAng" id="CbmcAng">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CbmcDih" id="CbmcDih">
+                            </div>
+                            <h4>Please Enter Output Header Format</h4>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
+                                <input class="xml-control form-control" type="text" name="gomc_config_input_OutputName" id="OutputName">
+                            </div>
+                            <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CoordinatesFreq_Enabled" id="CoordinatesFreqEnabled-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_CoordinatesFreq_Enabled" id="CoordinatesFreqEnabled-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_CoordinatesFreq_Value" id="CoordinatesFreqValue"></label>
+                            </div>
+                            <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="RestartFreqEnabled-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_RestartFreq_Enabled" id="RestartFreqEnabled-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RestartFreq_Value" id="RestartFreqValue"></label>
+                            </div>
+                            <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ConsoleFreq_Enabled" id="ConsoleFreqEnabled-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_ConsoleFreq_Enabled" id="ConsoleFreqEnabled-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_ConsoleFreq_Value" id="ConsoleFreqValue"></label>
+                            </div>
+                            <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="BlockAverageFreqEnabled-true" value="true">True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_BlockAverageFreq_Enabled" id="BlockAverageFreqEnabled-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BlockAverageFreq_Value" id="BlockAverageFreqValue"></label>
+                            </div>
+                            <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
+                            <div class="radio">
+                                <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-true" value="true">True</label>
+                            </div>
+                            <div class="radio">
+                                <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-false" value="false">False</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_HistogramFreq_Value" id="HistogramFreqValue"></label>
+                            </div>
+                            <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                            <button class="btn btn-success btn-sm pull-left" id="xmlForm3Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                        </form>
+                    </div>
+                </div>
+                <div class='panel panel-success panel-fourth not-render'>
+                    <div class='panel-heading '>Output Body Configuration</div>
+                    <div class='panel-body '>
+                        <h4>Please Enter the Output Body Format</h4>
+                        @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                        <form id="xmlConfig">
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
+                                <input class="xml-control form-control" type="text" name="gomc_config_input_DistName" id="DistName">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
+                                <input class="xml-control form-control" type="text" name="gomc_config_input_HistName" id="HistName">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_RunNumber" id="RunNumber">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
+                                <input class="xml-control form-control" type="text" name="gomc_config_input_RunLetter" id="RunLetter">
+                            </div>
+                            <div class="form-group">
+                                <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
+                                <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="SampleFreq" value="200">
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="OutEnergy1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_1" id="OutEnergy1-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 2</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="OutEnergy2-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutEnergy_2" id="OutEnergy2-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="OutPressure1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_1" id="OutPressure1-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure 2</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="OutPressure2-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutPressure_2" id="OutPressure2-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="OutMolNumber1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_1" id="OutMolNumber-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum 2</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="OutMolNumber2-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutMolNumber_2" id="OutMolNumber2-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity1-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 2</label>
+                            <div class="radio">
+                                <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-true" value="true">True</label>
+                            </div>
+                            <div class="radio">
+                                <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-false" value="false">False</label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="OutVolume1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_1" id="OutVolume1-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 2</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="OutVolume2-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutVolume_2" id="OutVolume2-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 1</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="OutSurfaceTension1-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_1" id="OutSurfaceTension1-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension 2</label>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="OutSurfaceTension2-true" value="true">
+                                    True
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutSurfaceTension_2" id="OutSurfaceTension2-false" value="false">
+                                    False
+                                </label>
+                            </div>
+                            <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                            <button class='btn btn-success btn-sm pull-left' type="submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-fifth not-render">
+                    <div class="panel-heading">Thank You!  <span class="glyphicon glyphicon-ok-circle"></span></div>
+                    <div class="panel-body">
+                        <p>Thank you for using our XML converter! </p>
+                        <p>Please check your downloads folder and run the simulation engine with the resulting file</p>
+                        <p>If you cannot find your download, please check your pop up blocker or other browser add-ons</p>
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-primary btn-lg" id="backToMain"><span class="glyphicon glyphicon-log-out icon-style"></span>Back to main page</button>
+                            <button class="btn btn-default btn-lg" id="newForm"><span class="glyphicon glyphicon-open icon-style"></span>Start a new form</button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
+    </div>
 </main>
 @section scripts
 {
     <script>
         // Buttons for backing, last card
-        $('#backToMain').click(function () {
-            window.location.replace('gomc')
+        $('#backToMain').click(function() {
+            window.location.replace('gomc');
         });
 
-        $('#newForm').click(function () {
-            window.location.replace('xmlconfigform')
+        $('#newForm').click(function() {
+            window.location.replace('xmlconfigform');
         });
         // Form 1: Dependancies
         $("#GibbsNpt, #GibbsNvt, #Npt, #Nvt, #Gcmc").change(function() {
             //console.debug($("#GibbsNpt").val());
             //console.debug($("#Npt").val());
 
+            if ($("#Nvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#BoxDim2 > div > label > input").prop("required", false);
+                $("#BoxDim2 > div > label > input").attr('disabled', 'disabled');
+            } else {
+
+                $("#BoxDim2 > div > label > input").prop("required", true);
+                $("#BoxDim2 > div > label > input").removeAttr('disabled');
+            }
             if ($("#GibbsNpt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#Pressure").removeAttr("disabled");
                 $('#Pressure').prop('required', 'true');
@@ -693,8 +1036,7 @@
                 $("#BoxDim2-YAxis").attr("disabled", "disabled");
                 $("#BoxDim2-ZAxis").attr("disabled", "disabled");
                 $('.ex-coordinates').remove();
-            }
-            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked")) {
+            } else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked")) {
                 // add more coordinate files
                 $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Number<input class='xml-control form-control' type='number'   name='gomc_config_input_Coordinates_3' id='InputCoordinates3' readonly value='1'></label>");
                 $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Name<input class='xml-control form-control' type= 'text'   name= 'gomc_config_input_Coordinates_4' id= 'InputCoordinates4'></label>");
@@ -708,6 +1050,7 @@
                 $("#Chempot-true, #Fugacity-true, #newXmlComponents, #ChemPotValue, #ChemPotResName").removeAttr("disabled");
             }
             else {
+
                 $("#Pressure").attr("disabled", "disabled");
                 $("#PressureCalc").attr("disabled", "disabled");
                 $("#InputCoordinates2").removeAttr("disabled");
@@ -717,10 +1060,16 @@
                 $("#InputBoxDim2-ZAxis").removeAttr("disabled");
                 $("#Chempot-true, #Fugacity-true, #newXmlComponents, #ChemPotValue, #ChemPotResName").attr("disabled","disabled");
                 $('.ex-coordinates').remove();
+                $(".coordinates-block")
+                    .append(
+                    "<label class='block-label ex-coordinates'>File-Number<input class='xml-control form-control' type='number'   name='gomc_config_input_Coordinates_3' id='InputCoordinates3' readonly value='1'></label>");
+                $(".coordinates-block")
+                    .append(
+                    "<label class='block-label ex-coordinates'>File-Name<input class='xml-control form-control' type= 'text'   name= 'gomc_config_input_Coordinates_4' id= 'InputCoordinates4'></label>");
             }
         });
 
-        $("#PrngRandom, #PrngIntseed").change(function () {
+        $("#PrngRandom, #PrngIntseed").change(function() {
             if ($("#PrngIntseed").is(":checked")) {
                 $("#RandomSeed").removeAttr("disabled").prop('required', 'true');
             } else {
@@ -729,13 +1078,25 @@
         });
 
         $("#Restart-true, #Restart-false").change(function () {
+            if ($("#Restart-true").is(":checked")) {
+                $("#BoxDim1 > div > label > input").prop("required", false);
+                $("#BoxDim2 > div > label > input").prop("required", false);
+            } else {
+                $("#BoxDim1 > div > label > input").prop("required", true);
+            }
             if ($("#Gcmc").is(":checked")) {
                 // add more structure files
                 $(".structures-block").append("<label class='block-label ex-structures'>File Number: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_3' id='StructureCoordinates3' readonly value='1'></label>");
                 $(".structures-block").append("<label class='block-label ex-structures'>File Name: <input class='xml-control form-control' type='text'   name='gomc_config_input_Structures_4' id='StructureCoordinates4'></label>");
             }
             else {
-                $(".ex-structures").remove();
+                $(".structures-block")
+                    .append(
+                        "<label class='block-label ex-structures'>File Number: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_3' id='StructureCoordinates3' readonly value='1'></label>");
+                $(".structures-block")
+                    .append(
+                        "<label class='block-label ex-structures'>File Name: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_4' id='StructureCoordinates4'></label>");
+                 $(".ex-structures").remove();
             }
         });
         // Form 2: Dependancies
@@ -767,14 +1128,15 @@
                 $("#Dielectric").attr("disabled", "disabled");
             }
         });
-        $("#CachedFourier-true, #CachedFourier-false").change(function () {
+      
+        $("#CachedFourier-true, #CachedFourier-false").change(function() {
             if ($("#CachedFourier-true").is(":checked")) {
                 $("#Ewald-true").prop("checked", true);
                 $("#ElectroStatic-true").prop("checked", true);
             }
         });
- 
-        $("#PotentialSwitch, #PotentialShift, #PotentialVdw").change(function () {
+
+        $("#PotentialSwitch, #PotentialShift, #PotentialVdw").change(function() {
             if ($("#PotentialSwitch").is(":checked")) {
                 $("#InputLrc-true").prop("checked", "true");
                 $("#Rswitch").removeAttr("disabled").prop('required', 'true');
@@ -797,7 +1159,164 @@
             }
         });
         // Form 3: Dependancies
+        $("#UseConstantArea-true, #UseConstantArea-false").change(function () {
+            if ($("#VolFreq" != 0)) {
+                $("#UseConstantArea-false").prop('required', false);
+            }
+            else {
+                $("#UseConstantArea-true, #UseConstantArea-false").attr("disabled", "disabled");
+            }
+        })
+        $("#FillVolBox0-true, #FillVolBox0-false").change(function () {
+            if ($("#VolFreq" != 0)) {
+                $("#FillVolBox0-false").prop('required', false);
+            }
+            else if ($("#GibbsNpt").is(":checked")) {
+                $("#FillVolBox0-true, #FillVolBox0-false").attr("disabled", "disabled");
+            }
+        })
 
-        // Form 4: Dependancies
+        //CellBasisVector js for "boxdim1" below needs work
+        $("#BoxDim1-XAxis, #BoxDim1-YAxis, #BoxDim1-ZAxis").change(function () {
+            if () {
+
+            }
+            else if () {
+
+            }
+        })
+
+        $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").change(function () {
+            if ($("#Restart-false" = false)) {
+                $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").prop('required', 'true');
+            }
+        })
+        //CoordinatesFreq js below needs common  multiple part
+        $("#CoordinatesFreqEnabled-true, #CoordinatesFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#CoordinatesFreqEnabled-true").prop('required', 'true');
+            }
+        })
+        //RestartFreq js below needs common multiple part
+        $("#RestartFreqEnabled-true, #RestartFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#RestartEnabled-true").prop('required', 'true');
+            }
+        })
+        //ConsoleFreq js below needs work
+        $("#ConsoleFreqEnabled-true, #ConsoleFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //BlockAverageFreq js below needs work
+        $("#BlockAverageFreqEnabled-true, #BlockAverageFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //HistogramFreq js below needs work
+        $("#HistogramFreqEnabled-true, #HistogramFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        // Form 4: Dependancies       
+        $("#DistName").change(function () {
+            if ($("#Gcmc").is(":checked")) {
+                $("#DistName").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#DistName").attr("disabled", "disabled");
+            }
+        })
+        $("#HistName").change(function () {
+            if ($("#Gcmc").is(":checked")) {
+                $("#HistName").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#HistName").attr("disabled", "disabled");
+            }
+        })
+        $("#RunNumber").change(function () {
+            if ($("#Gcmc").is(":checked")) {
+                $("#RunNumber").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#RunNumber").attr("disabled", "disabled");
+            }
+        })
+        $("#RunLetter").change(function () {
+            if ($("#Gcmc").is(":checked")) {
+                $("#RunLetter").prop('required', 'true');
+            }
+            else if ($("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked") || $("#Nvt").is(":checked")) {
+                $("#RunLetter").attr("disabled", "disabled");
+            }
+        })
+        $("#OutMolNumber1-true, #OutMolNumber1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutMolNumber1-true").prop('required', 'true');
+            }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutMolNumber1-true, #OutMolNumber1-false").attr("disabled", "disabled");
+            }               
+        })
+        $("#OutMolNumber2-true, #OutMolNumber2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutMolNumber2-true").prop('required', 'true');
+            } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutMolNumber2-true, #OutMolNumber2-false").attr("disabled", "disabled");
+            }  
+        })
+        $("#OutDensity1-true, #OutDensity1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutDensity1-true").prop('required', 'true');
+            } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutDensity1-true, #OutDensity1-false").attr("disabled", "disabled");
+            }  
+        })
+        $("#OutDensity2-true, #OutDensity2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutDensity2-true").prop('required', 'true');
+            } 
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutDensity2-true, #OutDensity2-false").attr("disabled", "disabled");
+            }  
+        })
+        $("#OutVolume1-true, #OutVolume1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutVolume1-true").prop('required', 'true');
+            }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutVolume1-true, #OutVolume1-false").attr("disabled", "disabled");
+            }  
+        })
+        $("#OutVolume2-true, #OutVolume2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutVolume2-true").prop('required', 'true');
+            }
+            else if ($("#Nvt").is(":checked")) {
+                $("#OutVolume2-true, #OutVolume2-false").attr("disabled", "disabled");
+            }  
+        })
+        $("#OutSurfaceTension1-true, #OutSurfaceTension1-false").change(function () {
+            if ($("#Nvt").is(":checked")) {
+                $("#OutSurfaceTension1-true").prop('required', 'true');
+            }
+            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutSurfaceTension1-true, #OutSurfaceTension1-false").attr("disabled", "disabled");
+            }
+        })
+        $("#OutSurfaceTension2-true, #OutSurfaceTension2-false").change(function () {
+            if ($("#Nvt").is(":checked")) {
+                $("#OutSurfaceTension2-true").prop('required', 'true');
+            }
+            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutSurfaceTension2-true, #OutSurfaceTension2-false").attr("disabled", "disabled");
+            }
+        })
     </script>
 }
