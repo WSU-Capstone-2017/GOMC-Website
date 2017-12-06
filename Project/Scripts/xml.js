@@ -453,17 +453,41 @@
             rules: {
                 gomc_config_input_UseConstantArea: "required",
                 gomc_config_input_FixVolBox0: "required",
-                gomc_config_input_BoxDim_1_XAxis: {
+                gomc_config_input_BoxDim_1_0_XAxis: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_BoxDim_1_YAxis: {
+                gomc_config_input_BoxDim_1_0_YAxis: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_BoxDim_1_ZAxis: {
+                gomc_config_input_BoxDim_1_0_ZAxis: {
                     required: true,
                     min: 0
+				},
+				gomc_config_input_BoxDim_1_1_XAxis: {
+	                required: true,
+	                min: 0
+                },
+                gomc_config_input_BoxDim_1_1_YAxis: {
+	                required: true,
+	                min: 0
+                },
+                gomc_config_input_BoxDim_1_1_ZAxis: {
+	                required: true,
+	                min: 0
+				},
+				gomc_config_input_BoxDim_1_2_XAxis: {
+	                required: true,
+	                min: 0
+                },
+                gomc_config_input_BoxDim_1_2_YAxis: {
+	                required: true,
+	                min: 0
+                },
+                gomc_config_input_BoxDim_1_2_ZAxis: {
+	                required: true,
+	                min: 0
                 },
                 gomc_config_input_CbmcFirst: {
                     required: true,
@@ -511,14 +535,32 @@
                 }
             },
             messages: {
-                gomc_config_input_BoxDim_1_XAxis: {
+                gomc_config_input_BoxDim_1_0_XAxis: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_YAxis: {
+                gomc_config_input_BoxDim_1_0_YAxis: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_ZAxis: {
+                gomc_config_input_BoxDim_1_0_ZAxis: {
                     min: "Please input a postive number"
+				},
+				gomc_config_input_BoxDim_1_1_XAxis: {
+	                min: "Please input a postive number"
+                },
+                gomc_config_input_BoxDim_1_1_YAxis: {
+	                min: "Please input a postive number"
+                },
+                gomc_config_input_BoxDim_1_1_ZAxis: {
+	                min: "Please input a postive number"
+				},
+				gomc_config_input_BoxDim_1_2_XAxis: {
+	                min: "Please input a postive number"
+                },
+                gomc_config_input_BoxDim_1_2_YAxis: {
+	                min: "Please input a postive number"
+                },
+                gomc_config_input_BoxDim_1_2_ZAxis: {
+	                min: "Please input a postive number"
                 },
                 gomc_config_input_CbmcFirst: {
                     min: "Please input a postive number"
