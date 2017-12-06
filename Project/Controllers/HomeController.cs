@@ -317,6 +317,11 @@ namespace Project.Controllers
             return View();
         }
 
+	    public ActionResult ConfForm()
+	    {
+		    return View();
+	    }
+
         public ActionResult XMLConfigForm()
         {
             return View();
