@@ -25,8 +25,8 @@
                             <div class="panel-body">
                                 <form id="xmlForm1">
                                     <h4>Please select an Ensemble</h4>
-                                    @Html.ActionLink("Need Help? Click here", "Latex", "Home", new {@class = "help-link-xml"} )
                                     <label>Ensembles</label>
+                                    @Html.ActionLink("Need Help? Click here", "Latex", "Home", new {@class = "help-link-xml"} )                                    
                                     <div class="radio">
                                         <label data-toggle="tooltip" title="Canonical" data-placement="right" >
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="Nvt" value="Nvt">
@@ -318,6 +318,7 @@
                             <div class='panel-heading'>Output Header Configuration</div>
                             <div class='panel-body '>
                                 <h4>Enter Metadata Configuration Data</h4>
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })                                
                                <form id="xmlForm3">
                                    <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
                                    <div class="radio">
@@ -346,13 +347,13 @@
                                        </label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">BoxDim0</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="BoxDim1-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="BoxDim1-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="BoxDim1-ZAxis"></label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">BoxDim1</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="BoxDim2-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="BoxDim2-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="BoxDim2-ZAxis"></label>
@@ -443,10 +444,14 @@
                                    </div>
                                    <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
                                    <div class="radio">
-                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-true" value="true">True</label>
+                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-true" value="true">
+                                            True
+                                       </label>
                                    </div>
                                    <div class="radio">
-                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-false" value="false">False</label>
+                                       <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_HistogramFreq_Enabled" id="HistogramFreqEnabled-false" value="false">
+                                            False
+                                       </label>
                                    </div>
                                    <div class="form-group">
                                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_HistogramFreq_Value" id="HistogramFreqValue"></label>
@@ -460,6 +465,7 @@
                             <div class='panel-heading '>Output Body Configuration</div>
                             <div class='panel-body '>
                                 <h4>Please Enter the Output Body Format</h4>
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })                           
                                 <form id="xmlConfig">
                                     <div class="form-group">
                                         <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
@@ -479,7 +485,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
-                                        <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="SampleFreq">
+                                        <input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_SampleFreq" id="SampleFreq" value="200">
                                     </div>
                                     <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy 1</label>
                                     <div class="radio">
@@ -574,10 +580,14 @@
                                     </div>
                                     <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 2</label>
                                     <div class="radio">
-                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-true" value="true">True</label>
+                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-true" value="true">
+                                                True
+                                        </label>
                                     </div>
                                     <div class="radio">
-                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-false" value="false">False</label>
+                                        <label class="form-check-label"><input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_2" id="OutDensity2-false" value="false">
+                                                False
+                                        </label>
                                     </div>
                                     <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume 1</label>
                                     <div class="radio">
@@ -632,7 +642,7 @@
                                         </label>
                                     </div>
                                     <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
-                                    <button class='btn btn-success btn-sm pull-left'  type="submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
+                                    <button class='btn btn-success btn-sm pull-left' type="submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
                                 </form>
                             </div>
                         </div>
