@@ -802,21 +802,20 @@
             }
         });
         // Form 3: Dependancies
-
         $("#UseConstantArea-true, #UseConstantArea-false").change(function () {
-            if ($(VolFreq != 0)) {
-                $("UseConstanArea").prop('required', 'false');
+            if ($("#VolFreq" != 0)) {
+                $("#UseConstantArea-false").prop('required', false);
             }
             else {
-                $("#UseConstantArea").attr("disabled", "disabled");
+                $("#UseConstantArea-true, #UseConstantArea-false").attr("disabled", "disabled");
             }
         })
         $("#FillVolBox0-true, #FillVolBox0-false").change(function () {
             if ($("#VolFreq" != 0)) {
-                $("UseConstanArea").prop('required', 'false');
+                $("#FillVolBox0-false").prop('required', false);
             }
             else if ($("#GibbsNpt").is(":checked")) {
-                $("#UseConstantArea").attr("disabled", "disabled");
+                $("#FillVolBox0-true, #FillVolBox0-false").attr("disabled", "disabled");
             }
         })
 
@@ -829,6 +828,7 @@
 
             }
         })
+
         $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").change(function () {
             if ($("#Restart-false" = false)) {
                 $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").prop('required', 'true');
