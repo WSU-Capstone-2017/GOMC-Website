@@ -594,7 +594,7 @@
                             <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity 1</label>
                             <div class="radio">
                                 <label>
-                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity-_true" value="true">
+                                    <input class="xml-control form-check-input" type="radio" name="gomc_config_input_OutDensity_1" id="OutDensity1-true" value="true">
                                     True
                                 </label>
                             </div>
@@ -829,7 +829,6 @@
 
             }
         })
-
         $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").change(function () {
             if ($("#Restart-false" = false)) {
                 $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").prop('required', 'true');
@@ -865,7 +864,58 @@
 
             }
         })
-
         // Form 4: Dependancies
+        $("#DistName").change(function () {
+
+        })
+        $("#HistName").change(function () {
+
+        })
+        $("#RunNumber").change(function () {
+
+        })
+        $("#RunLetter").change(function () {
+
+        })
+        $("#OutMolNumber1-true, #OutMolNumber1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutMolNumber1-true").prop('required', 'true');
+            }            
+        })
+        $("#OutMolNumber2-true, #OutMolNumber2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutMolNumber2-true").prop('required', 'true');
+            } 
+        })
+        $("#OutDensity1-true, #OutDensity1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutDensity1-true").prop('required', 'true');
+            } 
+        })
+        $("#OutDensity2-true, #OutDensity2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutDensity2-true").prop('required', 'true');
+            } 
+        })
+        $("#OutVolume1-true, #OutVolume1-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutVolume1-true").prop('required', 'true');
+            }
+        })
+        $("#OutVolume2-true, #OutVolume2-false").change(function () {
+            if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked") || $("#Npt").is(":checked")) {
+                $("#OutVolume2-true").prop('required', 'true');
+            }
+        })
+        $("#OutSurfaceTension1-true, #OutSurfaceTension1-false").change(function () {
+            if ($("#Nvt").is(":checked")) {
+                $("#OutSurfaceTension1-true").prop('required', 'true');
+            }
+        })
+        $("#OutSurfaceTension2-true, #OutSurfaceTension2-false").change(function () {
+            if ($("#Nvt").is(":checked")) {
+                $("#OutSurfaceTension2-true").prop('required', 'true');
+            }
+        })
     </script>
 }
