@@ -234,16 +234,22 @@
         $('#xmlForm2Save').click(function () {
             $('#xmlForm2').validate();
             if ($('#xmlForm2').valid()) {
-                var currentWorkingPanel = $('.working-panel');
-                currentWorkingPanel.removeClass('working-panel');
-                currentWorkingPanel.next().addClass('working-panel');
-                window.scrollTo(0, 0);
-                currentWorkingPanel.slideUp('slow', () => {
-                    currentWorkingPanel.next().slideDown('slow');
-                    //currentWidth += 25;
-                    //updateBar(currentWidth);
-                    $("#progressbar li").eq(2).addClass('active');
-                });
+                var sum = parseFloat($("#IntraSwapFreq").val()) + parseFloat($("#RotFreq").val()) + parseFloat($("#DisFreq").val()) + parseFloat($("#VolFreq").val()) + parseFloat($("#SwapFreq").val());
+                if (sum > 1) {
+                    alert("IntraSwapFreq, VolFreq,SwapFreq,RotFreq and DisFreq all must sum to 1");
+                }
+                else {
+                    var currentWorkingPanel = $('.working-panel');
+                    currentWorkingPanel.removeClass('working-panel');
+                    currentWorkingPanel.next().addClass('working-panel');
+                    window.scrollTo(0, 0);
+                    currentWorkingPanel.slideUp('slow', () => {
+                        currentWorkingPanel.next().slideDown('slow');
+                        //currentWidth += 25;
+                        //updateBar(currentWidth);
+                        $("#progressbar li").eq(2).addClass('active');
+                    });
+                }
             }
         });
 
@@ -281,6 +287,7 @@
                 },
                 gomc_config_input_OneFourScaling: {
                     min: 0,
+                    max: 1,
                     required: true
                 },
                 gomc_config_input_RunSteps: {
@@ -352,7 +359,8 @@
                     min: "Please input a positive number"
                 },
                 gomc_config_input_OneFourScaling: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0 -1"
                 },
                 gomc_config_input_RunSteps: {
                     min: "Please input a positive number"
@@ -433,6 +441,11 @@
             }
         });
 
+$("#newXmlComponents").click(function (e) {
+    e.preventDefault();
+    $(this).prev().append("<label>ResName<input class='xml-control form-control' type='text' pattern='[\s -]' name='gomc_config_input_ChemPot_ResName'></label>");
+    $(this).prev().append("<label>Value<input class='xml-control form-control' type='number' min='0' name='gomc_config_input_ChemPot_Value'></label>");
+});
         $('#xmlForm3Save').click(function () {
             $('#xmlForm3').validate();
             if ($('#xmlForm3').valid()) {

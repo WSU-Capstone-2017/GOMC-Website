@@ -154,19 +154,26 @@
                                         </div>
                                         <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="gomc_config_input_RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
                                     </div>
-                                    <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
+                                    <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
                                     <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="InputLrc-true" value="true">
-                                            True
+                                        <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialVdw" value="Vdw">
+                                            Truncated
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label>
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="Lrc-false" value="false">
-                                            False
+                                        <label data-toggle="tooltip" title="Zero at Rcut distance">
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialShift" value="Shift">
+                                            SHIFT
                                         </label>
                                     </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialSwitch" value="Switch">
+                                            SWITCH
+                                        </label>
+                                    </div>
+                                 
                                     <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
                                     <div class="radio">
                                         <label>
@@ -186,23 +193,17 @@
                                             1-4
                                         </label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
+                                    <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialVdw" value="Vdw">
-                                            Truncated
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="InputLrc-true" value="true">
+                                            True
                                         </label>
                                     </div>
                                     <div class="radio">
-                                        <label data-toggle="tooltip" title="Zero at Rcut distance">
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialShift" value="Shift">
-                                            SHIFT
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
-                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Potential" id="PotentialSwitch" value="Switch">
-                                            SWITCH
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Lrc" id="Lrc-false" value="false">
+                                            False
                                         </label>
                                     </div>
                                     <div class="form-group">
@@ -279,16 +280,29 @@
                                         <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_AdjSteps" id="AdjSteps">
                                     </div>
-                                    <label data-toggle="tooltip" title="Chemical potential">ChemPot</label>
+                                    <label data-toggle="tooltip" title="Chemical potential">ChemPot or Fugacity</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_SetChemPot" id="Chempot-true" value="true">
+                                            Chemical Potential
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="gomc_config_input_SetChemPot" id="Fugacity-true" value="false">
+                                            Fugacity
+                                        </label>
+                                    </div>
                                     <div class="form-group">
                                         <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_ChemPot_ResName" id="ChemPotResName"></label>
                                         <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_ChemPot_Value" id="ChemPotValue"></label>
                                     </div>
-                                    <label data-toggle="tooltip" title="Fugacity">Fugacity</label>
+                                    <button class="btn btn-group-sm btn-success" id="newXmlComponents"><span class="glyphicon glyphicon-plus icon-style"></span>Add More Components</button>
+                                    @*<label data-toggle="tooltip" title="Fugacity">Fugacity</label>
                                     <div class="form-group">
                                         <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Fugacity_ResName" id="FugacityResName"></label>
                                         <label>Value<input class="xml-control form-control" type="number" min="0" name="gomc_config_input_Fugacity_Value" id="FugacityValue"></label>
-                                    </div>
+                                    </div>*@
                                     <div class="form-group">
                                         <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
                                         <input class="xml-control form-control" type="number" min="0" name="gomc_config_input_DisFreq" id="DisFreq">
@@ -684,6 +698,14 @@
                 // add more coordinate files
                 $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Number<input class='xml-control form-control' type='number'   name='gomc_config_input_Coordinates_3' id='InputCoordinates3' readonly value='1'></label>");
                 $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Name<input class='xml-control form-control' type= 'text'   name= 'gomc_config_input_Coordinates_4' id= 'InputCoordinates4'></label>");
+                $("#Pressure").attr("disabled", "disabled");
+                $("#PressureCalc").attr("disabled", "disabled");
+                $("#InputCoordinates2").removeAttr("disabled");
+                $("#InputStructures2").removeAttr("disabled");
+                $("#InputBoxDim2-XAxis").removeAttr("disabled");
+                $("#InputBoxDim2-YAxis").removeAttr("disabled");
+                $("#InputBoxDim2-ZAxis").removeAttr("disabled");
+                $("#Chempot-true, #Fugacity-true, #newXmlComponents, #ChemPotValue, #ChemPotResName").removeAttr("disabled");
             }
             else {
                 $("#Pressure").attr("disabled", "disabled");
@@ -693,6 +715,7 @@
                 $("#InputBoxDim2-XAxis").removeAttr("disabled");
                 $("#InputBoxDim2-YAxis").removeAttr("disabled");
                 $("#InputBoxDim2-ZAxis").removeAttr("disabled");
+                $("#Chempot-true, #Fugacity-true, #newXmlComponents, #ChemPotValue, #ChemPotResName").attr("disabled","disabled");
                 $('.ex-coordinates').remove();
             }
         });
@@ -709,28 +732,36 @@
             if ($("#Gcmc").is(":checked")) {
                 // add more structure files
                 $(".structures-block").append("<label class='block-label ex-structures'>File Number: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_3' id='StructureCoordinates3' readonly value='1'></label>");
-                $(".structures-block").append("<label class='block-label ex-structures'>File Name: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_4' id='StructureCoordinates4'></label>");
+                $(".structures-block").append("<label class='block-label ex-structures'>File Name: <input class='xml-control form-control' type='text'   name='gomc_config_input_Structures_4' id='StructureCoordinates4'></label>");
             }
             else {
                 $(".ex-structures").remove();
             }
         });
         // Form 2: Dependancies
-        $("#ElectroStatic-true, #ElectroStatic-false").change(function() {
-            if ($("#ElectroStatic-true").is(":checked")) {
-                $("#OneFourScaling").removeAttr("disabled").prop('required', 'true');
-                $("#Dielectric").removeAttr("disabled").prop('required', 'true');
-            } else {
-                $("#OneFourScaling").attr("disabled", "disabled");
-                $("#Dielectric").attr("disabled", "disabled");
-                $("#Ewald-false").prop("checked", true);
-                $("#CachedFourier-false").prop("checked", true);
-            }
-        });
+        if ($("#ParaTypeCharmm").is(":checked")) {
+            $("#Exclude-OneFour").prop("checked", true);
+        }
+        if ($("ParaTypeMartini").is(":checked")) {
+            $("#Dielectric").val(15.0);
+            $("#Dielectric").prop("readonly", true);
+        }
+        //$("#ElectroStatic-true, #ElectroStatic-false").change(function() {
+        //    if ($("#ElectroStatic-true").is(":checked")) {
+        //        $("#OneFourScaling").removeAttr("disabled").prop('required', 'true');
+        //        $("#Dielectric").removeAttr("disabled").prop('required', 'true');
+        //    } else {
+        //        $("#OneFourScaling").attr("disabled", "disabled");
+        //        $("#Dielectric").attr("disabled", "disabled");
+        //        $("#Ewald-false").prop("checked", true);
+        //        $("#CachedFourier-false").prop("checked", true);
+        //    }
+        //});
         $("#Ewald-true, #Ewald-false").change(function () {
             if ($("#Ewald-true").is(":checked")) {
                 $("#ElectroStatic-true").prop("checked", true);
-                $("#Dielectric").removeAttr("disabled").prop('required', 'true');
+                $("#CachedFourier-true").prop("checked", true);
+                //$("#Dielectric").removeAttr("disabled").prop('required', 'true');
             } else {
                 $("#CachedFourier-false").prop("checked", true);
                 $("#Dielectric").attr("disabled", "disabled");
@@ -745,9 +776,24 @@
  
         $("#PotentialSwitch, #PotentialShift, #PotentialVdw").change(function () {
             if ($("#PotentialSwitch").is(":checked")) {
+                $("#InputLrc-true").prop("checked", "true");
                 $("#Rswitch").removeAttr("disabled").prop('required', 'true');
             } else {
                 $("#Rswitch").attr("disabled", "disabled");
+            }
+        });
+        if ($("#Exclude-OneFour").is(":checked")) {
+            $("#OneFourScaling").attr("disabled", "disabled");
+        }
+
+        $("#Fugacity-true, #Chempot-true").change(function () {
+            if ($("#Fugacity-true").is(":checked")) {
+                $("#ChemPotResName").attr("name", "gomc_config_input_Fugacity_ResName")
+                $("#ChemPotValue").attr("name","gomc_config_input_Fugacity_Value");
+            }
+            else {
+                $("#ChemPotResName").attr("name", "gomc_config_input_ChemPot_ResName")
+                $("#ChemPotValue").attr("name", "gomc_config_input_ChemPot_Value");
             }
         });
         // Form 3: Dependancies
