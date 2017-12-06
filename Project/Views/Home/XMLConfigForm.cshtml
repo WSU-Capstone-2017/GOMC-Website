@@ -124,7 +124,7 @@
                         <button class="btn btn-success btn-sm pull-left" id="xmlForm1Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
                     </div>
                 </div>
-                <div class="panel panel-success panel-second not-render2">
+                <div class="panel panel-success panel-second not-render">
                     <div class="panel-heading">Initial System Setup</div>
                     <div class="panel-body">
                         <h4>Enter the following System Data</h4>
@@ -314,7 +314,7 @@
                         </form>
                     </div>
                 </div>
-                <div class='panel panel-success panel-third not-render2'>
+                <div class='panel panel-success panel-third not-render'>
                     <div class='panel-heading'>Output Header Configuration</div>
                     <div class='panel-body '>
                         <h4>Enter Metadata Configuration Data</h4>
@@ -487,7 +487,7 @@
                         </form>
                     </div>
                 </div>
-                <div class='panel panel-success panel-fourth not-render2'>
+                <div class='panel panel-success panel-fourth not-render'>
                     <div class='panel-heading '>Output Body Configuration</div>
                     <div class='panel-body '>
                         <h4>Please Enter the Output Body Format</h4>
@@ -668,7 +668,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="panel panel-default panel-fifth not-render2">
+                <div class="panel panel-default panel-fifth not-render">
                     <div class="panel-heading">Thank You!  <span class="glyphicon glyphicon-ok-circle"></span></div>
                     <div class="panel-body">
                         <p>Thank you for using our XML converter! </p>
@@ -802,6 +802,69 @@
             }
         });
         // Form 3: Dependancies
+
+        $("#UseConstantArea-true, #UseConstantArea-false").change(function () {
+            if ($(VolFreq != 0)) {
+                $("UseConstanArea").prop('required', 'false');
+            }
+            else {
+                $("#UseConstantArea").attr("disabled", "disabled");
+            }
+        })
+        $("#FillVolBox0-true, #FillVolBox0-false").change(function () {
+            if ($("#VolFreq" != 0)) {
+                $("UseConstanArea").prop('required', 'false');
+            }
+            else if ($("#GibbsNpt").is(":checked")) {
+                $("#UseConstantArea").attr("disabled", "disabled");
+            }
+        })
+
+        //CellBasisVector js for "boxdim1" below needs work
+        $("#BoxDim1-XAxis, #BoxDim1-YAxis, #BoxDim1-ZAxis").change(function () {
+            if () {
+
+            }
+            else if () {
+
+            }
+        })
+
+        $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").change(function () {
+            if ($("#Restart-false" = false)) {
+                $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").prop('required', 'true');
+            }
+        })
+        //CoordinatesFreq js below needs common  multiple part
+        $("#CoordinatesFreqEnabled-true, #CoordinatesFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#CoordinatesFreqEnabled-true").prop('required', 'true');
+            }
+        })
+        //RestartFreq js below needs common multiple part
+        $("#RestartFreqEnabled-true, #RestartFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#RestartEnabled-true").prop('required', 'true');
+            }
+        })
+        //ConsoleFreq js below needs work
+        $("#ConsoleFreqEnabled-true, #ConsoleFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //BlockAverageFreq js below needs work
+        $("#BlockAverageFreqEnabled-true, #BlockAverageFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //HistogramFreq js below needs work
+        $("#HistogramFreqEnabled-true, #HistogramFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
 
         // Form 4: Dependancies
     </script>
