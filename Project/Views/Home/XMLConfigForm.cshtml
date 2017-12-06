@@ -347,13 +347,13 @@
                                        </label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">BoxDim0</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">CellBasisVector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_XAxis" id="BoxDim1-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_YAxis" id="BoxDim1-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_1_ZAxis" id="BoxDim1-ZAxis"></label>
                                    </div>
                                    <div class="form-group">
-                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">BoxDim1</label>
+                                       <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">CellBasisVector</label>
                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_XAxis" id="BoxDim2-XAxis"></label>
                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_YAxis" id="BoxDim2-YAxis"></label>
                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="gomc_config_input_BoxDim_2_ZAxis" id="BoxDim2-ZAxis"></label>
@@ -761,7 +761,68 @@
             }
         });
         // Form 3: Dependancies
+        $("#UseConstantArea-true, #UseConstantArea-false").change(function () {
+            if ($(VolFreq != 0)) {
+                $("UseConstanArea").prop('required', 'false');
+            }
+            else {
+                $("#UseConstantArea").attr("disabled", "disabled");
+            }
+        })
+        $("#FillVolBox0-true, #FillVolBox0-false").change(function () {
+            if ($("#VolFreq" != 0)) {
+                $("UseConstanArea").prop('required', 'false');
+            }
+            else if ($("#GibbsNpt").is(":checked") {
+                $("#UseConstantArea").attr("disabled", "disabled");
+            }
+        })
 
+        //CellBasisVector js for "boxdim1" below needs work
+        $("#BoxDim1-XAxis, #BoxDim1-YAxis, #BoxDim1-ZAxis").change(function () {
+            if () {
+
+            }
+            else if () {
+
+            }
+        })
+
+        $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").change(function () {
+            if ($("#Restart-false" = false)) {
+                $("#BoxDim2-XAxis, #BoxDim2-YAxis, #BoxDim2-ZAxis").prop('required', 'true');
+            }
+        })
+        //CoordinatesFreq js below needs common  multiple part
+        $("#CoordinatesFreqEnabled-true, #CoordinatesFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#CoordinatesFreqEnabled-true").prop('required', 'true');
+            }
+        })
+        //RestartFreq js below needs common multiple part
+        $("#RestartFreqEnabled-true, #RestartFreqEnabled-false").change(function () {
+            if ($(Number < "#RunSteps")) {
+                $("#RestartEnabled-true").prop('required', 'true');
+            }
+        })
+        //ConsoleFreq js below needs work
+        $("#ConsoleFreqEnabled-true, #ConsoleFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //BlockAverageFreq js below needs work
+        $("#BlockAverageFreqEnabled-true, #BlockAverageFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
+        //HistogramFreq js below needs work
+        $("#HistogramFreqEnabled-true, #HistogramFreqEnabled-false").change(function () {
+            if () {
+
+            }
+        })
         // Form 4: Dependancies
     </script>
 }
