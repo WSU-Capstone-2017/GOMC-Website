@@ -25,6 +25,7 @@
                             <div class="panel-body">
                                 <form id="xmlForm1">
                                     <h4>Please select an Ensemble</h4>
+                                    @Html.ActionLink("Need Help? Click here", "Latex", "Home", new {@class = "help-link-xml"} )
                                     <label>Ensembles</label>
                                     <div class="radio">
                                         <label data-toggle="tooltip" title="Canonical" data-placement="right" >
@@ -47,13 +48,13 @@
                                     <div class="radio">
                                         <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNvt" value="GibbsNvt">
-                                            GibbsNVT
+                                            Gibbs-NVT
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
                                             <input class="xml-control form-check-input" type="radio" name="gomc_config_input_Ensemble" id="GibbsNpt" value="GibbsNpt">
-                                            GibbsNpt
+                                            Gibbs-NPT
                                         </label>
                                     </div>
                                     <h4>Please enter the following input data</h4>
@@ -109,15 +110,15 @@
                                         <label data-toggle="tooltip" title="Provides the name or location of the parameters">ParametersFileName</label>
                                         <input class="xml-control form-control" type="text" name="gomc_config_input_ParametersFileName" id="ParametersFileName">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group coordinates-block">
                                         <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
-                                        <input class="xml-control form-control" type="text"   name="gomc_config_input_Coordinates_1" id="InputCoordinates1">
-                                        <input class="xml-control form-control" type="text"   name="gomc_config_input_Coordinates_2" id="InputCoordinates2">
+                                        <label class="block-label">File-Number:<input class="xml-control form-control" type="number" name="gomc_config_input_Coordinates_1" id="InputCoordinates1" readonly value="0"></label>
+                                        <label class="block-label">File-Name:<input class="xml-control form-control" type="text" name="gomc_config_input_Coordinates_2" id="InputCoordinates2"></label>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group structures-block">
                                         <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
-                                        <input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_1" id="InputStructures1">
-                                        <input class="xml-control form-control" type="text" pattern="[\s-]" name="gomc_config_input_Structures_2" id="InputStructures2">
+                                        <label class="block-label">File-Number: <input class="xml-control form-control" type="number" name="gomc_config_input_Structures_1" id="InputStructures1" readonly value="0"></label>
+                                        <label class="block-label">File-Name: <input class="xml-control form-control" type="text" name="gomc_config_input_Structures_2" id="InputStructures2"></label>
                                     </div>
                                 </form>
                                 <button class="btn btn-success btn-sm pull-left" id="xmlForm1Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
@@ -127,6 +128,7 @@
                             <div class="panel-heading">Initial System Setup</div>
                             <div class="panel-body">
                                 <h4>Enter the following System Data</h4>
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
                                 <form id="xmlForm2">
                                     <div class="form-group">
                                         <div>
@@ -653,11 +655,18 @@
 @section scripts
 {
     <script>
-        $('#backToMain').click(() => window.location.replace('gomc'));
-        $('#newForm').click(() => window.location.replace( 'xmlconfigform'));
+        // Buttons for backing, last card
+        $('#backToMain').click(function () {
+            window.location.replace('gomc')
+        });
+
+        $('#newForm').click(function () {
+            window.location.replace('xmlconfigform')
+        });
+        // Form 1: Dependancies
         $("#GibbsNpt, #GibbsNvt, #Npt, #Nvt, #Gcmc").change(function() {
-            console.debug($("#GibbsNpt").val());
-            console.debug($("#Npt").val());
+            //console.debug($("#GibbsNpt").val());
+            //console.debug($("#Npt").val());
 
             if ($("#GibbsNpt").is(":checked") || $("#Npt").is(":checked")) {
                 $("#Pressure").removeAttr("disabled");
@@ -669,7 +678,14 @@
                 $("#BoxDim2-XAxis").attr("disabled", "disabled");
                 $("#BoxDim2-YAxis").attr("disabled", "disabled");
                 $("#BoxDim2-ZAxis").attr("disabled", "disabled");
-            } else {
+                $('.ex-coordinates').remove();
+            }
+            else if ($("#Gcmc").is(":checked") || $("#GibbsNpt").is(":checked") || $("#GibbsNvt").is(":checked")) {
+                // add more coordinate files
+                $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Number<input class='xml-control form-control' type='number'   name='gomc_config_input_Coordinates_3' id='InputCoordinates3' readonly value='1'></label>");
+                $(".coordinates-block").append("<label class='block-label ex-coordinates'>File-Name<input class='xml-control form-control' type= 'text'   name= 'gomc_config_input_Coordinates_4' id= 'InputCoordinates4'></label>");
+            }
+            else {
                 $("#Pressure").attr("disabled", "disabled");
                 $("#PressureCalc").attr("disabled", "disabled");
                 $("#InputCoordinates2").removeAttr("disabled");
@@ -677,8 +693,29 @@
                 $("#InputBoxDim2-XAxis").removeAttr("disabled");
                 $("#InputBoxDim2-YAxis").removeAttr("disabled");
                 $("#InputBoxDim2-ZAxis").removeAttr("disabled");
+                $('.ex-coordinates').remove();
             }
         });
+
+        $("#PrngRandom, #PrngIntseed").change(function () {
+            if ($("#PrngIntseed").is(":checked")) {
+                $("#RandomSeed").removeAttr("disabled").prop('required', 'true');
+            } else {
+                $("#RandomSeed").attr("disabled", "disabled");
+            }
+        });
+
+        $("#Restart-true, #Restart-false").change(function () {
+            if ($("#Gcmc").is(":checked")) {
+                // add more structure files
+                $(".structures-block").append("<label class='block-label ex-structures'>File Number: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_3' id='StructureCoordinates3' readonly value='1'></label>");
+                $(".structures-block").append("<label class='block-label ex-structures'>File Name: <input class='xml-control form-control' type='number'   name='gomc_config_input_Structures_4' id='StructureCoordinates4'></label>");
+            }
+            else {
+                $(".ex-structures").remove();
+            }
+        });
+        // Form 2: Dependancies
         $("#ElectroStatic-true, #ElectroStatic-false").change(function() {
             if ($("#ElectroStatic-true").is(":checked")) {
                 $("#OneFourScaling").removeAttr("disabled").prop('required', 'true');
@@ -705,13 +742,7 @@
                 $("#ElectroStatic-true").prop("checked", true);
             }
         });
-        $("#PrngRandom, #PrngIntseed").change(function() {
-            if ($("#PrngIntseed").is(":checked")) {
-                $("#RandomSeed").removeAttr("disabled").prop('required', 'true');
-            } else {
-                $("#RandomSeed").attr("disabled", "disabled");
-            }
-        });
+ 
         $("#PotentialSwitch, #PotentialShift, #PotentialVdw").change(function () {
             if ($("#PotentialSwitch").is(":checked")) {
                 $("#Rswitch").removeAttr("disabled").prop('required', 'true');
@@ -719,5 +750,8 @@
                 $("#Rswitch").attr("disabled", "disabled");
             }
         });
+        // Form 3: Dependancies
+
+        // Form 4: Dependancies
     </script>
 }
