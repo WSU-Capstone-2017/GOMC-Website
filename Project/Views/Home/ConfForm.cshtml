@@ -113,19 +113,19 @@
                         <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
                         <div class="radio">
                             <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeCHARMM" value="Charmm">
+                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeCHARMM" value="CHARMM">
                                 CHARMM
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeEXOTIC" value="Exotic">
+                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeEXOTIC" value="EXOTIC">
                                 MIE
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeMARTINI" value="Martini">
+                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeMARTINI" value="MARTINI">
                                 MARTINI
                             </label>
                         </div>
@@ -299,7 +299,7 @@
                                 False
                             </label>
                         </div>
-                        <input class="xml-control form-control inline-control" type="number" min="0" name="PressureCalc" id="PressureCalc"><span><i> Bar</i></span>
+                        <input class="xml-control form-control inline-control" type="number" min="0" name="PressureCalc_Value" id="PressureCalc_Value"><span><i> Bar</i></span>
                     </div>
                     <div class="form-group" id="1-4scaling_">
                         <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
@@ -321,13 +321,13 @@
                         <label data-toggle="tooltip" title="Chemical potential">ChemPot or Fugacity</label>
                         <div class="radio">
                             <label>
-                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_true" value="true">
+                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_true" value="ChemPot">
                                 Chemical Potential
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_false" value="false">
+                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_false" value="Fugacity">
                                 Fugacity
                             </label>
                         </div>
@@ -523,7 +523,7 @@
                         <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="BlockAverageFreq_Value" id="BlockAverageFreq_Value"></label>
                     </div>
                     <div class="form-group" id="HistogramFreq">
-                        <label data-toggle="tooltip" title="Controls the histogram">CoordinatesFreq</label>
+                        <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
                         <div class="radio">
                             <label>
                                 <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_true" value="true">
@@ -611,7 +611,7 @@
                         </div>
                     </div>
                 </form>
-                <button class='btn btn-success btn-sm pull-left' id="ConfForm_Submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
+                <button class='btn btn-success btn-sm pull-left' onclick="return onConfForm_SubmitClick();" id="ConfForm_Submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
             </div>
         </main>
     </div>
@@ -692,7 +692,7 @@
                 }
             }
         }
-        function getRaddioBool(nm) {
+        function getRadioBool(nm) {
             var $t = $("#" + nm + "_true");
             var $f = $("#" + nm + "_false");
             if (!$t.is(":checked") && !$f.is(":checked")) {
@@ -721,32 +721,105 @@
             }
         }
         function getChemPotFugacity() {
+            var sts = [];
+            var st = [];
+            sts.push(getRadioVal("ChemPot-Fugacity"));
+            function part(id) {
+                var s = [];
+                s.push(getVal("ChemPot-Fugacity_ResName_" + id));
+                s.push(getVal("ChemPot-Fugacity_Value_" + id));
+                st.push(s);
+            }
+            part(0);
 
+            var $e = $(".ChemPot-Fugacity-Div");
+            for (var i = 0; i < $e.length; i++) {
+                part($e.eq(i).attr('id').split('_')[1]);
+            }
+            //$(".ChemPot-Fugacity-Div").eq(0).attr('id').split('_')[1]
+            sts.push(st);
+            return sts;
+        }
+        function getFreqVal(nm) {
+            var v = getVal(nm + "_Value");
+            var st = "";
+            st += getRadioBool(nm);
+            if(v != null){
+                st += ";;";
+                st += v;
+            }
+            return st;
+        }
+        function getCellBasisVector() {
+            var sts = [];
+            for (var i = 0; i < 2; i++) {
+                var st = [];
+                for (var j = 0; j < 3; j++) {
+                    var s = [];
+                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_XAxis"));
+                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_YAxis"));
+                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_ZAxis"));
+                    st.push(s);
+                }
+                sts.push(st);
+            }
+            return sts;
+        }
+        function getStructCoord(nm) {
+            var a = getVal(nm + "_0");
+            var b = getVal(nm + "_1");
+            var st = [];
+            var s = [];
+            s.push("0");
+            s.push(a);
+            st.push(s);
+            if (b != null) {
+                var s2 = [];
+                s2.push("1");
+                s2.push(b);
+                st.push(s2);
+            }
+            return st;
         }
         function getVal(nm) {
             switch (nm) {
+                case "PressureCalc":
+                case "CoordinatesFreq":
+                case "RestartFreq":
+                case "ConsoleFreq":
+                case "BlockAverageFreq":
+                case "HistogramFreq":
+                    return getFreqVal(nm);
                 case "OutEnergy":
                 case "OutPressure":
                 case "OutMolNum":
                 case "OutDensity":
                     return getCheckbox(nm + "1") + ";;" + getCheckbox(nm + "2");
                 case "Restart":
+                case "LRC":
                 case "ElectroStatic":
                 case "Ewald":
                 case "CachedFourier":
                 case "useConstantArea":
                 case "FixVolBox0":
-                    return getRaddioBool(nm);
+                    return getRadioBool(nm);
                 case "Ensemble":
                 case "PRNG":
                 case "ParaType":
                 case "Potential":
+                case "Exclude":
                     return getRadioVal(nm);
                 case "ChemPot":
                     return getChemPotFugacity();
+                case "Structure":
+                case "Coordinates":
+                    return getStructCoord(nm);
+                case "CellBasisVector":
+                    return getCellBasisVector();
                 default:
-                    $("#" + nm).val(value);
-                    break;
+                    var v = $("#" + nm).val();
+                    if (v === '') return null;
+                    return v;
             }
         }
         function lineInput(key, value) {
@@ -771,13 +844,137 @@
                 case "PRNG":
                 case "ParaType":
                 case "Potential":
-                case "chempot-Fugacity":
                     setRadioVal(key, value);
                     break;
                 default:
                     $("#" + key).val(value);
                     break;
             }
+        }
+        function onConfForm_SubmitClick() {
+            console.clear();
+            var st = "<ConfigSetup>\n";
+            function out(nm) {
+                var v = getVal(nm);
+                if (nm === "CellBasisVector") {
+                    for (var i = 0; i < 2; i++) {
+                        for (var j = 0; j < 3; j++) {
+                            st += "<CellBasisVector" + (j + 1).toString() + ">";
+                            st += i.toString() + ";;";
+                            for (var k = 0; k < 3; k++) {
+                                if (k !== 0) {
+                                    st += ";;";
+                                }
+                                st += v[i][j][k];
+                            }
+                            st += "</CellBasisVector" + (j + 1).toString() + ">";
+                            st += "\n";
+                        }
+                    }
+                }
+                else if (nm === "ChemPot") {
+                    for (var ii = 1; ii < v.length; ii++) {
+                        for (var jj = 0; jj < v[ii].length; jj++) {
+                            st += "<";
+                            st += v[0];
+                            st += ">";
+                            st += v[ii][jj][0] + ";;" + v[ii][jj][1];
+                            st += "</";
+                            st += v[0];
+                            st += ">";
+                            st += "\n";
+                        }
+                    }
+                }
+                else if (nm === "ParaType") {
+                    if(v != null){
+                        st += "<ParaType" + v;
+                        st += ">";
+                        st += "true";
+                        st += "</ParaType" + v + ">";
+                        st += "\n";
+                    }
+                }
+                else if (nm === "Structure" || nm === "Coordinates") {
+                    for (var ji = 0; ji < v.length; ji++) {
+                        st += "<" + nm + ">";
+                        st += + v[ji][0] + ";;" + v[ji][1];
+                        st += "</" + nm + ">\n";
+                    }
+                }
+                else {
+                    if (v == null) {
+                        //st += nm + "\n";
+                    } else {
+                        st += "<" + nm + ">" + v + "</" + nm + ">" + "\n";
+                    }
+                }
+            }
+
+            //out("Ensemble");
+            out("Restart");
+            out("PRNG");
+            out("Random_Seed");
+            out("ParaType");
+            out("Parameters");
+            out("Coordinates");
+            out("Structure");
+            out("Pressure");
+            out("Temperature");
+            out("Rcut");
+            out("RcutLow");
+            out("Potential");
+            out("Exclude");
+            out("LRC");
+            out("Rswitch");
+            out("ElectroStatic");
+            out("Ewald");
+            out("CachedFourier");
+            out("Tolerance");
+            out("Dielectric");
+            out("PressureCalc");
+            out("1-4scaling");
+            out("RunSteps");
+            out("EqSteps");
+            out("AdjSteps");
+            out("ChemPot");
+            out("DisFreq");
+            out("RotFreq");
+            out("IntraSwapFreq");
+            out("VolFreq");
+            out("SwapFreq");
+            out("useConstantArea");
+            out("FixVolBox0");
+            out("CellBasisVector");
+
+            out("CBMC_First");
+            out("CBMC_Nth");
+            out("CBMC_Ang");
+            out("CBMC_Dih");
+            out("OutputName");
+
+            out("CoordinatesFreq");
+            out("RestartFreq");
+            out("ConsoleFreq");
+            out("BlockAverageFreq");
+            out("HistogramFreq");
+
+            out("DistName");
+            out("HistName");
+            out("RunNumber");
+            out("RunLetter");
+            out("SampleFreq");
+
+            out("OutEnergy");
+            out("OutPressure");
+            out("OutMolNum");
+            out("OutDensity");
+
+            st += "</ConfigSetup>";
+            //console.log(st);
+
+            window.location.href = '/api/ConfigInput/DownloadXml?xml=' + encodeURI(st);
+            return false;
         }
     </script>
 </body>
