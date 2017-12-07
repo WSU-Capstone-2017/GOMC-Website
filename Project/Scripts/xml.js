@@ -1106,6 +1106,7 @@ else {
 	if (v == null) {
 		//st += nm + "\n";
 	} else {
+		if (nm === "_1-4scaling") nm = "1-4scaling";
 		st += "<" + nm + ">" + v + "</" + nm + ">" + "\n";
 	}
 }
@@ -1133,7 +1134,7 @@ out("CachedFourier");
 out("Tolerance");
 out("Dielectric");
 out("PressureCalc");
-out("1-4scaling");
+out("_1-4scaling");
 out("RunSteps");
 out("EqSteps");
 out("AdjSteps");
