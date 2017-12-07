@@ -139,11 +139,11 @@
                     //nowhitespace: true
                     pattern: /^[a-zA-Z0-9_.\/\-]*$/ // pattern to cover the issue of no whitespace 
                 },
-                gomc_config_input_Coordinates_3: "required",
-                gomc_config_input_Coordinates_4: {
-                    required: true,
-                    pattern: /^[a-zA-Z0-9_.\/\-]*$/
-                },
+                //gomc_config_input_Coordinates_3: "required",
+                //gomc_config_input_Coordinates_4: {
+                //    required: true,
+                //    pattern: /^[a-zA-Z0-9_.\/\-]*$/
+                //},
                 Structure_0: {
                     required: true,
                     //pattern: /^[a-zA-Z0-9_.\/\-]*$/ // pattern to cover the issue of no whitespace 
@@ -152,38 +152,38 @@
                     required: true,
                     //nowhitespace: true
                     pattern: /^[a-zA-Z0-9_.\/\-]*$/ // pattern to cover the issue of no whitespace 
-                },
-                gomc_config_input_Structures_3: "required",
-                gomc_config_input_Structures_4: {
-                    required: true,
-                    pattern: /^[a-zA-Z0-9_.\/\-]*$/
-                },
+                }
+                //gomc_config_input_Structures_3: "required",
+                //gomc_config_input_Structures_4: {
+                //    required: true,
+                //    pattern: /^[a-zA-Z0-9_.\/\-]*$/
+                //},
 
             },
             messages: {
-                gomc_config_input_RandomSeed: {
+                Random_Seed: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_ParametersFileName: {
+                Parameters: {
                     required: "File-name required",
                     pattern: "Please enter a valid file or path name"
                 },
-                gomc_config_input_Coordinates_1: {
-                    required: "File-name required",
-                    //whitespace: "Please enter the characters without any white space"
-                    pattern: "Please enter a valid file or path name"
-                },
-                gomc_config_input_Coordinates_2: {
+                Coordinates_0: {
                     required: "File-name required",
                     //whitespace: "Please enter the characters without any white space"
                     pattern: "Please enter a valid file or path name"
                 },
-                gomc_config_input_Structures_1: {
+                Coordinates_1: {
                     required: "File-name required",
                     //whitespace: "Please enter the characters without any white space"
                     pattern: "Please enter a valid file or path name"
                 },
-                gomc_config_input_Structures_2: {
+                Structure_0: {
+                    required: "File-name required",
+                    //whitespace: "Please enter the characters without any white space"
+                    pattern: "Please enter a valid file or path name"
+                },
+                Structures_1: {
                     required: "File-name required",
                     //whitespace: "Please enter the characters without any white space"
                     pattern: "Please enter a valid file or path name"
@@ -256,147 +256,174 @@
 
         $('#xmlForm2').validate({
             rules: {
-                gomc_config_input_Temperature: {
+                Pressure: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_Rcut: {
+                Temperature: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_RcutLow: {
+                Rcut: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_Lrc: "required",
-                gomc_config_input_Exclude: "required",
-                gomc_config_input_Potential: "required",
-                gomc_config_input_Rswitch: {
+               RcutLow: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_ElectroStatic: "required",
-                gomc_config_input_Ewald: "required",
-                gomc_config_input_CachedFourier: "required",
-                gomc_config_input_Tolerance: {
+                //gomc_config_input_Lrc: "required",
+                //gomc_config_input_Exclude: "required",
+               Potential: "required",
+               Exclude: "required",
+               LRC: "required",
+                Rswitch: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_Dielectric: {
+                ElectroStatic: "required",
+                Ewald: "required",
+                CachedFourier: "required",
+                Tolerance: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_OneFourScaling: {
+                Dielectric: {
+                    min: 0,
+                    required: true
+                },
+                PressureCalc_bool: "required",
+                PressureCalc_Value: {
+                    min: 0,
+                    required: true
+                },
+                "_1-4scaling": {
                     min: 0,
                     max: 1,
-                    required: true
+                    required:true
                 },
-                gomc_config_input_RunSteps: {
+                //gomc_config_input_OneFourScaling: {
+                //    min: 0,
+                //    max: 1,
+                //    required: true
+                //},
+                RunSteps: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_EqSteps: {
+               EqSteps: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_AdjSteps: {
+                AdjSteps: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_ChemPot_ResName: {
+                "ChemPot-Fugacity": "required",
+                "ChemPot-Fugacity_ResName_0":{
                     required: true,
-                    pattern: /^[a-zA-Z0-9_.\/]*$/
+                    pattern: /^[a - zA - Z0 - 9_.\/\-]*$/
                 },
-                gomc_config_input_ChemPot_Value: {
-                    min: -99999,
-                    required: true
-                },
-                gomc_config_input_Fugacity_ResName: {
-                    required: false,
-                    pattern: /^[a-zA-Z0-9_.\/]*$/
-                },
-                gomc_config_input_Fugacity_Value: {
-                    min: -99999,
-                    required: false
-                },
-                gomc_config_input_DisFreq: {
+                "ChemPot-Fugacity_Value_0": {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_RotFreq: {
+                //gomc_config_input_ChemPot_Value: {
+                //    min: -99999,
+                //    required: true
+                //},
+                //gomc_config_input_Fugacity_ResName: {
+                //    required: false,
+                //    pattern: /^[a-zA-Z0-9_.\/]*$/
+                //},
+                //gomc_config_input_Fugacity_Value: {
+                //    min: -99999,
+                //    required: false
+                //},
+                DisFreq: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_IntraSwapFreq: {
+               RotFreq: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_VolFreq: {
+                IntraSwapFreq: {
                     min: 0,
                     required: true
                 },
-                gomc_config_input_SwapFreq: {
+                VolFreq: {
+                    min: 0,
+                    required: true
+                },
+                SwapFreq: {
                     min: 0,
                     required: true
                 }
             },
             messages: {
-                gomc_config_input_Temperature: {
+                Temperature: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_Rcut: {
+                Rcut: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_RcutLow: {
+                RcutLow: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_Rswitch: {
+                Rswitch: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_Tolerance: {
+                Tolerance: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_Dielectric: {
+                Dielectric: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_OneFourScaling: {
+                "_1-4scaling": {
                     min: "Please input a positive number",
-                    max: "Please input a number between 0 -1"
+                    max: "Please input a number between 0-1"
                 },
-                gomc_config_input_RunSteps: {
+                RunSteps: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_EqSteps: {
+                EqSteps: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_AdjSteps: {
+                AdjSteps: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_ChemPot_ResName: {
-                    pattern: "No numbers or special characters please!"
+                //ChemPot_ResName: {
+                //    pattern: "No numbers or special characters please!"
+                //},
+                //ChemPot_Value: {
+                //    min: "Please input a positive number"
+                //},
+                //Fugacity_ResName: {
+                //    pattern: "No numbers or special characters please!"
+                //},
+                //Fugacity_Value: {
+                //    min: "Please input a positive number"
+                //},
+                "ChemPot-Fugacity_ResName_0": {
+                    pattern: /^[a - zA - Z0 - 9_.\/\-]*$/
                 },
-                gomc_config_input_ChemPot_Value: {
+                "ChemPot-Fugacity_Value_0": {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_Fugacity_ResName: {
-                    pattern: "No numbers or special characters please!"
-                },
-                gomc_config_input_Fugacity_Value: {
+                DisFreq: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_DisFreq: {
+                RotFreq: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_RotFreq: {
+                IntraSwapFreq: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_IntraSwapFreq: {
+                VolFreq: {
                     min: "Please input a positive number"
                 },
-                gomc_config_input_VolFreq: {
-                    min: "Please input a positive number"
-                },
-                gomc_config_input_SwapFreq: {
+                SwapFreq: {
                     min: "Please input a positive number"
                 }
             },
