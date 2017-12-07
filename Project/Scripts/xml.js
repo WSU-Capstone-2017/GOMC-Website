@@ -824,7 +824,6 @@ function updateBar(currentWidth) {
 		$("#Restart").change(function () {
 			ableCellBasis();
 		});
-	});
 	function ableCellBasis() {
 		var v = getVal("Restart") !== true && getVal("Ensemble") !== "Npt" && getVal("Ensemble") !== "Nvt";
 
