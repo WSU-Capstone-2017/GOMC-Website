@@ -1,982 +1,1559 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Home/_Home_Layout.cshtml";
+    ViewBag.Title = "GOMC: XML";
 }
-<!DOCTYPE html>
-<!-- Home template, contains resusable html which consists of the following:
-      - Header
-      - Nav-bar
-      - Footer
-      - Dependant Javascript files
-      - Optional Script Render for other external JS files
-      - The analytics script
--->
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-    <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/allcss")
-</head>
-<body>
-    <nav class='navbar navbar-default navbar-fixed-top main-menu' role='navigation'>
-        <div class='container'>
-            <div class='navbar-header' id='menu '>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" href="#navCollapse" data-parent='#menu' id='btn'>
-                    <span class='glyphicon glyphicon-align-justify'></span>
-                </button>
-                <a href='#'><img src='~/Content/img/gomc-w.png' alt='team logo' id="teamLogo" style="width:6.4em;"></a>
+@section NavSection {
+    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
+    <li>@Html.ActionLink("Features", "Features", "Home")</li>
+    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
+    <li>@Html.ActionLink("Documentation", "Documentation", "Home", htmlAttributes: new { id = "onDocumentationPage" })</li>
+    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+}
+    <main>
+        <div class="row">
+            <ul id="progressbar">
+                <li class="active">Structure</li>
+                <li>System</li>
+                <li>Config Header</li>
+                <li>Config Body</li>
+            </ul>
+            <div class="col-md-12" id="xmlDataContainer">
+                <div class="panel-group">
+                    <div class="panel panel-success panel-first working-panel">
+                        <div class="panel-heading">Initial Structure Setup</div>
+                        <div class="panel-body">
+                            <form id="xmlForm1">
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                                <div id="Ensemble" class="form-group">
+                                    <label>Ensembles</label>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Canonical" data-placement="right">
+                                            <input class="xml-control" type="radio" name="Ensemble" id="Nvt" value="Nvt">
+                                            NVT
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Isobaric-isothermal" data-placement="right">
+                                            <input class="xml-control" type="radio" name="Ensemble" id="Npt" value="Npt">
+                                            NPT
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Grand Canonical" data-placement="right">
+                                            <input class="xml-control" type="radio" name="Ensemble" id="Gcmc" value="Gcmc">
+                                            GCMC
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
+                                            <input class="xml-control" type="radio" name="Ensemble" id="GibbsNvt" value="GibbsNvt">
+                                            Gibbs-NVT
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
+                                            <input class="xml-control" type="radio" name="Ensemble" id="GibbsNpt" value="GibbsNpt">
+                                            Gibbs-NPT
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="Restart" class="form-group">
+                                    <label data-toggle="tooltip" title="Sets restart active">Restart</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Restart" id="Restart_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Restart" id="Restart_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="PRNG">
+                                    <label data-toggle="tooltip" title="Random Text or Random Digits">PRNG</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="PRNG" id="PRNG_RANDOM" value="RANDOM">RANDOM
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="PRNG" id="PRNG_INTSEED" value="INTSEED">INTSEED
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Random_Seed_">
+                                    <label data-toggle="tooltip" title="Sets the random seed">Random_Seed</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="Random_Seed" id="Random_Seed">
+                                </div>
+                                <div class="form-group" id="ParaType">
+                                    <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeCHARMM" value="CHARMM">
+                                            CHARMM
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeEXOTIC" value="EXOTIC">
+                                            MIE
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeMARTINI" value="MARTINI">
+                                            MARTINI
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Parameters_">
+                                    <label data-toggle="tooltip" title="Provides the name or location of the parameters">Parameters FileName</label>
+                                    <input class="xml-control form-control" type="text" name="Parameters" id="Parameters">
+                                </div>
+                                <div class="form-group" id="Coordinates">
+                                    <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
+                                    <label class="block-label">1: <input class="xml-control form-control" type="text" name="Coordinates_0" id="Coordinates_0"></label>
+                                    <label class="block-label">2: <input class="xml-control form-control" type="text" name="Coordinates_1" id="Coordinates_1"></label>
+                                </div>
+                                <div class="form-group" id="Structure">
+                                    <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
+                                    <label class="block-label">1: <input class="xml-control form-control" type="text" name="Structure_0" id="Structure_0"></label>
+                                    <label class="block-label">2: <input class="xml-control form-control" type="text" name="Structure_1" id="Structure_1"></label>
+                                </div>
+                            </form>
+                            <button class="btn btn-success btn-sm pull-left" id="xmlForm1Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                        </div>
+                    </div>
+                    <div class="panel panel-success panel-second not-render">
+                        <div class="panel-heading">Initial System Setup</div>
+                        <div class="panel-body">
+                            <form id="xmlForm2">
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                                <div class="form-group" id="Pressure_">
+                                    <div>
+                                        <label data-toggle="tooltip" title="Pressure in Bar">Pressure</label>
+                                    </div>
+                                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Pressure" id="Pressure"><span>  <i>Bar</i></span>
+                                </div>
+                                <div class="form-group" id="Temperature_">
+                                    <div>
+                                        <label data-toggle="tooltip" title="Temperature in Kelvin">Temperature</label>
+                                    </div>
+                                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
+                                </div>
+                                <div class="form-group" id="Rcut_">
+                                    <div>
+                                        <label data-toggle="tooltip" title="Radius of interaction energy">Rcut</label>
+                                    </div>
+                                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
+                                </div>
+                                <div class="form-group" id="RcutLow_">
+                                    <div>
+                                        <label data-toggle="tooltip" title="Sets minimal possible distance">RcutLow</label>
+                                    </div>
+                                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
+                                </div>
+                                <div class="form-group" id="Potential">
+                                    <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
+                                            <input class="xml-control" type="radio" name="Potential" id="Potential_VDW" value="VDW">
+                                            Truncated
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Zero at Rcut distance">
+                                            <input class="xml-control" type="radio" name="Potential" id="Potential_SHIFT" value="SHIFT">
+                                            SHIFT
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
+                                            <input class="xml-control" type="radio" name="Potential" id="Potential_SWITCH" value="SWITCH">
+                                            SWITCH
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Exclude">
+                                    <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-2" value="1-2">
+                                            1-2
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-3" value="1-3">
+                                            1-3
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-4" value="1-4" checked>
+                                            1-4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="LRC">
+                                    <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="LRC" id="LRC_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="LRC" id="Lrc_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Rswitch_">
+                                    <label data-toggle="tooltip" title="Distance is where interaction energy is truncated smoothly">Rswitch</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="Rswitch" id="Rswitch">
+                                </div>
+                                <div class="form-group" id="ElectroStatic">
+                                    <label data-toggle="tooltip" title="Consider Coulomb interaction">ElectroStatic</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Ewald">
+                                    <label data-toggle="tooltip" title="Considers sum for electrostatic">Ewald</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Ewald" id="Ewald_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="Ewald" id="Ewald_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="CachedFourier">
+                                    <label data-toggle="tooltip" title="Considers the reciprocal for Ewald">CachedFourier</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="Tolerance_">
+                                    <label data-toggle="tooltip" title="Specifies accuracy of the Ewald sum">Tolerance</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="Tolerance" id="Tolerance">
+                                </div>
+                                <div class="form-group" id="Dielectric_">
+                                    <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI">Dielectric</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="Dielectric" id="Dielectric">
+                                </div>
+                                <div class="form-group" id="PressureCalc_">
+                                    <div>
+                                        <label data-toggle="tooltip" title="Considers pressure calculation">PressureCalc</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <input class="xml-control form-control inline-control" type="number" min="0" name="PressureCalc_Value" id="PressureCalc_Value"><span><i> Bar</i></span>
+                                </div>
+                                <div class="form-group" id="1-4scaling_">
+                                    <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="1-4scaling" id="1-4scaling">
+                                </div>
+                                <div class="form-group" id="RunSteps_">
+                                    <label data-toggle="tooltip" title="Sets the total number of steps to run">RunSteps</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="RunSteps" id="RunSteps">
+                                </div>
+                                <div class="form-group" id="EqSteps_">
+                                    <label data-toggle="tooltip" title="Sets the number of steps for equilibrium">EqSteps</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="EqSteps" id="EqSteps">
+                                </div>
+                                <div class="form-group" id="AdjSteps_">
+                                    <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="AdjSteps" id="AdjSteps">
+                                </div>
+                                <div class="form-group" id="ChemPot-Fugacity">
+                                    <label data-toggle="tooltip" title="Chemical potential">ChemPot or Fugacity</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_true" value="ChemPot">
+                                            Chemical Potential
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_false" value="Fugacity">
+                                            Fugacity
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="ChemPot-Fugacity_0">
+                                    <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="ChemPot-Fugacity_ResName_0" id="ChemPot-Fugacity_ResName_0"></label>
+                                    <label>Value<input class="xml-control form-control" type="number" min="0" name="ChemPot-Fugacity_Value_0" id="ChemPot-Fugacity_Value_0"></label>
+                                </div>
+                                <div id="ChemPot-Fugacity_List">
+                                </div>
+                                <button class="btn btn-group-sm btn-success" id="new_ChemPot-Fugacity" type="button"><span class="glyphicon glyphicon-plus icon-style"></span>Add More Components</button>
+
+                                <br />
+                                <br />
+
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="DisFreq" id="DisFreq">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Fractional % for rigid rotation">RotFreq</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="RotFreq" id="RotFreq">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Fractional % at which the particle will be removed from and inserted to the same box">IntraSwapFreq</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="IntraSwapFreq" id="IntraSwapFreq">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Fractional % at which volume displacement move will occur">VolFreq</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="VolFreq" id="VolFreq">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Fractional percentage at which the particle swap move will occur">SwapFreq</label>
+                                    <input class="xml-control form-control" type="number" min="0" name="SwapFreq" id="SwapFreq">
+                                </div>
+                                <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                                <button class="btn btn-success btn-sm pull-left" id="xmlForm2Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-success panel-third not-render">
+                        <div class='panel-heading'>Output Header Configuration</div>
+                        <div class="panel-body">
+                            <form id="xmlForm3">
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                                <div class="form-group" id="useConstantArea">
+                                    <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="FixVolBox0">
+                                    <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="1-CellBasisVector">
+                                    <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 1</label>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_XAxis" id="1-CellBasisVector_1_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_YAxis" id="1-CellBasisVector_1_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_ZAxis" id="1-CellBasisVector_1_ZAxis"></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_XAxis" id="1-CellBasisVector_2_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_YAxis" id="1-CellBasisVector_2_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_ZAxis" id="1-CellBasisVector_2_ZAxis"></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_XAxis" id="1-CellBasisVector_3_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_YAxis" id="1-CellBasisVector_3_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_ZAxis" id="1-CellBasisVector_3_ZAxis"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="2-CellBasisVector">
+                                    <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 2</label>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_XAxis" id="2-CellBasisVector_1_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_YAxis" id="2-CellBasisVector_1_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_ZAxis" id="2-CellBasisVector_1_ZAxis"></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_XAxis" id="2-CellBasisVector_2_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_YAxis" id="2-CellBasisVector_2_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_ZAxis" id="2-CellBasisVector_2_ZAxis"></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_XAxis" id="2-CellBasisVector_3_XAxis"></label>
+                                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_YAxis" id="2-CellBasisVector_3_YAxis"></label>
+                                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_ZAxis" id="2-CellBasisVector_3_ZAxis"></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_First" id="CBMC_First">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Nth" id="CBMC_Nth">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Ang" id="CBMC_Ang">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Dih" id="CBMC_Dih">
+                                </div>
+
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
+                                    <input class="xml-control form-control" type="text" name="OutputName" id="OutputName">
+                                </div>
+                                <div class="form-group" id="CoordinatesFreq">
+                                    <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="CoordinatesFreq_Value" id="CoordinatesFreq_Value"></label>
+                                </div>
+
+                                <div class="form-group" id="RestartFreq">
+                                    <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="RestartFreq_Value" id="RestartFreq_Value"></label>
+                                </div>
+                                <div class="form-group" id="ConsoleFreq">
+                                    <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="ConsoleFreq_Value" id="ConsoleFreq_Value"></label>
+                                </div>
+                                <div class="form-group" id="BlockAverageFreq">
+                                    <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="BlockAverageFreq_Value" id="BlockAverageFreq_Value"></label>
+                                </div>
+                                <div class="form-group" id="HistogramFreq">
+                                    <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_true" value="true">
+                                            True
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_false" value="false">
+                                            False
+                                        </label>
+                                    </div>
+                                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="HistogramFreq_Value" id="HistogramFreq_Value"></label>
+                                </div>
+                                <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                                <button class="btn btn-success btn-sm pull-left" id="xmlForm3Save"><span class="glyphicon glyphicon-arrow-right icon-style"></span>Next</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-success panel-fourth not-render">
+                        <div class='panel-heading'>Output Body Configuration</div>
+                        <div class="panel-body">
+                            <form id="xmlConfig">
+                                @Html.ActionLink("Need Help? Click here", "Latex", "Home", new { @class = "help-link-xml" })
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
+                                    <input class="xml-control form-control" type="text" name="DistName" id="DistName">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
+                                    <input class="xml-control form-control" type="text" name="HistName" id="HistName">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="RunNumber" id="RunNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
+                                    <input class="xml-control form-control" type="text" name="RunLetter" id="RunLetter">
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
+                                    <input class="xml-control form-control" type="number" step="any" min="0" name="SampleFreq" id="SampleFreq">
+                                </div>
+                                <div class="form-group" id="OutEnergy">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutEnergy1">
+                                            Block averages
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutEnergy2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="OutPressure">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutPressure1">
+                                            Block averages
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutPressure2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="OutMolNum">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutMolNum1">
+                                            Block averages
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutMolNum2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="OutDensity">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutDensity1">
+                                            Block averages
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutDensity2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-default btn-sm pull-left prev-btn" formnovalidate><span class="glyphicon glyphicon-arrow-left icon-style"></span>Prev</button>
+                                <button class='btn btn-success btn-sm pull-left' type="submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-fifth not-render">
+                        <div class="panel-heading"><span class="glyphicon glyphicon-ok-circle icon-style"></span>Thank You!</div>
+                        <div class="panel-body">
+                            <p>Thank you for using our XML converter! </p>
+                            <p>Please check your downloads folder and run the simulation engine with the resulting file</p>
+                            <p>If you cannot find your download, please check your pop up blocker or other browser add-ons</p>
+                            <div class="btn-group-vertical">
+                                <button class="btn btn-primary btn-lg" id="backToMain"><span class="glyphicon glyphicon-log-out icon-style"></span>Back to main page</button>
+                                <button class="btn btn-default btn-lg" id="newForm"><span class="glyphicon glyphicon-open icon-style"></span>Start a new form</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='collapse navbar-collapse navbar-right' id='navCollapse'>
-                <ul class='nav nav-tabs'>
-                    <li>@Html.ActionLink("GOMC", "Gomc", "Home")</li>
-                    <li>@Html.ActionLink("Features", "Features", "Home", htmlAttributes: new { id = "onFeaturesPage" })</li>
-                    <li>@Html.ActionLink("Downloads", "Downloads", "Home")</li>
-                    <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
-                    <li>@Html.ActionLink("Publications", "Publications", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-            </div>
+            @*Code below needs to be pulled into the above, once pulled in it is commented out *@
+            @*<form id="ConfForm">*@
+                @*<div id="Ensemble" class="form-group">
+                    <label>Ensembles</label>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Canonical" data-placement="right">
+                            <input class="xml-control" type="radio" name="Ensemble" id="Nvt" value="Nvt">
+                            NVT
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Isobaric-isothermal" data-placement="right">
+                            <input class="xml-control" type="radio" name="Ensemble" id="Npt" value="Npt">
+                            NPT
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Grand Canonical" data-placement="right">
+                            <input class="xml-control" type="radio" name="Ensemble" id="Gcmc" value="Gcmc">
+                            GCMC
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
+                            <input class="xml-control" type="radio" name="Ensemble" id="GibbsNvt" value="GibbsNvt">
+                            Gibbs-NVT
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
+                            <input class="xml-control" type="radio" name="Ensemble" id="GibbsNpt" value="GibbsNpt">
+                            Gibbs-NPT
+                        </label>
+                    </div>
+                </div>
+                <div id="Restart" class="form-group">
+                    <label data-toggle="tooltip" title="Sets restart active">Restart</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Restart" id="Restart_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Restart" id="Restart_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="PRNG">
+                    <label data-toggle="tooltip" title="Random Text or Random Digits">PRNG</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="PRNG" id="PRNG_RANDOM" value="RANDOM">RANDOM
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="PRNG" id="PRNG_INTSEED" value="INTSEED">INTSEED
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="Random_Seed_">
+                    <label data-toggle="tooltip" title="Sets the random seed">Random_Seed</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="Random_Seed" id="Random_Seed">
+                </div>
+                <div class="form-group" id="ParaType">
+                    <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeCHARMM" value="CHARMM">
+                            CHARMM
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeEXOTIC" value="EXOTIC">
+                            MIE
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ParaType" id="ParaTypeMARTINI" value="MARTINI">
+                            MARTINI
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="Parameters_">
+                    <label data-toggle="tooltip" title="Provides the name or location of the parameters">Parameters FileName</label>
+                    <input class="xml-control form-control" type="text" name="Parameters" id="Parameters">
+                </div>
+                <div class="form-group" id="Coordinates">
+                    <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
+                    <label class="block-label">1: <input class="xml-control form-control" type="text" name="Coordinates_0" id="Coordinates_0"></label>
+                    <label class="block-label">2: <input class="xml-control form-control" type="text" name="Coordinates_1" id="Coordinates_1"></label>
+                </div>
+                <div class="form-group" id="Structure">
+                    <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
+                    <label class="block-label">1: <input class="xml-control form-control" type="text" name="Structure_0" id="Structure_0"></label>
+                    <label class="block-label">2: <input class="xml-control form-control" type="text" name="Structure_1" id="Structure_1"></label>
+                </div>*@
+                @*The above makes form 1*@
+
+                @*<div class="form-group" id="Pressure_">
+                    <div>
+                        <label data-toggle="tooltip" title="Pressure in Bar">Pressure</label>
+                    </div>
+                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Pressure" id="Pressure"><span>  <i>Bar</i></span>
+                </div>
+                <div class="form-group" id="Temperature_">
+                    <div>
+                        <label data-toggle="tooltip" title="Temperature in Kelvin">Temperature</label>
+                    </div>
+                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
+                </div>
+                <div class="form-group" id="Rcut_">
+                    <div>
+                        <label data-toggle="tooltip" title="Radius of interaction energy">Rcut</label>
+                    </div>
+                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
+                </div>
+                <div class="form-group" id="RcutLow_">
+                    <div>
+                        <label data-toggle="tooltip" title="Sets minimal possible distance">RcutLow</label>
+                    </div>
+                    <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
+                </div>
+                <div class="form-group" id="Potential">
+                    <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
+                            <input class="xml-control" type="radio" name="Potential" id="Potential_VDW" value="VDW">
+                            Truncated
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Zero at Rcut distance">
+                            <input class="xml-control" type="radio" name="Potential" id="Potential_SHIFT" value="SHIFT">
+                            SHIFT
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
+                            <input class="xml-control" type="radio" name="Potential" id="Potential_SWITCH" value="SWITCH">
+                            SWITCH
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="Exclude">
+                    <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-2" value="1-2">
+                            1-2
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-3" value="1-3">
+                            1-3
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-4" value="1-4" checked>
+                            1-4
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="LRC">
+                    <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="LRC" id="LRC_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="LRC" id="Lrc_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="Rswitch_">
+                    <label data-toggle="tooltip" title="Distance is where interaction energy is truncated smoothly">Rswitch</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="Rswitch" id="Rswitch">
+                </div>
+                <div class="form-group" id="ElectroStatic">
+                    <label data-toggle="tooltip" title="Consider Coulomb interaction">ElectroStatic</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="Ewald">
+                    <label data-toggle="tooltip" title="Considers sum for electrostatic">Ewald</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Ewald" id="Ewald_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="Ewald" id="Ewald_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="CachedFourier">
+                    <label data-toggle="tooltip" title="Considers the reciprocal for Ewald">CachedFourier</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="Tolerance_">
+                    <label data-toggle="tooltip" title="Specifies accuracy of the Ewald sum">Tolerance</label>
+                    <input class="xml-control form-control" type="number" min="0" name="Tolerance" id="Tolerance">
+                </div>
+                <div class="form-group" id="Dielectric_">
+                    <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI">Dielectric</label>
+                    <input class="xml-control form-control" type="number" min="0" name="Dielectric" id="Dielectric">
+                </div>
+                <div class="form-group" id="PressureCalc_">
+                    <div>
+                        <label data-toggle="tooltip" title="Considers pressure calculation">PressureCalc</label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <input class="xml-control form-control inline-control" type="number" min="0" name="PressureCalc_Value" id="PressureCalc_Value"><span><i> Bar</i></span>
+                </div>
+                <div class="form-group" id="1-4scaling_">
+                    <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
+                    <input class="xml-control form-control" type="number" min="0" name="1-4scaling" id="1-4scaling">
+                </div>
+                <div class="form-group" id="RunSteps_">
+                    <label data-toggle="tooltip" title="Sets the total number of steps to run">RunSteps</label>
+                    <input class="xml-control form-control" type="number" min="0" name="RunSteps" id="RunSteps">
+                </div>
+                <div class="form-group" id="EqSteps_">
+                    <label data-toggle="tooltip" title="Sets the number of steps for equilibrium">EqSteps</label>
+                    <input class="xml-control form-control" type="number" min="0" name="EqSteps" id="EqSteps">
+                </div>
+                <div class="form-group" id="AdjSteps_">
+                    <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
+                    <input class="xml-control form-control" type="number" min="0" name="AdjSteps" id="AdjSteps">
+                </div>
+                <div class="form-group" id="ChemPot-Fugacity">
+                    <label data-toggle="tooltip" title="Chemical potential">ChemPot or Fugacity</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_true" value="ChemPot">
+                            Chemical Potential
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_false" value="Fugacity">
+                            Fugacity
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="ChemPot-Fugacity_0">
+                    <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="ChemPot-Fugacity_ResName_0" id="ChemPot-Fugacity_ResName_0"></label>
+                    <label>Value<input class="xml-control form-control" type="number" min="0" name="ChemPot-Fugacity_Value_0" id="ChemPot-Fugacity_Value_0"></label>
+                </div>
+                <div id="ChemPot-Fugacity_List">
+                </div>
+                <button class="btn btn-group-sm btn-success" id="new_ChemPot-Fugacity" type="button"><span class="glyphicon glyphicon-plus icon-style"></span>Add More Components</button>
+
+                <br />
+                <br />
+
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
+                    <input class="xml-control form-control" type="number" min="0" name="DisFreq" id="DisFreq">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Fractional % for rigid rotation">RotFreq</label>
+                    <input class="xml-control form-control" type="number" min="0" name="RotFreq" id="RotFreq">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Fractional % at which the particle will be removed from and inserted to the same box">IntraSwapFreq</label>
+                    <input class="xml-control form-control" type="number" min="0" name="IntraSwapFreq" id="IntraSwapFreq">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Fractional % at which volume displacement move will occur">VolFreq</label>
+                    <input class="xml-control form-control" type="number" min="0" name="VolFreq" id="VolFreq">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Fractional percentage at which the particle swap move will occur">SwapFreq</label>
+                    <input class="xml-control form-control" type="number" min="0" name="SwapFreq" id="SwapFreq">
+                </div>*@
+
+                @*The above consists of form 2*@
+
+                @*<div class="form-group" id="useConstantArea">
+                    <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="FixVolBox0">
+                    <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_false" value="false">
+                            False
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="1-CellBasisVector">
+                    <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 1</label>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_XAxis" id="1-CellBasisVector_1_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_YAxis" id="1-CellBasisVector_1_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_ZAxis" id="1-CellBasisVector_1_ZAxis"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_XAxis" id="1-CellBasisVector_2_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_YAxis" id="1-CellBasisVector_2_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_ZAxis" id="1-CellBasisVector_2_ZAxis"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_XAxis" id="1-CellBasisVector_3_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_YAxis" id="1-CellBasisVector_3_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_ZAxis" id="1-CellBasisVector_3_ZAxis"></label>
+                    </div>
+                </div>
+                <div class="form-group" id="2-CellBasisVector">
+                    <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 2</label>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_XAxis" id="2-CellBasisVector_1_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_YAxis" id="2-CellBasisVector_1_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_ZAxis" id="2-CellBasisVector_1_ZAxis"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_XAxis" id="2-CellBasisVector_2_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_YAxis" id="2-CellBasisVector_2_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_ZAxis" id="2-CellBasisVector_2_ZAxis"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_XAxis" id="2-CellBasisVector_3_XAxis"></label>
+                        <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_YAxis" id="2-CellBasisVector_3_YAxis"></label>
+                        <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_ZAxis" id="2-CellBasisVector_3_ZAxis"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_First" id="CBMC_First">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Nth" id="CBMC_Nth">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Ang" id="CBMC_Ang">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Dih" id="CBMC_Dih">
+                </div>
+
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
+                    <input class="xml-control form-control" type="text" name="OutputName" id="OutputName">
+                </div>
+                <div class="form-group" id="CoordinatesFreq">
+                    <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="CoordinatesFreq_Value" id="CoordinatesFreq_Value"></label>
+                </div>
+
+                <div class="form-group" id="RestartFreq">
+                    <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="RestartFreq_Value" id="RestartFreq_Value"></label>
+                </div>
+                <div class="form-group" id="ConsoleFreq">
+                    <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="ConsoleFreq_Value" id="ConsoleFreq_Value"></label>
+                </div>
+                <div class="form-group" id="BlockAverageFreq">
+                    <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="BlockAverageFreq_Value" id="BlockAverageFreq_Value"></label>
+                </div>
+                <div class="form-group" id="HistogramFreq">
+                    <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_true" value="true">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_false" value="false">
+                            False
+                        </label>
+                    </div>
+                    <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="HistogramFreq_Value" id="HistogramFreq_Value"></label>
+                </div>*@
+
+                @*The above is in form 3*@
+
+                @*<div class="form-group">
+                    <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
+                    <input class="xml-control form-control" type="text" name="DistName" id="DistName">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
+                    <input class="xml-control form-control" type="text" name="HistName" id="HistName">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="RunNumber" id="RunNumber">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
+                    <input class="xml-control form-control" type="text" name="RunLetter" id="RunLetter">
+                </div>
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
+                    <input class="xml-control form-control" type="number" step="any" min="0" name="SampleFreq" id="SampleFreq">
+                </div>
+                <div class="form-group" id="OutEnergy">
+                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="" id="OutEnergy1">
+                            Block averages
+                        </label>
+                        <label>
+                            <input type="checkbox" value="" id="OutEnergy2">
+                            Fluctuation
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="OutPressure">
+                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="" id="OutPressure1">
+                            Block averages
+                        </label>
+                        <label>
+                            <input type="checkbox" value="" id="OutPressure2">
+                            Fluctuation
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="OutMolNum">
+                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="" id="OutMolNum1">
+                            Block averages
+                        </label>
+                        <label>
+                            <input type="checkbox" value="" id="OutMolNum2">
+                            Fluctuation
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="OutDensity">
+                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="" id="OutDensity1">
+                            Block averages
+                        </label>
+                        <label>
+                            <input type="checkbox" value="" id="OutDensity2">
+                            Fluctuation
+                        </label>
+                    </div>
+                </div>*@
+            @*</form>
+            <button class='btn btn-success btn-sm pull-left' onclick="return onConfForm_SubmitClick();" id="ConfForm_Submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>*@
         </div>
-    </nav>
-    <div id="layoutMainDiv" class="container adjust-distance-nav">
-
-        <main class='different-main'>
-            <div>
-                <form id="ConfForm">
-                    <div id="Ensemble" class="form-group">
-                        <label>Ensembles</label>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Canonical" data-placement="right">
-                                <input class="xml-control" type="radio" name="Ensemble" id="Nvt" value="Nvt">
-                                NVT
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Isobaric-isothermal" data-placement="right">
-                                <input class="xml-control" type="radio" name="Ensemble" id="Npt" value="Npt">
-                                NPT
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Grand Canonical" data-placement="right">
-                                <input class="xml-control" type="radio" name="Ensemble" id="Gcmc" value="Gcmc">
-                                GCMC
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Gibbs Constant Volume" data-placement="right">
-                                <input class="xml-control" type="radio" name="Ensemble" id="GibbsNvt" value="GibbsNvt">
-                                Gibbs-NVT
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Gibbs Constant Pressure" data-placement="right">
-                                <input class="xml-control" type="radio" name="Ensemble" id="GibbsNpt" value="GibbsNpt">
-                                Gibbs-NPT
-                            </label>
-                        </div>
-                    </div>
-                    <div id="Restart" class="form-group">
-                        <label data-toggle="tooltip" title="Sets restart active">Restart</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Restart" id="Restart_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Restart" id="Restart_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="PRNG">
-                        <label data-toggle="tooltip" title="Random Text or Random Digits">PRNG</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="PRNG" id="PRNG_RANDOM" value="RANDOM">RANDOM
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="PRNG" id="PRNG_INTSEED" value="INTSEED">INTSEED
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="Random_Seed_">
-                        <label data-toggle="tooltip" title="Sets the random seed">Random_Seed</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="Random_Seed" id="Random_Seed">
-                    </div>
-                    <div class="form-group" id="ParaType">
-                        <label data-toggle="tooltip" title="Sets force field type">ParaType</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeCHARMM" value="CHARMM">
-                                CHARMM
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeEXOTIC" value="EXOTIC">
-                                MIE
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ParaType" id="ParaTypeMARTINI" value="MARTINI">
-                                MARTINI
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="Parameters_">
-                        <label data-toggle="tooltip" title="Provides the name or location of the parameters">Parameters FileName</label>
-                        <input class="xml-control form-control" type="text" name="Parameters" id="Parameters">
-                    </div>
-                    <div class="form-group" id="Coordinates">
-                        <label data-toggle="tooltip" title="Define PDB filenames for each cell">Coordinate File (<i>.pdb</i>)</label>
-                        <label class="block-label">1: <input class="xml-control form-control" type="text" name="Coordinates_0" id="Coordinates_0"></label>
-                        <label class="block-label">2: <input class="xml-control form-control" type="text" name="Coordinates_1" id="Coordinates_1"></label>
-                    </div>
-                    <div class="form-group" id="Structure">
-                        <label data-toggle="tooltip" title="Define PSF filenames for each cell">Structure File (<i>.psf</i>)</label>
-                        <label class="block-label">1: <input class="xml-control form-control" type="text" name="Structure_0" id="Structure_0"></label>
-                        <label class="block-label">2: <input class="xml-control form-control" type="text" name="Structure_1" id="Structure_1"></label>
-                    </div>
-                    <div class="form-group" id="Pressure_">
-                        <div>
-                            <label data-toggle="tooltip" title="Pressure in Bar">Pressure</label>
-                        </div>
-                        <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Pressure" id="Pressure"><span>  <i>Bar</i></span>
-                    </div>
-                    <div class="form-group" id="Temperature_">
-                        <div>
-                            <label data-toggle="tooltip" title="Temperature in Kelvin">Temperature</label>
-                        </div>
-                        <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Temperature" id="Temperature"><span>  <i>Kelvin</i></span>
-                    </div>
-                    <div class="form-group" id="Rcut_">
-                        <div>
-                            <label data-toggle="tooltip" title="Radius of interaction energy">Rcut</label>
-                        </div>
-                        <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="Rcut" id="Rcut"><span>  <i>Angstrom</i></span>
-                    </div>
-                    <div class="form-group" id="RcutLow_">
-                        <div>
-                            <label data-toggle="tooltip" title="Sets minimal possible distance">RcutLow</label>
-                        </div>
-                        <input class="xml-control form-control inline-control" type="number" step="any" min="0" name="RcutLow" id="RcutLow"><span>  <i>Angstrom</i></span>
-                    </div>
-                    <div class="form-group" id="Potential">
-                        <label data-toggle="tooltip" title="Define potential function type">Lennard-Jones</label>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Based on the Lennard Johns n-6 equation">
-                                <input class="xml-control" type="radio" name="Potential" id="Potential_VDW" value="VDW">
-                                Truncated
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Zero at Rcut distance">
-                                <input class="xml-control" type="radio" name="Potential" id="Potential_SHIFT" value="SHIFT">
-                                SHIFT
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label data-toggle="tooltip" title="Starts modification at RSwitch distance">
-                                <input class="xml-control" type="radio" name="Potential" id="Potential_SWITCH" value="SWITCH">
-                                SWITCH
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="Exclude">
-                        <label data-toggle="tooltip" title="Define excluded atomic pairs">Exclude Interactions</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-2" value="1-2">
-                                1-2
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-3" value="1-3">
-                                1-3
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Exclude" id="Exclude_1-4" value="1-4" checked>
-                                1-4
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="LRC">
-                        <label data-toggle="tooltip" title="Use Long Range Corrections">Long Range Correction</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="LRC" id="LRC_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="LRC" id="Lrc_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="Rswitch_">
-                        <label data-toggle="tooltip" title="Distance is where interaction energy is truncated smoothly">Rswitch</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="Rswitch" id="Rswitch">
-                    </div>
-                    <div class="form-group" id="ElectroStatic">
-                        <label data-toggle="tooltip" title="Consider Coulomb interaction">ElectroStatic</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ElectroStatic" id="ElectroStatic_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="Ewald">
-                        <label data-toggle="tooltip" title="Considers sum for electrostatic">Ewald</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Ewald" id="Ewald_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="Ewald" id="Ewald_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="CachedFourier">
-                        <label data-toggle="tooltip" title="Considers the reciprocal for Ewald">CachedFourier</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="CachedFourier" id="CachedFourier_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="Tolerance_">
-                        <label data-toggle="tooltip" title="Specifies accuracy of the Ewald sum">Tolerance</label>
-                        <input class="xml-control form-control" type="number" min="0" name="Tolerance" id="Tolerance">
-                    </div>
-                    <div class="form-group" id="Dielectric_">
-                        <label data-toggle="tooltip" title="Defines dielectric constant for MARTINI">Dielectric</label>
-                        <input class="xml-control form-control" type="number" min="0" name="Dielectric" id="Dielectric">
-                    </div>
-                    <div class="form-group" id="PressureCalc_">
-                        <div>
-                            <label data-toggle="tooltip" title="Considers pressure calculation">PressureCalc</label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="PressureCalc_bool" id="PressureCalc_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <input class="xml-control form-control inline-control" type="number" min="0" name="PressureCalc_Value" id="PressureCalc_Value"><span><i> Bar</i></span>
-                    </div>
-                    <div class="form-group" id="1-4scaling_">
-                        <label data-toggle="tooltip" title="Defines constant factor for 1-4 intra-molecule coulombs">1-4 Scaling</label>
-                        <input class="xml-control form-control" type="number" min="0" name="1-4scaling" id="1-4scaling">
-                    </div>
-                    <div class="form-group" id="RunSteps_">
-                        <label data-toggle="tooltip" title="Sets the total number of steps to run">RunSteps</label>
-                        <input class="xml-control form-control" type="number" min="0" name="RunSteps" id="RunSteps">
-                    </div>
-                    <div class="form-group" id="EqSteps_">
-                        <label data-toggle="tooltip" title="Sets the number of steps for equilibrium">EqSteps</label>
-                        <input class="xml-control form-control" type="number" min="0" name="EqSteps" id="EqSteps">
-                    </div>
-                    <div class="form-group" id="AdjSteps_">
-                        <label data-toggle="tooltip" title="Sets the number of steps per adjustment to a constant">AdjSteps</label>
-                        <input class="xml-control form-control" type="number" min="0" name="AdjSteps" id="AdjSteps">
-                    </div>
-                    <div class="form-group" id="ChemPot-Fugacity">
-                        <label data-toggle="tooltip" title="Chemical potential">ChemPot or Fugacity</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_true" value="ChemPot">
-                                Chemical Potential
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control form-check-input" type="radio" name="ChemPot-Fugacity" id="ChemPot-Fugacity_false" value="Fugacity">
-                                Fugacity
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="ChemPot-Fugacity_0">
-                        <label>ResName<input class="xml-control form-control" type="text" pattern="[\s-]" name="ChemPot-Fugacity_ResName_0" id="ChemPot-Fugacity_ResName_0"></label>
-                        <label>Value<input class="xml-control form-control" type="number" min="0" name="ChemPot-Fugacity_Value_0" id="ChemPot-Fugacity_Value_0"></label>
-                    </div>
-                    <div id="ChemPot-Fugacity_List">
-                    </div>
-                    <button class="btn btn-group-sm btn-success" id="new_ChemPot-Fugacity" type="button"><span class="glyphicon glyphicon-plus icon-style"></span>Add More Components</button>
-
-                    <br />
-                    <br />
-
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Fractional percentage at which displacement move will occur">DisFreq</label>
-                        <input class="xml-control form-control" type="number" min="0" name="DisFreq" id="DisFreq">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Fractional % for rigid rotation">RotFreq</label>
-                        <input class="xml-control form-control" type="number" min="0" name="RotFreq" id="RotFreq">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Fractional % at which the particle will be removed from and inserted to the same box">IntraSwapFreq</label>
-                        <input class="xml-control form-control" type="number" min="0" name="IntraSwapFreq" id="IntraSwapFreq">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Fractional % at which volume displacement move will occur">VolFreq</label>
-                        <input class="xml-control form-control" type="number" min="0" name="VolFreq" id="VolFreq">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Fractional percentage at which the particle swap move will occur">SwapFreq</label>
-                        <input class="xml-control form-control" type="number" min="0" name="SwapFreq" id="SwapFreq">
-                    </div>
-                    <div class="form-group" id="useConstantArea">
-                        <label data-toggle="tooltip" title="For Gibbs,consider change to the volume of the simulation box">Use Constant Area</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="useConstantArea" id="useConstantArea_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="FixVolBox0">
-                        <label data-toggle="tooltip" title="Volume change of fluid phase box to maintain pressure/temperature">FixVolBox0</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control form-check-input" type="radio" name="FixVolBox0" id="FixVolBox0_false" value="false">
-                                False
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="1-CellBasisVector">
-                        <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 1</label>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_XAxis" id="1-CellBasisVector_1_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_YAxis" id="1-CellBasisVector_1_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_1_ZAxis" id="1-CellBasisVector_1_ZAxis"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_XAxis" id="1-CellBasisVector_2_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_YAxis" id="1-CellBasisVector_2_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_2_ZAxis" id="1-CellBasisVector_2_ZAxis"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_XAxis" id="1-CellBasisVector_3_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_YAxis" id="1-CellBasisVector_3_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="1-CellBasisVector_3_ZAxis" id="1-CellBasisVector_3_ZAxis"></label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="2-CellBasisVector">
-                        <label data-toggle="tooltip" title="Axis of simulation box,once for NVT/NPT & 2 for Gibbs/GC">Cell Basis Vector 2</label>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_XAxis" id="2-CellBasisVector_1_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_YAxis" id="2-CellBasisVector_1_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_1_ZAxis" id="2-CellBasisVector_1_ZAxis"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_XAxis" id="2-CellBasisVector_2_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_YAxis" id="2-CellBasisVector_2_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_2_ZAxis" id="2-CellBasisVector_2_ZAxis"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>XAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_XAxis" id="2-CellBasisVector_3_XAxis"></label>
-                            <label>YAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_YAxis" id="2-CellBasisVector_3_YAxis"></label>
-                            <label>ZAxis<input class="xml-control form-control" type="number" step="any" min="0" name="2-CellBasisVector_3_ZAxis" id="2-CellBasisVector_3_ZAxis"></label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Number of CBMC trials to choose the first seed position">CBMC_First</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_First" id="CBMC_First">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Number of CBMC trials to choose the later seed positions">CBMC_Nth</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Nth" id="CBMC_Nth">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Number of CBMC bending angle trials to perform the geometry">CBMC_Ang</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Ang" id="CBMC_Ang">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Number of CBMC dihedral angle trials to perform for geometry">CBMC_Dih</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="CBMC_Dih" id="CBMC_Dih">
-                    </div>
-
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Unique name for simulation used to name the block average">OutputName</label>
-                        <input class="xml-control form-control" type="text" name="OutputName" id="OutputName">
-                    </div>
-                    <div class="form-group" id="CoordinatesFreq">
-                        <label data-toggle="tooltip" title="Controls output of PDB file (coordinates)">CoordinatesFreq</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="CoordinatesFreq" id="CoordinatesFreq_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="CoordinatesFreq_Value" id="CoordinatesFreq_Value"></label>
-                    </div>
-
-                    <div class="form-group" id="RestartFreq">
-                        <label data-toggle="tooltip" title="Controls output of the last state of the simulation">RestartFreq</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="RestartFreq" id="RestartFreq_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="RestartFreq_Value" id="RestartFreq_Value"></label>
-                    </div>
-                    <div class="form-group" id="ConsoleFreq">
-                        <label data-toggle="tooltip" title="Controls the output to the console">ConsoleFreq</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="ConsoleFreq" id="ConsoleFreq_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="ConsoleFreq_Value" id="ConsoleFreq_Value"></label>
-                    </div>
-                    <div class="form-group" id="BlockAverageFreq">
-                        <label data-toggle="tooltip" title="Controls block average output for thermodynamic properties">BlockAverageFreq</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="BlockAverageFreq" id="BlockAverageFreq_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="BlockAverageFreq_Value" id="BlockAverageFreq_Value"></label>
-                    </div>
-                    <div class="form-group" id="HistogramFreq">
-                        <label data-toggle="tooltip" title="Controls the histogram">HistogramFreq</label>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_true" value="true">
-                                True
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input class="xml-control" type="radio" name="HistogramFreq" id="HistogramFreq_false" value="false">
-                                False
-                            </label>
-                        </div>
-                        <label>Value<input class="xml-control form-control" type="number" step="any" min="0" name="HistogramFreq_Value" id="HistogramFreq_Value"></label>
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Sets short phrase to naming particle distribution file">DistName</label>
-                        <input class="xml-control form-control" type="text" name="DistName" id="DistName">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Sets short phrase to naming energy sample file">HistName</label>
-                        <input class="xml-control form-control" type="text" name="HistName" id="HistName">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Sets a number that is a part of the file name">RunNumber</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="RunNumber" id="RunNumber">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Sets a letter that is part of the file name">RunLetter</label>
-                        <input class="xml-control form-control" type="text" name="RunLetter" id="RunLetter">
-                    </div>
-                    <div class="form-group">
-                        <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
-                        <input class="xml-control form-control" type="number" step="any" min="0" name="SampleFreq" id="SampleFreq">
-                    </div>
-                    <div class="form-group" id="OutEnergy">
-                        <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutEnergy</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" id="OutEnergy1">
-                                Block averages
-                            </label>
-                            <label>
-                                <input type="checkbox" value="" id="OutEnergy2">
-                                Fluctuation
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="OutPressure">
-                        <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutPressure</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" id="OutPressure1">
-                                Block averages
-                            </label>
-                            <label>
-                                <input type="checkbox" value="" id="OutPressure2">
-                                Fluctuation
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="OutMolNum">
-                        <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutMolNum</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" id="OutMolNum1">
-                                Block averages
-                            </label>
-                            <label>
-                                <input type="checkbox" value="" id="OutMolNum2">
-                                Fluctuation
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="OutDensity">
-                        <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutDensity</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" id="OutDensity1">
-                                Block averages
-                            </label>
-                            <label>
-                                <input type="checkbox" value="" id="OutDensity2">
-                                Fluctuation
-                            </label>
-                        </div>
-                    </div>
-                </form>
-                <button class='btn btn-success btn-sm pull-left' onclick="return onConfForm_SubmitClick();" id="ConfForm_Submit"><span class="glyphicon glyphicon-send icon-style"></span>Send</button>
-            </div>
-        </main>
-    </div>
-    <footer>
-        <hr />
-        <p class='footer-text'>@Html.ActionLink("Terms & Conditions", "Terms", "Home") |@Html.ActionLink("Site Map", "SiteMap", "Home") | @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home") | @Html.ActionLink("FAQ", "Faq", "Home") <br /></p>
-        <p>Copyright &copy; <strong>GOMC Dev-Team 2017</strong></p>
-    </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments);
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m);
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-83966581-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script>
-        var chemPotFugacityCounter = 0;
-        function removeChemPotFugacity(id) {
-            $("#ChemPot-Fugacity_" + id).remove();
-            chemPotFugacityCounter--;
+    </main>
+<script>
+    var chemPotFugacityCounter = 0;
+    function removeChemPotFugacity(id) {
+        $("#ChemPot-Fugacity_" + id).remove();
+        chemPotFugacityCounter--;
+        return false;
+    }
+    $(document).ready(function () {
+        $("#new_ChemPot-Fugacity").click(function () {
+            var $cf = $("#ChemPot-Fugacity_List");
+            chemPotFugacityCounter++;
+            var id = chemPotFugacityCounter;
+            var ht =
+                "<div class='form-group ChemPot-Fugacity-Div' id='ChemPot-Fugacity_" + id + "'>" +
+                "<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
+                "<label>Value<input class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
+                "<button class='btn btn-danger btn-sm' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
+                "</div>";
+            $cf.append(ht);
             return false;
-        }
-        $(document).ready(function () {
-            $("#new_ChemPot-Fugacity").click(function () {
-                var $cf = $("#ChemPot-Fugacity_List");
-                chemPotFugacityCounter++;
-                var id = chemPotFugacityCounter;
-                var ht =
-                    "<div class='form-group ChemPot-Fugacity-Div' id='ChemPot-Fugacity_" + id + "'>" +
-                    "<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
-                    "<label>Value<input class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
-                    "<button class='btn btn-danger btn-sm' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
-                    "</div>";
-                $cf.append(ht);
-                return false;
-            });
         });
-        function strToBool(str) {
-            return (str === 'true');
-        }
-        function setCheckbox(nm, val) {
-            $("#" + nm).prop("checked", strToBool(val));
-        }
-        function getCheckbox(nm) {
-            return $("#" + nm).is(":checked");
-        }
-        function setRadioBool(nm, val) {
-            var $t = $("#" + nm + "_true");
-            var $f = $("#" + nm + "_false");
+    });
+    function strToBool(str) {
+        return (str === 'true');
+    }
+    function setCheckbox(nm, val) {
+        $("#" + nm).prop("checked", strToBool(val));
+    }
+    function getCheckbox(nm) {
+        return $("#" + nm).is(":checked");
+    }
+    function setRadioBool(nm, val) {
+        var $t = $("#" + nm + "_true");
+        var $f = $("#" + nm + "_false");
 
-            if (strToBool(val)) {
-                $t.prop("checked", true);
-                $f.prop("checked", false);
+        if (strToBool(val)) {
+            $t.prop("checked", true);
+            $f.prop("checked", false);
+        } else {
+            $t.prop("checked", false);
+            $f.prop("checked", true);
+        }
+    }
+    function setRadioVal(nm, val) {
+        var $e = $("#" + nm + ">div.radio>label>input");
+        for (var i = 0; i < $e.length; i++) {
+            if ($e.eq(i).attr('value') === nm + "_" + val) {
+                $e.eq(i).prop("checked", true);
             } else {
-                $t.prop("checked", false);
-                $f.prop("checked", true);
+                $e.eq(i).prop("checked", false);
             }
         }
-        function setRadioVal(nm, val) {
-            var $e = $("#" + nm + ">div.radio>label>input");
-            for (var i = 0; i < $e.length; i++) {
-                if ($e.eq(i).attr('value') === nm + "_" + val) {
-                    $e.eq(i).prop("checked", true);
-                } else {
-                    $e.eq(i).prop("checked", false);
-                }
-            }
-        }
-        function getRadioBool(nm) {
-            var $t = $("#" + nm + "_true");
-            var $f = $("#" + nm + "_false");
-            if (!$t.is(":checked") && !$f.is(":checked")) {
-                return null;
-            }
-            return $t.is(":checked");
-        }
-        function getRadioVal(nm) {
-            var $e = $("#" + nm + ">div.radio>label>input");
-            for (var i = 0; i < $e.length; i++) {
-                if ($e.eq(i).is(":checked")) {
-                    return $e.eq(i).attr('value');
-                }
-            }
+    }
+    function getRadioBool(nm) {
+        var $t = $("#" + nm + "_true");
+        var $f = $("#" + nm + "_false");
+        if (!$t.is(":checked") && !$f.is(":checked")) {
             return null;
         }
-        function getVal(nm) {
-            return $("#" + nm).val();
-        }
-        function ableRadioBool(nm, val) {
-            var $e = $("#" + nm);
-            if (strToBool(val)) {
-                $e.removeAttr("disabled").prop('required', 'true');
-            } else {
-                $e.attr("disabled", "disabled");
+        return $t.is(":checked");
+    }
+    function getRadioVal(nm) {
+        var $e = $("#" + nm + ">div.radio>label>input");
+        for (var i = 0; i < $e.length; i++) {
+            if ($e.eq(i).is(":checked")) {
+                return $e.eq(i).attr('value');
             }
         }
-        function getChemPotFugacity() {
-            var sts = [];
+        return null;
+    }
+    function getVal(nm) {
+        return $("#" + nm).val();
+    }
+    function ableRadioBool(nm, val) {
+        var $e = $("#" + nm);
+        if (strToBool(val)) {
+            $e.removeAttr("disabled").prop('required', 'true');
+        } else {
+            $e.attr("disabled", "disabled");
+        }
+    }
+    function getChemPotFugacity() {
+        var sts = [];
+        var st = [];
+        sts.push(getRadioVal("ChemPot-Fugacity"));
+        function part(id) {
+            var s = [];
+            s.push(getVal("ChemPot-Fugacity_ResName_" + id));
+            s.push(getVal("ChemPot-Fugacity_Value_" + id));
+            st.push(s);
+        }
+        part(0);
+
+        var $e = $(".ChemPot-Fugacity-Div");
+        for (var i = 0; i < $e.length; i++) {
+            part($e.eq(i).attr('id').split('_')[1]);
+        }
+        //$(".ChemPot-Fugacity-Div").eq(0).attr('id').split('_')[1]
+        sts.push(st);
+        return sts;
+    }
+    function getFreqVal(nm) {
+        var v = getVal(nm + "_Value");
+        var st = "";
+        st += getRadioBool(nm);
+        if (v != null) {
+            st += ";;";
+            st += v;
+        }
+        return st;
+    }
+    function getCellBasisVector() {
+        var sts = [];
+        for (var i = 0; i < 2; i++) {
             var st = [];
-            sts.push(getRadioVal("ChemPot-Fugacity"));
-            function part(id) {
+            for (var j = 0; j < 3; j++) {
                 var s = [];
-                s.push(getVal("ChemPot-Fugacity_ResName_" + id));
-                s.push(getVal("ChemPot-Fugacity_Value_" + id));
+                s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_XAxis"));
+                s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_YAxis"));
+                s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_ZAxis"));
                 st.push(s);
             }
-            part(0);
-
-            var $e = $(".ChemPot-Fugacity-Div");
-            for (var i = 0; i < $e.length; i++) {
-                part($e.eq(i).attr('id').split('_')[1]);
-            }
-            //$(".ChemPot-Fugacity-Div").eq(0).attr('id').split('_')[1]
             sts.push(st);
-            return sts;
         }
-        function getFreqVal(nm) {
-            var v = getVal(nm + "_Value");
-            var st = "";
-            st += getRadioBool(nm);
-            if(v != null){
-                st += ";;";
-                st += v;
-            }
-            return st;
+        return sts;
+    }
+    function getStructCoord(nm) {
+        var a = getVal(nm + "_0");
+        var b = getVal(nm + "_1");
+        var st = [];
+        var s = [];
+        s.push("0");
+        s.push(a);
+        st.push(s);
+        if (b != null) {
+            var s2 = [];
+            s2.push("1");
+            s2.push(b);
+            st.push(s2);
         }
-        function getCellBasisVector() {
-            var sts = [];
-            for (var i = 0; i < 2; i++) {
-                var st = [];
-                for (var j = 0; j < 3; j++) {
-                    var s = [];
-                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_XAxis"));
-                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_YAxis"));
-                    s.push(getVal((i + 1) + "-CellBasisVector_" + (j + 1) + "_ZAxis"));
-                    st.push(s);
-                }
-                sts.push(st);
-            }
-            return sts;
+        return st;
+    }
+    function getVal(nm) {
+        switch (nm) {
+            case "PressureCalc":
+            case "CoordinatesFreq":
+            case "RestartFreq":
+            case "ConsoleFreq":
+            case "BlockAverageFreq":
+            case "HistogramFreq":
+                return getFreqVal(nm);
+            case "OutEnergy":
+            case "OutPressure":
+            case "OutMolNum":
+            case "OutDensity":
+                return getCheckbox(nm + "1") + ";;" + getCheckbox(nm + "2");
+            case "Restart":
+            case "LRC":
+            case "ElectroStatic":
+            case "Ewald":
+            case "CachedFourier":
+            case "useConstantArea":
+            case "FixVolBox0":
+                return getRadioBool(nm);
+            case "Ensemble":
+            case "PRNG":
+            case "ParaType":
+            case "Potential":
+            case "Exclude":
+                return getRadioVal(nm);
+            case "ChemPot":
+                return getChemPotFugacity();
+            case "Structure":
+            case "Coordinates":
+                return getStructCoord(nm);
+            case "CellBasisVector":
+                return getCellBasisVector();
+            default:
+                var v = $("#" + nm).val();
+                if (v === '') return null;
+                return v;
         }
-        function getStructCoord(nm) {
-            var a = getVal(nm + "_0");
-            var b = getVal(nm + "_1");
-            var st = [];
-            var s = [];
-            s.push("0");
-            s.push(a);
-            st.push(s);
-            if (b != null) {
-                var s2 = [];
-                s2.push("1");
-                s2.push(b);
-                st.push(s2);
-            }
-            return st;
+    }
+    function lineInput(key, value) {
+        var sp = value.split(";;");
+        switch (key) {
+            case "OutEnergy":
+            case "OutPressure":
+            case "OutMolNum":
+            case "OutDensity":
+                setCheckbox(key + "1", sp[0]);
+                setCheckbox(key + "2", sp[1]);
+                break;
+            case "Restart":
+            case "ElectroStatic":
+            case "Ewald":
+            case "CachedFourier":
+            case "useConstantArea":
+            case "FixVolBox0":
+                setRadioBool(key, value);
+                break;
+            case "Ensemble":
+            case "PRNG":
+            case "ParaType":
+            case "Potential":
+                setRadioVal(key, value);
+                break;
+            default:
+                $("#" + key).val(value);
+                break;
         }
-        function getVal(nm) {
-            switch (nm) {
-                case "PressureCalc":
-                case "CoordinatesFreq":
-                case "RestartFreq":
-                case "ConsoleFreq":
-                case "BlockAverageFreq":
-                case "HistogramFreq":
-                    return getFreqVal(nm);
-                case "OutEnergy":
-                case "OutPressure":
-                case "OutMolNum":
-                case "OutDensity":
-                    return getCheckbox(nm + "1") + ";;" + getCheckbox(nm + "2");
-                case "Restart":
-                case "LRC":
-                case "ElectroStatic":
-                case "Ewald":
-                case "CachedFourier":
-                case "useConstantArea":
-                case "FixVolBox0":
-                    return getRadioBool(nm);
-                case "Ensemble":
-                case "PRNG":
-                case "ParaType":
-                case "Potential":
-                case "Exclude":
-                    return getRadioVal(nm);
-                case "ChemPot":
-                    return getChemPotFugacity();
-                case "Structure":
-                case "Coordinates":
-                    return getStructCoord(nm);
-                case "CellBasisVector":
-                    return getCellBasisVector();
-                default:
-                    var v = $("#" + nm).val();
-                    if (v === '') return null;
-                    return v;
-            }
-        }
-        function lineInput(key, value) {
-            var sp = value.split(";;");
-            switch (key) {
-                case "OutEnergy":
-                case "OutPressure":
-                case "OutMolNum":
-                case "OutDensity":
-                    setCheckbox(key + "1", sp[0]);
-                    setCheckbox(key + "2", sp[1]);
-                    break;
-                case "Restart":
-                case "ElectroStatic":
-                case "Ewald":
-                case "CachedFourier":
-                case "useConstantArea":
-                case "FixVolBox0":
-                    setRadioBool(key, value);
-                    break;
-                case "Ensemble":
-                case "PRNG":
-                case "ParaType":
-                case "Potential":
-                    setRadioVal(key, value);
-                    break;
-                default:
-                    $("#" + key).val(value);
-                    break;
-            }
-        }
-        function onConfForm_SubmitClick() {
-            console.clear();
-            var st = "<ConfigSetup>\n";
-            function out(nm) {
-                var v = getVal(nm);
-                if (nm === "CellBasisVector") {
-                    for (var i = 0; i < 2; i++) {
-                        for (var j = 0; j < 3; j++) {
-                            st += "<CellBasisVector" + (j + 1).toString() + ">";
-                            st += i.toString() + ";;";
-                            for (var k = 0; k < 3; k++) {
-                                if (k !== 0) {
-                                    st += ";;";
-                                }
-                                st += v[i][j][k];
+    }
+    function onConfForm_SubmitClick() {
+        console.clear();
+        var st = "<ConfigSetup>\n";
+        function out(nm) {
+            var v = getVal(nm);
+            if (nm === "CellBasisVector") {
+                for (var i = 0; i < 2; i++) {
+                    for (var j = 0; j < 3; j++) {
+                        st += "<CellBasisVector" + (j + 1).toString() + ">";
+                        st += i.toString() + ";;";
+                        for (var k = 0; k < 3; k++) {
+                            if (k !== 0) {
+                                st += ";;";
                             }
-                            st += "</CellBasisVector" + (j + 1).toString() + ">";
-                            st += "\n";
+                            st += v[i][j][k];
                         }
-                    }
-                }
-                else if (nm === "ChemPot") {
-                    for (var ii = 1; ii < v.length; ii++) {
-                        for (var jj = 0; jj < v[ii].length; jj++) {
-                            st += "<";
-                            st += v[0];
-                            st += ">";
-                            st += v[ii][jj][0] + ";;" + v[ii][jj][1];
-                            st += "</";
-                            st += v[0];
-                            st += ">";
-                            st += "\n";
-                        }
-                    }
-                }
-                else if (nm === "ParaType") {
-                    if(v != null){
-                        st += "<ParaType" + v;
-                        st += ">";
-                        st += "true";
-                        st += "</ParaType" + v + ">";
+                        st += "</CellBasisVector" + (j + 1).toString() + ">";
                         st += "\n";
                     }
                 }
-                else if (nm === "Structure" || nm === "Coordinates") {
-                    for (var ji = 0; ji < v.length; ji++) {
-                        st += "<" + nm + ">";
-                        st += + v[ji][0] + ";;" + v[ji][1];
-                        st += "</" + nm + ">\n";
-                    }
-                }
-                else {
-                    if (v == null) {
-                        //st += nm + "\n";
-                    } else {
-                        st += "<" + nm + ">" + v + "</" + nm + ">" + "\n";
+            }
+            else if (nm === "ChemPot") {
+                for (var ii = 1; ii < v.length; ii++) {
+                    for (var jj = 0; jj < v[ii].length; jj++) {
+                        st += "<";
+                        st += v[0];
+                        st += ">";
+                        st += v[ii][jj][0] + ";;" + v[ii][jj][1];
+                        st += "</";
+                        st += v[0];
+                        st += ">";
+                        st += "\n";
                     }
                 }
             }
-
-            //out("Ensemble");
-            out("Restart");
-            out("PRNG");
-            out("Random_Seed");
-            out("ParaType");
-            out("Parameters");
-            out("Coordinates");
-            out("Structure");
-            out("Pressure");
-            out("Temperature");
-            out("Rcut");
-            out("RcutLow");
-            out("Potential");
-            out("Exclude");
-            out("LRC");
-            out("Rswitch");
-            out("ElectroStatic");
-            out("Ewald");
-            out("CachedFourier");
-            out("Tolerance");
-            out("Dielectric");
-            out("PressureCalc");
-            out("1-4scaling");
-            out("RunSteps");
-            out("EqSteps");
-            out("AdjSteps");
-            out("ChemPot");
-            out("DisFreq");
-            out("RotFreq");
-            out("IntraSwapFreq");
-            out("VolFreq");
-            out("SwapFreq");
-            out("useConstantArea");
-            out("FixVolBox0");
-            out("CellBasisVector");
-
-            out("CBMC_First");
-            out("CBMC_Nth");
-            out("CBMC_Ang");
-            out("CBMC_Dih");
-            out("OutputName");
-
-            out("CoordinatesFreq");
-            out("RestartFreq");
-            out("ConsoleFreq");
-            out("BlockAverageFreq");
-            out("HistogramFreq");
-
-            out("DistName");
-            out("HistName");
-            out("RunNumber");
-            out("RunLetter");
-            out("SampleFreq");
-
-            out("OutEnergy");
-            out("OutPressure");
-            out("OutMolNum");
-            out("OutDensity");
-
-            st += "</ConfigSetup>";
-            //console.log(st);
-
-            window.location.href = '/api/ConfigInput/DownloadXml?xml=' + encodeURI(st);
-            return false;
+            else if (nm === "ParaType") {
+                if (v != null) {
+                    st += "<ParaType" + v;
+                    st += ">";
+                    st += "true";
+                    st += "</ParaType" + v + ">";
+                    st += "\n";
+                }
+            }
+            else if (nm === "Structure" || nm === "Coordinates") {
+                for (var ji = 0; ji < v.length; ji++) {
+                    st += "<" + nm + ">";
+                    st += + v[ji][0] + ";;" + v[ji][1];
+                    st += "</" + nm + ">\n";
+                }
+            }
+            else {
+                if (v == null) {
+                    //st += nm + "\n";
+                } else {
+                    st += "<" + nm + ">" + v + "</" + nm + ">" + "\n";
+                }
+            }
         }
-    </script>
-</body>
 
-</html>
+        //out("Ensemble");
+        out("Restart");
+        out("PRNG");
+        out("Random_Seed");
+        out("ParaType");
+        out("Parameters");
+        out("Coordinates");
+        out("Structure");
+        out("Pressure");
+        out("Temperature");
+        out("Rcut");
+        out("RcutLow");
+        out("Potential");
+        out("Exclude");
+        out("LRC");
+        out("Rswitch");
+        out("ElectroStatic");
+        out("Ewald");
+        out("CachedFourier");
+        out("Tolerance");
+        out("Dielectric");
+        out("PressureCalc");
+        out("1-4scaling");
+        out("RunSteps");
+        out("EqSteps");
+        out("AdjSteps");
+        out("ChemPot");
+        out("DisFreq");
+        out("RotFreq");
+        out("IntraSwapFreq");
+        out("VolFreq");
+        out("SwapFreq");
+        out("useConstantArea");
+        out("FixVolBox0");
+        out("CellBasisVector");
+
+        out("CBMC_First");
+        out("CBMC_Nth");
+        out("CBMC_Ang");
+        out("CBMC_Dih");
+        out("OutputName");
+
+        out("CoordinatesFreq");
+        out("RestartFreq");
+        out("ConsoleFreq");
+        out("BlockAverageFreq");
+        out("HistogramFreq");
+
+        out("DistName");
+        out("HistName");
+        out("RunNumber");
+        out("RunLetter");
+        out("SampleFreq");
+
+        out("OutEnergy");
+        out("OutPressure");
+        out("OutMolNum");
+        out("OutDensity");
+
+        st += "</ConfigSetup>";
+        //console.log(st);
+
+        window.location.href = '/api/ConfigInput/DownloadXml?xml=' + encodeURI(st);
+        return false;
+    }
+</script>

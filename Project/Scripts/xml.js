@@ -80,7 +80,7 @@
                 //$("#progressbar").children().hasClass('active').last().removeClass('active');
                 $('.active').last().removeClass('active')
             });
-            // e.preventDefault();
+            e.preventDefault();
         });
 
 // Change the XML config page by displaying the next card on validation success
