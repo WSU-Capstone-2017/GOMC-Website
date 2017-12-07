@@ -798,7 +798,7 @@ function updateBar(currentWidth) {
 	chemPotFugacityCounter--;
         return false;
     }
-    $(document).ready(function () {
+
 		$("#new_ChemPot-Fugacity").click(function () {
 			var $cf = $("#ChemPot-Fugacity_List");
 			chemPotFugacityCounter++;
@@ -807,7 +807,7 @@ function updateBar(currentWidth) {
 				"<div class='form-group ChemPot-Fugacity-Div' id='ChemPot-Fugacity_" + id + "'>" +
 				"<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName newInput' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
 				"<label>Value<input class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
-				"<button class='btn btn-danger btn-sm newElemRemove' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove'></span></button>" +
+				"<button class='btn btn-danger btn-sm newElemRemove' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
 				"</div>";
 			$cf.append(ht);
 			return false;
@@ -819,18 +819,22 @@ function updateBar(currentWidth) {
 			var v = getVal("Ensemble");
 			makeAble("Structure_1", v !== "Npt" && v !== "Nvt");
 			makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
+			ableCellBasis();
 		});
-	    $("#Restart").change(function() {
-			var v = strToBool(getVal("Restart"));
-		    
-			for (var i = 0; i < 3; i++) {
-				console.log("2-CellBasisVector_" + (i + 1) + "_XAxis");
-				makeAble("2-CellBasisVector_" + (i + 1) + "_XAxis", v);
-				makeAble("2-CellBasisVector_" + (i + 1) + "_YAxis", v);
-			    makeAble("2-CellBasisVector_" + (i + 1) + "_ZAxis", v);
-		    }
-	    });
-    });
+		$("#Restart").change(function () {
+			ableCellBasis();
+		});
+	});
+	function ableCellBasis() {
+		var v = getVal("Restart") !== true && getVal("Ensemble") !== "Npt" && getVal("Ensemble") !== "Nvt";
+
+		for (var i = 0; i < 3; i++) {
+			makeAble("2-CellBasisVector_" + (i + 1) + "_XAxis", v);
+			makeAble("2-CellBasisVector_" + (i + 1) + "_YAxis", v);
+			makeAble("2-CellBasisVector_" + (i + 1) + "_ZAxis", v);
+		}
+	}
+
     function strToBool(str) {
         return (str === 'true');
     }
