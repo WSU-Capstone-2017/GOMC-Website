@@ -819,18 +819,21 @@ function updateBar(currentWidth) {
 			var v = getVal("Ensemble");
 			makeAble("Structure_1", v !== "Npt" && v !== "Nvt");
 			makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
+			ableCellBasis();
 		});
-	    $("#Restart").change(function() {
-			var v = strToBool(getVal("Restart"));
-		    
-			for (var i = 0; i < 3; i++) {
-				console.log("2-CellBasisVector_" + (i + 1) + "_XAxis");
-				makeAble("2-CellBasisVector_" + (i + 1) + "_XAxis", v);
-				makeAble("2-CellBasisVector_" + (i + 1) + "_YAxis", v);
-			    makeAble("2-CellBasisVector_" + (i + 1) + "_ZAxis", v);
-		    }
-	    });
-    });
+		$("#Restart").change(function () {
+			ableCellBasis();
+		});
+	});
+	function ableCellBasis() {
+		var v = getVal("Restart") !== true && getVal("Ensemble") !== "Npt" && getVal("Ensemble") !== "Nvt";
+
+		for (var i = 0; i < 3; i++) {
+			makeAble("2-CellBasisVector_" + (i + 1) + "_XAxis", v);
+			makeAble("2-CellBasisVector_" + (i + 1) + "_YAxis", v);
+			makeAble("2-CellBasisVector_" + (i + 1) + "_ZAxis", v);
+		}
+	}
     function strToBool(str) {
         return (str === 'true');
     }
