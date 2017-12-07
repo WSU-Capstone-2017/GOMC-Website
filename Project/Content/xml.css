@@ -35,14 +35,21 @@
     float: right;
 }
 
+.newElemRemove {
+    margin-left: 0.3125em;
+}
+
+.newInput {
+    margin-right: 0.25em;
+}
+
 /*ID Styles*/
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
     counter-reset: step; /*CSS counters to number the steps*/
 }
-
-    #progressbar li {
+#progressbar li {
         list-style-type: none;
         color: #000000;
         text-transform: uppercase;
@@ -51,9 +58,10 @@
         position: relative;
         letter-spacing: 1px;
         text-align: center;
-    }
-    /*Status counter*/
-        #progressbar li:before {
+}
+
+/*Status counter*/
+#progressbar li:before {
             content: counter(step);
             counter-increment: step;
             width: 24px;

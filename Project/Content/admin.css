@@ -51,3 +51,8 @@
 #adminAnnouncement_Submit {
     padding-right: 1.2em;
 }
+
+/*Psudeo-Styles*/
+#userNamesAndEmails th :hover{
+    cursor: pointer;
+}

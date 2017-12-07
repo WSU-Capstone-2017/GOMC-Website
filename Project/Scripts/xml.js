@@ -805,9 +805,9 @@ function updateBar(currentWidth) {
 			var id = chemPotFugacityCounter;
 			var ht =
 				"<div class='form-group ChemPot-Fugacity-Div' id='ChemPot-Fugacity_" + id + "'>" +
-				"<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
+				"<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName newInput' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
 				"<label>Value<input class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
-				"<button class='btn btn-danger btn-sm' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
+				"<button class='btn btn-danger btn-sm newElemRemove' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove'></span></button>" +
 				"</div>";
 			$cf.append(ht);
 			return false;

@@ -21,6 +21,7 @@ namespace Project
 					  "~/Scripts/bootstrap.min.js",
 					  "~/Scripts/respond.js"));
 
+            // JS bundle of all developed content
             bundles.Add(new ScriptBundle("~/bundles/alljs").Include(
                 // All commented files need to be removed from project
                 "~/Scripts/gomc-new.js",
@@ -47,7 +48,7 @@ namespace Project
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
 					  "~/Content/bootstrap.css",
                       "~/Content/bootstrap.theme.css"));
-
+            // CSS bundle of all related styles
 			bundles.Add(
 				new StyleBundle("~/Content/allcss").Include(
                     // Remove all blank files
