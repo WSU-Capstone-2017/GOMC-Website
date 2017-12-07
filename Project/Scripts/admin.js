@@ -1,8 +1,5 @@
 ﻿// Admin Page JS
 
-
-
-
 var announcementIdMap = [];
 var latexIdMap = [];
 var buildAnnouncementActionType = {
