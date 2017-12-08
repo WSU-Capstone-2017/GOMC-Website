@@ -51,8 +51,6 @@ namespace Project
             // CSS bundle of all related styles
 			bundles.Add(
 				new StyleBundle("~/Content/allcss").Include(
-                    // Remove all blank files
-                    // "~/Content/core.css" // old css
                     "~/Content/gomc.css",
                     "~/Content/about.css",
                     "~/Content/admin.css",
@@ -62,13 +60,8 @@ namespace Project
                     "~/Content/feat.css",
                     "~/Content/latex-html.css",
                     "~/Content/latex.css",
-                    // "~/Content/login.css",
-                    // "~/Content/more-downloads.css",
-                    // "~/Content/more-examples.css",
-                    // "~/Content/privacy.css",
                     "~/Content/publications.css",
                     "~/Content/site.css",
-                    // "~/Content/terms.css",
                     "~/Content/xml.css"
                     ));
             // Set to true to enable full bundle optimization
