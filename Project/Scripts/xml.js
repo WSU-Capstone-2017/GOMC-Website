@@ -935,10 +935,10 @@ $("#new_ChemPot-Fugacity").click(function () {
 	var id = chemPotFugacityCounter;
 	var ht =
 		"<div class='form-group ChemPot-Fugacity-Div' id='ChemPot-Fugacity_" + id + "'>" +
-		"<label>ResName<input class='xml-control form-control ChemPot-Fugacity-ResName newInput' type='text' pattern='[\s-]' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
-		"<label>Value<input class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
-		"<button class='btn btn-danger btn-sm newElemRemove' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
-		"</div>";
+			"<label>ResName<input required class='xml-control form-control ChemPot-Fugacity-ResName newInput' type='text' pattern='^[a-zA-Z0-9_.\/]*$' name='ChemPot-Fugacity_ResName_" + id + "' id='ChemPot-Fugacity_ResName_" + id + "'></label>" +
+			"<label>Value<input required class='xml-control form-control ChemPot-Fugacity-Value' type='number' min='0' name='ChemPot-Fugacity_Value_" + id + "' id='ChemPot-Fugacity_Value_" + id + "'></label>" +
+			"<button class='btn btn-danger btn-sm newElemRemove' onclick='return removeChemPotFugacity(" + id + ");'><span class='glyphicon glyphicon-remove icon-style'></span></button>" +
+			"</div>";
 	$cf.append(ht);
 	return false;
 });
@@ -951,9 +951,29 @@ $("#Ensemble").change(function () {
 	makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
 	makeAble("Pressure", v === "Npt");
 	ableCellBasis();
+	if (v === "Npt" || v === "GibbsNpt") {
+		setRadioBool("PressureCalc", 'true');
+	}
+	if (v === "GibbsNpt") {
+		makeAble("FixVolBox0_true", false);
+		makeAble("FixVolBox0_false", false);
+	} else {
+		makeAble("FixVolBox0_true", v !== "Npt" && v !== "Gcmc");
+		makeAble("FixVolBox0_false", v !== "Npt" && v !== "Gcmc");
+	}
+	makeAble("VolFreq", v !== "Npt" && v !== "Gcmc");
+	makeAble("useConstantArea_true", v !== "Npt" && v !== "Gcmc");
+	makeAble("useConstantArea_false", v !== "Npt" && v !== "Gcmc");
+	makeAble("SwapFreq", v !== "Npt" && v !== "Nvt");
 });
 $("#Potential").change(function() {
 	makeAble("Rswitch", getVal("Potential") === "SWITCH");
+});
+$("#VolFreq").change(function() {
+	var v = getVal("VolFreq");
+
+	makeAble("useConstantArea_true", v);
+	makeAble("useConstantArea_false", v);
 });
 $("#Ewald").change(function () {
 	if (getVal("Ewald")) {
@@ -966,11 +986,20 @@ $("#ParaType").change(function() {
 	var v = getVal("ParaType");
 	if (v === "MARTINI") {
 		$("#Dielectric").val("15");
-		makeAble("Dielectric", false);
+		makeAble("Dielectric", true);
 		setRadioBool("ElectroStatic", 'true');
 		makeAble("ElectroStatic_true", false);
 		makeAble("ElectroStatic_false", false);
+		$("_1-4scaling").val("1");
+		makeAble("_1-4scaling", false);
+	} else {
+		$("#Dielectric").val("15");
+		makeAble("Dielectric", false);
+		makeAble("_1-4scaling", true);
 	}
+});
+$("#PressureCalc_false, #PressureCalc_true").change(function() {
+	makeAble("PressureCalc_Value", strToBool(getVal("PressureCalc")));
 });
 $("#Restart").change(function () {
 	ableCellBasis();
