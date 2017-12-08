@@ -56,3 +56,11 @@
 #userNamesAndEmails th :hover{
     cursor: pointer;
 }
+
+#webstatsdata {
+	font-size: 1.1em !important;
+}
+
+#currentAnnounce {
+	font-size: 1.1em !important;
+}
