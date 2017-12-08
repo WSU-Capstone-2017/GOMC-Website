@@ -396,8 +396,6 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
-    <Content Include="Scripts\animatescroll.js" />
-    <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -485,7 +483,6 @@
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\Gomc.cshtml" />
-    <Content Include="Views\Home\Latex.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\Publications.cshtml" />
     <Content Include="Views\Home\SiteMap.cshtml" />
