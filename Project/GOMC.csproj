@@ -494,6 +494,7 @@
     <Content Include="Views\Home\MoreExamples.cshtml" />
     <Content Include="Views\Home\LatexHtml.cshtml" />
     <Content Include="Views\Home\ConfForm.cshtml" />
+    <Content Include="Views\latex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
