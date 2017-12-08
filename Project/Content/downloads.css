@@ -13,7 +13,7 @@
     }
 }
 
-.loader { /*Warning- this class must be attached to a div to work properly, can attach and remove dynamically with javascript for async operations*/
+.loader { 
     border-top: 1em solid #106A3A;
     border-right: 1em solid #E58242;
     border-bottom: 1em solid #91D3EF;
@@ -33,4 +33,16 @@
     -moz-transform-origin: 0 0;
     -ms-transform: scale(0.77);
     -ms-transform-origin: 0 0;
+}
+
+pre.command-line {
+    border: 2px solid #DDD;
+    background-color: #333;
+    color: #FFF;
+    padding: 10px;
+    -webkit-font-smoothing: auto;
+}
+
+pre span {
+    white-space: pre-wrap;
 }

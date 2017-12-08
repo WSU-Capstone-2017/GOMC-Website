@@ -22,7 +22,7 @@
     margin-top: .625em;
     padding-left: .3125em;
     text-decoration: none !important;
-    color: #020816 !important; /*Not a link so has to be black text and not blue*/
+    color: #020816 !important; 
 }
 
 .person-picture {
@@ -41,7 +41,7 @@
 
 @media only screen and (max-width: 64em) {
     .top-card {
-        margin-bottom: 1.5625em; /*Stops bunching of the grants*/
+        margin-bottom: 1.5625em; 
     }
 
     .person-picture {

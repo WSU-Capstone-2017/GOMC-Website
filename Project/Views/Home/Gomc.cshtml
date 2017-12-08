@@ -46,7 +46,7 @@
 
             <div class="row">
                 <div class="panel panel-primary announcement-panel">
-                    <div class="panel-heading announcement-panel announcement-header"><h1>Announcements</h1></div>
+                    <div class="panel-heading announcement-panel announcement-header"><h2>Announcements</h2></div>
                     <div class="panel-body">
                         <ul>
                             @foreach (var announcement in ViewBag.AnnouncementList )
@@ -62,7 +62,7 @@
                 <div class='col-md-4 col-xs-12 first-gomc-card'>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h2>Simulate</h2>
+                            <h3>Simulate</h3>
                         </div>
                         <div class="panel-body">
                             <img src='~/Content/img/simulate.png' class='center-block img-rounded' alt='Simulate Image' style="width: 15em;"/>
@@ -74,7 +74,7 @@
                 <div class='col-md-4 col-xs-12'>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h2>Absorb</h2>
+                            <h3>Absorb</h3>
                         </div>
                         <div class="panel-body">
                             <img src='~/Content/img/absorption.jpg' class='center-block img-rounded' alt='Absorbption Image' style="width:19em;" />
@@ -86,7 +86,7 @@
                 <div class="col-md-4 col-xs-12 last-gomc-card">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h2>XML Input</h2>
+                            <h3>XML Input</h3>
                         </div>
                         <div class="panel-body">
                             <img src='~/Content/img/xml.jpg' class='center-block img-rounded' alt='XML Image' style="width:7.1875em;" />
@@ -97,38 +97,3 @@
                     </div>
                 </div>
             </div>
-
-@*@section scripts{
-<script>
-        document.onreadystatechange = function () {
-            if (document.readyState === 'interactive') {
-                $('.jumbotron').css('background-color', '#91D3EF');
-                $('.jumbotron h1').css('background-color', '#91D3EF');
-                $('.carousel-control').css({
-                    'background-color': '#91D3EF',
-                    'background-image': 'none'
-                });
-
-                doFetchGomcAnnouncements();
-                $("#gomcHome").on('slid.bs.carousel', function () {
-                    var focusedCard = $(this).find('div .active');
-                    if (focusedCard.hasClass('cardA')) {
-                        $('.jumbotron').css('background-color', '#91D3EF');
-                        $('.jumbotron h1').css('background-color', '#91D3EF');
-                        $('.carousel-control').css('background-color', '#91D3EF');                       
-
-                    } else if (focusedCard.hasClass('cardB')) {
-                        $('.jumbotron').css('background-color', '#91D3EF');
-                        $('.jumbotron h1').css('background-color', '#91D3EF');
-                        $('.carousel-control').css('background-color', '#91D3EF');
-
-                    } else if (focusedCard.hasClass('cardC')) {
-                        $('.jumbotron').css('background-color', '#91D3EF');
-                        $('.jumbotron h1').css('background-color', '#91D3EF');
-                        $('.carousel-control').css('background-color', '#91D3EF');
-                    }
-                });
-            }
-        }
-</script>  
-}*@

@@ -212,6 +212,7 @@
     <Compile Include="Models\UserStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="SQL\Announcements.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -341,13 +342,8 @@
     <Content Include="Content\gomc.css" />
     <Content Include="Content\latex.css" />
     <Content Include="Content\latex-html.css" />
-    <Content Include="Content\login.css" />
-    <Content Include="Content\more-downloads.css" />
-    <Content Include="Content\more-examples.css" />
-    <Content Include="Content\privacy.css" />
     <Content Include="Content\publications.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\terms.css" />
     <Content Include="Content\xml.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\img\gomc.png" />
@@ -395,8 +391,6 @@
     <Content Include="Latex\images\vsabout.png" />
     <Content Include="Latex\images\vshelp.png" />
     <Content Include="Latex\images\website.jpg" />
-    <Content Include="Scripts\animatescroll.js" />
-    <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -416,29 +410,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\core.less" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\gomc.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
-    <Content Include="Scripts\about.js" />
     <Content Include="Scripts\admin.js" />
-    <Content Include="Scripts\docs.js" />
-    <Content Include="Scripts\faq.js" />
-    <Content Include="Scripts\feat.js" />
     <Content Include="Scripts\gomc-new.js" />
     <Content Include="Scripts\latex.js" />
-    <Content Include="Scripts\latex-html.js" />
     <Content Include="Scripts\login.js" />
-    <Content Include="Scripts\more-downloads.js" />
-    <Content Include="Scripts\more-examples.js" />
-    <Content Include="Scripts\privacy.js" />
-    <Content Include="Scripts\publications.js" />
-    <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\terms.js" />
     <Content Include="Scripts\xml.js" />
     <Content Include="Scripts\downloads.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -459,6 +440,12 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="SQL\FailedLogins.sql" />
+    <Content Include="SQL\GetLoginIdFromSession.sql" />
+    <Content Include="SQL\LatexUploads.sql" />
+    <Content Include="SQL\Logins.sql" />
+    <Content Include="SQL\LoginSessions.sql" />
+    <Content Include="SQL\Registrations.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -479,17 +466,17 @@
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\Gomc.cshtml" />
-    <Content Include="Views\Home\Latex.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\Publications.cshtml" />
     <Content Include="Views\Home\SiteMap.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
-    <Content Include="Views\Home\XMLConfigForm.cshtml" />
     <Content Include="Views\Home\_Home_Layout.cshtml" />
     <Content Include="Views\Home\MoreDownloads.cshtml" />
     <Content Include="Views\Home\MoreExamples.cshtml" />
     <Content Include="Views\Home\LatexHtml.cshtml" />
+    <Content Include="Views\Home\ConfForm.cshtml" />
+    <Content Include="Views\Home\Latex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

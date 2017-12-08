@@ -10,7 +10,7 @@ body {
     color: #020816;
     background-color: #FFFFFF;
     padding-top: 4.9em;
-    font-family: 'Open Sans', 'Roboto', Helvetica !important; /*Must over-ride font-family of scaffolding.less*/
+    font-family: 'Open Sans', 'Roboto', Helvetica !important; 
 }
 header {
     margin-top: 1.93em;
@@ -22,34 +22,52 @@ header {
 main {
     margin: 1.25em;
     padding: .625em;
+	margin-top: 2.1em;
 }
 
 footer {
     text-align: center;
     background-color: #EEEEEE;
     color: #020816;
-    padding-bottom: .625em; /*Just to fluff out the bottom*/
+    padding-bottom: .625em; 
 }
 
-/*This may have un-foreseen side effects, please test and let me know of any visual issues !Caleb*/
 img {
     width: 18.75em;
     padding-top: 1em;
 }
 
 
-
-h1, h2, h3 {
+/*H-tag styles*/
+h1, h2 {
     text-align: center;
-  background-color: #141470;
+    background-color: #141470;
     color: #FFF;
     padding-bottom: .1875em;
     padding-top: .1875em;
-    font-size: 1.7em;
+}h3 {
+    background-color: #141470;
+    color: #FFF;
+    padding-bottom: .1875em;
+    padding-top: .1875em;
+    text-align: center;
+}h4,h5, h6 {
+    font-weight: 900;
+}h5 {
+    background-color: #141470;
+    color: #FFFFFF;
+    margin-top: 0em;
+    margin-bottom: .31em;
+    margin-left: 0em;
+    padding-bottom: .1em;
+    padding-top: 1em;
+}h6 {
+    color: #141470;
+    font-weight: bold;
 }
 
-p {
-    font-size: 1.2em;
+p { 
+    font-size: 1em;
 }
 
 nav a {
@@ -62,10 +80,9 @@ nav {
 }
 
 /*Class styles*/
-
-/*CSS to remove rounded corners on nav-bar*/
 .special-jumbotron {
-background: none;
+	background: none;
+	margin-top: 2.1em;
 }
 
 .nav > li > a {
@@ -80,9 +97,8 @@ background: none;
 
 .panel-primary {
     border-color: aliceblue;
+	margin-top: 1.25em;
 }
-
-/*Should be added to all glyphicons everywhere, remove those extra spaces too*/
 .icon-style {
     margin-right: 0.3125em;
 }
@@ -118,8 +134,9 @@ background: none;
 }
 
 .navbar-toggle {
-    color: #FFF;
-  background-color: #141470;
+    color: #000;
+    background-color: aliceblue;
+    opacity: 0.45;
 }
 
 .jumbo-description {
@@ -183,9 +200,12 @@ background: none;
 .last-gomc-card { 
     padding-right: 0;
 }
-/*Id styles*/
 
-/*Ids for menu items, attach ids only on the page focus*/
+.adjust-distance-nav {
+    margin-top: 1.4285714285714286em
+}
+
+/*Id styles*/
 #onFontPage {
     border-bottom: 0.250em #106A3A solid;
 }
@@ -216,4 +236,55 @@ background: none;
 
 #teamLogo {
     padding: 0.525em;
+}
+
+#navCollapse {
+    border: none; 
+}
+
+/*Custom media query*/
+@media (max-width: 990px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-left, .navbar-right {
+        float: none !important;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-nav {
+        float: none !important;
+        margin-top: 7.5px;
+    }
+
+    .nav-tabs > li {
+            float: none;
+    }
+
+     .navbar-nav > li > a {
+           padding-top: 10px;
+           padding-bottom: 10px;
+     }
+
+    .collapse.in {
+        display: block !important;
+    }
 }
