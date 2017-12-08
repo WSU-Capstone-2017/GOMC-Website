@@ -122,7 +122,15 @@ namespace Project.Controllers
 
 	        return result;
 	    }
-		
+
+		[HttpPost]
+		public Guid PostConfForm(string xml)
+		{
+			var gd = Guid.NewGuid();
+			tempXmlMap.Add(gd, xml);
+			return gd;
+		}
+
 	    [HttpGet]
 	    public HttpResponseMessage DownloadXml(string xml)
 	    {
