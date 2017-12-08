@@ -23,26 +23,12 @@ namespace Project
 
             // JS bundle of all developed content
             bundles.Add(new ScriptBundle("~/bundles/alljs").Include(
-                // All commented files need to be removed from project
                 "~/Scripts/gomc-new.js",
-                // "~/Scripts/about.js",
                 "~/Scripts/admin.js",
-                // "~/Scripts/docs.js",
                 "~/Scripts/downloads.js",
-                // "~/Scripts/faq.js",
-                // "~/Scripts/feat.js",
-                //"~/Scripts/latex-html.js",
                 "~/Scripts/latex.js",
                 "~/Scripts/login.js",
-                // "~/Scripts/privacy.js",
-                // "~/Scripts/publications.js",
-                // "~/Scripts/site.js",
-                //"~/Scripts/terms.js",
                 "~/Scripts/xml.js"
-                // "~/Scripts/more-downloads.js",
-                // "~/Scripts/more-examples.js"
-                // "~/Scripts/bootstrap-scrollspy.js",
-                // "~/Scripts/animatescroll.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
@@ -65,7 +51,7 @@ namespace Project
                     "~/Content/xml.css"
                     ));
             // Set to true to enable full bundle optimization
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
         }
 	}
 }

@@ -2,8 +2,6 @@
     GOMC: Documentation page styles
 */
 
-/*Tag Styles*/
-
 
 /*Class Styles*/
 .center-p {
@@ -25,10 +23,6 @@
     padding-top: 0;
 }
 
-/*.btn-push-down {
-    margin-bottom: .3125em;
-}*/
-
 .download-list {
-    padding-left: 0; /*Removes the padding for the lists of download information in the downloads page*/
+    padding-left: 0; 
 }

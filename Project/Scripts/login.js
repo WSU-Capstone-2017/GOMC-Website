@@ -26,30 +26,24 @@ $('#Admin').validate({
         pCode: "Please enter your password"
     },
     errorElement: "span",
-    errorPlacement: function (error, element) { // rules for placement of error tag
-        // Add error glyph
+    errorPlacement: function (error, element) { 
         element.next().addClass('glyphicon glyphicon-remove');
-        // Add error look
         element.parents('.form-group').addClass('has-error');
         error.addClass('help-block');
         error.appendTo(element.parents('.form-group'));
-        // Remove success
         element.next().removeClass('glyphicon-ok');
         element.parents('.form-group').removeClass('has-success');
     },
-    success: function (error, element) { // rules for placement of success tag
-        // Add checkmark glyph
+    success: function (error, element) { 
         var inputGroupParent = element.parentNode;
         var glyphError = inputGroupParent.children[2];
         $(glyphError).addClass('glyphicon glyphicon-ok');
-        // add success look
         error.parents('.form-group').addClass('has-success');
-        // remove errors
         $(glyphError).removeClass('glyphicon-remove');
         error.parents('.form-group').removeClass('has-error');
         error.remove();
     },
-    submitHandler: function (form, e) { // callback triggered on successful validation
+    submitHandler: function (form, e) {
         $('#Admin').toggle();
         $('.loader').remove();
         $('.login-container').append('<div class="loader center-block"></div>');
@@ -58,7 +52,6 @@ $('#Admin').validate({
                 if (data.ResultType === loginResultType.Success) {
                     $('#Admin').toggle();
                     $('.loader').toggle();
-                    // cookie for admin login session and expires in 3 days
                     Cookies.set('Admin_Session_Guid', data.Session, { expires: 3 });
                     window.location.href = "/home/admin";
                 } else if (data.ResultType === loginResultType.NeedCaptcha) {
@@ -106,7 +99,7 @@ $('#Admin').validate({
                     + "\nError Code: " + data.status
                     + "\nError Status: " + data.statusText
                     + "\nError Details: " + data.responseJSON.ExceptionMessage
-                ); // Adding detailed exception telemetry 
+                ); 
                 $('.loader').remove();
                 window.confirm("Error " + data.status + " " + data.statusText);
             });

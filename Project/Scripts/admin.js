@@ -102,20 +102,16 @@ $("#adminAnnouncement_Text").keyup(function () {
 
 // Listener for new tex file upload
 $("#adminLatexUpload_File").change(function (e) {
-    //console.log('upload change');
     latexFileData = this.files[0];
-    // checkLatexUploadFormButtonDisabled();
     $('#fileNameContainer').val(latexFileData.name);
 });
 
 // Validation for Latex-upload
 $('#adminLatexUpload').validate({
-    debug: true,
     rules: {
         file: {
             required: true,
             extension: "tex"
-            // ,accept: "application/x-latex" // Fails every-time for unknown reason? Should fix later but for now it does the basic job of stopping non-tex files
         },
         version: {
             required: true,
@@ -126,34 +122,30 @@ $('#adminLatexUpload').validate({
     messages: {
         file: {
             extension: "Unsupported file type, you must upload a latex file"
-            // ,accept: "Improper file format, please check the file and try again" // Same as issue above
         },
         version: {
             pattern: "Invalid naming convention, no whitespaces or special characters"
         }
     },
 
-    errorElement: "span", // error tag name
+    errorElement: "span", 
 
-    errorPlacement: function (error, element) { // rules for placement of error tag
+    errorPlacement: function (error, element) { 
         element.parent().parent().addClass('has-error');
         error.addClass('help-block');
         error.appendTo(element.parent());
     },
 
-    success: function (error, element) { // rules for placement of success tag
+    success: function (error, element) { 
         error.removeClass('help-block');
         error.parents('.form-group').removeClass('has-error');
         error.remove();
     },
 
     submitHandler: function (form, e) {
-        // document.write('Good');
         e.preventDefault();
         $('#adminLatexUpload').toggle();
-        $('.latex-container').append('<div class="loader center-block"></div><span class="loader-mms">Processing please wait...</span>'); // Needs to be tested
-        // console.log(adminLatexUpload);
-        // $("#adminLatexUpload_Submit").prop('disabled', true);
+        $('.latex-container').append('<div class="loader center-block"></div><span class="loader-mms">Processing please wait...</span>'); 
         var adminLatexUploadForm = new FormData();
         adminLatexUploadForm.append('file', latexFileData);
         adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
@@ -161,8 +153,6 @@ $('#adminLatexUpload').validate({
         xhr.open("POST", "/api/Latex/Convert", true);
         xhr.addEventListener("load",
             function (evt) {
-                // console.log('load');
-                // console.log(evt);
 	            $("#adminLatexUpload")[0].reset();
                 $("#adminLatexUpload_Submit").prop('disabled', false);
                 doFetchLatexUploads();
@@ -170,7 +160,6 @@ $('#adminLatexUpload').validate({
                     $('#adminLatexUpload').toggle();
                     $('.loader').remove();
                     $('.loader-mms').remove();
-                    // console.log("Processed");
                 }
             }, false);
         xhr.addEventListener("error",
@@ -188,29 +177,7 @@ $('#adminLatexUpload').validate({
                 );
             },
             false);
-        xhr.send(adminLatexUploadForm);
-        // Below JQuery method is busted AF, I gotta figure out a better way of doing it
-        //var adminLatexUploadForm = new FormData();
-        //adminLatexUploadForm.append('file', $('adminLatexUpload_File').val());
-        //adminLatexUploadForm.append('version', $("#adminLatexUpload_Version").val());
-        // Prompt a link to do something?  On success-bar?
-        //$.post('/api/Latex/Convert', adminLatexUploadForm)
-        //    .done(function (data) {
-        //        $('#adminLatexUpload').toggle();
-        //        $('.loader').remove();
-        //    })
-        //    .fail(function (err) {
-        //        $('#adminLatexUpload').toggle();
-        //        $('.loader').remove();
-        //        window.confirm(err.statusText + " Please try again");
-        //        var messageExplained = JSON.parse(err.responseJSON.Message);
-        //        console.log(
-        //            "Status: " + err.status
-        //            + "\n Status Text: " + err.statusText
-        //            + "\n Full Response: " + messageExplained.general[0]
-        //            + "\n Check the network tab in browser debugger for more details"
-        //        );
-        //    });
+        xhr.send(adminLatexUploadForm);     
     },
 
     invalidHandler: function (e, validator) {
@@ -272,15 +239,6 @@ function doFetchAnnouncements() {
 }
 function doLatexPdf(i) {
     window.location.href = '/api/admin/downloadlatexfile?latexId=' + latexIdMap[i] + '&Kind=Pdf';
-    //$.ajax({
-    //	url: '/api/admin/downloadlatexfile',
-    //	type: 'POST',
-    //	contentType: 'application/json',
-    //	data: JSON.stringify({
-    //		Kind: "Pdf",
-    //		LatexUploadId: latexIdMap[i]
-    //	})
-    //});
     return false;
 }
 function doLatexUse(i) {
@@ -288,7 +246,6 @@ function doLatexUse(i) {
         url: '/api/admin/publishlatexupload?latexId=' + latexIdMap[i],
         type: 'GET'
     }).done(function (data) {
-        // console.log(data);
         window.alert('Publish is done!');
     });
     return false;
@@ -319,7 +276,6 @@ function doFetchLatexUploads() {
         type: 'POST',
         contentType: 'application/json'
     }).done(function (data) {
-        // console.log(data);
         if (data.AuthResult === validateSessionResultType.SessionValid) {
             var i = 0;
             for (i = 0; i < 5; i++) {
@@ -336,7 +292,6 @@ function doFetchLatexUploads() {
                     var dt = new Date(data.Uploads[i].Created);
                     $("#LatexUpload_Created_" + i).text(dt.toLocaleDateString("en-US") + " " + dt.toLocaleTimeString("en-US"));
                     $("#LatexUpload_Action_" + i).html(latexUploadActions(i));
-                    // console.log($("#LatexUpload_Action_" + i).html());
                 }
             }
         } else if (data.AuthResult === validateSessionResultType.SessionInvalid) {
@@ -387,7 +342,6 @@ function makeAnnouncementBoxEditable(a, b) {
 }
 function doSaveAnnouncement(a) {
     var newContent = $("#fetchAnnouncements_Message_" + a + " > div").text();
-    // console.log('saving: ' + newContent);
     $.ajax({
         url: '/api/admin/editannouncement',
         type: 'POST',
@@ -433,13 +387,11 @@ function doFetchGomcAnnouncements() {
         type: 'POST',
         contentType: 'application/json'
     }).done(function (data) {
-        // console.log(data);
         var i = 0;
         for (i = 0; i < 5; i++) {
             if (data.length < i) {
                 $("#GomcAnnouncement_" + i).hide();
             } else {
-                // console.log(data[i].Content);
                 $("#GomcAnnouncement_" + i).html(data[i].Content);
             }
         }
@@ -515,7 +467,6 @@ function doRemoveAnnouncement(a) {
         })
     })
         .done(function (data) {
-            // console.log(data);
             if (data.Result === newAnnouncementResult.Success) {
                 doFetchAnnouncements();
             } else if (data === newAnnouncementResult.InvalidSession) {

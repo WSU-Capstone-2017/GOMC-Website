@@ -52,7 +52,7 @@
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
-    counter-reset: step; /*CSS counters to number the steps*/
+    counter-reset: step; 
 }
 #progressbar li {
         list-style-type: none;
@@ -91,7 +91,7 @@
             position: absolute;
             left: -50%;
             top: 9px;
-            z-index: -1; /*put it behind the numbers*/
+            z-index: -1;
         }
 
         #progressbar li:first-child:after { 

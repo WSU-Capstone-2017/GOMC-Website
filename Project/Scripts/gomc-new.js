@@ -1,9 +1,7 @@
 ﻿// Gomc-specific JS
 
-// Pulled in from gomc.cshtml
 document.onreadystatechange = function () {
     if (document.readyState === 'interactive') {
-        // console.log('jumbotron, your\'re up!');
         $('.gomc-jumbotron').css('background-color', '#91D3EF');
         $('.gomc-jumbotron h1').css('background-color', '#91D3EF');
         $('.carousel-control').css({
@@ -33,8 +31,6 @@ document.onreadystatechange = function () {
     }
 }
 
-// Pulled from gomc.js
-//Navigation button in the Responsive Nav view of all cshtml pages
 $('#btn').click(function () {
     if ($('#btn').children().hasClass('glyphicon-align-justify')) {
         $('#btn').children().removeClass('glyphicon-align-justify');
