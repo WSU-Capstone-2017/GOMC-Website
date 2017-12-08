@@ -1,7 +1,6 @@
 ﻿// XMLConfig JS
 
-//$('#backToMain').click(() => window.location.replace('gomc'));
-//$('#newForm').click(() => window.location.replace( 'xmlconfigform'));
+
 //$("#GibbsNpt, #GibbsNvt, #Npt, #Nvt, #Gcmc").change(function() {
 //    console.debug($("#GibbsNpt").val());
 //console.debug($("#Npt").val());
@@ -66,7 +65,13 @@
 //    $("#Rswitch").attr("disabled", "disabled");
 //}
 //});
+$('#backToMain').click(function () {
+    window.location.replace('gomc');
+});
 
+$('#newForm').click(function () {
+    window.location.replace('confform');
+});
 // Display the previous form-card
 $('.prev-btn').click(function (e) {
 	var currentWorkingPanel = $('.working-panel');
@@ -260,7 +265,17 @@ $('#xmlForm2Save').click(function () {
 				//currentWidth += 25;
 				//updateBar(currentWidth);
 				$("#progressbar li").eq(2).addClass('active');
-			});
+            });
+            var steps = parseInt($("#RunSteps").val());
+            if (steps > 1000) {
+                $("#HistogramFreq_Value").val(1000);
+                $("#ConsoleFreq_Value").val(1000);
+            }
+            else {
+                $("#ConsoleFreq_Value").val(100);
+                $("#BlockAverageFreq_Value").val(steps);
+                $("#HistogramFreq_Value").val(100);
+            }
 		}
 	}
 	//    else { // For testing dependancies
@@ -534,6 +549,55 @@ $('#xmlForm3Save').click(function () {
 	//}
 });
 
+$("#CoordinatesFreq_Value").blur(function () {
+    if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#RestartFreq_Value").val()) <= parseInt($("#RunSteps").val()) ) {
+        $("#xmlForm3Save").removeAttr("disabled");
+    }
+    else {
+        var steps = parseInt($("#RunSteps").val());
+        alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
+        $("#xmlForm3Save").attr("disabled","disabled");
+    }
+});
+
+$("#RestartFreq_Value").blur(function () {
+    if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#CoordinatesFreq_Value").val()) <= parseInt($("#RunSteps").val())) {
+        $("#xmlForm3Save").removeAttr("disabled");
+    }
+    else {
+        var steps = parseInt($("#RunSteps").val());
+        alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
+        $("#xmlForm3Save").attr("disabled", "disabled");
+    }
+});
+
+
+//$("#ConsoleFreq_Value").blur(function () {
+//    var steps = parseInt($("#RunSteps").val());
+//    if (steps > 1000)
+//        $("#ConsoleFreq_Value").val(1000);
+//    else 
+//        $("#ConsoleFreq_Value").val(100);
+//});
+
+//$("#BlockAverageFreq_Value").blur(function () {
+//    var steps = parseInt($("#RunSteps").val());
+//    if (steps < 1000)
+//        $("#BlockAverageFreq_Value").val(steps);
+//});
+
+//$("#HistogramFreq_Value").blur(function () {
+//    var steps = parseInt($("#RunSteps").val());
+//    if (steps > 1000)
+//        $("#HistogramFreq_Value").val(1000);
+//    else
+//        $("#HistogramFreq_Value").val(100);
+//});
+
+
+
+
+
 $('#xmlForm3').validate({
 	rules: {
 		useConstantArea: "required",
@@ -630,7 +694,7 @@ $('#xmlForm3').validate({
 			required: true,
 			pattern: /^[a-zA-Z0-9_.\/]*$/
 		},
-		CoordinatesFreq: "required",
+        CoordinatesFreq: "required",
 		CoordinatesFreq_Value: {
 			required: true,
 			min: 0
@@ -727,7 +791,7 @@ $('#xmlForm3').validate({
 			pattern: "No whitespace, numbers or special characters"
 		},
 		CoordinatesFreqValue: {
-			min: "Please input a postive number"
+            min: "Please input a postive number"
 		},
 		RestartFreq_Value: {
 			min: "Please input a postive number"
@@ -784,19 +848,24 @@ $('#xmlForm3').validate({
 });
 
 // Submit the XML config form with all data
-//$('#xmlConfig').click(function () {
-//    $('#xmlConfig').validate();
-//    if ($('#xmlConfig').valid()) {
-//        var currentWorkingPanel = $('.working-panel');
-//        window.scrollTo(0, 0);
-//        currentWorkingPanel.slideUp('slow', () => {
-//            currentWorkingPanel.next().slideDown('slow');
-//        });
-//    }
-//});
+$('#xmlSubmit').click(function () {
+    $('#xmlConfig').validate();
+    if ($('#xmlConfig').valid()) {
+        var currentWorkingPanel = $('.working-panel');
+        window.scrollTo(0, 0);
+        currentWorkingPanel.slideUp('slow', () => {
+            currentWorkingPanel.next().slideDown('slow');
+        });
+        onConfForm_SubmitClick();
+    }
+    else {
+        console.log("Invalid data");
+    }
+});
 
 $('#xmlConfig').validate({
-	rules: {
+   // debug: true,
+    rules: {
 		DistName: {
 			required: true,
 			pattern: /^[a-zA-Z0-9_.\/]*$/
@@ -816,7 +885,7 @@ $('#xmlConfig').validate({
 		SampleFreq: {
 			required: true,
 			min: 0
-		},
+		}
 		//OutEnergy_1: "required",
 		//OutEnergy_2: "required",
 		//OutPressure_1: "required",
@@ -878,34 +947,34 @@ $('#xmlConfig').validate({
 	},
 	submitHandler: function (form, e) {
 		onConfForm_SubmitClick();
-		//var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
+	//	var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
 
 
-		//$.post('/api/configinput/FormPost', xmlData)
-		//    .done(function (data) {
-		//        var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
-		//        window.location.replace(newUrl); // Purpose of this?
-		//        // Perhaps add a thank you message?
-		//        var currentWorkingPanel = $('.working-panel');
-		//        currentWorkingPanel.removeClass('working-panel');
-		//        currentWorkingPanel.next().addClass('working-panel');
-		//        window.scrollTo(0, 0);
-		//        currentWorkingPanel.slideUp('slow', () => {
-		//            currentWorkingPanel.next().slideDown('slow');
-		//            currentWidth += 25;
-		//            updateBar(currentWidth);
-		//        });
-		//    })
-		//    .fail(function (err) {
-		//        window.confirm(err.statusText + " Please try again");
-		//        var messageExplained = JSON.parse(err.responseJSON.Message);
-		//        console.log(
-		//            "Status: " + err.status
-		//            + "\n Status Text: " + err.statusText
-		//            + "\n Full Response: " + messageExplained.general[0]
-		//            + "\n Check the network tab in browser debugger for more details"
-		//        );
-		//    });
+	//	$.post('/api/configinput/FormPost', xmlData)
+	//	    .done(function (data) {
+	//	        var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
+	//	        window.location.replace(newUrl); // Purpose of this?
+	//	         Perhaps add a thank you message?
+	//	        var currentWorkingPanel = $('.working-panel');
+	//	        currentWorkingPanel.removeClass('working-panel');
+	//	        currentWorkingPanel.next().addClass('working-panel');
+	//	        window.scrollTo(0, 0);
+	//	        currentWorkingPanel.slideUp('slow', () => {
+	//	            currentWorkingPanel.next().slideDown('slow');
+	//	            currentWidth += 25;
+	//	            updateBar(currentWidth);
+	//	        });
+	//	    })
+	//	    .fail(function (err) {
+	//	        window.confirm(err.statusText + " Please try again");
+	//	        var messageExplained = JSON.parse(err.responseJSON.Message);
+	//	        console.log(
+	//	            "Status: " + err.status
+	//	            + "\n Status Text: " + err.statusText
+	//	            + "\n Full Response: " + messageExplained.general[0]
+	//	            + "\n Check the network tab in browser debugger for more details"
+	//	        );
+	//	    });
 	},
 	invalidHandler: function (e, validator) {
 		var errorCount = validator.numberOfInvalids();
@@ -981,7 +1050,8 @@ $("#Ensemble").change(function () {
 	makeAble("VolFreq", v !== "Npt" && v !== "Gcmc");
 	makeAble("useConstantArea_true", v !== "Npt" && v !== "Gcmc");
 	makeAble("useConstantArea_false", v !== "Npt" && v !== "Gcmc");
-	makeAble("SwapFreq", v !== "Npt" && v !== "Nvt");
+    makeAble("SwapFreq", v !== "Npt" && v !== "Nvt");
+    makeAble("HistogramFreq_Value", v !== "Gcmc");
 });
 $("#Potential").change(function() {
 	makeAble("Rswitch", getVal("Potential") === "SWITCH");
@@ -1347,7 +1417,31 @@ function onConfForm_SubmitClick() {
 
 	st += "</ConfigSetup>";
 	//console.log(st);
-
-	window.location.href = '/api/ConfigInput/DownloadXml?xml=' + encodeURI(st);
-	return false;
+    $.post('/api/ConfigInput/PostConfForm', st)
+        .done(function (data) {
+            var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
+            // window.location.replace(newUrl); // Purpose of this?
+            // Perhaps add a thank you message?
+            var currentWorkingPanel = $('.working-panel');
+            currentWorkingPanel.removeClass('working-panel');
+            currentWorkingPanel.next().addClass('working-panel');
+            window.scrollTo(0, 0);
+            currentWorkingPanel.slideUp('slow', () => {
+                currentWorkingPanel.next().slideDown('slow');
+                //currentWidth += 25;
+                //updateBar(currentWidth);
+            });
+        })
+        .fail(function (err) {
+            window.confirm(err.statusText + " Please try again");
+            var messageExplained = JSON.parse(err.responseJSON.Message);
+            console.log(
+                "Status: " + err.status
+                + "\n Status Text: " + err.statusText
+                + "\n Full Response: " + messageExplained.general[0]
+                + "\n Check the network tab in browser debugger for more details"
+            );
+        });
+	// window.location.href = '/api/ConfigInput/DownloadXml?xml=' + encodeURI(st);
+	// return false;
 }
