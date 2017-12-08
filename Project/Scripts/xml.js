@@ -102,7 +102,7 @@
 
         $('#xmlForm1Save').click(function () {
             $('#xmlForm1').validate();
-			if (!$('#xmlForm1').valid()) {
+            if ($('#xmlForm1').valid()) {
                 var currentWorkingPanel = $('.working-panel');
                 currentWorkingPanel.removeClass('working-panel');
                 currentWorkingPanel.next().addClass('working-panel');
@@ -114,6 +114,18 @@
                     $("#progressbar li").eq(1).addClass('active');
                 });
             }
+            //else { // For Testing dependancies
+            //    var currentWorkingPanel = $('.working-panel');
+            //    currentWorkingPanel.removeClass('working-panel');
+            //    currentWorkingPanel.next().addClass('working-panel');
+            //    window.scrollTo(0, 0);
+            //    currentWorkingPanel.slideUp('slow', () => {
+            //        currentWorkingPanel.next().slideDown('slow');
+            //        //currentWidth += 25;
+            //        //updateBar(currentWidth);
+            //        $("#progressbar li").eq(1).addClass('active');
+            //    });
+            //}
         });
 
         $('#xmlForm1').validate({
@@ -197,7 +209,10 @@
                 // Add error look
                 if (element.is(':radio')) {
                     error.addClass('help-block');
-                    error.css('color', '#a94442');
+                    error.css({
+                        'color': '#A94442',
+                        'font-weight': 'normal'
+                    });
                     error.prependTo(element.parent().parent());
                 }
                 else {
@@ -251,7 +266,19 @@
                         $("#progressbar li").eq(2).addClass('active');
                     });
                 }
-            }
+            } 
+            //    else { // For testing dependancies
+            //    var currentWorkingPanel = $('.working-panel');
+            //    currentWorkingPanel.removeClass('working-panel');
+            //    currentWorkingPanel.next().addClass('working-panel');
+            //    window.scrollTo(0, 0);
+            //    currentWorkingPanel.slideUp('slow', () => {
+            //        currentWorkingPanel.next().slideDown('slow');
+            //        //currentWidth += 25;
+            //        //updateBar(currentWidth);
+            //        $("#progressbar li").eq(2).addClass('active');
+            //    });
+            //}
         });
 
         $('#xmlForm2').validate({
@@ -469,11 +496,11 @@
             }
         });
 
-$("#newXmlComponents").click(function (e) {
-    e.preventDefault();
-    $(this).prev().append("<label>ResName<input class='xml-control form-control' type='text' pattern='[\s -]' name='gomc_config_input_ChemPot_ResName'></label>");
-    $(this).prev().append("<label>Value<input class='xml-control form-control' type='number' min='0' name='gomc_config_input_ChemPot_Value'></label>");
-});
+//$("#newXmlComponents").click(function (e) {
+//    e.preventDefault();
+//    $(this).prev().append("<label>ResName<input class='xml-control form-control' type='text' pattern='[\s -]' name='gomc_config_input_ChemPot_ResName'></label>");
+//    $(this).prev().append("<label>Value<input class='xml-control form-control' type='number' min='0' name='gomc_config_input_ChemPot_Value'></label>");
+//});
         $('#xmlForm3Save').click(function () {
             $('#xmlForm3').validate();
             if ($('#xmlForm3').valid()) {
@@ -488,149 +515,225 @@ $("#newXmlComponents").click(function (e) {
                     $("#progressbar li").eq(3).addClass('active');
                 });
             }
+            //else { // For dependancy testing
+            //    var currentWorkingPanel = $('.working-panel');
+            //    currentWorkingPanel.removeClass('working-panel');
+            //    currentWorkingPanel.next().addClass('working-panel');
+            //    window.scrollTo(0, 0);
+            //    currentWorkingPanel.slideUp('slow', () => {
+            //        currentWorkingPanel.next().slideDown('slow');
+            //        //currentWidth += 25;
+            //        //updateBar(currentWidth);
+            //        $("#progressbar li").eq(3).addClass('active');
+            //    });
+            //}
         });
 
         $('#xmlForm3').validate({
             rules: {
-                gomc_config_input_UseConstantArea: "required",
-                gomc_config_input_FixVolBox0: "required",
-                gomc_config_input_BoxDim_1_0_XAxis: {
+                useConstantArea: "required",
+                FixVolBox0: "required",
+                "1-CellBasisVector_1_XAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_BoxDim_1_0_YAxis: {
+                "1-CellBasisVector_1_YAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_BoxDim_1_0_ZAxis: {
+                "1-CellBasisVector_1_ZAxis": {
                     required: true,
                     min: 0
 				},
-				gomc_config_input_BoxDim_1_1_XAxis: {
+                "1-CellBasisVector_2_XAxis": {
 	                required: true,
 	                min: 0
                 },
-                gomc_config_input_BoxDim_1_1_YAxis: {
+                "1-CellBasisVector_2_YAxis": {
 	                required: true,
 	                min: 0
                 },
-                gomc_config_input_BoxDim_1_1_ZAxis: {
+                "1-CellBasisVector_2_ZAxis": {
 	                required: true,
 	                min: 0
 				},
-				gomc_config_input_BoxDim_1_2_XAxis: {
+                "1-CellBasisVector_3_XAxis": {
 	                required: true,
 	                min: 0
                 },
-                gomc_config_input_BoxDim_1_2_YAxis: {
+                "1-CellBasisVector_3_YAxis": {
 	                required: true,
 	                min: 0
                 },
-                gomc_config_input_BoxDim_1_2_ZAxis: {
+                "1-CellBasisVector_3_ZAxis": {
 	                required: true,
 	                min: 0
                 },
-                gomc_config_input_CbmcFirst: {
+                "2-CellBasisVector_1_XAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_CbmcNth: {
+                "2-CellBasisVector_1_YAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_CbmcAng: {
+                "2-CellBasisVector_1_ZAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_CbmcDih: {
+                "2-CellBasisVector_2_XAxis": {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_OutputName: {
+                "2-CellBasisVector_2_YAxis": {
+                    required: true,
+                    min: 0
+                },
+                "2-CellBasisVector_2_ZAxis": {
+                    required: true,
+                    min: 0
+                },
+                "2-CellBasisVector_3_XAxis": {
+                    required: true,
+                    min: 0
+                },
+                "2-CellBasisVector_3_YAxis": {
+                    required: true,
+                    min: 0
+                },
+                "2-CellBasisVector_3_ZAxis": {
+                    required: true,
+                    min: 0
+                },
+                CBMC_First: {
+                    required: true,
+                    min: 0
+                },
+                CBMC_Nth: {
+                    required: true,
+                    min: 0
+                },
+                CBMC_Ang: {
+                    required: true,
+                    min: 0
+                },
+                CBMC_Dih: {
+                    required: true,
+                    min: 0
+                },
+                OutputName: {
                     required: true,
                     pattern: /^[a-zA-Z0-9_.\/]*$/
                 },
-                gomc_config_input_CoordinatesFreqValue: {
+                CoordinatesFreq: "required",
+                CoordinatesFreq_Value: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_RestartFreq_Enabled: "required",
-                gomc_config_input_RestartFreq_Value: {
+                RestartFreq: "required",
+                RestartFreq_Value: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_ConsoleFreq_Enabled: "required",
-                gomc_config_input_ConsoleFreq_Value: {
+                ConsoleFreq: "required",
+                ConsoleFreq_Value: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_BlockAverageFreq_Enabled: "required",
-                gomc_config_input_BlockAverageFreq_Value: {
+                BlockAverageFreq: "required",
+                BlockAverageFreq_Value: {
                     required: true,
                     min: 0
                 },
-                gomc_config_input_HistogramFreq_Enabled: "required",
-                gomc_config_input_HistogramFreq_Value: {
+                HistogramFreq: "required",
+                HistogramFreq_Value: {
                     required: true,
                     min: 0
                 }
             },
             messages: {
-                gomc_config_input_BoxDim_1_0_XAxis: {
+                "1-CellBasisVector_1_XAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_0_YAxis: {
+                "1-CellBasisVector_1_YAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_0_ZAxis: {
+                "1-CellBasisVector_1_ZAxis": {
                     min: "Please input a postive number"
 				},
-				gomc_config_input_BoxDim_1_1_XAxis: {
+                "1-CellBasisVector_2_XAxis": {
 	                min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_1_YAxis: {
+                "1-CellBasisVector_2_YAxis": {
 	                min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_1_ZAxis: {
+                "1-CellBasisVector_2_ZAxis": {
 	                min: "Please input a postive number"
 				},
-				gomc_config_input_BoxDim_1_2_XAxis: {
+                "1-CellBasisVector_3_XAxis": {
 	                min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_2_YAxis: {
+                "1-CellBasisVector_3_YAxis": {
 	                min: "Please input a postive number"
                 },
-                gomc_config_input_BoxDim_1_2_ZAxis: {
+                "1-CellBasisVector_3_ZAxis": {
 	                min: "Please input a postive number"
                 },
-                gomc_config_input_CbmcFirst: {
+                "2-CellBasisVector_1_XAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_CbmcNth: {
+                "2-CellBasisVector_1_YAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_CbmcAng: {
+                "2-CellBasisVector_1_ZAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_CbmcDih: {
+                "2-CellBasisVector_2_XAxis": {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_OutputName: {
+                "2-CellBasisVector_2_YAxis": {
+                    min: "Please input a postive number"
+                },
+                "2-CellBasisVector_2_ZAxis": {
+                    min: "Please input a postive number"
+                },
+                "2-CellBasisVector_3_XAxis": {
+                    min: "Please input a postive number"
+                },
+                "2-CellBasisVector_3_YAxis": {
+                    min: "Please input a postive number"
+                },
+                "2-CellBasisVector_3_ZAxis": {
+                    min: "Please input a postive number"
+                },
+                CbmcFirst: {
+                    min: "Please input a postive number"
+                },
+                CbmcNth: {
+                    min: "Please input a postive number"
+                },
+                CbmcAng: {
+                    min: "Please input a postive number"
+                },
+                CbmcDih: {
+                    min: "Please input a postive number"
+                },
+                OutputName: {
                     pattern: "No whitespace, numbers or special characters"
                 },
-                gomc_config_input_CoordinatesFreqValue: {
+                CoordinatesFreqValue: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_RestartFreq_Value: {
+                RestartFreq_Value: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_ConsoleFreq_Value: {
+                ConsoleFreq_Value: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_BlockAverageFreq_Value: {
+                BlockAverageFreq_Value: {
                     min: "Please input a postive number"
                 },
-                gomc_config_input_HistogramFreq_Value: {
+                HistogramFreq_Value: {
                     min: "Please input a postive number"
                 }
             },
@@ -690,53 +793,53 @@ $("#newXmlComponents").click(function (e) {
 
 $('#xmlConfig').validate({
     rules: {
-        gomc_config_input_DistName: {
+        DistName: {
             required: true,
             pattern: /^[a-zA-Z0-9_.\/]*$/
         },
-        gomc_config_input_HistName: {
+        HistName: {
             required: true,
             pattern: /^[a-zA-Z0-9_.\/]*$/
         },
-        gomc_config_input_RunNumber: {
+        RunNumber: {
             required: true,
             min: 0
         },
-        gomc_config_input_RunLetter: {
+        RunLetter: {
             required: true,
             pattern: /^[a-zA-Z0-9_.\/]*$/
         },
-        gomc_config_input_SampleFreq: {
+        SampleFreq: {
             required: true,
             min: 0
         },
-        gomc_config_input_OutEnergy_1: "required",
-        gomc_config_input_OutEnergy_2: "required",
-        gomc_config_input_OutPressure_1: "required",
-        gomc_config_input_OutPressure_2: "required",
-        gomc_config_input_OutMolNumber_1: "required",
-        gomc_config_input_OutMolNumber_2: "required",
-        gomc_config_input_OutDensity_1: "required",
-        gomc_config_input_OutDensity_2: "required",
-        gomc_config_input_OutVolume_1: "required",
-        gomc_config_input_OutVolume_2: "required",
-        gomc_config_input_OutSurfaceTension_1: "required",
-        gomc_config_input_OutSurfaceTension_2: "required"
+        //OutEnergy_1: "required",
+        //OutEnergy_2: "required",
+        //OutPressure_1: "required",
+        //OutPressure_2: "required",
+        //OutMolNumber_1: "required",
+        //OutMolNumber_2: "required",
+        //OutDensity_1: "required",
+        //OutDensity_2: "required",
+        //OutVolume_1: "required",
+        //OutVolume_2: "required",
+        //OutSurfaceTension_1: "required",
+        //OutSurfaceTension_2: "required"
     },
     messages: {
-        gomc_config_input_DistName: {
+        DistName: {
             pattern: "No whitespace, numbers or special characters"
         },
-        gomc_config_input_HistName: {
+        HistName: {
             pattern: "No whitespace, numbers or special characters"
         },
-        gomc_config_input_RunNumber: {
+        RunNumber: {
             min: "Input a positive number"
         },
-        gomc_config_input_RunLetter: {
+        RunLetter: {
             pattern: "No whitespace, numbers or special characters"
         },
-        gomc_config_input_SampleFreq: {
+        SampleFreq: {
             min: "Input a positive number"
         },
     },
@@ -771,12 +874,8 @@ $('#xmlConfig').validate({
         error.remove();
     },
     submitHandler: function (form, e) {
-        //console.log($('#xmlForm1').serialize());
-        //console.log($('#xmlForm2').serialize());
-        //console.log($('#xmlForm3').serialize());
-        //console.log($('#xmlFonfig').serialize()); // Fonfig? Really bro?
         var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
-        //console.log(xmlData);
+       
 
         $.post('/api/configinput/FormPost', xmlData)
             .done(function (data) {
@@ -822,11 +921,11 @@ function updateBar(currentWidth) {
 	var chemPotFugacityCounter = 0;
     function removeChemPotFugacity(id) {
 		$("#ChemPot-Fugacity_" + id).remove();
-	chemPotFugacityCounter--;
+	    chemPotFugacityCounter--;
         return false;
     }
 
-		$("#new_ChemPot-Fugacity").click(function () {
+	$("#new_ChemPot-Fugacity").click(function () {
 			var $cf = $("#ChemPot-Fugacity_List");
 			chemPotFugacityCounter++;
 			var id = chemPotFugacityCounter;
@@ -839,16 +938,16 @@ function updateBar(currentWidth) {
 			$cf.append(ht);
 			return false;
 		});
-	    $("#PRNG").change(function() {
+	$("#PRNG").change(function() {
 		    makeAble("Random_Seed", (getVal("PRNG") !== "RANDOM"));
 		});
-		$("#Ensemble").change(function () {
+	$("#Ensemble").change(function () {
 			var v = getVal("Ensemble");
 			makeAble("Structure_1", v !== "Npt" && v !== "Nvt");
 			makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
 			ableCellBasis();
 		});
-		$("#Restart").change(function () {
+	$("#Restart").change(function () {
 			ableCellBasis();
 		});
 	function ableCellBasis() {
