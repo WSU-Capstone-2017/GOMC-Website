@@ -43,6 +43,11 @@
     margin-right: 0.25em;
 }
 
+.help-block {
+    color: #A94442;
+    font-weight: normal;
+}
+
 /*ID Styles*/
 #progressbar {
     margin-bottom: 30px;

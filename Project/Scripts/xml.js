@@ -209,10 +209,6 @@
                 // Add error look
                 if (element.is(':radio')) {
                     error.addClass('help-block');
-                    error.css({
-                        'color': '#A94442',
-                        'font-weight': 'normal'
-                    });
                     error.prependTo(element.parent().parent());
                 }
                 else {
@@ -349,7 +345,7 @@
                 "ChemPot-Fugacity": "required",
                 "ChemPot-Fugacity_ResName_0":{
                     required: true,
-                    pattern: /^[a - zA - Z0 - 9_.\/\-]*$/
+                    pattern: /^[a-zA-Z0-9_.\/\-]*$/
                 },
                 "ChemPot-Fugacity_Value_0": {
                     min: 0,
@@ -369,22 +365,27 @@
                 //},
                 DisFreq: {
                     min: 0,
+                    max: 1,
                     required: true
                 },
                RotFreq: {
-                    min: 0,
+                   min: 0,
+                   max: 1,
                     required: true
                 },
                 IntraSwapFreq: {
                     min: 0,
+                    max: 1,
                     required: true
                 },
                 VolFreq: {
                     min: 0,
+                    max: 1,
                     required: true
                 },
                 SwapFreq: {
                     min: 0,
+                    max: 1,
                     required: true
                 }
             },
@@ -433,25 +434,30 @@
                 //    min: "Please input a positive number"
                 //},
                 "ChemPot-Fugacity_ResName_0": {
-                    pattern: /^[a - zA - Z0 - 9_.\/\-]*$/
+                    pattern: "Please input a valid string"
                 },
                 "ChemPot-Fugacity_Value_0": {
                     min: "Please input a positive number"
                 },
                 DisFreq: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0-1"
                 },
                 RotFreq: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0-1"
                 },
                 IntraSwapFreq: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0-1"
                 },
                 VolFreq: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0-1"
                 },
                 SwapFreq: {
-                    min: "Please input a positive number"
+                    min: "Please input a positive number",
+                    max: "Please input a number between 0-1"
                 }
             },
             errorElement: "span", // error tag name
@@ -462,7 +468,6 @@
                 // Add error look
                 if (element.is(':radio')) {
                     error.addClass('help-block');
-                    error.css('color', '#a94442');
                     error.prependTo(element.parent().parent());
                 }
                 else {
@@ -745,7 +750,6 @@
                 // Add error look
                 if (element.is(':radio')) {
                     error.addClass('help-block');
-                    error.css('color', '#a94442');
                     error.prependTo(element.parent().parent());
                 }
                 else {
@@ -851,7 +855,6 @@ $('#xmlConfig').validate({
         // Add error look
         if (element.is(':radio')) {
             error.addClass('help-block');
-            error.css('color', '#a94442');
             error.prependTo(element.parent().parent());
         }
         else {
@@ -874,34 +877,35 @@ $('#xmlConfig').validate({
         error.remove();
     },
     submitHandler: function (form, e) {
-        var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
+        onConfForm_SubmitClick();
+        //var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
        
 
-        $.post('/api/configinput/FormPost', xmlData)
-            .done(function (data) {
-                var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
-                window.location.replace(newUrl); // Purpose of this?
-                // Perhaps add a thank you message?
-                var currentWorkingPanel = $('.working-panel');
-                currentWorkingPanel.removeClass('working-panel');
-                currentWorkingPanel.next().addClass('working-panel');
-                window.scrollTo(0, 0);
-                currentWorkingPanel.slideUp('slow', () => {
-                    currentWorkingPanel.next().slideDown('slow');
-                    currentWidth += 25;
-                    updateBar(currentWidth);
-                });
-            })
-            .fail(function (err) {
-                window.confirm(err.statusText + " Please try again");
-                var messageExplained = JSON.parse(err.responseJSON.Message);
-                console.log(
-                    "Status: " + err.status
-                    + "\n Status Text: " + err.statusText
-                    + "\n Full Response: " + messageExplained.general[0]
-                    + "\n Check the network tab in browser debugger for more details"
-                );
-            });
+        //$.post('/api/configinput/FormPost', xmlData)
+        //    .done(function (data) {
+        //        var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
+        //        window.location.replace(newUrl); // Purpose of this?
+        //        // Perhaps add a thank you message?
+        //        var currentWorkingPanel = $('.working-panel');
+        //        currentWorkingPanel.removeClass('working-panel');
+        //        currentWorkingPanel.next().addClass('working-panel');
+        //        window.scrollTo(0, 0);
+        //        currentWorkingPanel.slideUp('slow', () => {
+        //            currentWorkingPanel.next().slideDown('slow');
+        //            currentWidth += 25;
+        //            updateBar(currentWidth);
+        //        });
+        //    })
+        //    .fail(function (err) {
+        //        window.confirm(err.statusText + " Please try again");
+        //        var messageExplained = JSON.parse(err.responseJSON.Message);
+        //        console.log(
+        //            "Status: " + err.status
+        //            + "\n Status Text: " + err.statusText
+        //            + "\n Full Response: " + messageExplained.general[0]
+        //            + "\n Check the network tab in browser debugger for more details"
+        //        );
+        //    });
     },
     invalidHandler: function (e, validator) {
         var errorCount = validator.numberOfInvalids();
