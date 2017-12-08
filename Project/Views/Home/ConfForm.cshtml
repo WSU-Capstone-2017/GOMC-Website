@@ -565,7 +565,7 @@
                                     <input class="xml-control form-control" type="text" name="RunLetter" id="RunLetter">
                                 </div>
                                 <div class="form-group">
-                                    <label data-toggle="tooltip" title="Controls histogram sampling frequency">SampleFreq</label>
+                                    <label data-toggle="tooltip" title="Controls histogram sampling frequency" value="200">SampleFreq</label>
                                     <input class="xml-control form-control" type="number" step="any" min="0" name="SampleFreq" id="SampleFreq">
                                 </div>
                                 <div class="form-group" id="OutEnergy">
@@ -616,6 +616,32 @@
                                         </label>
                                         <label>
                                             <input type="checkbox" value="" id="OutDensity2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="OutVolume">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutVolume</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutVolume1">
+                                            Block average
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutVolume2">
+                                            Fluctuation
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="OutSurfaceTension">
+                                    <label data-toggle="tooltip" title="Enables/disables specific thermodynamic output tracking">OutSurfaceTension</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" id="OutSurfaceTension1">
+                                            Block average
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" value="" id="OutSurfaceTension2">
                                             Fluctuation
                                         </label>
                                     </div>

@@ -951,6 +951,23 @@ $("#Ensemble").change(function () {
 	makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
 	makeAble("Pressure", v === "Npt");
 	ableCellBasis();
+	makeAble("DistName", v !== "Gcmc");
+	makeAble("HistName", v !== "Gcmc");
+	makeAble("RunNumber", v !== "Gcmc");
+	makeAble("RunLetter", v !== "Gcmc");
+
+	makeAble("OutSurfaceTension1", v === "Nvt");
+	makeAble("OutSurfaceTension2", v === "Nvt");
+
+	makeAble("OutVolume1", v !== "Nvt");
+	makeAble("OutVolume2", v !== "Nvt");
+
+	makeAble("OutDensity1", v !== "Nvt");
+	makeAble("OutDensity2", v !== "Nvt");
+
+	makeAble("OutMolNum1", v !== "Nvt");
+	makeAble("OutMolNum2", v !== "Nvt");
+
 	if (v === "Npt" || v === "GibbsNpt") {
 		setRadioBool("PressureCalc", 'true');
 	}
@@ -1147,6 +1164,8 @@ function getVal(nm) {
 		case "OutPressure":
 		case "OutMolNum":
 		case "OutDensity":
+		case "OutVolume":
+		case "OutSurfaceTension":
 			return getCheckbox(nm + "1") + ";;" + getCheckbox(nm + "2");
 		case "Restart":
 		case "LRC":
@@ -1323,6 +1342,8 @@ function onConfForm_SubmitClick() {
 	out("OutPressure");
 	out("OutMolNum");
 	out("OutDensity");
+	out("OutVolume");
+	out("OutSurfaceTension");
 
 	st += "</ConfigSetup>";
 	//console.log(st);
