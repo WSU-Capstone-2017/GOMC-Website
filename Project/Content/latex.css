@@ -6,11 +6,11 @@
 #navbar {
 	position: fixed;   
     background: #D1D2D4;
-    height: 100%;
-    overflow: auto;
+    height: 85%;
+    overflow: scroll;
     float: left;
     width: 15.1em;
-	margin-top: -.3em;
+	margin: .2em 0 .5em 0;
 }
 
     #navbar ul, #navbar li {
