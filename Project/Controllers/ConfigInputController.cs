@@ -122,10 +122,15 @@ namespace Project.Controllers
 
 	        return result;
 	    }
- 
-		[HttpPost]
-		public Guid PostConfForm(string xml)
+
+		public class PostConfFormInput
 		{
+			public string Xml { get; set; }
+		}
+		[HttpPost]
+		public Guid PostConfForm(PostConfFormInput input)
+		{
+			var xml = input.Xml;
 			var gd = Guid.NewGuid();
 			tempXmlMap.Add(gd, xml);
 			return gd;

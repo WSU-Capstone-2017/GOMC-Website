@@ -202,15 +202,20 @@ $('#xmlForm2Save').click(function () {
 				$("#progressbar li").eq(2).addClass('active');
             });
             var steps = parseInt($("#RunSteps").val());
-            if (steps > 1000) {
-                $("#HistogramFreq_Value").val(1000);
-                $("#ConsoleFreq_Value").val(1000);
-            }
-            else {
-                $("#ConsoleFreq_Value").val(100);
-                $("#BlockAverageFreq_Value").val(steps);
-                $("#HistogramFreq_Value").val(100);
-            }
+			if (steps > 1000) {
+				if (getVal("HistogramFreq_Value") === "")
+					$("#HistogramFreq_Value").val(1000);
+				if (getVal("ConsoleFreq_Value") === "")
+					$("#ConsoleFreq_Value").val(1000);
+			}
+			else {
+				if (getVal("ConsoleFreq_Value") === "")
+					$("#ConsoleFreq_Value").val(100);
+				if (getVal("HistogramFreq_Value") === "")
+					$("#HistogramFreq_Value").val(100);
+			}
+			if (getVal("BlockAverageFreq_Value") === "")
+				$("#BlockAverageFreq_Value").val(steps);
 		}
 	}
 	//    else { // For testing dependancies
@@ -485,25 +490,25 @@ $('#xmlForm3Save').click(function () {
 });
 
 $("#CoordinatesFreq_Value").blur(function () {
-    if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#RestartFreq_Value").val()) <= parseInt($("#RunSteps").val()) ) {
-        $("#xmlForm3Save").removeAttr("disabled");
-    }
-    else {
-        var steps = parseInt($("#RunSteps").val());
-        alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
-        $("#xmlForm3Save").attr("disabled","disabled");
-    }
+    //if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#RestartFreq_Value").val()) <= parseInt($("#RunSteps").val()) ) {
+    //    $("#xmlForm3Save").removeAttr("disabled");
+    //}
+    //else {
+    //    var steps = parseInt($("#RunSteps").val());
+    //    alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
+    //    $("#xmlForm3Save").attr("disabled","disabled");
+    //}
 });
 
 $("#RestartFreq_Value").blur(function () {
-    if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#CoordinatesFreq_Value").val()) <= parseInt($("#RunSteps").val())) {
-        $("#xmlForm3Save").removeAttr("disabled");
-    }
-    else {
-        var steps = parseInt($("#RunSteps").val());
-        alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
-        $("#xmlForm3Save").attr("disabled", "disabled");
-    }
+    //if (parseInt($(this).val()) <= parseInt($("#RunSteps").val()) && parseInt($("#CoordinatesFreq_Value").val()) <= parseInt($("#RunSteps").val())) {
+    //    $("#xmlForm3Save").removeAttr("disabled");
+    //}
+    //else {
+    //    var steps = parseInt($("#RunSteps").val());
+    //    alert("Both the coordinate value & restart frequency value must be less than or equal to " + steps);
+    //    $("#xmlForm3Save").attr("disabled", "disabled");
+    //}
 });
 
 
@@ -784,14 +789,19 @@ $('#xmlForm3').validate({
 
 // Submit the XML config form with all data
 $('#xmlSubmit').click(function () {
+	console.log('xmlSubmit');
+	console.log($('#xmlConfig'));
     $('#xmlConfig').validate();
-    if ($('#xmlConfig').valid()) {
+    if (true || $('#xmlConfig').valid()) {
         var currentWorkingPanel = $('.working-panel');
         window.scrollTo(0, 0);
         currentWorkingPanel.slideUp('slow', () => {
             currentWorkingPanel.next().slideDown('slow');
-        });
-        onConfForm_SubmitClick();
+		});
+		console.log('onConfForm_SubmitClick()');
+		onConfForm_SubmitClick();
+	    console.log('onConfForm_SubmitClick() done');
+	    return false;
     }
     else {
         console.log("Invalid data");
@@ -881,7 +891,8 @@ $('#xmlConfig').validate({
 		error.remove();
 	},
 	submitHandler: function (form, e) {
-		onConfForm_SubmitClick();
+		console.log('onConfForm_SubmitClick');
+		return onConfForm_SubmitClick();
 	//	var xmlData = $('#xmlForm1').serialize() + '&' + $('#xmlForm2').serialize() + '&' + $('#xmlForm3').serialize() + '&' + $('#xmlConfig').serialize();
 
 
@@ -955,10 +966,11 @@ $("#Ensemble").change(function () {
 	makeAble("Coordinates_1", v !== "Npt" && v !== "Nvt");
 	makeAble("Pressure", v === "Npt");
 	ableCellBasis();
-	makeAble("DistName", v !== "Gcmc");
-	makeAble("HistName", v !== "Gcmc");
-	makeAble("RunNumber", v !== "Gcmc");
-	makeAble("RunLetter", v !== "Gcmc");
+	makeAble("DistName", v === "Gcmc");
+	makeAble("HistName", v === "Gcmc");
+	makeAble("RunNumber", v === "Gcmc");
+	makeAble("RunLetter", v === "Gcmc");
+	makeAble("SampleFreq", v === "Gcmc");
 
 	makeAble("OutSurfaceTension1", v === "Nvt");
 	makeAble("OutSurfaceTension2", v === "Nvt");
@@ -982,11 +994,11 @@ $("#Ensemble").change(function () {
 		makeAble("FixVolBox0_true", v !== "Npt" && v !== "Gcmc");
 		makeAble("FixVolBox0_false", v !== "Npt" && v !== "Gcmc");
 	}
-	makeAble("VolFreq", v !== "Npt" && v !== "Gcmc");
-	makeAble("useConstantArea_true", v !== "Npt" && v !== "Gcmc");
-	makeAble("useConstantArea_false", v !== "Npt" && v !== "Gcmc");
+	makeAble("VolFreq", v !== "Nvt" && v !== "Gcmc");
+	makeAble("useConstantArea_true", v !== "Nvt" && v !== "Gcmc");
+	makeAble("useConstantArea_false", v !== "Nvt" && v !== "Gcmc");
     makeAble("SwapFreq", v !== "Npt" && v !== "Nvt");
-    makeAble("HistogramFreq_Value", v !== "Gcmc");
+    makeAble("HistogramFreq_Value", v === "Gcmc");
 });
 $("#Potential").change(function() {
 	makeAble("Rswitch", getVal("Potential") === "SWITCH");
@@ -1351,21 +1363,30 @@ function onConfForm_SubmitClick() {
 	out("OutSurfaceTension");
 
 	st += "</ConfigSetup>";
-	//console.log(st);
-    $.post('/api/ConfigInput/PostConfForm', st)
-        .done(function (data) {
-            var newUrl = '/api/configinput/DownloadFromGuid?guid=' + data;
-            // window.location.replace(newUrl); // Purpose of this?
+	console.log(st);
+
+	var jsn = {
+		Xml: st
+	};
+    $.ajax({
+		url: '/api/ConfigInput/PostConfForm',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify(jsn) 
+    }).done(function (data) {
+			var newUrl = '/api/configinput/DownloadXmlFromGuid?guid=' + data;
+			window.location.replace(newUrl);
+			// Purpose of this?
             // Perhaps add a thank you message?
-            var currentWorkingPanel = $('.working-panel');
-            currentWorkingPanel.removeClass('working-panel');
-            currentWorkingPanel.next().addClass('working-panel');
-            window.scrollTo(0, 0);
-            currentWorkingPanel.slideUp('slow', () => {
-                currentWorkingPanel.next().slideDown('slow');
-                //currentWidth += 25;
-                //updateBar(currentWidth);
-            });
+            //var currentWorkingPanel = $('.working-panel');
+            //currentWorkingPanel.removeClass('working-panel');
+            //currentWorkingPanel.next().addClass('working-panel');
+            //window.scrollTo(0, 0);
+            //currentWorkingPanel.slideUp('slow', () => {
+            //    currentWorkingPanel.next().slideDown('slow');
+            //    //currentWidth += 25;
+            //    //updateBar(currentWidth);
+            //});
         })
         .fail(function (err) {
             window.confirm(err.statusText + " Please try again");

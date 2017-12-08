@@ -441,6 +441,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="SQL\FailedLogins.sql" />
+    <Content Include="SQL\GetLoginIdFromSession.sql" />
     <Content Include="SQL\LatexUploads.sql" />
     <Content Include="SQL\Logins.sql" />
     <Content Include="SQL\LoginSessions.sql" />
