@@ -42,6 +42,8 @@ MySql
 
 # Team Breakdown
 
+Client: Younes Nejahi
+
 Team Lead: Ahmed Taher, Database / Back-End Lead
 
 TA: Azam Peyvandipour
@@ -51,7 +53,6 @@ Team Members:
 Caleb Latimer, UI / UX / Front-End / Presentation Lead
 
 Muamer Besic, QA / Documentation Lead
-
 
 
 > This is version 5.0
